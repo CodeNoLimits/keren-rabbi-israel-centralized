@@ -1,0 +1,734 @@
+/* 
+   PIXEL-PERFECT CSS - Haesh Sheli Website
+   Based on the comprehensive reference code from PDF
+*/
+
+/* CSS Variables - Exact match to reference */
+:root {
+  --primary-red: #c53030;
+  --primary-orange: #dd6b20;
+  --primary-blue: #3182ce;
+  --primary-green: #38a169;
+  --primary-purple: #805ad5;
+  --secondary-gray: #718096;
+  --bg-light: #f7fafc;
+  --bg-dark: #2d3748;
+  --text-light: #ffffff;
+  --text-dark: #2d3748;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+  --gradient-primary: linear-gradient(135deg, #c53030 0%, #9c2626 100%);
+  --gradient-secondary: linear-gradient(135deg, #dd6b20 0%, #c05621 100%);
+  --gradient-bg: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+}
+
+/* Base Reset and Typography */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans Hebrew', 'Assistant', 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background: var(--bg-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+  font-family: 'Noto Sans Hebrew', 'Assistant', 'Rubik', sans-serif;
+}
+
+[dir="ltr"] {
+  text-align: left;
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Elementor Base Classes */
+.elementor-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.elementor-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+.elementor-column {
+  position: relative;
+}
+
+.elementor-widget-wrap {
+  position: relative;
+}
+
+.elementor-widget-container {
+  position: relative;
+}
+
+/* Top Bar Section */
+.elementor-element-ba655d5 {
+  background: #333;
+  color: white;
+  padding: 8px 0;
+  font-size: 0.9rem;
+}
+
+.elementor-element-ba655d5 .elementor-icon-list-items {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.elementor-element-ba655d5 .elementor-icon-list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Hero Section */
+.elementor-element-1a9b8b1 {
+  background: url('/images/hero-books-composition.png') center/cover no-repeat;
+  background-attachment: fixed;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  color: white;
+  position: relative;
+}
+
+.elementor-element-1a9b8b1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.elementor-element-1a9b8b1 .elementor-container {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content-box {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 3rem;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+  line-height: 1.2;
+  color: white;
+}
+
+.hero-subtitle {
+  font-size: 2.8rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  color: white;
+  font-family: 'Assistant', 'Rubik', serif;
+}
+
+.hero-quote {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  font-style: italic;
+  color: white;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  border: 3px solid white;
+  padding: 1.2rem 2.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  box-shadow: 0 6px 20px rgba(197, 48, 48, 0.4);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(197, 48, 48, 0.6);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: 3px solid white;
+  padding: 1.2rem 2.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.btn-secondary:hover {
+  background: white;
+  color: #8B4513;
+  transform: translateY(-3px);
+  text-shadow: none;
+}
+
+/* Books Section */
+.books-section {
+  background: linear-gradient(135deg, #F5F5DC 0%, #FAEBD7 50%, #F0E68C 100%);
+  padding: 6rem 0;
+}
+
+.books-section h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #8B4513;
+  margin-bottom: 1rem;
+  font-family: 'Assistant', 'Rubik', serif;
+  text-align: center;
+}
+
+.books-section h3 {
+  font-size: 2rem;
+  font-weight: 300;
+  color: #654321;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.books-image {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.books-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Uman Raffle Section */
+.uman-section {
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+  color: white;
+  padding: 6rem 0;
+}
+
+.uman-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 4rem;
+  align-items: center;
+}
+
+.uman-content h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #FFE4B5;
+}
+
+.uman-content h3 {
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  color: #F0E68C;
+}
+
+.uman-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #F5DEB3;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.step-card {
+  background: rgba(255, 228, 181, 0.1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  background: #FFE4B5;
+  color: #8B4513;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 auto 1rem;
+}
+
+.step-card p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.uman-image {
+  text-align: center;
+}
+
+.uman-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Leading Books Grid */
+.leading-books-section {
+  background: linear-gradient(135deg, #F5F5DC 0%, #FAEBD7 50%, #F0E68C 100%);
+  padding: 6rem 0;
+}
+
+.leading-books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.book-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+}
+
+.book-card-image {
+  height: 250px;
+  overflow: hidden;
+}
+
+.book-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-card-content {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.book-card h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #8B4513;
+  margin-bottom: 0.5rem;
+}
+
+/* Services Section */
+.services-section {
+  background: linear-gradient(135deg, #F5F5DC 0%, #FAEBD7 100%);
+  padding: 5rem 0;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.service-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+
+.service-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.service-card h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #8B4513;
+  margin-bottom: 1rem;
+}
+
+.service-card p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Categories Section */
+.categories-section {
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+  color: white;
+  padding: 5rem 0;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.category-card {
+  background: rgba(255, 228, 181, 0.1);
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.category-card h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #FFE4B5;
+}
+
+/* Newsletter Section */
+.newsletter-section {
+  background: linear-gradient(135deg, #F5F5DC 0%, #FAEBD7 100%);
+  padding: 5rem 0;
+}
+
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.newsletter-input {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  border: 2px solid #8B4513;
+  font-size: 1rem;
+  min-width: 300px;
+}
+
+.newsletter-input[dir="rtl"] {
+  text-align: right;
+}
+
+.newsletter-input[dir="ltr"] {
+  text-align: left;
+}
+
+.whatsapp-groups {
+  margin-bottom: 3rem;
+}
+
+.whatsapp-groups h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #8B4513;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.whatsapp-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.whatsapp-btn {
+  background: #25d366;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+/* Footer */
+.main-footer {
+  background: #2d3436;
+  color: white;
+  padding: 3rem 0 2rem;
+  text-align: center;
+}
+
+.footer-content {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.footer-content p {
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 2rem;
+  }
+  
+  .hero-quote {
+    font-size: 1.3rem;
+  }
+  
+  .hero-buttons {
+    gap: 1rem;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+  
+  .books-section h2 {
+    font-size: 2.5rem;
+  }
+  
+  .books-section h3 {
+    font-size: 1.8rem;
+  }
+  
+  .uman-content h2 {
+    font-size: 2rem;
+  }
+  
+  .uman-content h3 {
+    font-size: 1.5rem;
+  }
+  
+  .steps-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  
+  .newsletter-input {
+    min-width: 250px;
+  }
+  
+  .whatsapp-buttons {
+    gap: 0.5rem;
+  }
+  
+  .whatsapp-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .elementor-container {
+    padding: 0 1rem;
+  }
+  
+  .hero-content-box {
+    padding: 2rem;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.6rem;
+  }
+  
+  .hero-quote {
+    font-size: 1.1rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .uman-grid {
+    gap: 2rem;
+  }
+  
+  .leading-books-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .newsletter-input {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.8s ease-out;
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Hebrew Font Optimization */
+[lang="he"], [dir="rtl"] {
+  font-family: 'Noto Sans Hebrew', 'Assistant', 'Rubik', sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+[lang="he"] .hero-title, [dir="rtl"] .hero-title {
+  font-family: 'Assistant', 'Rubik', serif;
+  font-weight: 700;
+}
+
+[lang="he"] .hero-subtitle, [dir="rtl"] .hero-subtitle {
+  font-family: 'Assistant', 'Rubik', serif;
+  font-weight: 300;
+}
+
+/* Enhanced Hover Effects */
+.book-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.book-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.service-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Accessibility Improvements */
+.btn-primary:focus,
+.btn-secondary:focus,
+.whatsapp-btn:focus,
+.newsletter-input:focus {
+  outline: 3px solid rgba(66, 153, 225, 0.5);
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .elementor-element-ba655d5,
+  .hero-buttons,
+  .newsletter-section,
+  .whatsapp-groups,
+  .main-footer {
+    display: none;
+  }
+  
+  .elementor-element-1a9b8b1 {
+    background: none;
+    color: black;
+  }
+  
+  .hero-content-box {
+    background: none;
+    backdrop-filter: none;
+  }
+}

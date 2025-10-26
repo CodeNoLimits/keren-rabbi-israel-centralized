@@ -1,0 +1,51 @@
+{
+  "cursor.chat.model": "claude-3.5-sonnet",
+  "cursor.autocomplete.enabled": true,
+  "cursor.autocomplete.languageSupport": {
+    "typescript": true,
+    "javascript": true,
+    "react": true,
+    "vue": true,
+    "html": true,
+    "css": true,
+    "json": true
+  },
+  "cursor.chat.commandPalette": true,
+  "cursor.chat.enableCodeActions": true,
+  
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  
+  "files.associations": {
+    "*.tsx": "typescriptreact",
+    "*.ts": "typescript"
+  },
+  
+  "emmet.includeLanguages": {
+    "typescriptreact": "html",
+    "javascriptreact": "html"
+  },
+  
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.suggest.autoImports": true,
+  
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.donotVerifyTags": true,
+  "liveServer.settings.port": 5500,
+  "liveServer.settings.host": "localhost",
+  
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  
+  "workbench.colorTheme": "Default Dark Modern",
+  "editor.fontFamily": "'JetBrains Mono', 'Fira Code', Monaco, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 1.5,
+  
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false
+}

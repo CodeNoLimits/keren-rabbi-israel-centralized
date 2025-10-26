@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    "ritwickdey.liveserver",
+    "eamodio.gitlens",
+    "rangav.vscode-thunder-client",
+    "esbenp.prettier-vscode",
+    "formulahendry.auto-rename-tag",
+    "dsznajder.es7-react-js-snippets",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-typescript-next",
+    "usernamehw.errorlens",
+    "christian-kohler.path-intellisense",
+    "ms-vscode.vscode-json",
+    "ms-vscode.hexeditor",
+    "ms-vscode.live-server",
+    "supabase.supabase-vscode"
+  ]
+}

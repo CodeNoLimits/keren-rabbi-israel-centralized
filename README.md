@@ -1,219 +1,216 @@
-# 🔥 Keren Rabbi Israel - Site Central
+# 🔥 Keren Rabbi Israel - Site Centralisé
 
 > **"האש שלי תבער עד ביאת המשיח"** - Rabbi Nachman de Breslov
 
-Site officiel multilingue de la Keren Rabbi Israel Dov Odesser pour la distribution des livres de Rabbi Nachman de Breslov.
+## 📋 Vue d'Ensemble
 
-## 🚀 Quick Start
+**Keren Rabbi Israel** (Haesh Sheli) est une plateforme e-commerce multilingue dédiée à la distribution des livres et enseignements de **Rabbi Nachman de Breslov**. 
 
-```bash
-# Installation
-npm install
+Ce dépôt centralisé consolide 3 repos existants:
+- github.com/CodeNoLimits/haesh-sheli (principal - 95% complet)
+- github.com/CodeNoLimits/HaeshSheliOriginal (legacy)
+- github.com/CodeNoLimits/haesh-sheli-store (tests)
 
-# Développement local
-npm run dev
-
-# Build production
-npm run build
-
-# Deploy Netlify
-npm run deploy
-```
-
-## 📁 Structure du Projet
-
-```
-keren-rabbi-israel-centralized/
-├── docs/               # Documentation complète
-│   ├── requirements/   # Requirements V2.0 (FR/EN/HE)
-│   ├── meetings/       # Transcriptions meetings
-│   └── architecture/   # Stack technique
-├── src/
-│   ├── components/     # Composants React réutilisables
-│   ├── pages/          # Pages Next.js (multilingue)
-│   ├── styles/         # CSS + RTL support
-│   └── lib/            # Utilitaires (AI, Stripe, i18n)
-├── public/
-│   ├── images/         # Images optimisées
-│   ├── audio/          # Shiurim MP3
-│   └── locales/        # Fichiers traduction FR/HE/EN
-└── scripts/            # Scripts déploiement
-
-```
-
-## 🎯 Stack Technique
-
-### Frontend
-- **Framework**: Next.js 14 (React 18)
-- **Styling**: Tailwind CSS + RTL plugin
-- **Multilingue**: next-i18next (FR/HE/EN)
-- **État**: React Context + hooks
-
-### Intégrations
-- **Paiements**: Stripe API (nonprofit 2.2%)
-- **Audio**: Player HTML5 custom + Torahcasts.com
-- **Hébergement**: Netlify (auto-deploy)
-- **CDN**: Cloudflare (gratuit)
-- **AI** (Phase 3 optionnelle):
-  - ElevenLabs (Text-to-Speech hébreu)
-  - HeyGen (Avatars virtuels)
-  - OpenAI (Chat contextuel)
-
-### Dev Tools
-- **Design**: Figma
-- **Code Gen**: GenSpark
-- **Editing**: Claude Code + Cursor
-- **Visual**: Builder.io
-
-## 🌍 Multilingue (3 langues)
-
-- **Français** (défaut): `/fr/`
-- **Hébreu** (RTL): `/he/`
-- **Anglais**: `/en/`
-
-Support RTL natif pour l'hébreu avec direction automatique.
-
-## 📦 Fonctionnalités Principales
-
-### Phase 1 (Semaine 1) - MVP CRITIQUE
-- [x] Architecture multilingue FR/HE/EN
-- [x] Support RTL hébreu parfait
-- [x] E-commerce minimaliste (liens externes)
-- [x] Lecteur audio Shiurim basique
-- [x] Design responsive mobile-first
-
-### Phase 2 (Optionnelle si temps)
-- [ ] Système dons Stripe complet
-- [ ] Blog/Actualités
-- [ ] Newsletter signup
-- [ ] Galerie photos Hafatza
-
-### Phase 3 (Post-lancement)
-- [ ] Avatars IA (ElevenLabs + HeyGen)
-- [ ] Plateforme communautaire
-- [ ] Application mobile
-
-## 🔑 Variables d'Environnement
-
-Créer un fichier `.env.local`:
-
-```env
-# Stripe
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
-STRIPE_SECRET_KEY=sk_test_...
-
-# Builder.io (optionnel)
-NEXT_PUBLIC_BUILDER_API_KEY=...
-
-# AI APIs (Phase 3)
-ELEVEN_LABS_API_KEY=...
-HEYGEN_API_KEY=...
-OPENAI_API_KEY=...
-```
-
-## 📊 Sources Consolidées
-
-Ce repo centralise le travail de **3 repos existants**:
-1. **haesh-sheli** - Site Netlify actuel (centaines d'heures)
-2. **HaeshSheliOriginal** - Backup original
-3. **haesh-sheli-store** - E-commerce spécialisé
-
-Plus tous les documents de requirements et transcriptions meetings.
-
-## 🚀 Déploiement Netlify
-
-Le site est configuré pour auto-deploy sur push vers `main`:
-
-```toml
-# netlify.toml
-[build]
-  command = "npm run build"
-  publish = ".next"
-```
-
-**URL Production**: https://haesh-sheli.netlify.app
-
-## 👨‍💻 Développement
-
-### Workflow Recommandé
-1. **Claude Code** - Architecture et logique
-2. **Cursor** - Édition code rapide
-3. **Builder.io** - Édition visuelle contenu
-4. **GenSpark** - Génération composants
-
-### Commands Utiles
-```bash
-# Lint
-npm run lint
-
-# Format
-npm run format
-
-# Type check
-npm run type-check
-
-# Tests
-npm run test
-```
-
-## 📝 Documentation Complète
-
-- [Requirements V2.0](/docs/requirements/REQUIREMENTS_V2.0.md)
-- [Architecture Technique](/docs/architecture/TECH_STACK.md)
-- [Guide Multilingue](/docs/architecture/I18N_GUIDE.md)
-- [Roadmap 1 Semaine](/docs/ROADMAP_1_WEEK.md)
-
-## 🎯 Objectifs 1 Semaine
-
-### Jours 1-2: Foundation
-- Structure projet
-- Setup Next.js + i18n
-- Migration code critique Netlify
-
-### Jours 3-4: Features
-- E-commerce minimaliste
-- Lecteur audio Shiurim
-- RTL hébreu testing
-
-### Jours 5-6: Polish
-- Optimisations performance
-- Tests multilingue
-- Responsive mobile
-
-### Jour 7: Launch
-- Deploy production Netlify
-- Formation Jacob
-- Monitoring
-
-## 📈 Métriques Succès (Post-lancement)
-
-### Semaine 1
-- Site live trilingue ✅
-- 20+ produits catalogués
-- 10+ Shiurim audio
-- PageSpeed >85 mobile
-
-### Mois 1
-- 1,000+ visiteurs
-- 30+ dons
-- 5,000+ followers réseaux
-- ROI pub 3:1
-
-## 🤝 Contribution
-
-Ce projet est développé pour la **Keren Rabbi Israel Dov Odesser**.
-
-### Contact
-- **Client**: Jacob Henne
-- **Dev Lead**: David
-- **Traducteur**: Ghezi (EN/HE)
-
-## 📜 License
-
-Ce projet est propriété de la Keren Rabbi Israel Dov Odesser.
+### 🎯 Mission
+- Diffuser gratuitement les enseignements de Rabbi Nachman
+- Vendre livres physiques et numériques (161+ produits)
+- Offrir 49+ téléchargements gratuits (PDF hébreu/anglais/français)
+- Chat IA contextuel basé sur les enseignements
 
 ---
 
-**🔥 Na Nach Nachma Nachman Meuman! 🔥**
+## ⚡ Quick Start
 
-> *"My fire will burn until the coming of the Messiah"* - Rabbi Nachman of Breslov
+\`\`\`bash
+# 1. Installation
+npm install
+
+# 2. Configuration environnement
+cp .env.example .env
+# Remplir les clés API (Stripe, OpenAI, Gemini, Supabase)
+
+# 3. Démarrage développement
+npm run dev
+# → http://localhost:5000
+
+# 4. Build production
+npm run build
+\`\`\`
+
+---
+
+## 🏗️ Stack Technique
+
+- **Frontend**: React 18 + TypeScript + Vite
+- **Backend**: Express.js + TypeScript
+- **Database**: PostgreSQL (Supabase) - 27 tables
+- **ORM**: Drizzle ORM
+- **Styling**: Tailwind CSS 3 + RTL support
+- **UI**: Shadcn/ui (45+ composants)
+- **i18n**: Custom LanguageContext (HE/EN/FR/ES/RU)
+- **State**: React Context (Cart, Language)
+- **Routing**: Wouter 3.3.5
+
+### Features Clés
+- ✅ Multilingue RTL (5 langues)
+- ✅ E-commerce complet (Stripe)
+- ✅ 49 téléchargements PDF gratuits
+- ✅ AI Chat (Gemini + OpenAI)
+- ✅ Shiurim audio/vidéo
+- ✅ Newsletter + Reviews + Wishlist
+- ✅ PWA offline-ready
+
+---
+
+## 📊 État: 95% Complet
+
+### ✅ Terminé
+- Frontend: 21 pages fonctionnelles
+- Backend: 27 tables + API complète
+- i18n: 5 langues (HE/EN/FR/ES/RU)
+- E-commerce: Catalogue 161 produits
+- Content: 49 livres PDF gratuits
+- AI: Chat contextuel Breslov
+
+### 🚧 À Finaliser (5%)
+- [ ] Push database schema → Supabase prod
+- [ ] Seed produits + downloads
+- [ ] Optimiser images (WebP)
+- [ ] Fine-tuning RTL hébreu
+- [ ] Déploiement production
+- [ ] Tests + Formation client (2h)
+
+---
+
+## 📁 Structure
+
+\`\`\`
+keren-rabbi-israel-centralized/
+├── client/           # React/Vite frontend
+│   ├── src/
+│   │   ├── components/   # 55+ composants UI
+│   │   ├── pages/        # 21 pages
+│   │   ├── contexts/     # State management
+│   │   └── data/         # Products, downloads
+│   └── index.html
+│
+├── server/           # Express.js backend
+│   ├── routes.ts         # 38+ API endpoints
+│   ├── geminiService.ts  # AI Gemini
+│   ├── openaiService.ts  # AI OpenAI
+│   └── emailService.ts   # Resend emails
+│
+├── shared/
+│   └── schema.ts         # Drizzle schema (27 tables)
+│
+├── docs/                 # Documentation
+│   ├── PLAN_COMPLET_EXECUTION.md (15K words)
+│   ├── ROADMAP_1_WEEK.md
+│   ├── INVENTORY_BOOKS.csv (49 livres)
+│   └── requirements/
+│
+└── public/images/books/  # 222 couvertures JPG
+\`\`\`
+
+---
+
+## 🗄️ Base de Données (27 Tables)
+
+**E-commerce**: products, orders, order_items, cart_items
+**Contenu**: downloads, shiurim, wisdoms, magazine_articles
+**Users**: users, sessions, user_preferences
+**Engagement**: product_reviews, user_wishlist, newsletter_subscribers
+**Subscriptions**: subscription_plans, user_subscriptions
+**Admin**: analytics_events, admin_logs, email_templates
+
+Voir \`supabase-setup.sql\` pour schema complet.
+
+---
+
+## 🌍 i18n - 5 Langues
+
+Implémentation custom dans \`client/src/contexts/LanguageContext.tsx\`:
+
+- **Hébreu (he)** - RTL, langue principale
+- **Anglais (en)** - Complet
+- **Français (fr)** - Complet
+- **Espagnol (es)** - Complet
+- **Russe (ru)** - Complet
+
+Features RTL automatiques pour hébreu (flex-row-reverse, ms-/me- margins, text-right).
+
+---
+
+## 📚 Inventaire: 49 Livres
+
+Voir \`docs/INVENTORY_BOOKS.csv\` pour liste complète.
+
+**Catégories**:
+1. Likutey Moharan (Volumes I & II)
+2. Prières (Likutey Tefilot, Tikkun HaKlali)
+3. Pratique (Likutey Eitzos, Sefer HaMiddot)
+4. Biographies (Chayei, Shivchei, Sichot HaRan)
+5. Contes (Sippurei Maasiyot)
+6. Brochures (18x EN/HE 64-80 pages)
+7. Avancés (Likutey Halachos 4+ volumes)
+
+**Assets**: 222 images JPG couvertures (\`public/images/books/\`)
+
+---
+
+## 🚀 Déploiement Netlify
+
+**Sites**:
+- Dev: https://haesh-sheli.netlify.app
+- Prod: https://www.haesh-sheli.co.il
+
+**Auto-deploy**: Push vers \`main\` → deploy automatique
+
+**Env variables** (Netlify UI):
+- DATABASE_URL (Supabase)
+- STRIPE_SECRET_KEY
+- OPENAI_API_KEY
+- GEMINI_API_KEY
+- RESEND_API_KEY
+
+---
+
+## 🛠️ Commandes
+
+\`\`\`bash
+npm run dev          # Dev server :5000
+npm run build        # Build production
+npm run db:push      # Push schema Supabase
+npm run db:studio    # GUI Drizzle Studio
+npm run lint         # ESLint
+npm run deploy       # Deploy Netlify
+\`\`\`
+
+---
+
+## 📞 Contacts
+
+**Client**: Jacob Henne - Keren Rabbi Israel
+**Dev**: David + Claude Code + Cursor
+**Traducteur**: Ghezi (EN/HE)
+
+---
+
+## 📖 Documentation Complète
+
+- \`PLAN_COMPLET_EXECUTION.md\` - Plan 10 jours (44h45)
+- \`ROADMAP_1_WEEK.md\` - Roadmap MVP 7 jours
+- \`docs/requirements/REQUIREMENTS_V2.0.md\` - Specs (800 lignes)
+- \`docs/architecture/TECH_STACK.md\` - Stack détaillé (600 lignes)
+- \`PROGRESS_REPORT.md\` - Status temps réel
+
+---
+
+## 🔥 Na Nach Nachma Nachman Meuman!
+
+> *"La joie est grande, l'obscurité se dissipe!"* — Rabbi Nachman de Breslov
+
+---
+
+**Claude Code** - https://claude.com/claude-code
+**Consolidation**: 26 Octobre 2025 | **Version**: 1.0.0

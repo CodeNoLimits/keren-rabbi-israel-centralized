@@ -1,0 +1,61 @@
+# 🤖 CURSOR - LIRE AVANT DE MODIFIER
+
+## ⚠️ CHANGEMENTS RÉCENTS PAR CLAUDE CODE
+
+**Date :** 20 Octobre 2025
+**Fichier détails :** `.cursor/claude-changes.md` et `TRAVAIL_EFFECTUE_CLAUDE.md`
+
+---
+
+## 🚨 FICHIERS MODIFIÉS RÉCEMMENT
+
+### Fichiers créés par Claude (NOUVEAUX) :
+- `server/newFeatures.ts` - 11 nouveaux endpoints API
+- `client/src/components/AudioPlayer.tsx`
+- `client/src/components/ProductRecommendations.tsx`
+- `client/src/components/NewsletterSignup.tsx`
+
+### Fichiers modifiés par Claude (INCRÉMENTAL) :
+- `shared/schema.ts` - +4 tables à la fin (lignes 296-403)
+- `server/routes.ts` - +2 lignes (import + use router)
+
+---
+
+## ✅ AVANT DE MODIFIER CES FICHIERS
+
+1. Lire `.cursor/claude-changes.md` pour comprendre les changements
+2. Vérifier `git status` pour voir l'état actuel
+3. Si modifications nécessaires, utiliser Edit (pas réécriture complète)
+
+---
+
+## 🎯 CE QUI A ÉTÉ AJOUTÉ
+
+### Nouveaux endpoints API :
+- Newsletter (POST/DELETE)
+- Reviews (GET/POST)
+- Shiurim (GET/POST)
+- Wishlist (GET/POST/DELETE)
+
+### Nouvelles tables DB :
+- newsletter_subscribers
+- product_reviews
+- shiurim
+- user_wishlist
+
+### Nouveaux composants React :
+- AudioPlayer (lecteur audio complet)
+- ProductRecommendations (grid + carousel)
+- NewsletterSignup (form + validation)
+
+---
+
+## 📚 DOCUMENTATION
+
+Voir fichiers pour détails complets :
+- `TRAVAIL_EFFECTUE_CLAUDE.md` - Résumé exhaustif
+- `.cursor/claude-changes.md` - Guide pour Cursor
+
+---
+
+**100% rétrocompatible - Rien n'a été cassé**
