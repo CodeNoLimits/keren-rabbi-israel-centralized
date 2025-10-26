@@ -1,0 +1,2320 @@
+Je veux que tu t'enlignes à 100% avec cela, s'il te plaît : # 🔥 CODE COMPLET PIXEL-PERFECT SITE HAESH SHELI
+
+## 📋 **EXTRACTION COMPLÈTE DU SITE ORIGINAL**
+
+Voici le code complet extrait du site original avec **TOUTES** les vraies images du ZIP et la structure exacte pixel par pixel.
+
+---
+
+## 🏗️ **HTML COMPLET AVEC VRAIES IMAGES**
+
+```html
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>האש שלי – החנות למכירת ספרי רבי נחמן מברסלב במחיר הקרן – אנחנו מדפיסים ומפיצים את ספרי רבי נחמן מברסלב בכל העולם במס' רב של שפות החל מעברית אנגלית צרפתית ועוד נ נח נחמ נחמן מאומן. ברסלב. רבי נחמן. סבא. רבי ישראל אודסר. אמונה. שמחה. התחזקות. שמירת שבת. יהדות. תשובה.</title>
+    
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS FILES -->
+    <link rel="stylesheet" href="css/theme.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/frontend_1.css">
+    <link rel="stylesheet" href="css/woocommerce-layout-rtl.css">
+    <link rel="stylesheet" href="css/woocommerce-smallscreen-rtl.css">
+    <link rel="stylesheet" href="css/woocommerce-general-rtl.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="rtl home page-template-default page page-id-13 wp-custom-logo theme-hello-elementor woocommerce-js elementor-default elementor-kit-5 elementor-page elementor-page-13">
+
+<!-- TOP BAR -->
+<section class="elementor-section elementor-top-section elementor-element elementor-element-ba655d5 elementor-section-full_width elementor-hidden-tablet elementor-hidden-mobile elementor-section-height-default">
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-33 elementor-top-column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element elementor-icon-list--layout-inline elementor-align-left elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list">
+                    <div class="elementor-widget-container">
+                        <ul class="elementor-icon-list-items elementor-inline-items">
+                            <li class="elementor-icon-list-item elementor-inline-item">
+                                <span class="elementor-icon-list-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 100 100">
+                                        <g>
+                                            <path d="m72.341 48.514h17.306l-5.266-10.126h-10.872z"></path>
+                                            <path d="m85.059 62.331h3.516l.339-2.891h-3.529z"></path>
+                                            <path d="m75.463 62.1c-3.448 0-6.244 2.81-6.244 6.257 0 3.448 2.796 6.244 6.244 6.244s6.257-2.796 6.257-6.244c0-3.447-2.809-6.257-6.257-6.257zm0 9.515c-1.792 0-3.257-1.466-3.257-3.257 0-1.805 1.466-3.258 3.257-3.258 1.805 0 3.258 1.452 3.258 3.258 0 1.791-1.453 3.257-3.258 3.257z"></path>
+                                            <path d="m31.161 62.1c-3.448 0-6.257 2.81-6.257 6.257 0 3.448 2.81 6.244 6.257 6.244 3.448 0 6.244-2.796 6.244-6.244-.001-3.447-2.797-6.257-6.244-6.257zm0 9.515c-1.805 0-3.271-1.466-3.271-3.257 0-1.805 1.466-3.258 3.271-3.258 1.792 0 3.257 1.452 3.257 3.258 0 1.791-1.466 3.257-3.257 3.257z"></path>
+                                            <path d="m71.5 49.871c-.027 0-.054-.027-.081-.027-.054-.014-.095-.027-.136-.041-.041-.027-.068-.054-.109-.068-.027-.027-.068-.054-.095-.095-.027-.027-.054-.068-.068-.095-.027-.041-.054-.081-.068-.122s-.014-.081-.027-.136c0-.027-.014-.054-.014-.095 0-.014.014-.014.014-.027 0-.014-.014-.027-.014-.041l1.317-11.483c.014-.041.027-.068.027-.095.014-.041.027-.095.054-.136.014-.027.041-.054.054-.095.041-.041.068-.081.109-.109.027-.027.054-.041.081-.054.041-.027.081-.054.136-.068.041-.014.081-.027.122-.027.027-.014.068-.027.095-.027h10.763l-.964-1.86c-.529-.991-1.534-1.602-2.647-1.602h-12.675l-2.783 24.418c0 .041-.027.081-.041.109 0 .041-.014.068-.027.109-.027.041-.054.081-.081.122-.027.027-.041.054-.068.081-.041.041-.081.054-.122.081-.027.014-.054.041-.081.054-.081.027-.163.054-.258.054h-24.704c-.367 0-.679-.312-.679-.679 0-.38.312-.679.679-.679h24.106l3.624-31.843h-46.216c-.869 0-1.575.706-1.575 1.575s.706 1.561 1.575 1.561h23.224l.014.014c1.615.014 2.905 1.317 2.905 2.918 0 1.615-1.303 2.932-2.918 2.932-.014 0-.014 0-.027 0h-32.36c-.855 0-1.561.706-1.561 1.575s.706 1.561 1.561 1.561h38.806c.014 0 .027.014.054.014 1.588.027 2.877 1.33 2.877 2.932s-1.289 2.891-2.877 2.918c-.027 0-.041.014-.054.014h-22.79c-.869 0-1.575.706-1.575 1.561 0 .869.706 1.574 1.575 1.574h10.506c1.615 0 2.932 1.317 2.932 2.932s-1.303 2.918-2.918 2.932c0 0 0 0-.014 0h-22.789c-.869 0-1.588.706-1.588 1.561 0 .869.719 1.575 1.588 1.575h6.447c1.615 0 2.932 1.317 2.932 2.932s-1.317 2.932-2.932 2.932h-5.538c-.882 0-1.588.706-1.588 1.574 0 .869.706 1.561 1.588 1.561h2.633c.095 0 .19.027.271.068.244.095.407.339.407.624v2.443h4.072c.339-3.882 3.597-6.936 7.574-6.936 3.963 0 7.221 3.054 7.574 6.936h29.155c.353-3.882 3.61-6.936 7.574-6.936 3.963 0 7.235 3.054 7.574 6.936h4.927l.462-3.991h-4.208c-.027 0-.054-.027-.081-.027-.054-.014-.095-.027-.136-.041-.041-.027-.068-.054-.109-.068-.027-.027-.068-.054-.095-.095-.027-.027-.054-.068-.068-.095-.027-.041-.041-.081-.068-.122-.014-.041-.014-.081-.027-.136 0-.027-.014-.054-.014-.095 0-.014.014-.014.014-.027 0-.014-.014-.027-.014-.041l.475-4.248c.014-.041.027-.068.041-.095 0-.041.014-.095.041-.122.014-.041.041-.081.068-.109.027-.041.054-.068.081-.109.027-.027.068-.041.109-.068.027-.014.068-.041.109-.054.041-.014.095-.027.136-.027.027-.014.068-.027.095-.027h4.289l.936-8.21z"></path>
+                                            <path d="m19.501 44.971c0-.869-.706-1.575-1.574-1.575h-6.352c-.869 0-1.574.706-1.574 1.575s.706 1.574 1.574 1.574h6.352c.868.001 1.574-.705 1.574-1.574z"></path>
+                                            <path d="m75.463 66.457c-1.045 0-1.9.855-1.9 1.9s.855 1.9 1.9 1.9c1.059 0 1.9-.855 1.9-1.9 0-1.044-.841-1.9-1.9-1.9z"></path>
+                                            <path d="m31.161 66.457c-1.059 0-1.914.855-1.914 1.9s.855 1.9 1.914 1.9c1.045 0 1.9-.855 1.9-1.9 0-1.044-.855-1.9-1.9-1.9z"></path>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <span class="elementor-icon-list-text">משלוחים חינם החל מ- 399 ש"ח</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MAIN HEADER -->
+<section class="elementor-section elementor-top-section elementor-element elementor-element-ba655d5 elementor-section-full_width elementor-hidden-tablet elementor-hidden-mobile">
+    <div class="elementor-container elementor-column-gap-default">
+        <!-- LOGO COLUMN -->
+        <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-8cf799f">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element elementor-widget elementor-widget-theme-site-logo elementor-widget-image">
+                    <div class="elementor-widget-container">
+                        <a href="https://www.haesh-sheli.co.il">
+                            <img fetchpriority="high" width="185" height="300" 
+                                 src="images/cropped-קרו-רבי-ישראל-בר-אודסר.d110a0.webp" 
+                                 class="attachment-full size-full wp-image-27" 
+                                 alt="האש שלי תוקף עד ביאת המשיח">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION COLUMN -->
+        <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-b208748">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element elementor-nav-menu__align-center elementor-nav-menu--stretch elementor-nav-menu--dropdown-tablet elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu">
+                    <div class="elementor-widget-container">
+                        <nav aria-label="תפריט" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-text e--animation-grow">
+                            <ul id="menu-1-ac3cd0c" class="elementor-nav-menu">
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-13 current_page_item menu-item-195">
+                                    <a href="https://www.haesh-sheli.co.il/" aria-current="page" class="elementor-item elementor-item-active">דף הבית</a>
+                                </li>
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-695">
+                                    <a href="https://www.haesh-sheli.co.il/?page_id=8" class="elementor-item">חנות</a>
+                                </li>
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-54">
+                                    <a href="https://www.haesh-sheli.co.il/?page_id=38" class="elementor-item">עלינו</a>
+                                    <ul class="sub-menu elementor-nav-menu--dropdown">
+                                        <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-199">
+                                            <a href="https://www.haesh-sheli.co.il/?page_id=47" class="elementor-sub-item">סיפורו של רבי ישראל בר אודסר</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-51">
+                                    <a href="https://www.haesh-sheli.co.il/?page_id=48" class="elementor-item">מגזין</a>
+                                </li>
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-53">
+                                    <a href="https://www.haesh-sheli.co.il/?page_id=39" class="elementor-item">הצטרפו אלינו</a>
+                                </li>
+                                <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-52">
+                                    <a href="https://www.haesh-sheli.co.il/?page_id=44" class="elementor-item">צור קשר</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        
+                        <!-- MOBILE MENU TOGGLE -->
+                        <div class="elementor-menu-toggle" role="button" tabindex="0" aria-label="כפתור פתיחת תפריט" aria-expanded="false">
+                            <i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--open eicon-menu-bar"></i>
+                            <i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--close eicon-close"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CART COLUMN -->
+        <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-884ebb2">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element toggle-icon--custom elementor-widget__width-auto elementor-menu-cart--empty-indicator-hide remove-item-position--top elementor-menu-cart--items-indicator-bubble elementor-menu-cart--cart-type-side-cart elementor-menu-cart--show-remove-button-yes elementor-widget elementor-widget-woocommerce-menu-cart">
+                    <div class="elementor-widget-container">
+                        <div class="elementor-menu-cart__wrapper">
+                            <div class="elementor-menu-cart__toggle_wrapper">
+                                <div class="elementor-menu-cart__toggle elementor-button-wrapper">
+                                    <a id="elementor-menu-cart__toggle_button" href="#" class="elementor-menu-cart__toggle_button elementor-button elementor-size-sm" aria-expanded="false">
+                                        <span class="elementor-button-text">
+                                            <span class="woocommerce-Price-amount amount">
+                                                <bdi>0.00 <span class="woocommerce-Price-currencySymbol">₪</span></bdi>
+                                            </span>
+                                        </span>
+                                        <span class="elementor-button-icon">
+                                            <span class="elementor-button-icon-qty" data-counter="0">0</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 472.618 472.618">
+                                                <g>
+                                                    <g>
+                                                        <g>
+                                                            <path d="M189.399,206.763c2.76,1.823,6.249,2.137,9.291,0.84c27.215-11.617,61.29-5.853,88.932,15.042c0.083,0.063,0.17,0.117,0.254,0.176c0.067,0.047,0.133,0.094,0.201,0.14c0.337,0.226,0.683,0.431,1.039,0.612c0.02,0.01,0.037,0.023,0.056,0.033c0.046,0.023,0.093,0.037,0.139,0.059c0.256,0.122,0.515,0.233,0.778,0.332c0.076,0.029,0.152,0.06,0.229,0.086c0.316,0.11,0.637,0.206,0.961,0.284c0.062,0.015,0.124,0.024,0.186,0.038c0.271,0.059,0.545,0.106,0.82,0.142c0.093,0.012,0.185,0.024,0.277,0.033c0.329,0.033,0.66,0.056,0.991,0.057c0.001,0,0.003,0,0.004,0c0,0,0,0,0.001,0s0,0,0.001,0c0.001,0,0.003,0,0.004,0c0.331,0,0.662-0.023,0.991-0.057c0.092-0.009,0.184-0.021,0.276-0.033c0.276-0.036,0.549-0.083,0.82-0.142c0.062-0.013,0.124-0.023,0.186-0.038c0.325-0.077,0.646-0.173,0.962-0.284c0.076-0.026,0.151-0.057,0.226-0.085c0.265-0.1,0.526-0.211,0.784-0.335c0.045-0.021,0.091-0.036,0.136-0.058c0.019-0.01,0.036-0.022,0.054-0.032c0.359-0.181,0.706-0.388,1.044-0.615c0.066-0.044,0.13-0.089,0.194-0.135c0.086-0.06,0.174-0.115,0.258-0.179c27.643-20.896,61.716-26.659,88.932-15.042c3.043,1.299,6.534,0.983,9.291-0.84c2.76-1.823,4.42-4.909,4.42-8.216V55.99c0-3.944-2.353-7.507-5.981-9.056c-31.71-13.535-70.421-8.402-102.6,13.218c-32.175-21.62-70.887-26.756-102.6-13.218c-3.628,1.549-5.981,5.112-5.981,9.056v142.557C184.979,201.854,186.639,204.94,189.399,206.763z M303.406,77.263c24.866-17.167,54.249-22.499,79.042-14.457v122.086c-25.381-6.341-53.707-2.086-79.042,11.814V77.263z M204.671,62.806c24.792-8.042,54.175-2.711,79.042,14.458v119.443c-17.651-9.684-36.751-14.686-55.298-14.686c-8.075,0-16.045,0.949-23.744,2.872V62.806z"></path>
+                                                            <path d="M466.562,158.49c-5.015-2.094-10.784,0.275-12.879,5.293l-54.148,129.695H180.608L89.056,58.94c-1.475-3.778-5.116-6.266-9.172-6.266H9.846C4.409,52.674,0,57.082,0,62.52s4.409,9.846,9.846,9.846h63.312l91.552,234.539c1.475,3.778,5.116,6.265,9.172,6.265h232.212c3.972,0,7.556-2.387,9.087-6.053l56.674-135.748C473.95,166.352,471.581,160.585,466.562,158.49z"></path>
+                                                            <path d="M191.231,350.018c-22.92,0-41.566,18.646-41.566,41.566c0,22.92,18.646,41.567,41.566,41.567c22.92,0,41.566-18.647,41.566-41.567C232.797,368.665,214.151,350.018,191.231,350.018z M191.231,413.46c-12.062,0-21.874-9.813-21.874-21.875c0-12.062,9.813-21.874,21.874-21.874s21.874,9.813,21.874,21.874C213.105,403.646,203.292,413.46,191.231,413.46z"></path>
+                                                            <path d="M395.888,350.018c-22.92,0-41.566,18.646-41.566,41.566c0,22.92,18.646,41.567,41.566,41.567c22.92,0,41.566-18.647,41.566-41.567C437.455,368.665,418.809,350.018,395.888,350.018z M395.888,413.46c-12.062,0-21.874-9.813-21.874-21.875c0-12.062,9.813-21.874,21.874-21.874s21.874,9.813,21.874,21.874C417.762,403.646,407.95,413.46,395.888,413.46z"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                            <span class="elementor-screen-only">עגלת קניות</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HERO SECTION -->
+<section class="elementor-section elementor-top-section elementor-element elementor-element-c8b8e5a elementor-section-full_width elementor-section-height-min-height">
+    <div class="elementor-background-overlay"></div>
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-33 elementor-top-column">
+            <div class="elementor-widget-wrap">
+            </div>
+        </div>
+        
+        <div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-8b7b7e0">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <!-- HERO CONTENT -->
+                <section class="elementor-section elementor-inner-section elementor-element elementor-element-8722ddd elementor-section-full_width elementor-section-height-min-height">
+                    <div class="elementor-container elementor-column-gap-default">
+                        <div class="elementor-column elementor-col-50 elementor-inner-column">
+                            <div class="elementor-widget-wrap">
+                            </div>
+                        </div>
+                        
+                        <div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-ae99bcd">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <!-- MAIN TITLE -->
+                                <div class="elementor-element elementor-widget elementor-widget-heading">
+                                    <div class="elementor-widget-container">
+                                        <h2 class="elementor-heading-title elementor-size-default">ספרי רבנו נחמן מברסלב זצ''ל</h2>
+                                    </div>
+                                </div>
+                                
+                                <!-- SUBTITLE -->
+                                <div class="elementor-element elementor-widget elementor-widget-heading">
+                                    <div class="elementor-widget-container">
+                                        <h2 class="elementor-heading-title elementor-size-default">עכשיו אונליין</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- HERO IMAGE -->
+                <div class="elementor-element elementor-widget elementor-widget-image">
+                    <div class="elementor-widget-container">
+                        <img decoding="async" width="1875" height="1875" 
+                             src="images/Copy-of-תמונת-מוצר-2.webp" 
+                             class="attachment-full size-full wp-image-2047" 
+                             alt="ספרי רבנו נחמן מברסלב"
+                             srcset="images/Copy-of-תמונת-מוצר-2.webp 1875w, 
+                                     images/Copy-of-תמונת-מוצר-2-300x300.webp 300w, 
+                                     images/Copy-of-תמונת-מוצר-2-1024x1024.webp 1024w, 
+                                     images/Copy-of-תמונת-מוצר-2-150x150.webp 150w, 
+                                     images/Copy-of-תמונת-מוצר-2-768x768.webp 768w, 
+                                     images/Copy-of-תמונת-מוצר-2-1536x1536.webp 1536w, 
+                                     images/Copy-of-תמונת-מוצר-2-600x600.webp 600w, 
+                                     images/Copy-of-תמונת-מוצר-2-100x100.webp 100w" 
+                             sizes="(max-width: 1875px) 100vw, 1875px">
+                    </div>
+                </div>
+                
+                <!-- HERO BUTTONS -->
+                <div class="elementor-element elementor-widget elementor-widget-button">
+                    <div class="elementor-widget-container">
+                        <div class="elementor-button-wrapper">
+                            <a class="elementor-button elementor-button-link elementor-size-md elementor-animation-grow" href="https://www.haesh-sheli.co.il/?page_id=8">
+                                <span class="elementor-button-content-wrapper">
+                                    <span class="elementor-button-text">כניסה לחנות</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="elementor-element elementor-widget elementor-widget-button">
+                    <div class="elementor-widget-container">
+                        <div class="elementor-button-wrapper">
+                            <a class="elementor-button elementor-button-link elementor-size-md elementor-animation-grow" href="https://www.haesh-sheli.co.il/?page_id=39">
+                                <span class="elementor-button-content-wrapper">
+                                    <span class="elementor-button-text">באו לגלות על הפעילות שלנו</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="elementor-column elementor-col-33 elementor-top-column">
+            <div class="elementor-widget-wrap">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED BOOKS SECTION -->
+<section class="elementor-section elementor-top-section elementor-element elementor-element-e613f74 elementor-section-boxed">
+    <div class="elementor-background-overlay"></div>
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-100 elementor-top-column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <!-- SECTION TITLE -->
+                <div class="elementor-element elementor-widget elementor-widget-heading">
+                    <div class="elementor-widget-container">
+                        <h2 class="elementor-heading-title elementor-size-default">ספרי רבנו המובילים</h2>
+                    </div>
+                </div>
+                
+                <!-- BOOKS GRID -->
+                <section class="elementor-section elementor-inner-section elementor-element elementor-element-e68a974 elementor-section-boxed">
+                    <div class="elementor-container elementor-column-gap-default">
+                        <!-- BOOK 1 -->
+                        <div class="elementor-column elementor-col-33 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-widget elementor-widget-jet-banner">
+                                    <div class="elementor-widget-container">
+                                        <div class="elementor-jet-banner jet-elements">
+                                            <figure class="jet-banner jet-effect-lily">
+                                                <a href="https://www.haesh-sheli.co.il/?product=ליקוטי-מוהרן" class="jet-banner__link">
+                                                    <div class="jet-banner__overlay"></div>
+                                                    <img decoding="async" src="images/6.d110a0.webp" alt="ליקוטי מוהרן" width="100%" height="100%" class="jet-banner__img">
+                                                    <figcaption class="jet-banner__content">
+                                                        <div class="jet-banner__content-wrap"></div>
+                                                    </figcaption>
+                                                </a>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- BOOK 2 -->
+                        <div class="elementor-column elementor-col-33 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-widget elementor-widget-jet-banner">
+                                    <div class="elementor-widget-container">
+                                        <div class="elementor-jet-banner jet-elements">
+                                            <figure class="jet-banner jet-effect-lily">
+                                                <a href="https://www.haesh-sheli.co.il/?product=ליקוטי-תפילות" class="jet-banner__link">
+                                                    <div class="jet-banner__overlay"></div>
+                                                    <img decoding="async" src="images/3.d110a0.webp" alt="ליקוטי תפילות" width="100%" height="100%" class="jet-banner__img">
+                                                    <figcaption class="jet-banner__content">
+                                                        <div class="jet-banner__content-wrap"></div>
+                                                    </figcaption>
+                                                </a>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- BOOK 3 -->
+                        <div class="elementor-column elementor-col-33 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-widget elementor-widget-jet-banner">
+                                    <div class="elementor-widget-container">
+                                        <div class="elementor-jet-banner jet-elements">
+                                            <figure class="jet-banner jet-effect-lily">
+                                                <a href="https://www.haesh-sheli.co.il/?product=ספורי-מעשיות" class="jet-banner__link">
+                                                    <div class="jet-banner__overlay"></div>
+                                                    <img decoding="async" src="images/1.d110a0.webp" alt="ספורי מעשיות" width="100%" height="100%" class="jet-banner__img">
+                                                    <figcaption class="jet-banner__content">
+                                                        <div class="jet-banner__content-wrap"></div>
+                                                    </figcaption>
+                                                </a>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- BOOK 4 -->
+                        <div class="elementor-column elementor-col-33 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-widget elementor-widget-jet-banner">
+                                    <div class="elementor-widget-container">
+                                        <div class="elementor-jet-banner jet-elements">
+                                            <figure class="jet-banner jet-effect-lily">
+                                                <a href="https://www.haesh-sheli.co.il/?product=ספר-המידות" class="jet-banner__link">
+                                                    <div class="jet-banner__overlay"></div>
+                                                    <img decoding="async" src="images/2.d110a0.webp" alt="ספר המידות" width="100%" height="100%" class="jet-banner__img">
+                                                    <figcaption class="jet-banner__content">
+                                                        <div class="jet-banner__content-wrap"></div>
+                                                    </figcaption>
+                                                </a>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- BOOK 5 -->
+                        <div class="elementor-column elementor-col-33 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-widget elementor-widget-jet-banner">
+                                    <div class="elementor-widget-container">
+                                        <div class="elementor-jet-banner jet-elements">
+                                            <figure class="jet-banner jet-effect-lily">
+                                                <a href="https://www.haesh-sheli.co.il/?product=חיי-מוהרן" class="jet-banner__link">
+                                                    <div class="jet-banner__overlay"></div>
+                                                    <img decoding="async" src="images/4-1.webp" alt="חיי מוהרן" width="100%" height="100%" class="jet-banner__img">
+                                                    <figcaption class="jet-banner__content">
+                                                        <div class="jet-banner__content-wrap"></div>
+                                                    </figcaption>
+                                                </a>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- BOOK 6 -->
+                        <div class="elementor-column elementor-col-33 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-widget elementor-widget-jet-banner">
+                                    <div class="elementor-widget-container">
+                                        <div class="elementor-jet-banner jet-elements">
+                                            <figure class="jet-banner jet-effect-lily">
+                                                <a href="https://www.haesh-sheli.co.il/?product=שיחות-הרן" class="jet-banner__link">
+                                                    <div class="jet-banner__overlay"></div>
+                                                    <img decoding="async" src="images/5.d110a0.webp" alt="שיחות הרן" width="100%" height="100%" class="jet-banner__img">
+                                                    <figcaption class="jet-banner__content">
+                                                        <div class="jet-banner__content-wrap"></div>
+                                                    </figcaption>
+                                                </a>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- QUOTE SECTION -->
+<section class="elementor-section elementor-top-section elementor-element elementor-element-f5b5b5b elementor-section-boxed">
+    <div class="elementor-background-overlay"></div>
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-100 elementor-top-column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element elementor-widget elementor-widget-heading">
+                    <div class="elementor-widget-container">
+                        <h2 class="elementor-heading-title elementor-size-default">"דף אחד מספרי רבנו יהיה תיקון על הכל!"</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section class="elementor-section elementor-top-section elementor-element elementor-element-77900e8 elementor-section-boxed">
+    <div class="elementor-background-overlay"></div>
+    <div class="elementor-container elementor-column-gap-default">
+        <!-- SERVICE 1 -->
+        <div class="elementor-column elementor-col-25 elementor-top-column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-background-overlay"></div>
+                <section class="elementor-section elementor-inner-section">
+                    <div class="elementor-container elementor-column-gap-default">
+                        <div class="elementor-column elementor-col-50 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-view-default elementor-widget elementor-widget-icon">
+                                    <div class="elementor-widget-container">
+                                        <div class="elementor-icon-wrapper">
+                                            <div class="elementor-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" height="512" viewBox="0 0 135 135" width="512">
+                                                    <!-- SVG content for security icon -->
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="elementor-column elementor-col-50 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-widget elementor-widget-heading">
+                                    <div class="elementor-widget-container">
+                                        <h2 class="elementor-heading-title elementor-size-default">רכישה מאובטחת</h2>
+                                    </div>
+                                </div>
+                                <div class="elementor-element elementor-widget elementor-widget-heading">
+                                    <div class="elementor-widget-container">
+                                        <h2 class="elementor-heading-title elementor-size-default">באמצעות תעודת SSL ובתקנים המחמירים ביותר</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <!-- SERVICE 2 -->
+        <div class="elementor-column elementor-col-25 elementor-top-column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-background-overlay"></div>
+                <section class="elementor-section elementor-inner-section">
+                    <div class="elementor-container elementor-column-gap-default">
+                        <div class="elementor-column elementor-col-50 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-view-default elementor-widget elementor-widget-icon">
+                                    <div class="elementor-widget-container">
+                                        <div class="elementor-icon-wrapper">
+                                            <div class="elementor-icon">
+                                                <i aria-hidden="true" class="fas fa-credit-card"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="elementor-column elementor-col-50 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-widget elementor-widget-heading">
+                                    <div class="elementor-widget-container">
+                                        <h2 class="elementor-heading-title elementor-size-default">עד 12 תשלומים ללא ריבית</h2>
+                                    </div>
+                                </div>
+                                <div class="elementor-element elementor-widget elementor-widget-heading">
+                                    <div class="elementor-widget-container">
+                                        <h2 class="elementor-heading-title elementor-size-default">שירות לקוחות מעולה וזמין תמיד</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <!-- SERVICE 3 -->
+        <div class="elementor-column elementor-col-25 elementor-top-column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-background-overlay"></div>
+                <section class="elementor-section elementor-inner-section">
+                    <div class="elementor-container elementor-column-gap-default">
+                        <div class="elementor-column elementor-col-50 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-view-default elementor-widget elementor-widget-icon">
+                                    <div class="elementor-widget-container">
+                                        <div class="elementor-icon-wrapper">
+                                            <div class="elementor-icon">
+                                                <i aria-hidden="true" class="fas fa-book"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="elementor-column elementor-col-50 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-widget elementor-widget-heading">
+                                    <div class="elementor-widget-container">
+                                        <h2 class="elementor-heading-title elementor-size-default">חנות הספרים הגדולה ביותר</h2>
+                                    </div>
+                                </div>
+                                <div class="elementor-element elementor-widget elementor-widget-heading">
+                                    <div class="elementor-widget-container">
+                                        <h2 class="elementor-heading-title elementor-size-default">לספרי רבנו אונליין</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <!-- SERVICE 4 -->
+        <div class="elementor-column elementor-col-25 elementor-top-column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-background-overlay"></div>
+                <section class="elementor-section elementor-inner-section">
+                    <div class="elementor-container elementor-column-gap-default">
+                        <div class="elementor-column elementor-col-50 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-view-default elementor-widget elementor-widget-icon">
+                                    <div class="elementor-widget-container">
+                                        <div class="elementor-icon-wrapper">
+                                            <div class="elementor-icon">
+                                                <i aria-hidden="true" class="fas fa-shipping-fast"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="elementor-column elementor-col-50 elementor-inner-column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-widget elementor-widget-heading">
+                                    <div class="elementor-widget-container">
+                                        <h2 class="elementor-heading-title elementor-size-default">משלוח מהיר עד הבית חינם</h2>
+                                    </div>
+                                </div>
+                                <div class="elementor-element elementor-widget elementor-widget-heading">
+                                    <div class="elementor-widget-container">
+                                        <h2 class="elementor-heading-title elementor-size-default">ברכישה מעל 299 ₪ מהחנות</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CATEGORIES SECTION -->
+<section class="elementor-section elementor-top-section elementor-element elementor-element-categories elementor-section-boxed">
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-100 elementor-top-column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="elementor-element elementor-widget elementor-widget-heading">
+                    <div class="elementor-widget-container">
+                        <h2 class="elementor-heading-title elementor-size-default">הקטגוריות בחנות</h2>
+                    </div>
+                </div>
+                
+                <div class="categories-grid">
+                    <!-- CATEGORY 1 -->
+                    <div class="category-item">
+                        <div class="category-image">
+                            <img src="images/Untitled-design-8.d110a0.webp" alt="ספרי רבי ישראל">
+                            <div class="category-overlay">
+                                <h3>ספרי רבי ישראל</h3>
+                                <p>כל ספרי רבנו ישראל</p>
+                                <a href="#" class="btn">למידע נוסף</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- CATEGORY 2 -->
+                    <div class="category-item">
+                        <div class="category-image">
+                            <img src="images/3-1.webp" alt="ספרי רבי נחמן הקדוש">
+                            <div class="category-overlay">
+                                <h3>ספרי רבי נחמן הקדוש</h3>
+                                <p>כל חיבורי רבנו הקדוש</p>
+                                <a href="#" class="btn">למידע נוסף</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- RABBI SECTION -->
+<section class="elementor-section elementor-top-section elementor-element elementor-element-rabbi-section">
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-100 elementor-top-column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="rabbi-content">
+                    <div class="rabbi-image">
+                        <img src="images/cropped-קרו-רבי-ישראל-בר-אודסר.d110a0.webp" alt="רבי ישראל בר אודסר זצ'ל">
+                    </div>
+                    <div class="rabbi-text">
+                        <h2>רבי ישראל בר אודסר זצ"ל</h2>
+                        <p>רבי ישראל בר אודסר, הידוע בכינוי "סבא", היה מגדולי מפיצי תורת רבי נחמן מברסלב בעולם.</p>
+                        
+                        <div class="rabbi-cards">
+                            <div class="info-card">
+                                <h4>תלמידיו</h4>
+                                <p>אלפי תלמידים ברחבי העולם</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>ספרים</h4>
+                                <p>מאות ספרים שהודפסו והופצו</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>מורשת</h4>
+                                <p>המשך הפצת תורת רבנו</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CALL TO ACTION SECTION -->
+<section class="elementor-section elementor-top-section elementor-element elementor-element-cta-section">
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="elementor-column elementor-col-100 elementor-top-column">
+            <div class="elementor-widget-wrap elementor-element-populated">
+                <div class="cta-content">
+                    <h2>הצטרפו עכשיו לפרסום והפצת ספרי רבי נחמן בעולם</h2>
+                    <p>התרומות שלכם לעזור ולתת יד לפרסום שם הצדיק בעולם</p>
+                    <a href="#" class="btn btn-cta">למעבר לתרומה להדפסה והפצת אור הצדיק לחצו כאן</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="elementor-container elementor-column-gap-default">
+        <div class="footer-content">
+            <!-- FOOTER COLUMN 1 -->
+            <div class="footer-column">
+                <h3>ניווט מהיר באתר</h3>
+                <ul class="footer-links">
+                    <li><a href="/">דף הבית</a></li>
+                    <li><a href="/shop">שירות לקוחות</a></li>
+                    <li><a href="/books">חנות הספרים</a></li>
+                    <li><a href="/about">מענות ומכירות</a></li>
+                    <li><a href="/contact">משלוחים והחזרות</a></li>
+                    <li><a href="/terms">תקנון ומדיניות האתר</a></li>
+                </ul>
+            </div>
+            
+            <!-- FOOTER COLUMN 2 -->
+            <div class="footer-column">
+                <h3>לקוחות פעילים וחדשים</h3>
+                <p>הרשמה לאתר</p>
+                <p>כניסה לאזור האישי</p>
+                <p>פניה לשירות לקוחות</p>
+                <p>התרומה לפעילות רבנו הקדוש</p>
+            </div>
+            
+            <!-- FOOTER COLUMN 3 -->
+            <div class="footer-column">
+                <h3>כתובת ושעות פתיחה</h3>
+                <address>
+                    ת.ד 366 בית שמש<br>
+                    טלפון: *2320<br>
+                    פקס: 077-5150304
+                </address>
+                <a href="#" class="btn btn-footer">לכל נקודות הפצה</a>
+                <p>יש לכם שאלות? בואו לדבר איתנו בוואטסאפ</p>
+            </div>
+            
+            <!-- FOOTER COLUMN 4 -->
+            <div class="footer-column">
+                <h3>שווה להתעדכן</h3>
+                <p>על מבצעים, הנחות חדשות וכו</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="רשמו פה את @ המייל שלך">
+                    <button type="submit" class="btn btn-newsletter">להרשמה לחצו כאן</button>
+                </form>
+                
+                <div class="social-links">
+                    <h4>יוצאו מעינותיך חוצה</h4>
+                    <div class="social-icons">
+                        <a href="#" class="social-link whatsapp">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.893 3.106"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link youtube">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link facebook">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-logo">
+            <img src="images/cropped-קרו-רבי-ישראל-בר-אודסר.d110a0.webp" alt="האש שלי תוקף עד ביאת המשיח">
+            <p>קרן רבי ישראל בר אודסר זצ"ל</p>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 כל הזכויות שמורות © קרן רבי ישראל בר אודסר זצ"ל</p>
+            <p>האתר נבנה ע"י קודינג אסטודיו</p>
+        </div>
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="js/jquery.min.js"></script>
+<script src="js/elementor-frontend.min.js"></script>
+<script src="js/woocommerce.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
+```
+
+---
+
+## 🎨 **CSS COMPLET AVEC TOUTES LES VRAIES COULEURS**
+
+```css
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Noto Sans Hebrew', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    direction: rtl;
+    text-align: right;
+    background-color: #f8f9fa;
+}
+
+.container, .elementor-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== COULEURS EXACTES DU SITE ORIGINAL ===== */
+:root {
+    /* Couleurs principales extraites du site */
+    --primary-red: #c53030;
+    --primary-orange: #dd6b20;
+    --primary-yellow: #d69e2e;
+    --background-light: #f7fafc;
+    --text-dark: #2d3748;
+    --white: #ffffff;
+    --black: #000000;
+    --gray-100: #f7fafc;
+    --gray-200: #edf2f7;
+    --gray-300: #e2e8f0;
+    --gray-400: #cbd5e0;
+    --gray-500: #a0aec0;
+    --gray-600: #718096;
+    --gray-700: #4a5568;
+    --gray-800: #2d3748;
+    --gray-900: #1a202c;
+    
+    /* Couleurs spécifiques du thème */
+    --elementor-primary: #c53030;
+    --elementor-secondary: #dd6b20;
+    --elementor-accent: #d69e2e;
+    --elementor-text: #2d3748;
+}
+
+/* ===== TYPOGRAPHY EXACTE ===== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Sans Hebrew', Arial, sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.elementor-heading-title {
+    font-family: 'Noto Sans Hebrew', Arial, sans-serif;
+    font-weight: 600;
+    color: var(--primary-red);
+}
+
+.elementor-size-default {
+    font-size: 2rem;
+    line-height: 1.3;
+}
+
+/* ===== LAYOUT ELEMENTOR ===== */
+.elementor-section {
+    position: relative;
+    padding: 60px 0;
+}
+
+.elementor-section-full_width {
+    width: 100%;
+}
+
+.elementor-section-boxed {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.elementor-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+.elementor-column {
+    position: relative;
+    min-height: 1px;
+    display: flex;
+    flex-direction: column;
+}
+
+.elementor-col-25 { flex: 0 0 25%; max-width: 25%; }
+.elementor-col-33 { flex: 0 0 33.333%; max-width: 33.333%; }
+.elementor-col-50 { flex: 0 0 50%; max-width: 50%; }
+.elementor-col-100 { flex: 0 0 100%; max-width: 100%; }
+
+.elementor-widget-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-grow: 1;
+}
+
+.elementor-element-populated {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== HEADER STYLES ===== */
+.elementor-section.elementor-element-ba655d5 {
+    background: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+/* Top bar avec shipping notice */
+.elementor-icon-list-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    background: var(--primary-red);
+    color: var(--white);
+    padding: 8px 0;
+    margin: 0;
+}
+
+.elementor-icon-list-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.elementor-icon-list-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.elementor-icon-list-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Logo */
+.elementor-widget-theme-site-logo img {
+    height: 60px;
+    width: auto;
+    max-width: 185px;
+}
+
+/* Navigation */
+.elementor-nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.elementor-nav-menu .menu-item {
+    position: relative;
+}
+
+.elementor-nav-menu a {
+    text-decoration: none;
+    color: var(--gray-700);
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+    padding: 10px 0;
+    display: block;
+}
+
+.elementor-nav-menu a:hover,
+.elementor-nav-menu a.elementor-item-active {
+    color: var(--primary-red);
+}
+
+.elementor-nav-menu .current-menu-item a {
+    color: var(--primary-red);
+    font-weight: 600;
+}
+
+/* Submenu */
+.sub-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px 0;
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.menu-item-has-children:hover .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.sub-menu .menu-item {
+    list-style: none;
+}
+
+.sub-menu a {
+    padding: 8px 20px;
+    color: var(--gray-600);
+    font-size: 0.9rem;
+}
+
+.sub-menu a:hover {
+    background: var(--background-light);
+    color: var(--primary-red);
+}
+
+/* Cart Widget */
+.elementor-menu-cart__toggle_button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--gray-700);
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 1px solid var(--gray-300);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.elementor-menu-cart__toggle_button:hover {
+    border-color: var(--primary-red);
+    color: var(--primary-red);
+}
+
+.elementor-button-icon-qty {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    background: var(--primary-red);
+    color: var(--white);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Mobile Menu Toggle */
+.elementor-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.elementor-menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: var(--gray-700);
+    transition: all 0.3s ease;
+}
+
+/* ===== HERO SECTION ===== */
+.elementor-section.elementor-element-c8b8e5a {
+    padding: 120px 0 80px;
+    background: linear-gradient(135deg, var(--background-light), var(--white));
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.elementor-background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="flame" cx="50%" cy="50%"><stop offset="0%" stop-color="%23dd6b20" stop-opacity="0.1"/><stop offset="100%" stop-color="%23c53030" stop-opacity="0.05"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(%23flame)"/></svg>') no-repeat center;
+    background-size: 800px 800px;
+    opacity: 0.3;
+}
+
+/* Hero Titles */
+.elementor-element-f9c0467 .elementor-heading-title {
+    font-size: 3.5rem;
+    color: var(--primary-red);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.elementor-element-339d8fd .elementor-heading-title {
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Hero Image */
+.elementor-element-ebc8b88 img {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    display: block;
+}
+
+/* Hero Buttons */
+.elementor-button {
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.elementor-element-92901e8 .elementor-button {
+    background: var(--primary-red);
+    color: var(--white);
+}
+
+.elementor-element-92901e8 .elementor-button:hover {
+    background: #a02626;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(197, 48, 48, 0.3);
+}
+
+.elementor-element-bdbfff0 .elementor-button {
+    background: transparent;
+    color: var(--primary-red);
+    border: 2px solid var(--primary-red);
+}
+
+.elementor-element-bdbfff0 .elementor-button:hover {
+    background: var(--primary-red);
+    color: var(--white);
+}
+
+.elementor-animation-grow:hover {
+    transform: scale(1.05);
+}
+
+/* ===== FEATURED BOOKS SECTION ===== */
+.elementor-section.elementor-element-e613f74 {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.elementor-element-a5e045c .elementor-heading-title {
+    text-align: center;
+    color: var(--primary-red);
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    position: relative;
+}
+
+.elementor-element-a5e045c .elementor-heading-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--primary-red);
+    border-radius: 2px;
+}
+
+/* Books Grid */
+.elementor-section.elementor-element-e68a974 {
+    margin-top: 2rem;
+}
+
+.elementor-jet-banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 300px;
+}
+
+.elementor-jet-banner:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.jet-banner__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.elementor-jet-banner:hover .jet-banner__img {
+    transform: scale(1.05);
+}
+
+.jet-banner__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.3), rgba(197, 48, 48, 0.2));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.elementor-jet-banner:hover .jet-banner__overlay {
+    opacity: 1;
+}
+
+.jet-banner__link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
+/* ===== QUOTE SECTION ===== */
+.elementor-section.elementor-element-f5b5b5b {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--primary-red), #a02626);
+    color: var(--white);
+    text-align: center;
+}
+
+.elementor-section.elementor-element-f5b5b5b .elementor-heading-title {
+    font-size: 2.2rem;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--white);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ===== SERVICES SECTION ===== */
+.elementor-section.elementor-element-77900e8 {
+    padding: 80px 0;
+    background: var(--background-light);
+}
+
+.elementor-section.elementor-element-77900e8 .elementor-column {
+    margin-bottom: 30px;
+}
+
+.elementor-section.elementor-element-77900e8 .elementor-background-overlay {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    margin: 10px;
+}
+
+.elementor-section.elementor-element-77900e8 .elementor-inner-section {
+    padding: 30px 20px;
+    height: 100%;
+}
+
+.elementor-section.elementor-element-77900e8:hover .elementor-background-overlay {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Service Icons */
+.elementor-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    background: var(--primary-red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.elementor-icon i,
+.elementor-icon svg {
+    width: 30px;
+    height: 30px;
+    color: var(--white);
+    fill: var(--white);
+}
+
+/* Service Titles */
+.elementor-section.elementor-element-77900e8 .elementor-heading-title {
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* ===== CATEGORIES SECTION ===== */
+.elementor-section.elementor-element-categories {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+    margin-top: 3rem;
+}
+
+.category-item {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    height: 300px;
+}
+
+.category-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.category-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.category-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(197, 48, 48, 0.8));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--white);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.category-item:hover .category-overlay {
+    opacity: 1;
+}
+
+.category-overlay h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--white);
+}
+
+.category-overlay p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+.category-overlay .btn {
+    background: var(--white);
+    color: var(--primary-red);
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.category-overlay .btn:hover {
+    background: var(--primary-red);
+    color: var(--white);
+}
+
+/* ===== RABBI SECTION ===== */
+.elementor-section.elementor-element-rabbi-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--background-light), var(--white));
+}
+
+.rabbi-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.rabbi-image {
+    position: relative;
+    text-align: center;
+}
+
+.rabbi-image img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.rabbi-text h2 {
+    color: var(--primary-red);
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+}
+
+.rabbi-text p {
+    color: var(--gray-600);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.rabbi-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.info-card {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-3px);
+}
+
+.info-card h4 {
+    color: var(--primary-red);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.info-card p {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* ===== CTA SECTION ===== */
+.elementor-section.elementor-element-cta-section {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--primary-red), #a02626);
+    color: var(--white);
+    text-align: center;
+}
+
+.cta-content h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: var(--white);
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-cta {
+    background: linear-gradient(135deg, var(--primary-orange), var(--primary-yellow));
+    color: var(--white);
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(221, 107, 32, 0.4);
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+    background: var(--gray-900);
+    color: var(--white);
+    padding: 60px 0 20px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-column h3 {
+    color: var(--primary-red);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    color: var(--gray-300);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary-red);
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 2rem;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.btn-newsletter {
+    background: var(--primary-red);
+    color: var(--white);
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.social-links h4 {
+    margin-bottom: 1rem;
+    color: var(--primary-red);
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    background: var(--gray-800);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-link:hover {
+    background: var(--primary-red);
+    transform: translateY(-2px);
+}
+
+.social-link svg {
+    width: 20px;
+    height: 20px;
+    fill: var(--white);
+}
+
+.footer-logo {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-top: 30px;
+    border-top: 1px solid var(--gray-700);
+}
+
+.footer-logo img {
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray-700);
+    color: var(--gray-400);
+    font-size: 0.9rem;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .elementor-container {
+        flex-direction: column;
+    }
+    
+    .elementor-col-25,
+    .elementor-col-33,
+    .elementor-col-50 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    .elementor-nav-menu {
+        display: none;
+    }
+    
+    .elementor-menu-toggle {
+        display: flex;
+    }
+    
+    .elementor-element-f9c0467 .elementor-heading-title {
+        font-size: 2.5rem;
+    }
+    
+    .elementor-element-339d8fd .elementor-heading-title {
+        font-size: 2rem;
+    }
+    
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .rabbi-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .elementor-element-f9c0467 .elementor-heading-title {
+        font-size: 2rem;
+    }
+    
+    .elementor-element-339d8fd .elementor-heading-title {
+        font-size: 1.5rem;
+    }
+    
+    .elementor-element-a5e045c .elementor-heading-title {
+        font-size: 2rem;
+    }
+    
+    .elementor-section.elementor-element-f5b5b5b .elementor-heading-title {
+        font-size: 1.5rem;
+    }
+    
+    .cta-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .elementor-button {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+    
+    .btn-cta {
+        padding: 14px 28px;
+        font-size: 1rem;
+    }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1); 
+        opacity: 0.1; 
+    }
+    50% { 
+        transform: scale(1.1); 
+        opacity: 0.2; 
+    }
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* ===== HIDDEN ELEMENTS ===== */
+.elementor-hidden-tablet,
+.elementor-hidden-mobile,
+.elementor-hidden-desktop,
+.elementor-hidden-laptop {
+    display: none !important;
+}
+
+/* ===== ELEMENTOR SPECIFIC ===== */
+.elementor-widget-container {
+    position: relative;
+}
+
+.elementor-widget {
+    position: relative;
+}
+
+.elementor-element {
+    position: relative;
+}
+
+.elementor-section-height-min-height {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.elementor-section-height-default {
+    min-height: auto;
+}
+
+.elementor-column-gap-default {
+    gap: 20px;
+}
+
+/* ===== WOOCOMMERCE STYLES ===== */
+.woocommerce-Price-amount {
+    font-weight: 600;
+}
+
+.woocommerce-Price-currencySymbol {
+    font-size: 0.9em;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+
+.hidden { display: none; }
+.visible { display: block; }
+
+.transition { transition: all 0.3s ease; }
+.transition-fast { transition: all 0.15s ease; }
+.transition-slow { transition: all 0.5s ease; }
+
+.hover-scale:hover { transform: scale(1.05); }
+.hover-lift:hover { transform: translateY(-5px); }
+```
+
+---
+
+## 📋 **LISTE COMPLÈTE DES VRAIES IMAGES**
+
+```
+IMAGES PRINCIPALES DU SITE :
+├── Logo principal : cropped-קרו-רבי-ישראל-בר-אודסר.d110a0.webp
+├── Hero image : Copy-of-תמונת-מוצר-2.webp (+ toutes les tailles)
+├── Livre 1 : 6.d110a0.webp (ליקוטי מוהרן)
+├── Livre 2 : 3.d110a0.webp (ליקוטי תפילות)
+├── Livre 3 : 1.d110a0.webp (ספורי מעשיות)
+├── Livre 4 : 2.d110a0.webp (ספר המידות)
+├── Livre 5 : 4-1.webp (חיי מוהרן)
+├── Livre 6 : 5.d110a0.webp (שיחות הרן)
+├── Catégorie 1 : Untitled-design-8.d110a0.webp (ספרי רבי ישראל)
+├── Catégorie 2 : 3-1.webp (ספרי רבי נחמן הקדוש)
+├── Héritage : הגרלת-טיסה-לרבנו-הקדוש-קרן-רבי-ישראל.webp
+└── Autres assets : chosen-sprite.png, default-skin.png, WooCommerce.svg
+```
+
+---
+
+## 🚀 **JAVASCRIPT COMPLET FONCTIONNEL**
+
+```javascript
+// ===== MAIN JAVASCRIPT - SITE HAESH SHELI =====
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ===== MOBILE MENU TOGGLE =====
+    const mobileToggle = document.querySelector('.elementor-menu-toggle');
+    const mainNav = document.querySelector('.elementor-nav-menu');
+    
+    if (mobileToggle && mainNav) {
+        mobileToggle.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+            mobileToggle.classList.toggle('active');
+            
+            // Toggle aria-expanded
+            const isExpanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+            mobileToggle.setAttribute('aria-expanded', !isExpanded);
+        });
+    }
+    
+    // ===== SMOOTH SCROLLING =====
+    const links = document.querySelectorAll('a[href^="#"]');
+    
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                const headerHeight = document.querySelector('.elementor-section.elementor-element-ba655d5').offsetHeight;
+                const targetPosition = targetSection.offsetTop - headerHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // ===== HEADER SCROLL EFFECT =====
+    const header = document.querySelector('.elementor-section.elementor-element-ba655d5');
+    let lastScrollTop = 0;
+    
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+        
+        // Hide/show header on scroll
+        if (scrollTop > lastScrollTop && scrollTop > 200) {
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            header.style.transform = 'translateY(0)';
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+    
+    // ===== ANIMATE ON SCROLL =====
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-on-scroll');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Observe elements for animation
+    const animateElements = document.querySelectorAll('.elementor-jet-banner, .info-card, .category-item');
+    animateElements.forEach(el => observer.observe(el));
+    
+    // ===== CART FUNCTIONALITY =====
+    let cartItems = JSON.parse(localStorage.getItem('haesh_sheli_cart')) || [];
+    let cartTotal = 0;
+    
+    const cartToggle = document.querySelector('.elementor-menu-cart__toggle_button');
+    const cartCount = document.querySelector('.elementor-button-icon-qty');
+    const cartAmount = document.querySelector('.woocommerce-Price-amount');
+    
+    function updateCart() {
+        const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+        const totalAmount = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+        
+        if (cartCount) cartCount.textContent = itemCount;
+        if (cartAmount) {
+            cartAmount.innerHTML = `<bdi>${totalAmount.toFixed(2)} <span class="woocommerce-Price-currencySymbol">₪</span></bdi>`;
+        }
+        
+        // Save to localStorage
+        localStorage.setItem('haesh_sheli_cart', JSON.stringify(cartItems));
+    }
+    
+    function addToCart(productId, name, price, image) {
+        const existingItem = cartItems.find(item => item.id === productId);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cartItems.push({
+                id: productId,
+                name: name,
+                price: price,
+                image: image,
+                quantity: 1
+            });
+        }
+        
+        updateCart();
+        showCartNotification(`${name} נוסף לעגלה`);
+    }
+    
+    function removeFromCart(productId) {
+        cartItems = cartItems.filter(item => item.id !== productId);
+        updateCart();
+    }
+    
+    function showCartNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'cart-notification';
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--primary-red);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+    
+    // ===== BOOK BANNER INTERACTIONS =====
+    const bookBanners = document.querySelectorAll('.elementor-jet-banner');
+    
+    bookBanners.forEach(banner => {
+        banner.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const link = this.querySelector('.jet-banner__link');
+            const href = link ? link.getAttribute('href') : '#';
+            const bookName = this.querySelector('img').getAttribute('alt') || 'ספר';
+            
+            // Simulate add to cart (in real implementation, this would be handled by WooCommerce)
+            const bookPrice = Math.floor(Math.random() * 50) + 20; // Random price for demo
+            const bookId = href.split('=').pop() || Math.random().toString(36).substr(2, 9);
+            const bookImage = this.querySelector('img').getAttribute('src');
+            
+            addToCart(bookId, bookName, bookPrice, bookImage);
+        });
+        
+        banner.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        banner.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    // ===== CATEGORY HOVER EFFECTS =====
+    const categoryItems = document.querySelectorAll('.category-item');
+    
+    categoryItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            const overlay = this.querySelector('.category-overlay');
+            if (overlay) {
+                overlay.style.opacity = '1';
+            }
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            const overlay = this.querySelector('.category-overlay');
+            if (overlay) {
+                overlay.style.opacity = '0';
+            }
+        });
+    });
+    
+    // ===== NEWSLETTER FORM =====
+    const newsletterForm = document.querySelector('.newsletter-form');
+    
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailInput = this.querySelector('input[type="email"]');
+            const email = emailInput.value.trim();
+            
+            if (validateEmail(email)) {
+                // Simulate newsletter subscription
+                showNotification('תודה! נרשמת בהצלחה לניוזלטר', 'success');
+                emailInput.value = '';
+            } else {
+                showNotification('אנא הכנס כתובת אימייל תקינה', 'error');
+            }
+        });
+    }
+    
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+    
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.textContent = message;
+        
+        const colors = {
+            success: '#10B981',
+            error: '#EF4444',
+            info: '#3B82F6'
+        };
+        
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${colors[type]};
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (document.body.contains(notification)) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        }, 4000);
+    }
+    
+    // ===== LAZY LOADING IMAGES =====
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+    
+    // ===== BUTTON ANIMATIONS =====
+    const buttons = document.querySelectorAll('.elementor-button');
+    
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            if (this.classList.contains('elementor-animation-grow')) {
+                this.style.transform = 'scale(1.05)';
+            }
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            if (this.classList.contains('elementor-animation-grow')) {
+                this.style.transform = 'scale(1)';
+            }
+        });
+    });
+    
+    // ===== SOCIAL LINKS =====
+    const socialLinks = document.querySelectorAll('.social-link');
+    
+    socialLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const platform = this.classList.contains('whatsapp') ? 'WhatsApp' : 
+                           this.classList.contains('youtube') ? 'YouTube' : 
+                           this.classList.contains('facebook') ? 'Facebook' : 'Social';
+            
+            showNotification(`פותח ${platform}...`, 'info');
+            
+            // In real implementation, these would be actual social media links
+            setTimeout(() => {
+                if (platform === 'WhatsApp') {
+                    window.open('https://wa.me/972775150304', '_blank');
+                } else if (platform === 'YouTube') {
+                    window.open('https://youtube.com/@haesh-sheli', '_blank');
+                } else if (platform === 'Facebook') {
+                    window.open('https://facebook.com/haesh.sheli', '_blank');
+                }
+            }, 500);
+        });
+    });
+    
+    // ===== INITIALIZE CART =====
+    updateCart();
+    
+    // ===== PERFORMANCE OPTIMIZATION =====
+    // Debounce function for scroll events
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+    
+    // Apply debounce to scroll events
+    const debouncedScrollHandler = debounce(function() {
+        // Additional scroll-based animations can go here
+    }, 16); // ~60fps
+    
+    window.addEventListener('scroll', debouncedScrollHandler);
+    
+    // ===== ACCESSIBILITY IMPROVEMENTS =====
+    // Keyboard navigation for mobile menu
+    mobileToggle?.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+        }
+    });
+    
+    // Focus management for navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            // Close mobile menu if open
+            if (mainNav && mainNav.classList.contains('active')) {
+                mainNav.classList.remove('active');
+                mobileToggle.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+    });
+    
+    // ===== LOADING STATES =====
+    window.addEventListener('load', function() {
+        document.body.classList.add('loaded');
+        
+        // Hide loading spinner if exists
+        const loader = document.querySelector('.loader');
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 300);
+        }
+        
+        // Trigger initial animations
+        const heroElements = document.querySelectorAll('.elementor-section.elementor-element-c8b8e5a .elementor-heading-title');
+        heroElements.forEach((el, index) => {
+            setTimeout(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, index * 200);
+        });
+    });
+    
+    // ===== RTL SUPPORT =====
+    // Ensure proper RTL behavior for dynamic content
+    function ensureRTL() {
+        const rtlElements = document.querySelectorAll('[dir="rtl"], .rtl');
+        rtlElements.forEach(el => {
+            el.style.direction = 'rtl';
+            el.style.textAlign = 'right';
+        });
+    }
+    
+    ensureRTL();
+    
+    console.log('🔥 האש שלי - Site loaded successfully with all features!');
+});
+
+// ===== UTILITY FUNCTIONS =====
+function formatPrice(price) {
+    return `${price.toFixed(2)} ₪`;
+}
+
+function formatDate(date) {
+    return new Intl.DateTimeFormat('he-IL').format(date);
+}
+
+function generateId() {
+    return Math.random().toString(36).substr(2, 9);
+}
+
+// ===== GLOBAL FUNCTIONS FOR EXTERNAL USE =====
+window.HaeshSheli = {
+    addToCart: function(productId, name, price, image) {
+        // This would be called by WooCommerce or other e-commerce integration
+        addToCart(productId, name, price, image);
+    },
+    
+    showNotification: function(message, type = 'info') {
+        showNotification(message, type);
+    },
+    
+    updateCart: function() {
+        updateCart();
+    }
+};
+
+// ===== EXPORT FOR MODULE USAGE =====
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        formatPrice,
+        formatDate,
+        generateId
+    };
+}
+```
+
+---
+
+## 📋 **INSTRUCTIONS FINALES**
+
+### **POUR STITCH :**
+1. **Copiez le HTML complet** avec toutes les vraies images
+2. **Ajoutez le CSS pixel-perfect** avec les couleurs exactes
+3. **Intégrez le JavaScript** pour toutes les fonctionnalités
+4. **Uploadez toutes les images** du dossier images/
+5. **Générez et testez** le site complet
+
+### **POUR FIGMA :**
+1. **Utilisez le HTML comme structure** de référence exacte
+2. **Appliquez les styles CSS** comme guide de design
+3. **Créez les composants** basés sur les sections Elementor
+4. **Utilisez les vraies couleurs** (--primary-red: #c53030, etc.)
+5. **Prototypez les interactions** avec le JavaScript
+
+### **FONCTIONNALITÉS COMPLÈTES :**
+✅ **Structure Elementor exacte** avec toutes les classes
+✅ **Toutes les vraies images** avec chemins corrects
+✅ **Couleurs pixel-perfect** extraites du site original
+✅ **Navigation complète** avec sous-menus
+✅ **Panier WooCommerce** fonctionnel
+✅ **Responsive design** complet
+✅ **Animations Elementor** authentiques
+✅ **Support RTL** pour l'hébreu
+✅ **Accessibilité WCAG** complète
+✅ **Performance optimisée** avec lazy loading
+
+**Ce code est maintenant 100% pixel-perfect et identique au site original ! 🎯**
+
+Et je veux avoir les vraies images, uniquement pas des images que tu génères Je t'ai donné des exemples très précis aussi dans les screenshots, mais tu dois adhérer au code précisément.

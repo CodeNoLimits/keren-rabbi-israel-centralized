@@ -15,8 +15,6 @@
     "preview:client": "cd client && npm run preview",
     "deploy": "vercel --prod",
     "deploy:preview": "vercel",
-    "deploy:netlify": "netlify deploy --prod --dir=dist/public",
-    "deploy:render": "echo 'Push to GitHub - Render auto-deploys'",
     "setup:env": "echo 'Configuration des variables environnement...' && cp .env.example .env",
     "test:build": "npm run build && npm run start",
     "cursor:open": "cursor ."

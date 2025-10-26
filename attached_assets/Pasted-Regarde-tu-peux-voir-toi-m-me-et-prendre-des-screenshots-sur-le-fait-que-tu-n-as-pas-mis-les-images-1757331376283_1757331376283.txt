@@ -1,0 +1,27 @@
+Regarde, tu peux voir toi-même et prendre des screenshots sur le fait que tu n'as pas mis les images, malheureusement. C'est dommage, parce qu'avant, on avait des belles photos, et là, tu as enlevé carrément toutes les photos.
+
+Donc, vraiment, trouver une manière de forcer le fait que ça marche, c'est très important.
+
+Mis à part ceux-là, je suis content de voir que tu as mis la page de traduction. Les pages de traduction, c'est super, tu les as bien faites. Tu as enlevé le cart qui se trouvait dans le menu. Il faudrait trouver une manière pour réarranger le menu de manière à rajouter le cart avec le montant d'argent qui se trouve là-bas, sans déranger le design, qui est quand même assez beau.
+
+Quand on essaye de scroller en bas sur l'onglet boutique, par exemple en français, alors on n'arrive pas à scroller en bas. Je vois maintenant si c'est un problème, un problème qui est juste non, ce problème-là. Il est aussi pour l'hébreu, donc il est vraiment pour toutes les langues.
+
+Ok, donc ça, c'est important de le noter. Je vois que tu n'as pas adapté la traduction à l'onglet de la page de maison, par exemple. Tu l'as simplement mis pour le magasin, chose qui a un problème concernant les mêmes choses pour les autres pages. Ok, il faut que tu mettes la possibilité de traduire, c'est très, très important.
+
+Je suis entrain de te dire les choses qui vont ou qui vont pas. Quand, par exemple, en cliquant, on clique sur l'onglet magazine, alors on n'a pas l'onglet téléchargement en hébreu. Orada, il est un peu tronqué par le cart. Le cart que tu as mis, il est toujours présent, par exemple, dans les onglets magazine, vous rapprochez de nous, se joindre à nous. On voit toujours le cart, mais il n'est pas présent sur la page d'accueil.
+
+Donc, il faut trouver une manière d'homogénéiser le header dans toutes les pages et mettre aussi le petit onglet IAACOV temporaire dans un petit endroit, complètement à droite, qui soit toujours disponible. Tu vois, par exemple. Voilà, ça c'est super. Voilà, donc essaye de voir toutes ces choses-là que je t'ai dites devant toi, que je te dis maintenant.
+
+Quand, si je clique sur regarder un produit, donc ça me prend sur une page qui est comme Shopify. C'est bon, franchement, j'ai bien aimé que tu as fait petit les catégories et tu as marqué Couverture dure grand et tout ça, ça j'ai bien aimé.
+
+Quand tu as marqué en hébreu Saki, je ne sais pas, c'est quoi, Saki? Ah, Sky, oui, non, c'est bon, c'est bon, j'ai compris. Sky, c'est sûr. Ah, super, ça c'est super.
+
+La seule chose qui manque, aussi, les photos, quand on clique sur l'onglet produits et qu'on essaye de l'ajouter le produit au panier. Alors, finalement, il va manquer les images des produits, donc ça, c'est important.
+
+Et finalement, quand on arrive sur la dernière page, donc la page de paiement, où est-ce que on va payer par carte de crédit ou PayPal et tout. Ça, on arrangera les providers de paiement, carte de crédit et PayPal, par la suite. Mais quand on arrive sur cette page-là, alors ça nous prend automatiquement vers une page qui nous met un likute Morane à 75 shekels et un likute de filote à 150 shekels. Donc, ça, vraiment, il s'est pas bon, il faut l'adapter.
+
+Donc, regarde, pour être sûr que tu m'a bien compris. Il faut vraiment, vraiment que tu te fasses une liste de tâches extrêmement précise par rapport à ce que je t'ai demandé. Naturellement, je suis en train de te parler avec un langage avec une application qui va prendre mon langage, donc il peut avoir parfois certaines petites erreurs d'écriture ou d'incohérence. Que tu pourras comprendre le contexte. Voilà, mais à part ça, je pense que c'est bien. Fais bien ce que je t'ai demandé, s'il te plaît. C'est super important.
+
+Tu documentes aussi tout les changements qui ont été fait dans la page de Yaakov, comme tu le sais, avec les projections par rapport à tous les projets qu'on a par la suite basés sur les documents initiaux que j'tavais demandé, au début du projet. Voilà, et tu corrige précisément ce que j'te ai demandé, maintenant, et tu te fais un plan bien précis, d'accord?
+
+Merci. 

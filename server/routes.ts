@@ -11,6 +11,7 @@ import { chatWithGemini, chatWithGeminiStream, checkGeminiConnection, analyzeUse
 import { chatWithOpenAI, chatWithOpenAIStream, checkOpenAIConnection, analyzeUserSentimentOpenAI } from "./openaiService";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import newFeaturesRouter from "./newFeatures"; // NEW FEATURES - Newsletter, Reviews, Shiurim, Wishlist
+import { healthCheck } from "./health";
 
 // Extend Request interface to include authentication properties
 declare global {
@@ -29,6 +30,9 @@ if (process.env.STRIPE_SECRET_KEY) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Health check endpoint for Render.com
+  app.get('/api/health', healthCheck);
+
   // Setup Replit Auth middleware
   await setupAuth(app);
 
