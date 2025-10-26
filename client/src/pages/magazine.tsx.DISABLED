@@ -936,47 +936,6 @@ const translations = {
     ctaDescription: 'Do you have a story, article or testimony you\'d like to share? We\'d love to hear from you!',
     ctaButtonPrimary: 'Submit Content',
     ctaButtonSecondary: 'Contact Us',
-
-    // Daily Quotes - NEW SECTION
-    dailyQuotesTitle: 'Daily Quote from Our Holy Rabbi',
-    dailyQuotesSubtitle: 'Words of encouragement and inspiration from Rabbi Nachman of Breslov\'s teachings',
-    dailyQuotes: [
-      {
-        id: 1,
-        text: 'The whole world is a very narrow bridge, but the main thing is not to fear at all',
-        source: 'Likutei Moharan II, 48',
-        author: 'Rabbi Nachman of Breslov'
-      },
-      {
-        id: 2,
-        text: 'There is no despair in the world at all',
-        source: 'Siach Sarfey Kodesh',
-        author: 'Rabbi Nachman of Breslov'
-      },
-      {
-        id: 3,
-        text: 'It is a great mitzvah to be happy always',
-        source: 'Likutei Moharan II, 24',
-        author: 'Rabbi Nachman of Breslov'
-      },
-      {
-        id: 4,
-        text: 'Prayer is above every level',
-        source: 'Likutei Moharan I, 2',
-        author: 'Rabbi Nachman of Breslov'
-      },
-      {
-        id: 5,
-        text: 'A person must cross a very narrow bridge, but the rule is not to fear at all',
-        source: 'Likutei Moharan II, 48',
-        author: 'Rabbi Nachman of Breslov'
-      }
-    ],
-
-    // Testimonials - NEW SECTION
-    testimonialsTitle: 'Reader Testimonials',
-    testimonialsSubtitle: 'How our magazine impacts readers\' lives around the world',
-    testimonials: [
       {
         id: 1,
         name: 'Jacob Levy',

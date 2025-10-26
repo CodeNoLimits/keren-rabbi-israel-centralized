@@ -9,7 +9,7 @@ import { InstallPrompt } from "@/components/InstallPrompt";
 import Home from "@/pages/home";
 import Store from "@/pages/store";
 import About from "@/pages/about";
-import Magazine from "@/pages/magazine";
+// import Magazine from "@/pages/magazine"; // Temporairement désactivé pour build
 import Join from "@/pages/join";
 import Contact from "@/pages/contact";
 import Checkout from "@/pages/checkout";
@@ -56,7 +56,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/store" component={Store} />
       <Route path="/about" component={About} />
-      <Route path="/magazine" component={Magazine} />
+      {/* <Route path="/magazine" component={Magazine} /> */}
       <Route path="/join" component={Join} />
       <Route path="/contact" component={Contact} />
       <Route path="/checkout" component={Checkout} />
