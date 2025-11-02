@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Header } from '../components/Header';
-import HilloulaCountdown from '../components/HilloulaCountdown';
+// import HilloulaCountdown from '../components/HilloulaCountdown';
 
 export default function Lottery() {
   const { currentLanguage, setLanguage } = useLanguage();
@@ -143,7 +143,7 @@ export default function Lottery() {
 
       {/* HILLOULA COUNTDOWN */}
       <div style={{maxWidth: '1200px', margin: '0 auto', padding: '2rem'}}>
-        <HilloulaCountdown />
+        {/* <HilloulaCountdown /> */}
       </div>
 
       {/* LOTTERY FORM SECTION */}

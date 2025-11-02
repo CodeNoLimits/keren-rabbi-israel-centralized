@@ -11,6 +11,6 @@ services:
         value: 20
       - key: NODE_ENV
         value: production
-      - key: OPENROUTER_API_KEY
-        value: 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
+      # ⚠️ OPENROUTER_API_KEY doit être ajoutée dans Render Dashboard → Environment
+      # Ne JAMAIS mettre la clé directement ici (serait exposée sur Git)
     healthCheckPath: /api/health

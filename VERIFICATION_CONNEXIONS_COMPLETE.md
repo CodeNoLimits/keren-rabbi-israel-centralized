@@ -436,29 +436,20 @@ Le projet utilise un serveur Express qui sert API + frontend. Pour Netlify:
    - Si préférence Netlify, déployer backend séparément (Railway/Render)
    - Garder Netlify pour frontend statique uniquement
 
-### Priorité 2: Documentation
-1. **Créer `.env.example`**
-   ```bash
-   # Base de données
-   DATABASE_URL=
-   SUPABASE_URL=
-   SUPABASE_SERVICE_ROLE_KEY=
-   VITE_SUPABASE_URL=
-   VITE_SUPABASE_ANON_KEY=
-   
-   # Paiements
-   STRIPE_SECRET_KEY=
-   VITE_STRIPE_PUBLIC_KEY=
-   
-   # Serveur
-   PORT=5000
-   NODE_ENV=development
-   ```
-
-2. **Ajouter script de vérification**
+### Priorité 2: Documentation & Tests
+1. **Script de vérification créé** ✅
    ```bash
    npm run verify:connections
    ```
+   - Vérifie PostgreSQL
+   - Vérifie Supabase
+   - Vérifie Stripe
+   - Vérifie configuration serveur
+   - Génère un rapport avec statut OK/Warning/Error
+
+2. **Variables environnement**
+   - Documentation disponible dans le code source
+   - Les variables sont optionnelles (MVP fonctionne sans)
 
 ### Priorité 3: Tests
 1. **Script de test connexions**

@@ -32,7 +32,7 @@ git rm --cached .env  # Retirer du tracking (mais garder le fichier)
 
 La clé est configurée dans `.env` :
 ```
-OPENROUTER_API_KEY=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
+OPENROUTER_API_KEY=[CLÉ_API_MASQUÉE]
 ```
 
 **Cette clé est utilisée par le serveur pour le chat AI.**

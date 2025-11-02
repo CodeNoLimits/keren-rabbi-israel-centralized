@@ -9,7 +9,7 @@ Ce guide explique comment configurer la clé OpenRouter pour que le chat AI fonc
 ## 🔑 **Clé OpenRouter à Configurer**
 
 ```
-OPENROUTER_API_KEY=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
+OPENROUTER_API_KEY=[CLÉ_API_MASQUÉE]
 ```
 
 **⚠️ IMPORTANT :** Cette clé doit rester **SECRÈTE**. Ne jamais la partager publiquement.
@@ -25,7 +25,7 @@ OPENROUTER_API_KEY=sk-or-v1-e0e551d98df755d9b5c75a1b3c0c8f89a58ed64d8653b0e7a45c
 3. **Site settings** → **Environment variables**
 4. **Add variable** :
    - **Name** : `OPENROUTER_API_KEY`
-   - **Value** : `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`
+   - **Value** : `[CLÉ_API_MASQUÉE]`
    - **Scope** : All scopes (ou Production)
 5. **Cliquer "Deploy"** → **Trigger deploy** → **Deploy site**
 
@@ -45,7 +45,7 @@ OPENROUTER_API_KEY=sk-or-v1-e0e551d98df755d9b5c75a1b3c0c8f89a58ed64d8653b0e7a45c
    ```
 4. **Ajouter** :
    ```
-   OPENROUTER_API_KEY=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
+   OPENROUTER_API_KEY=[CLÉ_API_MASQUÉE]
    ```
 5. **Sauvegarder** (Ctrl+X, Y, Enter)
 6. **Sécuriser** :
@@ -64,7 +64,7 @@ OPENROUTER_API_KEY=sk-or-v1-e0e551d98df755d9b5c75a1b3c0c8f89a58ed64d8653b0e7a45c
 Dans votre fichier de configuration PM2 ou systemd, ajouter :
 
 ```env
-OPENROUTER_API_KEY=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
+OPENROUTER_API_KEY=[CLÉ_API_MASQUÉE]
 ```
 
 ---

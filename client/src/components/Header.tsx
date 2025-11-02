@@ -3,6 +3,7 @@ import { useLocation, Link } from 'wouter';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../hooks/useAuth';
 import { CartWidget } from './CartWidget';
+import { ThemeToggle } from './ThemeToggle';
 import { Menu, X, LogIn, LogOut, User } from 'lucide-react';
 
 interface HeaderProps {
@@ -297,6 +298,9 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
             {t.fire}
           </h2>
 
+          {/* THEME TOGGLE - Modern Dark Mode */}
+          <ThemeToggle />
+
           {/* LANGUAGE SELECTOR - Style bleu/orange */}
           <div className="language-selector" data-testid="language-selector">
             {Object.entries(languageFlags).map(([lang, flag]) => (
@@ -306,6 +310,7 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
                 className={`language-btn ${currentLanguage === lang ? 'active' : ''} transition-all duration-300 hover:scale-125 hover:bg-[#f97316] hover:text-white hover:shadow-xl hover:-translate-y-1 hover:rotate-3 ${currentLanguage === lang ? 'bg-[#1e40af] text-white' : 'bg-white/20 text-[#1e40af] border border-[#1e40af]'}`}
                 data-testid={`button-language-${lang}`}
                 style={{ padding: '0.5rem 0.75rem', borderRadius: '0.5rem' }}
+                aria-label={`Switch to ${lang} language`}
               >
                 <span className="transition-all duration-300 hover:scale-125">{flag}</span>
                 <span className="transition-all duration-300">{lang.toUpperCase()}</span>

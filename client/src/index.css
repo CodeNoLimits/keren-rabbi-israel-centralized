@@ -69,7 +69,7 @@ html, body {
   --gold-breslov-light: #fb923c;
   --gold-breslov-muted: #fed7aa;
   
-  /* Backgrounds & Surfaces - Harmonieux */
+  /* Backgrounds & Surfaces - Harmonieux (Light Mode) */
   --background: hsl(0, 0%, 100%);
   --background-teal: hsl(180, 30%, 98%);
   --background-blue: hsl(210, 30%, 98%);
@@ -109,6 +109,38 @@ html, body {
   
   /* Design System */
   --radius: 0.75rem;
+}
+
+/* Dark Mode - Modern 2025 Trend */
+.dark {
+  /* Backgrounds & Surfaces - Dark Mode */
+  --background: hsl(222, 47%, 11%);
+  --background-teal: hsl(222, 47%, 13%);
+  --background-blue: hsl(222, 47%, 11%);
+  --foreground: hsl(210, 20%, 98%);
+  
+  /* Cards & Containers - Dark */
+  --card: hsl(222, 47%, 13%);
+  --card-foreground: hsl(210, 20%, 98%);
+  --popover: hsl(222, 47%, 13%);
+  --popover-foreground: hsl(210, 20%, 98%);
+  
+  /* Primary Colors - Adjusted for Dark */
+  --primary-foreground: hsl(0, 0%, 98%);
+  
+  /* Secondary & Muted - Dark Mode */
+  --secondary: hsl(222, 47%, 15%);
+  --secondary-foreground: hsl(210, 20%, 98%);
+  --muted: hsl(222, 47%, 18%);
+  --muted-foreground: hsl(210, 15%, 70%);
+  
+  /* Accent & Highlights - Same but adjusted */
+  --accent-foreground: hsl(0, 0%, 98%);
+  
+  /* Borders & Inputs - Dark */
+  --border: hsl(222, 47%, 20%);
+  --input: hsl(222, 47%, 20%);
+  --ring: hsl(210, 85%, 55%);
   
   /* Typography Fonts */
   --font-hebrew: 'Assistant', 'Heebo', 'Noto Sans Hebrew', sans-serif;
@@ -225,7 +257,7 @@ html, body {
   }
 }
 
-/* Accessibility - Reduce motion for users who prefer it */
+/* Accessibility - Enhanced 2025 Best Practices */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -240,9 +272,34 @@ html, body {
   .animate-fade-in-up,
   .animate-slide-in-left,
   .animate-slide-in-right,
-  .animate-scale-in {
+  .animate-scale-in,
+  .gradient-text-modern {
     animation: none !important;
   }
+}
+
+/* Focus Visible for Keyboard Navigation - Accessibility */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip to Content Link - Accessibility */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary-blue);
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  z-index: 10000;
+  border-radius: 0 0 4px 0;
+}
+
+.skip-to-content:focus {
+  top: 0;
 }
 
 /* Mobile Performance Optimizations */

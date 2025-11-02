@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { CartProvider } from "@/contexts/CartContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { InstallPrompt } from "@/components/InstallPrompt";
 import { AmbientMusic } from "@/components/AmbientMusic";
 import Home from "@/pages/home";
@@ -85,14 +86,16 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <LanguageProvider>
-          <CartProvider>
-            <Toaster />
-            <InstallPrompt />
-            <AmbientMusic />
-            <Router />
-          </CartProvider>
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <CartProvider>
+              <Toaster />
+              <InstallPrompt />
+              <AmbientMusic />
+              <Router />
+            </CartProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

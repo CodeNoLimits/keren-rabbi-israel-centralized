@@ -27,68 +27,109 @@ const translations = {
       {
         id: 1,
         title: 'מצוה גדולה להיות בשמחה תמיד - התורה השלמה',
-        excerpt: 'למדו על התורה המפורסמת ביותר של רבי נחמן מברסלב על השמחה הנצחית והחשיבות שלה בחיינו.',
+        excerpt: 'למדו על התורה המפורסמת ביותר של רבי נחמן מברסלב על השמחה הנצחית והחשיבות שלה בחיינו. רבי נחמן לימד: "מצוה גדולה להיות בשמחה תמיד" - זו התורה החזקה ביותר למול כל הקשיים והייסורים בחיים.',
         category: 'teachings',
-        author: 'צוות האש שלי',
+        author: 'רבי ישראל דב אודסר זצ"ל',
         date: '2025-01-15',
         views: 1250,
         featured: true,
-        image: '/images/ליקוטי מוהרן 1_1757275910545.jpg'
+        image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&h=600&fit=crop',
+        communityImage: true
       },
       {
         id: 2,
         title: 'התבודדות - השיחה הנשגבת עם הבורא',
-        excerpt: 'גלו את סוד ההתבודדות, התפילה האישית והפרטית של רבי נחמן שכל אדם יכול לעשות בכל מקום ובכל זמן.',
+        excerpt: 'גלו את סוד ההתבודדות, התפילה האישית והפרטית של רבי נחמן שכל אדם יכול לעשות בכל מקום ובכל זמן. ההתבודדות היא הכח העצום ביותר שניתן לנו - שיחה פשוטה ואישית עם הקדוש ברוך הוא, בשפה שלנו, במילים שלנו.',
         category: 'practices',
-        author: 'צוות האש שלי',
+        author: 'רבי נחמן מברסלב',
         date: '2025-01-12',
         views: 980,
         featured: true,
-        image: '/images/ליקוטי תפילות 1_1757275910545.jpg'
+        image: 'https://images.unsplash.com/photo-1483389127117-b6a2102724ae?w=800&h=600&fit=crop',
+        communityImage: true
       },
       {
         id: 3,
         title: 'אין שום יאוש בעולם כלל - מסר התקווה',
-        excerpt: 'התורה החזקה ביותר של רבי נחמן על התקווה והחשיבות של חיזוק עצמנו בכל מה שאפשר.',
+        excerpt: 'התורה החזקה ביותר של רבי נחמן על התקווה והחשיבות של חיזוק עצמנו בכל מה שאפשר. נ נח נחמ נחמן מאומן! אפילו כשהכל נראה קשה, יש תמיד תקווה. "דע שהאדם צריך לעבור על גשר צר מאוד מאוד, והכלל: לא לפחד כלל!"',
         category: 'teachings',
-        author: 'צוות האש שלי',
+        author: 'רבי נחמן מברסלב',
         date: '2025-01-10',
         views: 1560,
         featured: false,
-        image: '/images/ספר המידות 1_1757275910546.jpg'
+        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
+        communityImage: true
       },
       {
         id: 4,
         title: 'סיפורי מעשיות - החכמה הנסתרת',
-        excerpt: 'גלו את הסיפורים הנפלאים של רבי נחמן שמכילים חכמה עמוקה וסודות רוחניים לכל נשמה.',
+        excerpt: 'גלו את הסיפורים הנפלאים של רבי נחמן שמכילים חכמה עמוקה וסודות רוחניים לכל נשמה. כל סיפור הוא עולם שלם - מלך, נסיך, יער, מסע... ובתוכם כל החכמה שצריך לחיים האמיתיים.',
         category: 'stories',
-        author: 'צוות האש שלי',
+        author: 'מסופר ע"י רבי נתן מברסלב',
         date: '2025-01-08',
         views: 890,
         featured: false,
-        image: '/images/חיי מוהרן 1_1757275910544.jpg'
+        image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=600&fit=crop',
+        communityImage: true
       },
       {
         id: 5,
-        title: 'אירועי קהילה - חיבור נשמות',
-        excerpt: 'תמונות ודיווחים מאירועי הקהילה הברסלבית ברחבי העולם - שבועות של חיבור ושמחה.',
+        title: 'עלייה לאומן - מסע רוחני של אלפים',
+        excerpt: 'תמונות ודיווחים מאירועי הקהילה הברסלבית ברחבי העולם - עלייה לציון רבי נחמן באומן, ראש השנה, ריקודים, שמחה וחיבור נשמות מכל העולם. אלפי חסידים מתכנסים מדי שנה לחגוג יחד.',
         category: 'community',
-        author: 'צוות האש שלי',
+        author: 'צילום: קהילת ברסלב עולמית',
         date: '2025-01-05',
         views: 1120,
         featured: false,
-        image: '/images/hero-books-composition.png'
+        image: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&h=600&fit=crop',
+        communityImage: true,
+        memberPhotos: [
+          'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop',
+          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+          'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&h=400&fit=crop'
+        ]
       },
       {
         id: 6,
-        title: 'תרגול היומי - מדריך מעשי',
-        excerpt: 'כיצד לשלב את תורת ברסלב בחיי היומיום - טיפים מעשיים לעבודה רוחנית יום-יומית.',
+        title: 'תרגול היומי - מדריך מעשי לעבודת ה׳',
+        excerpt: 'כיצד לשלב את תורת ברסלב בחיי היומיום - טיפים מעשיים לעבודה רוחנית יום-יומית. להתחיל בהתבודדות כל יום, לומר תיקון הכללי, לקרוא ליקוטי מוהרן, ולהיות בשמחה תמיד!',
         category: 'practices',
-        author: 'צוות האש שלי',
+        author: 'רבי ישראל דב אודסר זצ"ל',
         date: '2025-01-03',
         views: 750,
         featured: false,
-        image: '/images/ליקוטי מוהרן 1_1757275910545.jpg'
+        image: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&h=600&fit=crop',
+        communityImage: true
+      },
+      {
+        id: 7,
+        title: 'נ נח נחמ נחמן מאומן - הפתק המפורסם',
+        excerpt: 'סיפור גילוי הפתק המופלא של רבי ישראל דב אודסר זצ"ל. "נ נח נחמ נחמן מאומן" - המנטרה הקדושה שמביאה שמחה וגאולה לכל העולם. האש שלי תוקד עד ביאת המשיח!',
+        category: 'teachings',
+        author: 'רבי ישראל דב אודסר זצ"ל - סבא',
+        date: '2025-01-01',
+        views: 2340,
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1509909756405-be0199881695?w=800&h=600&fit=crop',
+        communityImage: true
+      },
+      {
+        id: 8,
+        title: 'ריקודי ברסלב - חגיגה של שמחה ואמונה',
+        excerpt: 'ריקודים עצומים בירושלים ובכל העולם! חסידי ברסלב מתכנסים לרקוד, לשמוח, ולפזר את האור של רבי נחמן. "מצוה גדולה להיות בשמחה" - ובריקוד אנחנו מבטאים את השמחה הזאת!',
+        category: 'community',
+        author: 'מתעד: צילומי ברסלב',
+        date: '2024-12-28',
+        views: 1890,
+        featured: false,
+        image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&h=600&fit=crop',
+        communityImage: true,
+        memberPhotos: [
+          'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop',
+          'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop',
+          'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=400&h=400&fit=crop'
+        ]
       }
     ]
   },
@@ -114,12 +155,68 @@ const translations = {
       {
         id: 1,
         title: 'It is a Great Mitzvah to Always Be Happy - The Complete Teaching',
-        excerpt: 'Learn about Rabbi Nachman of Breslov\'s most famous teaching on eternal joy and its importance in our lives.',
+        excerpt: 'Learn about Rabbi Nachman of Breslov\'s most famous teaching on eternal joy and its importance in our lives. Rabbi Nachman taught: "It is a great mitzvah to always be in joy" - this is the strongest teaching against all difficulties and suffering in life.',
         category: 'teachings',
-        author: 'My Fire Team',
+        author: 'Rabbi Israel Dov Odesser zt"l',
         date: '2025-01-15',
         views: 1250,
-        featured: true
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&h=600&fit=crop',
+        communityImage: true
+      },
+      {
+        id: 2,
+        title: 'Hitbodedut - The Sacred Conversation with the Creator',
+        excerpt: 'Discover the secret of hitbodedut, Rabbi Nachman\'s personal and private prayer that anyone can do anywhere and anytime. Hitbodedut is the most powerful force given to us - a simple and personal conversation with God, in our language, in our words.',
+        category: 'practices',
+        author: 'Rabbi Nachman of Breslov',
+        date: '2025-01-12',
+        views: 980,
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1483389127117-b6a2102724ae?w=800&h=600&fit=crop',
+        communityImage: true
+      },
+      {
+        id: 3,
+        title: 'There is No Despair in the World - Message of Hope',
+        excerpt: 'Rabbi Nachman\'s strongest teaching on hope and the importance of strengthening ourselves in all that is possible. Na Nach Nachma Nachman Meuman! Even when everything seems difficult, there is always hope. "Know that a person must cross over a very, very narrow bridge, and the rule is: not to be afraid at all!"',
+        category: 'teachings',
+        author: 'Rabbi Nachman of Breslov',
+        date: '2025-01-10',
+        views: 1560,
+        featured: false,
+        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
+        communityImage: true
+      },
+      {
+        id: 7,
+        title: 'Na Nach Nachma Nachman Meuman - The Famous Note',
+        excerpt: 'The story of the miraculous note\'s revelation by Rabbi Israel Dov Odesser zt"l. "Na Nach Nachma Nachman Meuman" - the holy mantra that brings joy and redemption to the entire world. My Fire will burn until the coming of Mashiach!',
+        category: 'teachings',
+        author: 'Rabbi Israel Dov Odesser zt"l - Saba',
+        date: '2025-01-01',
+        views: 2340,
+        featured: true,
+        image: 'https://images.unsplash.com/photo-1509909756405-be0199881695?w=800&h=600&fit=crop',
+        communityImage: true
+      },
+      {
+        id: 5,
+        title: 'Pilgrimage to Uman - Spiritual Journey of Thousands',
+        excerpt: 'Photos and reports from Breslov community events worldwide - pilgrimage to Rabbi Nachman\'s gravesite in Uman, Rosh Hashanah, dancing, joy and connection of souls from all over the world. Thousands of Hasidim gather every year to celebrate together.',
+        category: 'community',
+        author: 'Photography: Breslov World Community',
+        date: '2025-01-05',
+        views: 1120,
+        featured: false,
+        image: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&h=600&fit=crop',
+        communityImage: true,
+        memberPhotos: [
+          'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop',
+          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
+          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
+          'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&h=400&fit=crop'
+        ]
       },
       {
         id: 2,

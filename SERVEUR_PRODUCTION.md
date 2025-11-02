@@ -21,7 +21,7 @@ Pour que le chat AI fonctionne sur votre serveur de production (VPS, hébergemen
 
 3. **Ajoutez la clé OpenRouter** :
    ```bash
-   OPENROUTER_API_KEY=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
+   OPENROUTER_API_KEY=[CLÉ_API_MASQUÉE]
    ```
 
 4. **Sauvegardez** le fichier (Ctrl+X, puis Y, puis Enter pour nano)
@@ -46,7 +46,7 @@ Dans votre fichier service (ex: `/etc/systemd/system/haesh-sheli.service`) :
 
 ```ini
 [Service]
-Environment="OPENROUTER_API_KEY=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"
+Environment="OPENROUTER_API_KEY=[CLÉ_API_MASQUÉE]"
 ```
 
 Puis :
@@ -66,7 +66,7 @@ module.exports = {
   apps: [{
     name: 'haesh-sheli',
     env: {
-      OPENROUTER_API_KEY: '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'
+      OPENROUTER_API_KEY: '[CLÉ_API_MASQUÉE]'
     }
   }]
 }
@@ -133,7 +133,7 @@ chown votre-user:votre-user .env
 Si vous utilisez d'autres services, ajoutez aussi dans `.env` :
 
 ```bash
-OPENROUTER_API_KEY=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
+OPENROUTER_API_KEY=[CLÉ_API_MASQUÉE]
 STRIPE_SECRET_KEY=votre-cle-stripe
 VITE_STRIPE_PUBLIC_KEY=votre-cle-stripe-publique
 DATABASE_URL=votre-url-database

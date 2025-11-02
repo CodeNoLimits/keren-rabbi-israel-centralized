@@ -20,7 +20,7 @@ Cliquez sur **Add variable** et ajoutez :
 
 ```
 Variable name: OPENROUTER_API_KEY
-Value: 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
+Value: [CLÉ_API_MASQUÉE]
 Scope: All scopes (ou Production, Staging, Deploy previews selon vos besoins)
 ```
 

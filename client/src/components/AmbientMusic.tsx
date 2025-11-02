@@ -192,7 +192,9 @@ export function AmbientMusic({ playlist }: AmbientMusicProps) {
           <Button
             onClick={toggleMusic}
             size="sm"
-            className={`w-12 h-12 rounded-full shadow-lg transition-all ${
+            aria-label={isPlaying ? 'Pause ambient music' : 'Play ambient music'}
+            aria-pressed={isPlaying}
+            className={`w-12 h-12 rounded-full shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-[#f97316] focus:ring-offset-2 ${
               isPlaying 
                 ? 'bg-gradient-to-r from-[#1e40af] to-[#1e3a8a] hover:from-[#1e3a8a] hover:to-[#1e40af] text-white border border-[#f97316]' 
                 : 'bg-white dark:bg-gray-800 hover:bg-[#1e40af] hover:text-white text-gray-700 dark:text-gray-300 border border-[#1e40af]'
