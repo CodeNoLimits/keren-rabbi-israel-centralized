@@ -106,35 +106,35 @@ export default function Product() {
                 </span>
               </div>
 
-              <h1 style={{fontSize: '2.5rem', fontWeight: 'bold', color: '#333', marginBottom: '1rem'}}>
+              <h1 style={{fontSize: '2.5rem', fontWeight: '700', color: '#1a1a1a', marginBottom: '1rem', lineHeight: '1.3'}}>
                 {getInterfaceDisplayTitle(product, currentLanguage)}
               </h1>
 
-              <div style={{display: 'flex', alignItems: 'center', marginBottom: '1.5rem'}}>
-                <div style={{color: '#ffc107', fontSize: '1.2rem', marginLeft: '0.5rem'}}>
+              <div style={{display: 'flex', alignItems: 'center', marginBottom: '1.5rem', gap: '0.8rem'}}>
+                <div style={{color: '#ffc107', fontSize: '1.3rem'}}>
                   ★★★★★
                 </div>
-                <span style={{color: '#666', fontSize: '0.9rem'}}>{t('ratedOutOf')} (23 {currentLanguage === 'fr' ? 'avis' : currentLanguage === 'en' ? 'reviews' : 'ביקורות'})</span>
+                <span style={{color: '#555', fontSize: '1rem', fontWeight: '500'}}>{t('ratedOutOf')} (23 {currentLanguage === 'fr' ? 'avis' : currentLanguage === 'en' ? 'reviews' : 'ביקורות'})</span>
               </div>
 
-              <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#dc3545', marginBottom: '2rem', maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+              <div style={{fontSize: '2.3rem', fontWeight: '700', color: '#dc3545', marginBottom: '2rem', maxWidth: '100%'}}>
                 <span style={{display: 'inline-block', verticalAlign: 'middle'}}>
                   {currentVariant.price} ₪
                 </span>
                 {currentVariant.originalPrice && (
-                  <span style={{textDecoration: 'line-through', color: '#999', fontSize: '1.5rem', marginRight: '1rem', display: 'inline-block', verticalAlign: 'middle'}}>
+                  <span style={{textDecoration: 'line-through', color: '#999', fontSize: '1.6rem', marginRight: '1rem', display: 'inline-block', verticalAlign: 'middle'}}>
                     {currentVariant.originalPrice} ₪
                   </span>
                 )}
               </div>
 
-              <p style={{fontSize: '1.1rem', color: '#666', lineHeight: '1.6', marginBottom: '2rem'}}>
+              <p style={{fontSize: '1.15rem', color: '#333', lineHeight: '1.8', marginBottom: '2rem', fontWeight: '500'}}>
                 {product.description}
               </p>
 
               {/* VARIANT SELECTION */}
               <div style={{marginBottom: '2rem'}}>
-                <h3 style={{fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#333'}}>
+                <h3 style={{fontSize: '1.3rem', fontWeight: '700', marginBottom: '1.2rem', color: '#222', letterSpacing: '-0.3px'}}>
                   {currentLanguage === 'fr' ? 'Choisissez la taille et la reliure:' :
                    currentLanguage === 'en' ? 'Choose size and binding:' :
                    currentLanguage === 'es' ? 'Elija tamaño y encuadernación:' :
@@ -167,17 +167,17 @@ export default function Product() {
                         style={{margin: 0}}
                       />
                       <div style={{flex: 1}}>
-                        <div style={{fontWeight: 'bold', fontSize: '1rem'}}>
+                        <div style={{fontWeight: '700', fontSize: '1.1rem', color: '#222', marginBottom: '0.3rem'}}>
                           {variant.format} {variant.binding} - {variant.size}
                         </div>
-                        <div style={{fontSize: '0.9rem', color: '#666'}}>
-                          {variant.dimensions} • {variant.volumes === 1 ? 
-                            (currentLanguage === 'fr' ? '1 volume' : currentLanguage === 'en' ? '1 volume' : 'חלק אחד') : 
+                        <div style={{fontSize: '1rem', color: '#555', lineHeight: '1.5', marginBottom: '0.3rem'}}>
+                          {variant.dimensions} • {variant.volumes === 1 ?
+                            (currentLanguage === 'fr' ? '1 volume' : currentLanguage === 'en' ? '1 volume' : 'חלק אחד') :
                             `${variant.volumes} ${currentLanguage === 'fr' ? 'volumes' : currentLanguage === 'en' ? 'volumes' : 'כרכים'}`}
                         </div>
-                        <div style={{fontSize: '0.8rem', color: variant.inStock ? '#28a745' : '#dc3545'}}>
-                          {variant.inStock ? 
-                            (currentLanguage === 'fr' ? 'En stock' : currentLanguage === 'en' ? 'In stock' : 'במלאי') : 
+                        <div style={{fontSize: '0.95rem', fontWeight: '600', color: variant.inStock ? '#28a745' : '#dc3545'}}>
+                          {variant.inStock ?
+                            (currentLanguage === 'fr' ? 'En stock' : currentLanguage === 'en' ? 'In stock' : 'במלאי') :
                             (currentLanguage === 'fr' ? 'Rupture de stock' : currentLanguage === 'en' ? 'Out of stock' : 'אזל מהמלאי')}
                         </div>
                       </div>
@@ -199,7 +199,7 @@ export default function Product() {
               {/* QUANTITY AND ADD TO CART */}
               <div style={{marginBottom: '2rem'}}>
                 <div style={{display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem'}}>
-                  <label style={{fontWeight: 'bold', color: '#333'}}>
+                  <label style={{fontWeight: '700', color: '#222', fontSize: '1.05rem'}}>
                     {currentLanguage === 'fr' ? 'Quantité:' : currentLanguage === 'en' ? 'Quantity:' : currentLanguage === 'es' ? 'Cantidad:' : currentLanguage === 'ru' ? 'Количество:' : 'כמות:'}
                   </label>
                   <div style={{display: 'flex', alignItems: 'center', border: '1px solid #ddd', borderRadius: '5px'}}>
@@ -272,7 +272,7 @@ export default function Product() {
 
               {/* PRODUCT FEATURES */}
               <div style={{marginBottom: '2rem'}}>
-                <h3 style={{fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#333'}}>
+                <h3 style={{fontSize: '1.4rem', fontWeight: '700', marginBottom: '1.5rem', color: '#222', letterSpacing: '-0.3px'}}>
                   {currentLanguage === 'fr' ? 'Caractéristiques spéciales:' :
                    currentLanguage === 'en' ? 'Special features:' :
                    currentLanguage === 'es' ? 'Características especiales:' :
@@ -281,8 +281,8 @@ export default function Product() {
                 </h3>
                 <ul style={{listStyle: 'none', padding: 0}}>
                   {(product.features || []).map((feature, index) => (
-                    <li key={index} style={{marginBottom: '0.5rem', paddingRight: '1.5rem', position: 'relative'}}>
-                      <span style={{position: 'absolute', right: 0, top: 0, color: '#dc3545', fontWeight: 'bold'}}>✓</span>
+                    <li key={index} style={{marginBottom: '0.8rem', paddingRight: '2rem', position: 'relative', fontSize: '1.05rem', color: '#333', lineHeight: '1.6', fontWeight: '500'}}>
+                      <span style={{position: 'absolute', right: 0, top: '0.2rem', color: '#dc3545', fontWeight: 'bold', fontSize: '1.3rem'}}>✓</span>
                       {feature}
                     </li>
                   ))}
@@ -290,19 +290,19 @@ export default function Product() {
               </div>
 
               {/* PRODUCT DETAILS */}
-              <div style={{background: '#f8f9fa', padding: '1.5rem', borderRadius: '8px'}}>
-                <h3 style={{fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#333'}}>
+              <div style={{background: '#f8f9fa', padding: '2rem', borderRadius: '8px', border: '1px solid #e5e7eb'}}>
+                <h3 style={{fontSize: '1.4rem', fontWeight: '700', marginBottom: '1.5rem', color: '#222', letterSpacing: '-0.3px'}}>
                   {currentLanguage === 'fr' ? 'Détails du produit:' :
                    currentLanguage === 'en' ? 'Product details:' :
                    currentLanguage === 'es' ? 'Detalles del producto:' :
                    currentLanguage === 'ru' ? 'Детали продукта:' :
                    'פרטי המוצר:'}
                 </h3>
-                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem', fontSize: '0.9rem'}}>
-                  <div><strong>{currentLanguage === 'fr' ? 'Langue:' : currentLanguage === 'en' ? 'Language:' : currentLanguage === 'es' ? 'Idioma:' : currentLanguage === 'ru' ? 'Язык:' : 'שפה:'}</strong> {product.language}</div>
-                  <div><strong>{currentLanguage === 'fr' ? 'Éditeur:' : currentLanguage === 'en' ? 'Publisher:' : currentLanguage === 'es' ? 'Editor:' : currentLanguage === 'ru' ? 'Издатель:' : 'הוצאה:'}</strong> {product.publisher}</div>
-                  {product.pages && <div><strong>{currentLanguage === 'fr' ? 'Pages:' : currentLanguage === 'en' ? 'Pages:' : currentLanguage === 'es' ? 'Páginas:' : currentLanguage === 'ru' ? 'Страницы:' : 'עמודים:'}</strong> {product.pages}</div>}
-                  {product.isbn && <div><strong>ISBN:</strong> {product.isbn}</div>}
+                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.2rem', fontSize: '1.02rem', lineHeight: '1.8', color: '#333'}}>
+                  <div><strong style={{fontWeight: '600', color: '#222'}}>{currentLanguage === 'fr' ? 'Langue:' : currentLanguage === 'en' ? 'Language:' : currentLanguage === 'es' ? 'Idioma:' : currentLanguage === 'ru' ? 'Язык:' : 'שפה:'}</strong> {product.language}</div>
+                  <div><strong style={{fontWeight: '600', color: '#222'}}>{currentLanguage === 'fr' ? 'Éditeur:' : currentLanguage === 'en' ? 'Publisher:' : currentLanguage === 'es' ? 'Editor:' : currentLanguage === 'ru' ? 'Издатель:' : 'הוצאה:'}</strong> {product.publisher}</div>
+                  {product.pages && <div><strong style={{fontWeight: '600', color: '#222'}}>{currentLanguage === 'fr' ? 'Pages:' : currentLanguage === 'en' ? 'Pages:' : currentLanguage === 'es' ? 'Páginas:' : currentLanguage === 'ru' ? 'Страницы:' : 'עמודים:'}</strong> {product.pages}</div>}
+                  {product.isbn && <div><strong style={{fontWeight: '600', color: '#222'}}>ISBN:</strong> {product.isbn}</div>}
                 </div>
               </div>
             </div>

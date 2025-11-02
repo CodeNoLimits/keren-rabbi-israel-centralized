@@ -1,16 +1,71 @@
+# 🚀 Render.com Configuration - Keren Rabbi Israel
+# Full-stack React + Express + Neon PostgreSQL + Builder.io
+
 services:
+  # 📦 Web Service (Frontend + Backend)
   - type: web
     name: keren-rabbi-israel
     env: node
     region: oregon
     plan: free
-    buildCommand: npm install && npm run build
-    startCommand: npm run start:prod
+    
+    # 🔧 Build & Start
+    buildCommand: cd keren-original-backup && npm install && npm run build
+    startCommand: cd keren-original-backup && npm run start:prod
+    
+    # 🌍 Environment Variables
     envVars:
+      # Node Configuration
       - key: NODE_VERSION
         value: 20
       - key: NODE_ENV
         value: production
-      # ⚠️ OPENROUTER_API_KEY doit être ajoutée dans Render Dashboard → Environment
-      # Ne JAMAIS mettre la clé directement ici (serait exposée sur Git)
+      - key: PORT
+        value: 5000
+      
+      # 🗄️ Database (Neon PostgreSQL)
+      - key: DATABASE_URL
+        sync: false  # À configurer manuellement dans Dashboard
+        # Format: postgresql://user:password@host/database?sslmode=require
+      
+      # 🏗️ Builder.io CMS (B6)
+      - key: PUBLIC_BUILDER_KEY
+        value: 64acbf47412843a9a0fbf6f4c8852e80
+      
+      # 🎨 Optional Services (à configurer si nécessaire)
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: SENDGRID_API_KEY
+        sync: false
+    
+    # ❤️ Health Check
     healthCheckPath: /api/health
+    
+    # 🔄 Auto-Deploy
+    autoDeploy: true
+    
+    # 📝 Build Settings
+    buildFilter:
+      paths:
+        - keren-original-backup/**
+
+# 📚 Documentation
+# 
+# Pour déployer:
+# 1. Connecter le repo GitHub à Render
+# 2. Créer un service "Web Service"
+# 3. Sélectionner la branche de déploiement
+# 4. Render détectera automatiquement ce fichier
+# 5. Ajouter DATABASE_URL dans Environment (Render Dashboard)
+# 
+# DATABASE_URL:
+# Créer une base Neon sur https://console.neon.tech
+# Format: postgresql://[user]:[password]@[host]/[dbname]?sslmode=require
+# 
+# Builder.io:
+# Dashboard: https://builder.io/content
+# API Key déjà configurée: 64acbf47412843a9a0fbf6f4c8852e80

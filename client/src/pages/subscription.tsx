@@ -7,6 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import { CheckCircle, Star, Download, ShoppingCart, Crown, Sparkles } from 'lucide-react';
 import { StripeNotConfiguredFallback } from '@/components/StripeNotConfiguredFallback';
 import { Header } from '@/components/Header';

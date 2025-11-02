@@ -227,11 +227,11 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
         {/* USER ACTIONS */}
         <div className="header-actions">
           {/* WhatsApp Button - Style bleu/orange */}
-          <a 
-            href="https://wa.me/972503515893?text=שלום, אני מעוניין לשמוע עוד על הספרים והמנויים שלכם" 
-            target="_blank" 
+          <a
+            href="https://wa.me/972503515893?text=שלום, אני מעוניין לשמוע עוד על הספרים והמנויים שלכם"
+            target="_blank"
             rel="noopener noreferrer"
-            className="whatsapp-widget transition-all duration-300 hover:scale-110 hover:bg-[#f97316] hover:text-white hover:shadow-xl hover:-translate-y-1 cursor-pointer flex items-center px-3 py-2 rounded-lg bg-gradient-to-r from-[#1e40af] to-[#1e3a8a] text-white border border-[#f97316] shadow-md" 
+            className="whatsapp-widget transition-all duration-300 hover:scale-110 hover:bg-[#f97316] hover:text-white hover:shadow-xl hover:-translate-y-1 cursor-pointer flex items-center px-3 py-2 rounded-lg bg-gradient-to-r from-[#1e40af] to-[#1e3a8a] text-white border border-[#f97316] shadow-md"
             data-testid="button-whatsapp"
             style={{marginRight: currentLanguage === 'he' ? '10px' : '0', marginLeft: currentLanguage !== 'he' ? '10px' : '0'}}
           >
@@ -272,8 +272,8 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
           </div>
 
           {/* Cart Widget - Style bleu/orange */}
-          <div 
-            className="cart-widget transition-all duration-300 hover:scale-110 hover:bg-[#f97316] hover:text-white hover:shadow-xl hover:-translate-y-1 cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-[#1e40af] to-[#1e3a8a] text-white border border-[#f97316] shadow-md" 
+          <div
+            className="cart-widget transition-all duration-300 hover:scale-110 hover:bg-[#f97316] hover:text-white hover:shadow-xl hover:-translate-y-1 cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-[#1e40af] to-[#1e3a8a] text-white border border-[#f97316] shadow-md"
             onClick={() => setIsCartOpen(true)}
             data-testid="button-cart"
           >
@@ -292,7 +292,7 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
               ₪{totalPrice.toFixed(2)}
             </span>
           </div>
-          
+
           {/* Fire Logo - Style bleu/orange */}
           <h2 className="fire-logo transition-all duration-500 hover:scale-125 hover:text-[#f97316] hover:drop-shadow-lg hover:-translate-y-1 hover:rotate-12 bg-gradient-to-r from-[#1e40af] to-[#1e3a8a] text-transparent bg-clip-text font-bold" style={{color: '#1e40af'}} data-testid="text-fire-logo">
             {t.fire}
@@ -300,23 +300,25 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
 
           {/* THEME TOGGLE - Modern Dark Mode */}
           <ThemeToggle />
+        </div>
+      </div>
 
-          {/* LANGUAGE SELECTOR - Style bleu/orange */}
-          <div className="language-selector" data-testid="language-selector">
-            {Object.entries(languageFlags).map(([lang, flag]) => (
-              <button
-                key={lang}
-                onClick={() => onLanguageChange?.(lang)}
-                className={`language-btn ${currentLanguage === lang ? 'active' : ''} transition-all duration-300 hover:scale-125 hover:bg-[#f97316] hover:text-white hover:shadow-xl hover:-translate-y-1 hover:rotate-3 ${currentLanguage === lang ? 'bg-[#1e40af] text-white' : 'bg-white/20 text-[#1e40af] border border-[#1e40af]'}`}
-                data-testid={`button-language-${lang}`}
-                style={{ padding: '0.5rem 0.75rem', borderRadius: '0.5rem' }}
-                aria-label={`Switch to ${lang} language`}
-              >
-                <span className="transition-all duration-300 hover:scale-125">{flag}</span>
-                <span className="transition-all duration-300">{lang.toUpperCase()}</span>
-              </button>
-            ))}
-          </div>
+      {/* LANGUAGE ROW - Centered Language Selector */}
+      <div className="header-language-row">
+        <div className="language-selector" data-testid="language-selector">
+          {Object.entries(languageFlags).map(([lang, flag]) => (
+            <button
+              key={lang}
+              onClick={() => onLanguageChange?.(lang)}
+              className={`language-btn ${currentLanguage === lang ? 'active' : ''} transition-all duration-300 hover:scale-125 hover:bg-[#f97316] hover:text-white hover:shadow-xl hover:-translate-y-1 hover:rotate-3 ${currentLanguage === lang ? 'bg-white text-[#1e40af]' : 'bg-white/20 text-white border border-white/50'}`}
+              data-testid={`button-language-${lang}`}
+              style={{ padding: '0.6rem 0.9rem', borderRadius: '0.5rem', fontWeight: '600' }}
+              aria-label={`Switch to ${lang} language`}
+            >
+              <span className="transition-all duration-300 hover:scale-125">{flag}</span>
+              <span className="transition-all duration-300">{lang.toUpperCase()}</span>
+            </button>
+          ))}
         </div>
       </div>
 

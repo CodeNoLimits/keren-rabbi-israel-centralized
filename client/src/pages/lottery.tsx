@@ -121,8 +121,8 @@ export default function Lottery() {
         setForm({ name: '', email: '', phone: '', donation_amount: '' });
         
         // Tracking
-        if (typeof gtag !== 'undefined') {
-          gtag('event', 'lottery_signup', {
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'lottery_signup', {
             event_category: 'lottery',
             event_label: 'form_submit',
             value: parseInt(form.donation_amount) || 36

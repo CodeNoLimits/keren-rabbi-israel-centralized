@@ -58,8 +58,8 @@ export default function ShareWidget() {
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     
     // Tracking
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'share', {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'share', {
         method: 'whatsapp',
         content_type: 'quote',
         item_id: quoteIndex
