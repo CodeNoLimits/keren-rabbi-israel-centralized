@@ -13,6 +13,16 @@ import { setupAuth, isAuthenticated } from "./replitAuth";
 import newFeaturesRouter from "./newFeatures"; // NEW FEATURES - Newsletter, Reviews, Shiurim, Wishlist
 import { healthCheck } from "./health";
 
+// Helper function to safely check if user is authenticated in both dev and production modes
+function isUserAuthenticated(req: any): boolean {
+  // In production (Replit), use Passport.js isAuthenticated
+  if (typeof req.isAuthenticated === 'function') {
+    return isUserAuthenticated(req);
+  }
+  // In development mode, check if user exists
+  return !!req.user;
+}
+
 // Extend Request interface to include authentication properties
 declare global {
   namespace Express {
@@ -50,6 +60,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Error fetching user:", error);
       res.status(500).json({ message: "Failed to fetch user" });
     }
+  });
+
+  // Development-mode login/logout routes (when Replit auth is disabled)
+  app.get('/api/login', (req, res) => {
+    res.redirect('/');
+  });
+
+  app.get('/api/logout', (req, res) => {
+    res.clearCookie('connect.sid');
+    res.redirect('/');
   });
 
   // Serve attached_assets images directly 
@@ -202,7 +222,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Get user subscription status for discounts
-      const user = req.isAuthenticated() ? req.user : null;
+      const user = isUserAuthenticated(req) ? req.user : null;
       const isSubscriber = user?.isSubscriber || false;
       const subscriberDiscount = isSubscriber ? Math.round(subtotal * 0.05) : 0; // 5% discount for subscribers
       
@@ -390,7 +410,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Check if user owns this order (if authenticated)
-      if (req.isAuthenticated() && order.userId && order.userId !== req.user.id) {
+      if (isUserAuthenticated(req) && order.userId && order.userId !== req.user.id) {
         return res.status(403).json({ message: 'Access denied' });
       }
       
@@ -429,7 +449,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
 
-    if (!req.isAuthenticated()) {
+    if (!isUserAuthenticated(req)) {
       return res.status(401).json({ message: "Authentication required" });
     }
 
@@ -521,7 +541,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
 
-    if (!req.isAuthenticated()) {
+    if (!isUserAuthenticated(req)) {
       return res.status(401).json({ message: "Authentication required" });
     }
 
@@ -568,7 +588,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Get user subscription status
   app.get('/api/user/subscription', async (req, res) => {
-    if (!req.isAuthenticated()) {
+    if (!isUserAuthenticated(req)) {
       return res.status(401).json({ message: "Authentication required" });
     }
 
@@ -790,7 +810,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const response = await chatWithGemini(chatRequest);
 
       // רישום השיחה (אופציונלי)
-      if (req.isAuthenticated() && response.conversationId) {
+      if (isUserAuthenticated(req) && response.conversationId) {
         console.log(`Chat session for user ${req.user.id}: ${response.conversationId}, sentiment: ${sentiment.sentiment}`);
       }
 
@@ -798,7 +818,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...response,
         sentiment,
         timestamp: new Date(),
-        userId: req.isAuthenticated() ? req.user.id : null
+        userId: isUserAuthenticated(req) ? req.user.id : null
       });
 
     } catch (error: any) {
@@ -865,7 +885,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Endpoint לשמירת היסטוריית שיחות (אופציונלי)
   app.post('/api/chat/save-conversation', async (req, res) => {
     try {
-      if (!req.isAuthenticated()) {
+      if (!isUserAuthenticated(req)) {
         return res.status(401).json({ 
           error: 'Authentication required',
           message: 'נדרשת הזדהות לשמירת שיחות.'
@@ -938,7 +958,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({
         ...status,
         message: status.connected 
-          ? "צ'אט עם ChatGPT 4o-mini זמין - שאל כל שאלה על תורת רבי נחמן!"
+          ? "צ'אט עם ChatGPT 4o-mini זמין - שאל כ�� שאלה על תורת רבי נחמן!"
           : "מערכת הצ'אט עם OpenAI אינה זמינה כרגע. אנא צרו קשר עם השירות לקוחות.",
         features: [
           "ChatGPT 4o-mini (OpenAI דרך Open Router)",
@@ -982,7 +1002,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const response = await chatWithOpenAI(chatRequest);
 
       // רישום השיחה (אופציונלי)
-      if (req.isAuthenticated() && response.conversationId) {
+      if (isUserAuthenticated(req) && response.conversationId) {
         console.log(`OpenAI Chat session for user ${req.user.id}: ${response.conversationId}, sentiment: ${sentiment.sentiment}`);
       }
 
@@ -990,7 +1010,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...response,
         sentiment,
         timestamp: new Date(),
-        userId: req.isAuthenticated() ? req.user.id : null,
+        userId: isUserAuthenticated(req) ? req.user.id : null,
         provider: 'openai'
       });
 
@@ -998,7 +1018,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error('OpenAI Chat endpoint error:', error);
       res.status(500).json({ 
         error: 'OpenAI Chat failed',
-        response: 'מצטער, אירעה שגיאה במערכת OpenAI. אנא נסה שוב בעוד רגע.',
+        response: 'מצטער, אירעה שגיאה במ��רכת OpenAI. אנא נסה שוב בעוד רגע.',
         message: 'שגיאה פנימית בשרת הצ\'אט עם OpenAI.'
       });
     }

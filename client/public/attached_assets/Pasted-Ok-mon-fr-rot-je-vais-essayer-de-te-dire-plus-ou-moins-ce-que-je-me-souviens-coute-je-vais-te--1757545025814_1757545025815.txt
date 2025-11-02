@@ -1,0 +1,47 @@
+Ok, mon frérot, je vais essayer de te dire plus ou moins ce que je me souviens.
+
+Écoute, je vais te repasser les fichiers que je t'avais passés parce que je crois qu'il y a plein d'erreurs au niveau des prix déjà. 
+
+Ok, mon petit frérot, alors déjà, ça c'est la première chose que tu dois faire. Ça va être quoi? Ça va être de... 
+
+Attends une minute. On va trouver, t'inquiète. On va trouver. Ne t'inquiète pas, on va trouver. Ne t'inquiète pas. 
+
+Ok. Alors, attends. Écoute, je te repasse déjà plein de documents. Les documents que je te passe maintenant, ce n'est pas pour changer quelque chose. C'est juste pour que tu puisses avoir un peu plus de compréhension du projet. 
+
+Ok, donc je te passe des fichiers que tu avais déjà dans le passé. Voilà, c'est juste quand même pour que tu aies plus de compréhension du projet. Fais attention de ne rien changer par rapport à ces fichiers que je t'envoie maintenant. Ça, c'est important. 
+
+La seule chose que tu vas devoir, oui, toucher de manière à pouvoir prendre ce qu'il faut, c'est les documents DOCS. Donc les PDF, c'est que pour te donner du contexte. 
+
+Ok, mais les documents DOCS que je te donne maintenant, ce sont super importants parce que ceux-là, effectivement, ça va t'aider à compléter les choses : les prix, les spécifications et tout qui n'étaient pas à 100%. 
+
+Il faut que tu fasses aussi que la page de Yaakov soit plus étoffée parce que sinon, on ne comprend rien. 
+
+Brest-Lev-Style, bien sûr, tu le remplis avec notre contenu. Sur la page des téléchargements, qui est très bien pour le moment, je crois que tu pourrais quand même mettre une petite image du livre. 
+
+Tu peux mettre un nom d'utilisateur et un mot de passe qui sera débloqué que quand la personne elle paye un abonnement, par exemple mensuel de 99 shekels. Je ne sais pas comment tu peux implémenter un petit pop-up comme ça. 
+
+Entre temps, tu peux mettre un petit bouton Ok pour développeurs pour qu'on puisse y accéder sans problème. Mais sinon, tu mets un identifiant avec mot de passe pour la personne qui aurait déjà payé 99 shekels parce que sinon, je crois qu'ils ne sont pas d'accord à donner tout ça gratuit. 
+
+Sans ça, maintenant regarde le header, par exemple, dans la page de base. Eh bien, je ne sais pas, il est beau, mais dans la page de la maison, par exemple, tu vois Daft Abate, donc page de la maison, il change un petit peu de forme, il devient difforme et ça, ce n'est pas trop bien. 
+
+Voilà, au niveau donc du magasin, c'est super important que les images correspondent vraiment au titre. Pour la plupart du temps, c'est le cas, mais ce n'est pas toujours le cas quand on rentre sur la page produit. 
+
+Donc, il faut aussi voir vraiment que tous les descriptifs, ils sont exactement comme il faut parce que parfois, les choses, elles ont été inversées. En fait, il faut vraiment que tu revoies chaque titre, chaque prix, chaque description. Sinon, c'est dommage. 
+
+La page sur nous, il y avait un endroit, un checkpoint où est-ce qu'elle était top. Maintenant, je ne sais pas, à propos de nous, sur nous, là, elle est rendue complètement simplifiée. Je n'aime pas du tout. 
+
+Et aussi, le patron, il a dit qu'en fait, le style qu'on a fait, moi j'avais essayé de faire avec un truc qui ressemblait au site original. Selon moi, il faut que tu fasses des recherches très profondes et approfondies pour qu'on puisse éventuellement avoir un site qui soit encore beaucoup plus beau et dynamique, qui se détache un petit peu du style original qu'on avait. 
+
+Peut-être même mettre d'autres photos, etc., ou même générer des images, mais qui sont genre qui prennent vraiment ces photos. Si tu n'as pas la possibilité de le faire ou ça va me coûter trop cher, ne le fais pas. J'en générerai d'autres problèmes. 
+
+Donc pour l'instant, ne change pas ça. Je m'occuperai des photos, au moins que le style, il diffère autant dans son titre et tout. 
+
+Je vais terminer par cela. Il y a un site qui marche bien. Ok, je l'avais déjà donné, je pense, mais bon, on va voir. C'est un site qui marche bien, franchement. Il n'est pas trop beau, on peut faire beaucoup mieux. 
+
+Je vais te le passer, je vais te le coller ici en texte. Il s'appelle NekoDatova.co.il. Bon, je l'ai donné en texte ici. Il y a une erreur au niveau de l'écriture, et bon, il est bien. Du coup, je peux un petit peu t'inspirer des sélections, tout ça et tout, même nous donner des suggestions. 
+
+Mais il faudrait faire un truc genre dynamique comme ça, mais encore beaucoup plus beau, bien sûr, et faire des recherches sur les sites concurrents ou en général pour pouvoir faire un style beaucoup plus beau. 
+
+En tout cas, fais déjà un checkpoint avant de faire un autre parce que les changements, et puis après, je crois qu'on devrait être bon. 
+
+Vas-y, travaille. Je te laisse de manière autonome. 

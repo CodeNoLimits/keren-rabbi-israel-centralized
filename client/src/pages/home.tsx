@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="rtl home page-template-default page page-id-13 wp-custom-logo theme-hello-elementor woocommerce-js elementor-default elementor-kit-5 elementor-page elementor-page-13" style={{direction: currentLanguage === 'he' ? 'rtl' : 'ltr'}}>
       {/* TOP BAR */}
-      <section className="elementor-section elementor-top-section elementor-element elementor-element-ba655d5 elementor-section-full_width elementor-hidden-tablet elementor-hidden-mobile elementor-section-height-default" style={{background: 'hsl(210, 85%, 45%)', color: 'white', padding: '8px 0'}}>
+      <section className="elementor-section elementor-top-section elementor-element elementor-element-ba655d5 elementor-section-full_width elementor-hidden-tablet elementor-hidden-mobile elementor-section-height-default" style={{background: 'hsl(210, 85%, 45%)', color: 'white', padding: '8px 0'}} data-mobile-hidden="true">
         <div className="elementor-container elementor-column-gap-default" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
           <div className="elementor-column elementor-col-33 elementor-top-column">
             <div className="elementor-widget-wrap elementor-element-populated">
@@ -37,15 +37,15 @@ export default function Home() {
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
 
       {/* HERO SECTION */}
-      <section className="hero-gradient animate-fade-in-scale" 
+      <section className="hero-gradient animate-fade-in-scale"
         style={{
           background: `linear-gradient(135deg, hsl(0, 0%, 100%, 0.95) 0%, hsl(210, 85%, 45%, 0.05) 100%), url('/images/hero-books-composition.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
-          color: 'hsl(210, 8%, 25%)', 
-          padding: '8rem 0',
-          minHeight: '90vh',
+          color: 'hsl(210, 8%, 25%)',
+          padding: 'clamp(2rem, 10vw, 8rem) 0',
+          minHeight: 'clamp(60vh, 90vh, 100vh)',
           display: 'flex',
           alignItems: 'center'
         }}>
@@ -53,7 +53,7 @@ export default function Home() {
           <div className="elementor-column elementor-col-100 elementor-top-column elementor-element">
             <div className="elementor-widget-wrap elementor-element-populated">
               <div className="elementor-element elementor-widget elementor-widget-heading" style={{textAlign: 'center'}}>
-                <div className="card-premium animate-scale-in" style={{background: 'rgba(255,255,255,0.95)', padding: '3rem', borderRadius: '15px', backdropFilter: 'blur(10px)', boxShadow: '0 25px 50px -12px hsl(210, 85%, 45%, 0.25)'}}>
+                <div className="card-premium animate-scale-in" style={{background: 'rgba(255,255,255,0.95)', padding: 'clamp(1.5rem, 5vw, 3rem)', borderRadius: '15px', backdropFilter: 'blur(10px)', boxShadow: '0 25px 50px -12px hsl(210, 85%, 45%, 0.25)'}}>
                   <h1 className="heading-oversized text-breslov-gradient" style={{
                     marginBottom: '1.5rem', 
                     lineHeight: '1.1',
@@ -126,7 +126,7 @@ export default function Home() {
                currentLanguage === 'en' ? 'Books of Our Master Rabbi Nachman of Breslov' :
                currentLanguage === 'fr' ? 'Livres de Notre Maître Rabbi Nachman de Breslov' :
                currentLanguage === 'es' ? 'Libros de Nuestro Maestro Rabino Nachman de Breslov' :
-               currentLanguage === 'ru' ? 'Книги Нашего Учителя Рабби Нахмана из Бреслов' : 'ספרי רבנו נחמן מברסלב זצ״ל'}
+               currentLanguage === 'ru' ? 'Книги Нашег�� Учителя Рабби Нахмана из Бреслов' : 'ספרי רבנו נחמן מברסלב זצ״ל'}
             </h2>
             <h3 style={{fontSize: 'var(--heading-4)', fontWeight: '300', color: 'hsl(210, 12%, 55%)', marginBottom: '2rem'}}>
               {currentLanguage === 'he' ? 'עכשיו אונליין' :
@@ -190,7 +190,7 @@ export default function Home() {
                  currentLanguage === 'en' ? 'Got a suitcase? Got a book for the road? Prepare your heart!\n\nRabbi Israel Foundation invites you to enter the raffle of raffles, a flight ticket to the holy tomb of Rabbi Nachman in Uman, the city of longing\n\nAn unforgettable spiritual experience of strength and power!' :
                  currentLanguage === 'fr' ? 'Vous avez une valise? Un livre pour la route? Préparez votre cœur!\n\nLa Fondation Rabbi Israel vous invite à participer au tirage des tirages, un billet d\'avion vers la tombe sainte de Rabbi Nachman à Uman, la ville de l\'aspiration\n\nUne expérience spirituelle inoubliable de force et de puissance!' :
                  currentLanguage === 'es' ? '¿Tienes maleta? ¿Libro para el camino? ¡Prepara tu corazón!\n\nLa Fundación Rabino Israel te invita a participar en el sorteo de sorteos, un boleto de avión a la tumba sagrada del Rabino Nachman en Uman, la ciudad de la añoranza\n\n¡Una experiencia espiritual inolvidable de fortaleza y poder!' :
-                 currentLanguage === 'ru' ? 'Есть чемодан? Есть книга в дорогу? Подготовьте свое сердце!\n\nФонд Рабби Израэля приглашает вас принять участие в розыгрыше розыгрышей, билет на самолет к святой могиле Рабби Нахмана в Умани, городе тоски\n\nНезабываемый духовный опыт силы и мощи!' : 'מזוודה יש? ספר לדרך יש? תכינו את הלב!\n\nקרן רבי ישראל מזמינה אתכם להכנס להגרלת ההגרלות, כרטיס טיסה לציונו הקדוש של רבי נחמן באומן, עיר הגעגועים\n\nחוויה רוחנית בלתי נשכחת של תעצומות וכח!'}
+                 currentLanguage === 'ru' ? 'Есть чемодан? Есть книга в дорогу? Подготовьте свое сердце!\n\nФонд Рабби Израэля приглашает вас принять участие в розыгрыше розыгрышей, билет на самолет к святой могиле Рабби Нахман�� в Умани, городе тоски\n\nНезабываемый духовный опыт силы и мощи!' : 'מזוודה יש? ספר לדרך יש? תכינו את הלב!\n\nקרן רבי ישראל מזמינה אתכם להכנס להגרלת ההגרלות, כרטיס טיסה לציונו הקדוש של רבי נחמן באומן, עיר הגעגועים\n\nחוויה רוחנית בלתי נשכחת של תעצומות וכח!'}
               </p>
               
               <div style={{marginBottom: '2rem'}}>
@@ -225,7 +225,7 @@ export default function Home() {
                           (step === 1 ? 'מבצעים רכישה באתר.' :
                            step === 2 ? 'שולחים את פרטים עם מספר ההזמנה' :
                            step === 3 ? 'ונכנסים להגרלה הגדולה.' :
-                           'מחכים לזכייה הגדולה, ולחוויות הרוחניות באומן!') :
+                           'מחכים לזכייה הגדולה, ול��וויות הרוחניות באומן!') :
                          currentLanguage === 'en' ? 
                           (step === 1 ? 'Make a purchase on the site.' :
                            step === 2 ? 'Send details with order number' :
@@ -357,7 +357,7 @@ export default function Home() {
                    currentLanguage === 'en' ? 'Opportunity to win specially crafted artistic leather Rabbenu books' :
                    currentLanguage === 'fr' ? 'Opportunité de gagner des livres de Rabbenu en cuir artistique spécialement conçus' :
                    currentLanguage === 'es' ? 'Oportunidad de ganar libros de Rabbenu de cuero artístico especialmente elaborados' :
-                   currentLanguage === 'ru' ? 'Возможность выиграть специально изготовленные книги Раббену из художественной кожи' : 'אפשרות לזכות ספרי רבינו מעור אומנותי במיוחד'}
+                   currentLanguage === 'ru' ? 'Возможность выиграть специально изготовленные книги Раббену из художественной кожи' : 'אפשרות לזכות ספרי רבינו מעו�� אומנותי במיוחד'}
                 </p>
               </div>
               
@@ -756,7 +756,7 @@ export default function Home() {
                currentLanguage === 'en' ? 'Receive daily updates, exciting experiences and spiritual strengthening' :
                currentLanguage === 'fr' ? 'Recevez des mises à jour quotidiennes, des expériences passionnantes et un renforcement spirituel' :
                currentLanguage === 'es' ? 'Recibe actualizaciones diarias, experiencias emocionantes y fortalecimiento espiritual' :
-               currentLanguage === 'ru' ? 'Получайте ежедневные обновления, захватывающие впечатления и духовное укрепление' : 'קבלו עדכונים יומיים, חוויות מרגשות וחיזוק רוחני'}
+               currentLanguage === 'ru' ? 'Получайте ежедневные обновления, захватывающие впечатлени�� и духовное укрепление' : 'קבלו עדכונים יומיים, חוויות מרגשות וחיזוק רוחני'}
             </p>
             
             <div style={{display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap'}}>

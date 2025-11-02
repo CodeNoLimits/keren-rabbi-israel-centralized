@@ -1,0 +1,38 @@
+# Render.com Configuration - Keren Rabbi Israel
+# Deploy full-stack React + Express app
+
+services:
+  # Web Service (Frontend + Backend)
+  - type: web
+    name: keren-rabbi-israel
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+    healthCheckPath: /api/health
+
+  # PostgreSQL Database (optionnel - si pas Supabase)
+  # - type: pserv
+  #   name: keren-rabbi-israel-db
+  #   env: docker
+  #   plan: free
+  #   disk:
+  #     name: postgres-data
+  #     mountPath: /var/lib/postgresql/data
+  #     sizeGB: 1

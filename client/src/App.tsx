@@ -66,6 +66,7 @@ function Router() {
       <Route path="/subscription/manage" component={SubscriptionManagement} />
       <Route path="/product/:id" component={Product} />
       <Route path="/breslov-wisdom" component={BreslovWisdom} />
+      <Route path="/breslov-videos" component={BreslovVideos} />
       <Route path="/keren-style" component={KerenStyle} />
       <Route path="/haesh-hype" component={HaeshHype} />
       <Route path="/chat" component={Chat} />
