@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 
 export default defineConfig({
+  base: "/",
   plugins: [
     react(),
   ],
@@ -18,6 +19,7 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
   },
+  publicDir: path.resolve(import.meta.dirname, "client", "public"),
   server: {
     fs: {
       strict: true,
