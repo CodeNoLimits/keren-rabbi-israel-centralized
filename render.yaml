@@ -10,8 +10,8 @@ services:
     plan: free
     
     # 🔧 Build & Start
-    buildCommand: cd keren-original-backup && npm install && npm run build
-    startCommand: cd keren-original-backup && npm run start:prod
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
     
     # 🌍 Environment Variables
     envVars:
@@ -48,10 +48,8 @@ services:
     # 🔄 Auto-Deploy
     autoDeploy: true
     
-    # 📝 Build Settings
-    buildFilter:
-      paths:
-        - keren-original-backup/**
+    # 📝 Build Settings (auto-detect all changes)
+    # buildFilter not needed since we're at project root
 
 # 📚 Documentation
 # 
