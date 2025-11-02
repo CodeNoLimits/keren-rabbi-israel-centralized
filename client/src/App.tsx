@@ -52,6 +52,7 @@ import YaakovDashboard from "@/pages/yaaakov";
 import Chat from "@/pages/chat";
 import Lottery from "@/pages/lottery";
 import LotteryAdmin from "@/pages/lottery-admin";
+import Hilloula from "@/pages/hilloula-2024";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -76,6 +77,7 @@ function Router() {
       <Route path="/chat" component={Chat} />
       <Route path="/lottery" component={Lottery} />
       <Route path="/lottery/admin" component={LotteryAdmin} />
+      <Route path="/hilloula-2024" component={Hilloula} />
       <Route path="/yaaakov" component={YaakovDashboard} />
       <Route component={NotFound} />
     </Switch>
