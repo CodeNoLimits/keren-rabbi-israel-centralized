@@ -8,9 +8,8 @@ import memoize from "memoizee";
 import connectPg from "connect-pg-simple";
 import { storage } from "./storage";
 
-if (!process.env.REPLIT_DOMAINS) {
-  throw new Error("Environment variable REPLIT_DOMAINS not provided");
-}
+// Check if we're running on Replit - if not, we'll skip auth setup for development
+const IS_REPLIT = !!process.env.REPLIT_DOMAINS;
 
 const getOidcConfig = memoize(
   async () => {
@@ -67,6 +66,12 @@ async function upsertUser(
 }
 
 export async function setupAuth(app: Express) {
+  // Skip auth setup if not on Replit (for local development)
+  if (!IS_REPLIT) {
+    console.log("⚠️  Replit auth not configured. Running in development mode without authentication.");
+    return;
+  }
+
   app.set("trust proxy", 1);
   app.use(getSession());
   app.use(passport.initialize());
@@ -128,6 +133,11 @@ export async function setupAuth(app: Express) {
 }
 
 export const isAuthenticated: RequestHandler = async (req, res, next) => {
+  // Skip authentication check in development mode (non-Replit)
+  if (!IS_REPLIT) {
+    return next();
+  }
+
   const user = req.user as any;
 
   if (!req.isAuthenticated() || !user.expires_at) {

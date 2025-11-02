@@ -39,6 +39,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Auth routes - required for Replit Auth
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
     try {
+      // In development mode without auth, req.user is undefined
+      if (!req.user || !req.user.claims) {
+        return res.status(401).json({ message: "Not authenticated" });
+      }
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
       res.json(user);
@@ -949,7 +953,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         connected: false, 
         error: 'OpenAI status check failed',
-        message: "מערכת הצ'אט עם OpenAI אינה זמינה כרגע. אנא צרו קשר עם השירות לקוחות."
+        message: "מערכת הצ'אט עם OpenAI אינה ��מינה כרגע. אנא צרו קשר עם השירות לקוחות."
       });
     }
   });

@@ -12,3 +12,5 @@ attached_assets/*.pdf
 !attached_assets/*.jpg
 !attached_assets/*.csv
 !attached_assets/*.md
+# Local Netlify folder
+.netlify

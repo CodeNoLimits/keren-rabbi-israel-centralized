@@ -1,13 +1,55 @@
-# 🤖 CURSOR - LIRE AVANT DE MODIFIER
+# 🤖 CURSOR - INSTRUCTIONS PERMANENTES (555)
+
+## 🛠️ WORKFLOW OPTIMAL - AMÉLIORATION INCRÉMENTALE
+
+**TL;DR**: Pour améliorer rapidement le site : **Cursor** (édition rapide) + **Builder.io** (no-code marketing) + **Claude Code** (backend). Workflow 3 phases parallèles.
+
+**QUICK WIN**: Site amélioré en 48h = Prêt pour Hilloula = 50K₪ donations jour 1
+
+---
+
+## 🎯 CHOIX DES OUTILS PAR TÂCHE
+
+### Phase 1 : CONTENU & VISUEL → **CURSOR** (IMMÉDIAT)
+```bash
+# Actions prioritaires :
+1. Corriger les textes dans les composants
+2. Ajuster les prix dans /data/products.json  
+3. Fixer les images manquantes
+4. Ajouter traductions manquantes
+```
+
+### Phase 2 : PAGES MARKETING → **BUILDER.IO** (EN PARALLÈLE)
+- /hilloula-2024 (landing page événement)
+- /testimonials (témoignages visuels)
+- /lottery (page dédiée loterie)
+- /magazine (section blog/actus)
+
+### Phase 3 : BACKEND & LOGIQUE → **CLAUDE CODE** (APRÈS TESTS)
+- API loterie (Supabase + webhooks)
+- Système de points fidélité
+- Emails automatiques
+- Dashboard admin
+
+---
+
+## 📋 ORDRE D'EXÉCUTION OPTIMAL
+
+1. **MAINTENANT** → Cursor : Fix catalogue + prix
+2. **+2h** → Builder.io : Page Hilloula  
+3. **+4h** → Claude Code : API loterie
+4. **+6h** → Cursor : Intégration finale
+5. **+8h** → Tests complets
+6. **+24h** → Go live!
+
+**Conseil**: Commence par Cursor pour les fixes rapides, c'est le plus urgent.
+
+---
 
 ## ⚠️ CHANGEMENTS RÉCENTS PAR CLAUDE CODE
 
 **Date :** 20 Octobre 2025
 **Fichier détails :** `.cursor/claude-changes.md` et `TRAVAIL_EFFECTUE_CLAUDE.md`
-
----
-
-## 🚨 FICHIERS MODIFIÉS RÉCEMMENT
 
 ### Fichiers créés par Claude (NOUVEAUX) :
 - `server/newFeatures.ts` - 11 nouveaux endpoints API
@@ -21,7 +63,7 @@
 
 ---
 
-## ✅ AVANT DE MODIFIER CES FICHIERS
+## ✅ AVANT DE MODIFIER
 
 1. Lire `.cursor/claude-changes.md` pour comprendre les changements
 2. Vérifier `git status` pour voir l'état actuel
@@ -55,7 +97,14 @@
 Voir fichiers pour détails complets :
 - `TRAVAIL_EFFECTUE_CLAUDE.md` - Résumé exhaustif
 - `.cursor/claude-changes.md` - Guide pour Cursor
+- `WORKFLOW_OPTIMAL_48H.md` - Workflow détaillé 48h
 
 ---
 
+**URL du site:** https://keren-cursor.netlify.app (nom Netlify: "Keren Cursor")
+
 **100% rétrocompatible - Rien n'a été cassé**
+
+נ נח נחמ נחמן מאומן ✨
+
+Marqueur: 555
