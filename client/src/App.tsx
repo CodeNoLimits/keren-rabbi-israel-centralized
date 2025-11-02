@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { InstallPrompt } from "@/components/InstallPrompt";
+import { AmbientMusic } from "@/components/AmbientMusic";
 import Home from "@/pages/home";
 import Store from "@/pages/store";
 import About from "@/pages/about";
@@ -48,6 +49,8 @@ import Subscription from "@/pages/subscription";
 import SubscriptionManagement from "@/pages/subscription-management";
 import YaakovDashboard from "@/pages/yaaakov";
 import Chat from "@/pages/chat";
+import Lottery from "@/pages/lottery";
+import LotteryAdmin from "@/pages/lottery-admin";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -70,6 +73,8 @@ function Router() {
       <Route path="/keren-style" component={KerenStyle} />
       <Route path="/haesh-hype" component={HaeshHype} />
       <Route path="/chat" component={Chat} />
+      <Route path="/lottery" component={Lottery} />
+      <Route path="/lottery/admin" component={LotteryAdmin} />
       <Route path="/yaaakov" component={YaakovDashboard} />
       <Route component={NotFound} />
     </Switch>
@@ -84,6 +89,7 @@ function App() {
           <CartProvider>
             <Toaster />
             <InstallPrompt />
+            <AmbientMusic />
             <Router />
           </CartProvider>
         </LanguageProvider>

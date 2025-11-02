@@ -1,5 +1,7 @@
 import { Header } from '../components/Header';
 import { useLanguage } from '../contexts/LanguageContext';
+// import HilloulaCountdown from '../components/HilloulaCountdown';
+// import ShareWidget from '../components/ShareWidget';
 
 export default function Home() {
   const { currentLanguage, setLanguage } = useLanguage();
@@ -35,6 +37,11 @@ export default function Home() {
       </section>
 
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
+
+      {/* HILLOULA COUNTDOWN BANNER */}
+      <div style={{maxWidth: '1200px', margin: '0 auto', padding: '2rem'}}>
+        {/* <HilloulaCountdown /> */}
+      </div>
 
       {/* HERO SECTION */}
       <section className="hero-gradient animate-fade-in-scale"
@@ -786,6 +793,11 @@ export default function Home() {
                 </a>
               ))}
             </div>
+          </div>
+          
+          {/* WHATSAPP SHARE WIDGET */}
+          <div style={{marginTop: '3rem'}}>
+            {/* <ShareWidget /> */}
           </div>
         </div>
       </section>

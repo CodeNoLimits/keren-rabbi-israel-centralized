@@ -9,6 +9,7 @@ import {
   Send, 
   MessageCircle,
   CheckCircle,
+  AlertCircle,
   BookOpen,
   Heart,
   Users,
@@ -501,14 +502,34 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus('');
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || result.error || 'שגיאה בשליחת ההודעה');
+      }
+
+      // Success!
       setSubmitStatus('success');
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      setTimeout(() => setSubmitStatus(''), 8000);
+    } catch (error: any) {
+      console.error('Contact form error:', error);
+      setSubmitStatus('error');
       setTimeout(() => setSubmitStatus(''), 5000);
-    }, 1500);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -571,6 +592,16 @@ export default function Contact() {
                     <h3 className="font-semibold text-success-green">{t.thankYou}</h3>
                   </div>
                   <p className="text-success-green/80 text-sm">{t.thankYouDescription}</p>
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="bg-destructive/10 border border-destructive/20 rounded-xl p-6 mb-8 animate-fade-in-scale" data-testid="error-message">
+                  <div className="flex items-center gap-3 mb-2">
+                    <AlertCircle className="w-6 h-6 text-destructive" />
+                    <h3 className="font-semibold text-destructive">{t.errorMessage}</h3>
+                  </div>
+                  <p className="text-destructive/80 text-sm">{t.errorMessage}</p>
                 </div>
               )}
 

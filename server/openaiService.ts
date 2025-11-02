@@ -30,10 +30,12 @@ export interface ChatResponse {
  */
 export async function chatWithOpenAI(request: ChatRequest): Promise<ChatResponse> {
   try {
-    if (!process.env.OPENAI_API_KEY) {
+    // Utiliser OpenRouter API Key si disponible, sinon OpenAI API Key
+    const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
+    if (!apiKey) {
       return {
         response: "מצטער, מערכת הצ'אט אינה זמינה כרגע. אנא צרו קשר עם השירות לקוחות.",
-        error: "OPENAI_API_KEY not configured"
+        error: "API_KEY not configured (OPENROUTER_API_KEY or OPENAI_API_KEY required)"
       };
     }
 
@@ -78,7 +80,7 @@ export async function chatWithOpenAI(request: ChatRequest): Promise<ChatResponse
     const response = await fetch(`${OPENROUTER_API_URL}/chat/completions`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
+        "Authorization": `Bearer ${apiKey}`,
         "Content-Type": "application/json",
         "HTTP-Referer": "https://haesh-sheli.co.il",
         "X-Title": "HaEsh Sheli Chat System"

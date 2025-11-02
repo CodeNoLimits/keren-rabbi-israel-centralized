@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Header } from '../components/Header';
 import { useLanguage } from '../contexts/LanguageContext';
+import { Link } from 'wouter';
 import { Users, BookOpen, Award, Globe, Heart, Target, Zap, Star, ChevronRight, Mail, Download, Clock, Lightbulb, Shield, Code } from 'lucide-react';
 import heroBooks from '@assets/hero-books-composition.png';
 
@@ -826,8 +827,8 @@ export default function About() {
     <div className="min-h-screen bg-background" style={{ direction: isRTL ? 'rtl' : 'ltr' }}>
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
       
-      {/* Hero Section */}
-      <section className="hero-gradient relative overflow-hidden py-20 lg:py-32" data-testid="hero-section">
+      {/* Hero Section - Fix z-index pour éviter images dans header */}
+      <section className="hero-gradient relative overflow-hidden py-20 lg:py-32" style={{ position: 'relative', zIndex: 1, marginTop: '0', paddingTop: '120px' }} data-testid="hero-section">
         <div className="hero-overlay absolute inset-0"></div>
         {/* Background Image */}
         <div className="absolute inset-0 opacity-10">
@@ -849,22 +850,22 @@ export default function About() {
               {t.heroDescription}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
+              <Link 
                 href="/contact" 
                 className="btn-breslov-primary inline-flex items-center gap-2"
                 data-testid="hero-cta-primary"
               >
                 <Mail className="w-5 h-5" />
                 {t.heroCtaPrimary}
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href="/downloads" 
                 className="btn-breslov-secondary inline-flex items-center gap-2"
                 data-testid="hero-cta-secondary"
               >
                 <Download className="w-5 h-5" />
                 {t.heroCtaSecondary}
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -1196,7 +1197,7 @@ export default function About() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
+              <Link 
                 href="/store" 
                 className="bg-background text-primary px-8 py-4 rounded-xl font-semibold hover:bg-background/90 transition-all duration-300 inline-flex items-center gap-2 hover:scale-105 hover:shadow-2xl"
                 data-testid="cta-button-primary"
@@ -1204,8 +1205,8 @@ export default function About() {
                 <ChevronRight className="w-5 h-5" />
                 {t.ctaButtonPrimary}
                 <span className="text-xl">🔥</span>
-              </a>
-              <a 
+              </Link>
+              <Link 
                 href="/contact" 
                 className="border-2 border-background text-background px-8 py-4 rounded-xl font-semibold hover:bg-background hover:text-primary transition-all duration-300 inline-flex items-center gap-2 hover:scale-105 hover:shadow-2xl"
                 data-testid="cta-button-secondary"
@@ -1213,7 +1214,7 @@ export default function About() {
                 <Mail className="w-5 h-5" />
                 {t.ctaButtonSecondary}
                 <span className="text-xl">💬</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

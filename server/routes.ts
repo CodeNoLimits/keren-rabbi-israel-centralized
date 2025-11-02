@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import express from "express";
 import path from "path";
+import fs from "fs";
 import { fileURLToPath } from "url";
 import Stripe from "stripe";
 import { User } from "@shared/schema";
@@ -12,6 +13,8 @@ import { chatWithOpenAI, chatWithOpenAIStream, checkOpenAIConnection, analyzeUse
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import newFeaturesRouter from "./newFeatures"; // NEW FEATURES - Newsletter, Reviews, Shiurim, Wishlist
 import { healthCheck } from "./health";
+import { supa, createLotteryEntry, getLotteryEntries, getDraws, createDraw, getLotteryEntryById } from "./lib/supabase";
+import { z } from "zod";
 
 // Helper function to safely check if user is authenticated in both dev and production modes
 function isUserAuthenticated(req: any): boolean {
@@ -72,19 +75,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.redirect('/');
   });
 
-  // Serve attached_assets images directly 
-  const attachedAssetsPath = path.resolve(process.cwd(), 'attached_assets');
+  // Serve attached_assets images directly from multiple locations
+  // Priority: 1) dist/public/attached_assets (for prod), 2) client/public/attached_assets (for dev), 3) attached_assets/ (root fallback)
+  const distPublicAssets = path.resolve(process.cwd(), 'dist', 'public', 'attached_assets');
+  const clientPublicAssets = path.resolve(process.cwd(), 'client', 'public', 'attached_assets');
+  const rootAssets = path.resolve(process.cwd(), 'attached_assets');
   
-  app.use('/attached_assets', express.static(attachedAssetsPath, {
-    setHeaders: (res, filePath) => {
-      res.setHeader('Cache-Control', 'public, max-age=31536000');
-      if (filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')) {
-        res.setHeader('Content-Type', 'image/jpeg');
-      } else if (filePath.endsWith('.png')) {
-        res.setHeader('Content-Type', 'image/png');
+  // Create middleware that checks multiple locations
+  app.use('/attached_assets', (req, res, next) => {
+    // Remove /attached_assets prefix and get the file name
+    const fileName = req.path.startsWith('/attached_assets/') 
+      ? req.path.replace('/attached_assets/', '')
+      : req.path.replace('/attached_assets', '');
+    
+    if (!fileName || fileName === '/') {
+      return next();
+    }
+    
+    // Try to find file in priority order
+    const searchPaths = [distPublicAssets, clientPublicAssets, rootAssets];
+    
+    for (const searchPath of searchPaths) {
+      const filePath = path.join(searchPath, fileName);
+      
+      if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+        // Set appropriate headers
+        if (fileName.endsWith('.jpg') || fileName.endsWith('.jpeg')) {
+          res.setHeader('Content-Type', 'image/jpeg');
+        } else if (fileName.endsWith('.png')) {
+          res.setHeader('Content-Type', 'image/png');
+        } else if (fileName.endsWith('.webp')) {
+          res.setHeader('Content-Type', 'image/webp');
+        }
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+        return res.sendFile(filePath);
       }
     }
-  }));
+    
+    // File not found, let Vite handle it (for dev mode) or return 404
+    next();
+  });
 
   // Subscription Plans API
   app.get("/api/subscription-plans", async (req, res) => {
@@ -1105,8 +1135,375 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Contact Form Endpoint
+  app.post('/api/contact', async (req, res) => {
+    try {
+      const { name, email, phone, subject, message } = req.body;
+
+      // Validate required fields
+      if (!name || !email || !subject || !message) {
+        return res.status(400).json({
+          error: 'Missing required fields',
+          message: 'אנא מלא את כל השדות הנדרשים'
+        });
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        return res.status(400).json({
+          error: 'Invalid email format',
+          message: 'כתובת האימייל אינה תקינה'
+        });
+      }
+
+      // Store contact message in database (if storage has contact methods)
+      // For now, we'll just log it and send email
+      const contactData = {
+        name,
+        email,
+        phone: phone || '',
+        subject,
+        message,
+        timestamp: new Date(),
+        ip: req.ip || req.connection.remoteAddress
+      };
+
+      console.log('Contact form submission:', contactData);
+
+      // Try to send confirmation email to user (if email service is configured)
+      let emailSent = false;
+      if (process.env.SENDGRID_API_KEY) {
+        try {
+          const { sendEmail } = await import('./emailService');
+          const userEmailSent = await sendEmail({
+            to: email,
+            from: process.env.FROM_EMAIL || 'contact@haesh-sheli.co.il',
+            subject: `תודה על פנייתך: ${subject}`,
+            html: `
+              <div dir="rtl" style="font-family: Arial, sans-serif; padding: 20px;">
+                <h2>שלום ${name},</h2>
+                <p>תודה על פנייתך! קיבלנו את ההודעה שלך וניצור איתך קשר בהקדם.</p>
+                <p><strong>נושא:</strong> ${subject}</p>
+                <p><strong>תוכן ההודעה:</strong></p>
+                <p>${message.replace(/\n/g, '<br>')}</p>
+                <p>בברכה,<br>צוות האש שלי</p>
+              </div>
+            `
+          });
+
+          // Also notify admin (optional)
+          if (process.env.ADMIN_EMAIL) {
+            await sendEmail({
+              to: process.env.ADMIN_EMAIL,
+              from: process.env.FROM_EMAIL || 'contact@haesh-sheli.co.il',
+              subject: `פנייה חדשה: ${subject}`,
+              html: `
+                <div dir="rtl" style="font-family: Arial, sans-serif; padding: 20px;">
+                  <h2>פנייה חדשה מאתר</h2>
+                  <p><strong>שם:</strong> ${name}</p>
+                  <p><strong>אימייל:</strong> ${email}</p>
+                  <p><strong>טלפון:</strong> ${phone || 'לא צוין'}</p>
+                  <p><strong>נושא:</strong> ${subject}</p>
+                  <p><strong>תוכן:</strong></p>
+                  <p>${message.replace(/\n/g, '<br>')}</p>
+                </div>
+              `
+            });
+          }
+          
+          emailSent = userEmailSent;
+        } catch (emailError) {
+          console.error('Email sending error (non-critical):', emailError);
+          // Continue even if email fails - the form submission is still logged
+        }
+      }
+
+      // Always return success - the form submission is logged even if email fails
+      res.json({
+        success: true,
+        message: 'ההודעה נשלחה בהצלחה! נחזור אליכם בהקדם.',
+        emailSent: emailSent
+      });
+
+    } catch (error: any) {
+      console.error('Contact form error:', error);
+      res.status(500).json({
+        error: 'Failed to send message',
+        message: 'אירעה שגיאה בשליחת ההודעה. אנא נסו שוב מאוחר יותר.'
+      });
+    }
+  });
+
   // NEW FEATURES ROUTES - Newsletter, Reviews, Shiurim, Wishlist
   app.use('/api', newFeaturesRouter);
+
+  // ===========================================
+  // LOTTERY API ROUTES
+  // Marqueur: 555
+  // ===========================================
+
+  // Helper function pour Basic Auth (admin lottery)
+  function verifyBasicAuth(req: Request): boolean {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Basic ')) {
+      return false;
+    }
+
+    const credentials = Buffer.from(authHeader.slice(6), 'base64').toString('utf-8');
+    const [username, password] = credentials.split(':');
+
+    const adminUser = process.env.LOTTERY_ADMIN_USER || 'admin';
+    const adminPass = process.env.LOTTERY_ADMIN_PASS || 'admin';
+
+    return username === adminUser && password === adminPass;
+  }
+
+  // Schema validation pour inscription loterie
+  const LotteryJoinSchema = z.object({
+    name: z.string().min(2, 'Le nom doit contenir au moins 2 caractères'),
+    email: z.string().email('Email invalide'),
+    phone: z.string().min(3).optional(),
+    donation_amount: z.string().optional(),
+  });
+
+  // API: Inscription à la loterie (POST /api/lottery/join)
+  app.post('/api/lottery/join', async (req, res) => {
+    try {
+      if (!supa) {
+        return res.status(503).json({
+          ok: false,
+          error: 'La loterie n\'est pas configurée. Veuillez contacter le support.',
+          message: 'מערכת הלוטו אינה מופעלת כרגע.'
+        });
+      }
+
+      const data = LotteryJoinSchema.parse(req.body);
+
+      const insertData: any = {
+        email: data.email,
+        name: data.name,
+        source: 'form',
+      };
+
+      if (data.phone) insertData.phone = data.phone;
+      if (data.donation_amount) {
+        insertData.metadata = { donation_amount: data.donation_amount };
+      }
+
+      const entry = await createLotteryEntry(insertData);
+
+      res.json({
+        ok: true,
+        message: 'Inscription enregistrée avec succès !',
+        entryId: entry.id
+      });
+
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          ok: false,
+          error: error.errors[0].message
+        });
+      }
+
+      // Vérifier si c'est une erreur de duplicate (email déjà inscrit)
+      if (error?.code === '23505' || error?.message?.includes('duplicate')) {
+        return res.status(400).json({
+          ok: false,
+          error: 'Cet email est déjà inscrit à la loterie.',
+          message: 'כתובת האימייל כבר רשומה בלוטו.'
+        });
+      }
+
+      console.error('Lottery join error:', error);
+      res.status(500).json({
+        ok: false,
+        error: 'Erreur serveur lors de l\'inscription.',
+        message: 'שגיאה בשרת. אנא נסה שוב מאוחר יותר.'
+      });
+    }
+  });
+
+  // API: Liste des participants (GET /api/lottery/entries) - Admin uniquement
+  app.get('/api/lottery/entries', async (req, res) => {
+    try {
+      if (!verifyBasicAuth(req)) {
+        return res.status(401).json({
+          ok: false,
+          error: 'Non autorisé. Authentification requise.'
+        });
+      }
+
+      if (!supa) {
+        return res.status(503).json({
+          ok: false,
+          error: 'La loterie n\'est pas configurée.'
+        });
+      }
+
+      const entries = await getLotteryEntries();
+
+      res.json({
+        ok: true,
+        entries,
+        total: entries.length
+      });
+
+    } catch (error: any) {
+      console.error('Lottery entries error:', error);
+      res.status(500).json({
+        ok: false,
+        error: 'Erreur serveur lors de la récupération des participants.'
+      });
+    }
+  });
+
+  // API: Effectuer un tirage au sort (POST /api/lottery/draw) - Admin uniquement
+  app.post('/api/lottery/draw', async (req, res) => {
+    try {
+      if (!verifyBasicAuth(req)) {
+        return res.status(401).json({
+          ok: false,
+          error: 'Non autorisé. Authentification requise.'
+        });
+      }
+
+      if (!supa) {
+        return res.status(503).json({
+          ok: false,
+          error: 'La loterie n\'est pas configurée.'
+        });
+      }
+
+      const { drawName = `draw-${Date.now()}` } = req.body || {};
+
+      // Récupérer toutes les entrées
+      const entries = await getLotteryEntries();
+
+      if (!entries || entries.length === 0) {
+        return res.status(400).json({
+          ok: false,
+          error: 'Aucune entrée dans la loterie.'
+        });
+      }
+
+      // Sélection aléatoire cryptographiquement sécurisée avec seed pour audit
+      const crypto = await import('crypto');
+      // Générer un seed aléatoire cryptographique
+      const randomSeed = crypto.randomBytes(16).toString('hex');
+      const timestamp = Date.now().toString();
+      const combinedSeed = `${randomSeed}-${timestamp}`;
+      
+      // Utiliser crypto.randomInt pour un vrai tirage aléatoire équitable
+      const winnerIndex = crypto.randomInt(0, entries.length);
+      const winner = entries[winnerIndex];
+      
+      // Seed pour audit (combinaison de l'aléatoire et du timestamp)
+      const seed = combinedSeed;
+
+      // Enregistrer le tirage
+      const draw = await createDraw({
+        draw_name: drawName,
+        executed_at: new Date().toISOString(),
+        winner_entry_id: winner.id,
+        seed,
+        details: {
+          total: entries.length,
+          winnerIndex,
+          timestamp: Date.now()
+        }
+      });
+
+      // Récupérer les détails complets du gagnant
+      const winnerDetails = await getLotteryEntryById(winner.id);
+
+      res.json({
+        ok: true,
+        winner: {
+          id: winnerDetails.id,
+          name: winnerDetails.name,
+          email: winnerDetails.email,
+          phone: winnerDetails.phone,
+        },
+        totalEntries: entries.length,
+        seed,
+        drawId: draw.id,
+        drawName
+      });
+
+    } catch (error: any) {
+      console.error('Lottery draw error:', error);
+      res.status(500).json({
+        ok: false,
+        error: 'Erreur serveur lors du tirage au sort.'
+      });
+    }
+  });
+
+  // API: Liste des tirages (GET /api/lottery/draws) - Admin uniquement
+  app.get('/api/lottery/draws', async (req, res) => {
+    try {
+      if (!verifyBasicAuth(req)) {
+        return res.status(401).json({
+          ok: false,
+          error: 'Non autorisé. Authentification requise.'
+        });
+      }
+
+      if (!supa) {
+        return res.status(503).json({
+          ok: false,
+          error: 'La loterie n\'est pas configurée.'
+        });
+      }
+
+      const draws = await getDraws();
+
+      res.json({
+        ok: true,
+        draws,
+        total: draws.length
+      });
+
+    } catch (error: any) {
+      console.error('Lottery draws error:', error);
+      res.status(500).json({
+        ok: false,
+        error: 'Erreur serveur lors de la récupération des tirages.'
+      });
+    }
+  });
+
+  // API: Statistiques loterie (GET /api/lottery/stats) - Public
+  app.get('/api/lottery/stats', async (req, res) => {
+    try {
+      if (!supa) {
+        return res.status(503).json({
+          ok: false,
+          error: 'La loterie n\'est pas configurée.'
+        });
+      }
+
+      const entries = await getLotteryEntries();
+
+      res.json({
+        ok: true,
+        totalEntries: entries.length,
+        entriesBySource: {
+          form: entries.filter(e => e.source === 'form').length,
+          shopify: entries.filter(e => e.source === 'shopify').length
+        }
+      });
+
+    } catch (error: any) {
+      console.error('Lottery stats error:', error);
+      res.status(500).json({
+        ok: false,
+        error: 'Erreur serveur lors de la récupération des statistiques.'
+      });
+    }
+  });
 
   const httpServer = createServer(app);
 

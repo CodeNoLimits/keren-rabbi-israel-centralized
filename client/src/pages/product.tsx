@@ -3,8 +3,10 @@ import { useRoute } from 'wouter';
 import { realBreslovProducts } from '../data/realProducts';
 import { useCart } from '../contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
-import { getBookDisplayTitle } from '../utils/bookTitleHelper';
+import { getBookDisplayTitle, getInterfaceDisplayTitle } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';
+import { useLanguage } from '../contexts/LanguageContext';
+import { Header } from '../components/Header';
 import type { Product } from '../../../shared/schema';
 
 export default function Product() {
@@ -14,102 +16,44 @@ export default function Product() {
   const [selectedImage, setSelectedImage] = useState(0);
   const { addItem } = useCart();
   const { toast } = useToast();
+  const { currentLanguage, setLanguage, t } = useLanguage();
 
   if (!match || !params?.id) {
-    return <div>מוצר לא נמצא</div>;
+    return <div>{t('error')}: {t('noResults')}</div>;
   }
 
   const product = realBreslovProducts[params.id];
   
   if (!product) {
-    return <div>מוצר לא נמצא</div>;
+    return <div>{t('error')}: {t('noResults')}</div>;
   }
 
   const variants = product.variants || [];
   const currentVariant = variants.find(v => v.id === selectedVariant) || variants[0];
   
   if (!currentVariant) {
-    return <div>שגיאה: לא נמצאו גרסאות למוצר</div>;
+    return <div>{t('error')}: Variant not found</div>;
   }
 
   return (
-    <div className="rtl product-page page-template-default">
-      {/* TOP BAR */}
-      <section className="elementor-section elementor-top-section elementor-element elementor-element-ba655d5 elementor-section-full_width elementor-hidden-tablet elementor-hidden-mobile elementor-section-height-default" style={{background: '#333', color: 'white', padding: '8px 0'}}>
-        <div className="elementor-container elementor-column-gap-default">
-          <div className="elementor-column elementor-col-33 elementor-top-column">
-            <div className="elementor-widget-wrap elementor-element-populated">
-              <div className="elementor-element elementor-icon-list--layout-inline elementor-align-left elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list">
-                <div className="elementor-widget-container">
-                  <ul className="elementor-icon-list-items elementor-inline-items" style={{display: 'flex', gap: '1rem', listStyle: 'none', margin: 0, padding: 0}}>
-                    <li className="elementor-icon-list-item elementor-inline-item" style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                      <span className="elementor-icon-list-text">משלוחים חינם החל מ- 399 ש"ח</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div className="product-page page-template-default" style={{direction: currentLanguage === 'he' ? 'rtl' : 'ltr'}}>
+      <section style={{background: '#333', color: 'white', padding: '8px 0'}}>
+        <div style={{maxWidth: '1400px', margin: '0 auto', padding: '0 2rem'}}>
+          <span>{t('shippingBanner')}</span>
         </div>
       </section>
 
-      {/* HEADER */}
-      <section className="elementor-section elementor-top-section elementor-element elementor-element-ba655d5 elementor-section-full_width elementor-hidden-tablet elementor-hidden-mobile" style={{background: '#dc3545', padding: '1rem 0'}}>
-        <div className="elementor-container elementor-column-gap-default" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <div className="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-8cf799f">
-            <div className="elementor-widget-wrap elementor-element-populated">
-              <div className="elementor-element elementor-widget elementor-widget-theme-site-logo elementor-widget-image">
-                <div className="elementor-widget-container">
-                  <a href="/">
-                    <img 
-                      width="185" 
-                      height="300"
-                      src="https://www.haesh-sheli.co.il/wp-content/uploads/2021/12/cropped-%D7%A7%D7%A8%D7%95-%D7%A8%D7%91%D7%99-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%A8-%D7%90%D7%95%D7%93%D7%A1%D7%A8.d110a0.webp" 
-                      className="attachment-full size-full wp-image-27" 
-                      alt="האש שלי תוקף עד ביאת המשיח"
-                      style={{height: '80px', width: 'auto'}}
-                    />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="elementor-column elementor-col-33 elementor-top-column">
-            <nav aria-label="תפריט" style={{textAlign: 'center'}}>
-              <ul style={{display: 'flex', gap: '1.5rem', listStyle: 'none', margin: 0, padding: 0, flexWrap: 'wrap'}}>
-                <li><a href="/" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem'}}>דף הבית</a></li>
-                <li><a href="/store" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 'bold'}}>חנות</a></li>
-                <li><a href="/about" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem'}}>עלינו</a></li>
-                <li><a href="/downloads" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem'}}>הורדות</a></li>
-                <li><a href="/contact" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem'}}>צור קשר</a></li>
-              </ul>
-            </nav>
-          </div>
-
-          <div className="elementor-column elementor-col-16" style={{maxWidth: '120px'}}>
-            <div style={{textAlign: 'left'}}>
-              <a href="#" style={{background: 'white', color: '#dc3545', padding: '0.3rem 0.6rem', borderRadius: '4px', textDecoration: 'none', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.3rem'}}>
-                <span>0.00 ₪</span>
-                <span>0</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style={{width: '14px', height: '14px', fill: 'currentColor'}}>
-                  <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
 
       {/* BREADCRUMBS */}
       <section style={{background: '#f8f9fa', padding: '1rem 0', borderBottom: '1px solid #ddd'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
           <nav style={{fontSize: '0.9rem', color: '#666'}}>
-            <a href="/" style={{color: '#dc3545', textDecoration: 'none'}}>דף הבית</a>
+            <a href="/" style={{color: '#dc3545', textDecoration: 'none'}}>{t('home')}</a>
             <span style={{margin: '0 0.5rem'}}>←</span>
-            <a href="/store" style={{color: '#dc3545', textDecoration: 'none'}}>חנות</a>
+            <a href="/store" style={{color: '#dc3545', textDecoration: 'none'}}>{t('store')}</a>
             <span style={{margin: '0 0.5rem'}}>←</span>
-            <span style={{color: '#999'}}>{getBookDisplayTitle(product)}</span>
+            <span style={{color: '#999'}}>{getInterfaceDisplayTitle(product, currentLanguage)}</span>
           </nav>
         </div>
       </section>
@@ -163,14 +107,14 @@ export default function Product() {
               </div>
 
               <h1 style={{fontSize: '2.5rem', fontWeight: 'bold', color: '#333', marginBottom: '1rem'}}>
-                {getBookDisplayTitle(product)}
+                {getInterfaceDisplayTitle(product, currentLanguage)}
               </h1>
 
               <div style={{display: 'flex', alignItems: 'center', marginBottom: '1.5rem'}}>
                 <div style={{color: '#ffc107', fontSize: '1.2rem', marginLeft: '0.5rem'}}>
                   ★★★★★
                 </div>
-                <span style={{color: '#666', fontSize: '0.9rem'}}>דורג 5.00 מתוך 5 (23 ביקורות)</span>
+                <span style={{color: '#666', fontSize: '0.9rem'}}>{t('ratedOutOf')} (23 {currentLanguage === 'fr' ? 'avis' : currentLanguage === 'en' ? 'reviews' : 'ביקורות'})</span>
               </div>
 
               <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#dc3545', marginBottom: '2rem', maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
@@ -191,7 +135,11 @@ export default function Product() {
               {/* VARIANT SELECTION */}
               <div style={{marginBottom: '2rem'}}>
                 <h3 style={{fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#333'}}>
-                  בחר גודל וכריכה:
+                  {currentLanguage === 'fr' ? 'Choisissez la taille et la reliure:' :
+                   currentLanguage === 'en' ? 'Choose size and binding:' :
+                   currentLanguage === 'es' ? 'Elija tamaño y encuadernación:' :
+                   currentLanguage === 'ru' ? 'Выберите размер и переплет:' :
+                   'בחר גודל וכריכה:'}
                 </h3>
                 <div style={{display: 'grid', gap: '0.8rem'}}>
                   {variants.map((variant) => (
@@ -223,10 +171,14 @@ export default function Product() {
                           {variant.format} {variant.binding} - {variant.size}
                         </div>
                         <div style={{fontSize: '0.9rem', color: '#666'}}>
-                          {variant.dimensions} • {variant.volumes === 1 ? 'חלק אחד' : `${variant.volumes} כרכים`}
+                          {variant.dimensions} • {variant.volumes === 1 ? 
+                            (currentLanguage === 'fr' ? '1 volume' : currentLanguage === 'en' ? '1 volume' : 'חלק אחד') : 
+                            `${variant.volumes} ${currentLanguage === 'fr' ? 'volumes' : currentLanguage === 'en' ? 'volumes' : 'כרכים'}`}
                         </div>
                         <div style={{fontSize: '0.8rem', color: variant.inStock ? '#28a745' : '#dc3545'}}>
-                          {variant.inStock ? 'במלאי' : 'אזל מהמלאי'}
+                          {variant.inStock ? 
+                            (currentLanguage === 'fr' ? 'En stock' : currentLanguage === 'en' ? 'In stock' : 'במלאי') : 
+                            (currentLanguage === 'fr' ? 'Rupture de stock' : currentLanguage === 'en' ? 'Out of stock' : 'אזל מהמלאי')}
                         </div>
                       </div>
                       <div style={{fontSize: '1.2rem', fontWeight: 'bold', color: '#dc3545', minWidth: '80px', textAlign: 'left', flexShrink: 0}}>
@@ -247,7 +199,9 @@ export default function Product() {
               {/* QUANTITY AND ADD TO CART */}
               <div style={{marginBottom: '2rem'}}>
                 <div style={{display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem'}}>
-                  <label style={{fontWeight: 'bold', color: '#333'}}>כמות:</label>
+                  <label style={{fontWeight: 'bold', color: '#333'}}>
+                    {currentLanguage === 'fr' ? 'Quantité:' : currentLanguage === 'en' ? 'Quantity:' : currentLanguage === 'es' ? 'Cantidad:' : currentLanguage === 'ru' ? 'Количество:' : 'כמות:'}
+                  </label>
                   <div style={{display: 'flex', alignItems: 'center', border: '1px solid #ddd', borderRadius: '5px'}}>
                     <button 
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -277,7 +231,7 @@ export default function Product() {
                       addItem({
                         productId: product.id,
                         variantId: currentVariant.id,
-                        name: getBookDisplayTitle(product),
+                        name: getInterfaceDisplayTitle(product, currentLanguage),
                         nameEnglish: product.nameEnglish || product.name,
                         image: product.images?.[0] || '',
                         price: currentVariant.price,
@@ -289,8 +243,8 @@ export default function Product() {
                         }
                       });
                       toast({
-                        title: "נוסף לסל הקניות!",
-                        description: `${getBookDisplayTitle(product)} נוסף בהצלחה לסל`,
+                        title: currentLanguage === 'fr' ? "Ajouté au panier !" : currentLanguage === 'en' ? "Added to cart!" : "נוסף לסל הקניות!",
+                        description: `${getInterfaceDisplayTitle(product, currentLanguage)} ${currentLanguage === 'fr' ? 'ajouté avec succès au panier' : currentLanguage === 'en' ? 'successfully added to cart' : 'נוסף בהצלחה לסל'}`,
                       });
                     }
                   }}
@@ -308,8 +262,10 @@ export default function Product() {
                   disabled={!currentVariant.inStock}
                 >
                   {currentVariant.inStock ? 
-                    `הוספה לסל - ${(currentVariant.price * quantity).toFixed(2)} ₪` : 
-                    'אזל מהמלאי'
+                    (currentLanguage === 'fr' ? `Ajouter au panier - ${(currentVariant.price * quantity).toFixed(2)} ₪` :
+                     currentLanguage === 'en' ? `Add to cart - ${(currentVariant.price * quantity).toFixed(2)} ₪` :
+                     `הוספה לסל - ${(currentVariant.price * quantity).toFixed(2)} ₪`) : 
+                    (currentLanguage === 'fr' ? 'Rupture de stock' : currentLanguage === 'en' ? 'Out of stock' : 'אזל מהמלאי')
                   }
                 </button>
               </div>
@@ -317,7 +273,11 @@ export default function Product() {
               {/* PRODUCT FEATURES */}
               <div style={{marginBottom: '2rem'}}>
                 <h3 style={{fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#333'}}>
-                  מאפיינים מיוחדים:
+                  {currentLanguage === 'fr' ? 'Caractéristiques spéciales:' :
+                   currentLanguage === 'en' ? 'Special features:' :
+                   currentLanguage === 'es' ? 'Características especiales:' :
+                   currentLanguage === 'ru' ? 'Особые характеристики:' :
+                   'מאפיינים מיוחדים:'}
                 </h3>
                 <ul style={{listStyle: 'none', padding: 0}}>
                   {(product.features || []).map((feature, index) => (
@@ -332,12 +292,16 @@ export default function Product() {
               {/* PRODUCT DETAILS */}
               <div style={{background: '#f8f9fa', padding: '1.5rem', borderRadius: '8px'}}>
                 <h3 style={{fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#333'}}>
-                  פרטי המוצר:
+                  {currentLanguage === 'fr' ? 'Détails du produit:' :
+                   currentLanguage === 'en' ? 'Product details:' :
+                   currentLanguage === 'es' ? 'Detalles del producto:' :
+                   currentLanguage === 'ru' ? 'Детали продукта:' :
+                   'פרטי המוצר:'}
                 </h3>
                 <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem', fontSize: '0.9rem'}}>
-                  <div><strong>שפה:</strong> {product.language}</div>
-                  <div><strong>הוצאה:</strong> {product.publisher}</div>
-                  {product.pages && <div><strong>עמודים:</strong> {product.pages}</div>}
+                  <div><strong>{currentLanguage === 'fr' ? 'Langue:' : currentLanguage === 'en' ? 'Language:' : currentLanguage === 'es' ? 'Idioma:' : currentLanguage === 'ru' ? 'Язык:' : 'שפה:'}</strong> {product.language}</div>
+                  <div><strong>{currentLanguage === 'fr' ? 'Éditeur:' : currentLanguage === 'en' ? 'Publisher:' : currentLanguage === 'es' ? 'Editor:' : currentLanguage === 'ru' ? 'Издатель:' : 'הוצאה:'}</strong> {product.publisher}</div>
+                  {product.pages && <div><strong>{currentLanguage === 'fr' ? 'Pages:' : currentLanguage === 'en' ? 'Pages:' : currentLanguage === 'es' ? 'Páginas:' : currentLanguage === 'ru' ? 'Страницы:' : 'עמודים:'}</strong> {product.pages}</div>}
                   {product.isbn && <div><strong>ISBN:</strong> {product.isbn}</div>}
                 </div>
               </div>
@@ -350,7 +314,11 @@ export default function Product() {
       <section style={{background: '#f8f9fa', padding: '3rem 0'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
           <h2 style={{fontSize: '2rem', fontWeight: 'bold', color: '#333', marginBottom: '2rem', textAlign: 'center'}}>
-            מוצרים דומים
+            {currentLanguage === 'fr' ? 'Produits similaires' :
+             currentLanguage === 'en' ? 'Similar products' :
+             currentLanguage === 'es' ? 'Productos similares' :
+             currentLanguage === 'ru' ? 'Похожие продукты' :
+             'מוצרים דומים'}
           </h2>
           <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem'}}>
             {Object.values(realBreslovProducts).filter(p => p.id !== product.id).slice(0, 3).map((relatedProduct) => (
@@ -362,14 +330,14 @@ export default function Product() {
                 />
                 <div style={{padding: '1.5rem'}}>
                   <h3 style={{fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#333'}}>
-                    {relatedProduct.name}
+                    {getInterfaceDisplayTitle(relatedProduct, currentLanguage)}
                   </h3>
                   <div style={{fontSize: '1.1rem', fontWeight: 'bold', color: '#dc3545', marginBottom: '1rem'}}>
                     {(relatedProduct.variants && relatedProduct.variants[0] || {price: 0}).price} ₪
                   </div>
                   <a href={`/product/${relatedProduct.id}`} style={{textDecoration: 'none'}}>
                     <button style={{background: '#dc3545', color: 'white', border: 'none', padding: '0.8rem 1rem', borderRadius: '5px', cursor: 'pointer', width: '100%', fontWeight: 'bold'}}>
-                      צפה במוצר
+                      {t('viewProduct')}
                     </button>
                   </a>
                 </div>

@@ -282,7 +282,7 @@ const SubscriptionPlanCard = ({ plan, isCurrentPlan }: { plan: SubscriptionPlan;
             </p>
             <div className="flex gap-2">
               <a 
-                href="https://wa.me/972501234567?text=שלום, אני מעוניין להצטרף למנוי הוראת קבע שלכם" 
+                href="https://wa.me/972503515893?text=שלום, אני מעוניין להצטרף למנוי הוראת קבע שלכם" 
                 target="_blank" 
                 rel="noopener noreferrer"
               >
@@ -330,11 +330,14 @@ const SubscriptionPlanCard = ({ plan, isCurrentPlan }: { plan: SubscriptionPlan;
 export default function SubscriptionPage() {
   const { toast } = useToast();
   const { currentLanguage, setLanguage } = useLanguage();
+  const [showDonations, setShowDonations] = useState(true);
 
   // Fetch all subscription plans
-  const { data: plans, isLoading: planLoading } = useQuery({
+  const { data: plans, isLoading: planLoading, error: planError } = useQuery({
     queryKey: ['/api/subscription-plans'],
-    meta: { errorMessage: "שגיאה בטעינת תוכניות המנוי" }
+    meta: { errorMessage: "שגיאה בטעינת תוכניות המנוי" },
+    retry: 2,
+    retryDelay: 1000
   });
 
   // Check current user subscription status
@@ -364,7 +367,7 @@ export default function SubscriptionPage() {
     );
   }
 
-  if (!plans || !Array.isArray(plans) || plans.length === 0) {
+  if (planError || (!planLoading && (!plans || !Array.isArray(plans) || plans.length === 0))) {
     return (
       <div 
         className="min-h-screen hero-surface dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
@@ -374,12 +377,23 @@ export default function SubscriptionPage() {
         <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-2xl font-bold text-primary mb-4">
-              שגיאה בטעינת תוכניות המנוי
-            </h1>
-            <p className="text-gray-600 dark:text-gray-300">
-              אנא נסה שוב מאוחר יותר או צור קשר עם השירות לקוחות
-            </p>
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+              <h1 className="text-2xl font-bold text-primary mb-4">
+                {planError ? 'שגיאה בטעינת תוכניות המנוי' : 'לא נמצאו תוכניות מנוי'}
+              </h1>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                {planError 
+                  ? 'אנא נסה שוב מאוחר יותר או צור קשר עם השירות לקוחות'
+                  : 'כרגע אין תוכניות מנוי זמינות. אנא נסה שוב מאוחר יותר.'
+                }
+              </p>
+              <a 
+                href="/contact" 
+                className="inline-block bg-[#1e40af] text-white px-6 py-3 rounded-lg hover:bg-[#1e3a8a] transition-colors"
+              >
+                צור קשר
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -437,6 +451,92 @@ export default function SubscriptionPage() {
           </div>
         </div>
         
+        {/* DONATIONS SECTION - Style présentoir */}
+        <div className="max-w-6xl mx-auto mt-16 mb-12">
+          <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 p-8 rounded-xl border-2 border-[#f97316] shadow-xl">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-[#1e40af] mb-3">
+                ❤️ תרומות - תמכו בהפצת אור רבינו
+              </h2>
+              <p className="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
+                בנוסף להוראת קבע, תוכלו גם לתרום סכומים חד פעמיים לתמיכה במשימה הרוחנית של הפצת תורת רבי נחמן מברסלב
+              </p>
+            </div>
+            
+            {/* Étagère supérieure pour donations */}
+            <div className="relative mb-6">
+              <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-amber-800 via-amber-700 to-amber-800 rounded-t-lg shadow-lg border-b-2 border-amber-900"></div>
+              
+              {/* Options de donations */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6">
+                {[100, 200, 500].map((amount) => (
+                  <Card key={amount} className="relative overflow-hidden border-2 border-[#f97316] hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    {/* Support étagère sous chaque carte */}
+                    <div className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-amber-700 to-amber-600 opacity-60"></div>
+                    
+                    <CardContent className="p-6 text-center">
+                      <div className="text-4xl mb-2">🙏</div>
+                      <div className="text-3xl font-bold text-[#1e40af] mb-2">
+                        ₪{amount}
+                      </div>
+                      <p className="text-sm text-gray-600 mb-4">
+                        תרומה חד פעמית
+                      </p>
+                      <Button 
+                        className="w-full bg-gradient-to-r from-[#1e40af] to-[#1e3a8a] hover:from-[#f97316] hover:to-[#ea580c] text-white border border-[#f97316]"
+                        onClick={() => {
+                          toast({
+                            title: `תרומה של ₪${amount}`,
+                            description: "נפנה אתכם לעמוד התשלום...",
+                          });
+                          // TODO: Intégrer avec Stripe pour donation
+                          window.location.href = `/checkout?donation=${amount}`;
+                        }}
+                      >
+                        תרום עכשיו
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              
+              {/* Étagère inférieure */}
+              <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-amber-800 via-amber-700 to-amber-800 rounded-b-lg shadow-lg border-t-2 border-amber-900 mt-6"></div>
+            </div>
+            
+            {/* Donation personnalisée */}
+            <div className="mt-8 text-center">
+              <Card className="border-2 border-[#f97316] bg-white/50">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold text-[#1e40af] mb-4">
+                    תרומה בסכום אישי
+                  </h3>
+                  <div className="flex gap-2 max-w-md mx-auto">
+                    <Input 
+                      type="number" 
+                      placeholder="סכום (₪)"
+                      className="flex-1"
+                      min="10"
+                    />
+                    <Button 
+                      className="bg-gradient-to-r from-[#1e40af] to-[#1e3a8a] hover:from-[#f97316] text-white border border-[#f97316]"
+                      onClick={() => toast({
+                        title: "תרומה אישית",
+                        description: "נפנה אתכם לעמוד התשלום...",
+                      })}
+                    >
+                      תרום
+                    </Button>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-3">
+                    מינימום ₪10 • כל תרומה חשובה ומסייעת בהפצת האור
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+
         {/* WhatsApp CTA Section */}
         <div className="max-w-4xl mx-auto mt-16 text-center">
           <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 p-8 rounded-xl border border-green-200 dark:border-green-800">
@@ -447,7 +547,7 @@ export default function SubscriptionPage() {
               צוות השירות שלנו כאן לעזור לך לבחור את המנוי המתאים ביותר עבורך
             </p>
             <a 
-              href="https://wa.me/972501234567?text=שלום, אני מעוניין לשמוע עוד על תוכניות המנוי שלכם" 
+              href="https://wa.me/972503515893?text=שלום, אני מעוניין לשמוע עוד על תוכניות המנוי שלכם" 
               target="_blank" 
               rel="noopener noreferrer"
             >
