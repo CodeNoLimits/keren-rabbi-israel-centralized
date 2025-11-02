@@ -122,9 +122,13 @@ async function updateService(serviceId) {
   const updateConfig = {
     repo: 'https://github.com/CodeNoLimits/keren-rabbi-israel-centralized',
     branch: 'main',
-    buildCommand: 'npm install && npm run build',
-    startCommand: 'npm run start:prod',
-    healthCheckPath: '/api/health'
+    serviceDetails: {
+      envSpecificDetails: {
+        buildCommand: 'npm install && npm run build',
+        startCommand: 'npm run start:prod'
+      },
+      healthCheckPath: '/api/health'
+    }
   };
 
   try {
@@ -133,7 +137,20 @@ async function updateService(serviceId) {
     return service;
   } catch (error) {
     console.error('❌ Erreur lors de la mise à jour:', error.message);
-    throw error;
+    // Essayer une approche alternative avec des champs séparés
+    try {
+      console.log('⚠️  Essai avec structure alternative...');
+      const altConfig = {
+        repo: 'https://github.com/CodeNoLimits/keren-rabbi-israel-centralized',
+        branch: 'main'
+      };
+      const service = await makeRequest('PATCH', `/services/${serviceId}`, altConfig);
+      console.log('✅ Repo et branche mis à jour');
+      return service;
+    } catch (e) {
+      console.error('❌ Échec aussi avec structure alternative');
+      throw error;
+    }
   }
 }
 
