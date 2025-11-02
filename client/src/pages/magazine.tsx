@@ -412,6 +412,38 @@ export default function Magazine() {
                   </div>
                   <CardContent className="p-6">
                     <p className="text-gray-600 mb-4 line-clamp-3 text-sm leading-relaxed">{article.excerpt}</p>
+
+                    {/* Member Photos - Community Articles */}
+                    {article.memberPhotos && article.memberPhotos.length > 0 && (
+                      <div className="mb-4">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Users className="w-4 h-4 text-[#f97316]" />
+                          <span className="text-sm font-semibold text-gray-700">
+                            {currentLanguage === 'he' ? 'חברי הקהילה' :
+                             currentLanguage === 'en' ? 'Community Members' :
+                             currentLanguage === 'fr' ? 'Membres de la communauté' :
+                             currentLanguage === 'es' ? 'Miembros de la comunidad' :
+                             'Члены сообщества'}
+                          </span>
+                        </div>
+                        <div className="flex gap-2 overflow-x-auto pb-2">
+                          {article.memberPhotos.slice(0, 4).map((photo, idx) => (
+                            <img
+                              key={idx}
+                              src={photo}
+                              alt={`Member ${idx + 1}`}
+                              className="w-14 h-14 rounded-full object-cover border-2 border-[#f97316] shadow-md hover:scale-110 hover:shadow-xl transition-all cursor-pointer"
+                            />
+                          ))}
+                          {article.memberPhotos.length > 4 && (
+                            <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#1e40af] to-[#1e3a8a] border-2 border-[#f97316] flex items-center justify-center text-white text-sm font-bold shadow-md">
+                              +{article.memberPhotos.length - 4}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
                     <div className="flex items-center justify-between text-sm">
                       <div className="flex items-center gap-4 text-gray-500">
                         <span className="flex items-center gap-1">
@@ -476,6 +508,38 @@ export default function Magazine() {
                     {article.title}
                   </h3>
                   <p className="text-gray-600 mb-4 text-sm line-clamp-3 leading-relaxed">{article.excerpt}</p>
+
+                  {/* Member Photos - Community Articles */}
+                  {article.memberPhotos && article.memberPhotos.length > 0 && (
+                    <div className="mb-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Users className="w-4 h-4 text-[#f97316]" />
+                        <span className="text-xs font-semibold text-gray-700">
+                          {currentLanguage === 'he' ? 'חברי הקהילה' :
+                           currentLanguage === 'en' ? 'Community Members' :
+                           currentLanguage === 'fr' ? 'Membres de la communauté' :
+                           currentLanguage === 'es' ? 'Miembros de la comunidad' :
+                           'Члены сообщества'}
+                        </span>
+                      </div>
+                      <div className="flex gap-2 overflow-x-auto pb-2">
+                        {article.memberPhotos.slice(0, 4).map((photo, idx) => (
+                          <img
+                            key={idx}
+                            src={photo}
+                            alt={`Member ${idx + 1}`}
+                            className="w-12 h-12 rounded-full object-cover border-2 border-[#f97316] shadow-sm hover:scale-110 transition-transform cursor-pointer"
+                          />
+                        ))}
+                        {article.memberPhotos.length > 4 && (
+                          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#1e40af] to-[#1e3a8a] border-2 border-[#f97316] flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                            +{article.memberPhotos.length - 4}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="flex items-center justify-between text-xs text-gray-500 pt-4 border-t border-gray-100">
                     <div className="flex items-center gap-3">
                       <span className="flex items-center gap-1">
