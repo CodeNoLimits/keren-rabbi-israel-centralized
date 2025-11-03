@@ -51,28 +51,43 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // importantly only setup vite in development and after
+  // Importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
+  // Use NODE_ENV to determine mode (Render sets this to "production")
+  const isDevelopment = process.env.NODE_ENV !== "production";
+  
+  if (isDevelopment) {
     await setupVite(app, server);
+    log("🔧 Development mode - Vite HMR enabled");
   } else {
     serveStatic(app);
+    log("🚀 Production mode - Serving static files");
   }
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
+  // Render.com requires using process.env.PORT
+  // Default to 5000 for local development
   const port = parseInt(process.env.PORT || '5000', 10);
-  const isDev = app.get("env") === "development";
-  const host = isDev ? "localhost" : "0.0.0.0";
+  const host = isDevelopment ? "localhost" : "0.0.0.0";
 
-  server.listen({
-    port,
-    host,
-    reusePort: !isDev,
-  }, () => {
-    log(`serving on ${host}:${port}`);
+  // Use standard listen format for Render.com compatibility
+  server.listen(port, host, () => {
+    log(`🚀 Server running on ${host}:${port}`);
+    log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+    if (!isDevelopment) {
+      log(`✅ Production mode - serving from dist/public`);
+    }
+  });
+
+  // Handle server errors
+  server.on('error', (error: any) => {
+    if (error.code === 'EADDRINUSE') {
+      log(`❌ Port ${port} is already in use`);
+      process.exit(1);
+    } else {
+      log(`❌ Server error: ${error.message}`);
+      throw error;
+    }
   });
 })();

@@ -95,22 +95,55 @@ export default function Chat() {
     }
   ];
 
-  // שליחת הודעה רגילה
+  // Mock AI responses based on context
+  const getMockResponse = (message: string): string => {
+    const lowerMessage = message.toLowerCase();
+    
+    // Books recommendations
+    if (lowerMessage.includes('ספר') || lowerMessage.includes('book')) {
+      return 'בהחלט! הנה המלצותי האהובות:\n\n📚 **ליקוטי מוהרן** - היסוד של כל תורת רבי נחמן. זה הספר הראשון שכל מתחיל צריך לקרוא.\n\n📚 **ליקוטי עצות** - מדריך מעשי לחיים רוחניים. עצות פשוטות ועמוקות.\n\n📚 **סיפורי מעשיות** - סיפורים מופלאים שמביאים חכמה עמוקה בצורה נגישה.\n\n📚 **חיי מוהרן** - ביוגרפיה מרתקת של רבי נחמן זצ"ל.\n\nכל הספרים זמינים בחנות שלנו! 🛒';
+    }
+    
+    // Happiness teaching
+    if (lowerMessage.includes('שמחה') || lowerMessage.includes('happiness') || lowerMessage.includes('simcha')) {
+      return 'זהו אחד התורות החשובות ביותר של רבי נחמן זצ"ל!\n\n**"מצוה גדולה להיות בשמחה תמיד"**\n\nרבי נחמן מלמד שהשמחה היא מצווה אמיתית - ולא רק "מצב רוח". זה כלי רפואי חזק לנפש ולגוף.\n\n**איך להיות בשמחה?**\n1. התחל כל יום בהכרת הטוב - מצא משהו טוב בחיים שלך\n2. כשאתה עצוב, שיר שיר או עשה משהו שמשמח אותך\n3. זכור שהשמחה היא בחירה\n4. חבר עם אנשים שמחים וחיוביים\n\nהשמחה פותחת את הלב, מחזקת את החיים, ומקרבת לה\'! 🔥';
+    }
+    
+    // Hitbodedut
+    if (lowerMessage.includes('התבודדות') || lowerMessage.includes('hitbodedut') || lowerMessage.includes('שיחה')) {
+      return 'התבודדות היא אחת המתנות הגדולות ביותר שנתן לנו רבי נחמן!\n\n**מה זה התבודדות?**\nשיחה אישית ופרטית עם הבורא - בשפה שלך, במילים שלך. אתה יכול לעשות את זה בכל מקום ובכל זמן.\n\n**איך לעשות?**\n1. מצא מקום שקט (חדר, פארק, מקום פרטי)\n2. התחיל לדבר עם הקב"ה - כמו חבר\n3. ספר מה בליבך - שמחות, קשיים, תקוות\n4. בקש עזרה, הודה על הטוב\n5. התחל עם 10 דקות ביום - זה מספיק!\n\nהתבודדות זו הכוח החזק ביותר שניתן לנו - כוח של שיחה פשוטה ואישית עם ה\'. 💬';
+    }
+    
+    // Na Nach
+    if (lowerMessage.includes('נ נח') || lowerMessage.includes('na nach')) {
+      return '**נ נח נחמ נחמן מאומן!** 🔥\n\nזה הפתק הקדוש שגילה רבי ישראל דב אודסר זצ"ל (הסבא).\n\n**הסיפור:**\nהסבא קיבל פתק מופלא מהשמיים עם המנטרה הקדושה "נ נח נחמ נחמן מאומן". זה מביא שמחה וגאולה לכל העולם!\n\n**מה זה עושה?**\n- מביא שמחה עצומה\n- מגן מכל רע\n- מקרב לגאולה\n- מפיץ את אור רבי נחמן\n\n**איך להשתמש?**\nאמור את המנטרה: "נ נח נחמ נחמן מאומן" - בכל זמן, בכל מקום. זה מנטרה של גאולה ושמחה!\n\n**"האש שלי תוקד עד ביאת המשיח!"** - הסבא זצ"ל 🕯️';
+    }
+    
+    // Rabbi Nachman general
+    if (lowerMessage.includes('רבי נחמן') || lowerMessage.includes('rabbi nachman') || lowerMessage.includes('ברסלב')) {
+      return 'רבי נחמן מברסלב זצ"ל הוא אחד מגדולי החסידות!\n\n**מי זה רבי נחמן?**\nרבי נחמן מברסלב (1772-1810) היה נינו של הבעל שם טוב. הוא לימד תורות עמוקות על שמחה, אמונה, תקווה, והתבודדות.\n\n**התורות העיקריות:**\n- מצוה גדולה להיות בשמחה תמיד\n- אין שום יאוש בעולם כלל\n- התבודדות - שיחה אישית עם ה\'\n- ארץ ישראל - מקום קדוש ומקודש\n\n**המסר שלו:**\nלא משנה מה המצב שלך, יש תמיד תקווה. השמחה היא בחירה. ואתה יכול תמיד לדבר עם ה\' ישירות.\n\nאנו מפיצים את אור רבי נחמן דרך ספרים איכותיים בכל השפות! 📚✨';
+    }
+    
+    // Saba Israël
+    if (lowerMessage.includes('סבא') || lowerMessage.includes('ישראל') || lowerMessage.includes('אודסר') || lowerMessage.includes('saba')) {
+      return '**רבי ישראל דב אודסר זצ"ל - הסבא** 🕯️\n\nהסבא היה אחד מגדולי מפיצי תורת רבי נחמן בעולם!\n\n**מי זה הסבא?**\nרבי ישראל דב אודסר, הידוע בכינוי "סבא", הקדיש עשרות שנים להפצת אור רבי נחמן לכל יהודי בעולם - בכל מדינה ובכל שפה.\n\n**הגילוי הגדול:**\nהסבא זכה לגלות את הפתק הקדוש "נ נח נחמ נחמן מאומן" ולפזר את האור הברסלבי ברחבי תבל.\n\n**המשימה שלו:**\n"האש שלי תוקד עד ביאת המשיח!" - הסבא הקדיש את חייו להפצת ספרי רבי נחמן לכל בית יהודי.\n\n**הקרן שלנו:**\nהקרן נוסדה כדי להמשיך את משימתו הקדושה של הסבא ולהביא את ספרי רבי נחמן לכל יהודי בעולם.\n\nכל הספרים שלנו מבוססים על המסר של הסבא זצ"ל! 📚🔥';
+    }
+    
+    // Default response
+    return 'תודה על השאלה! 😊\n\nאני כאן כדי לעזור לך עם כל שאלה על תורת רבי נחמן מברסלב, ספרים, והקרן שלנו.\n\n**מה תרצה לדעת?**\n- 📚 המלצות על ספרים\n- 💬 על התורה "מצוה גדולה להיות בשמחה תמיד"\n- 🗣️ איך לעשות התבודדות\n- 🔥 על הסבא רבי ישראל דב אודסר\n- 📖 על הקרן וספרי רבי נחמן\n\nשאל אותי כל שאלה ואשמח לעזור! ניתן גם לבקר בחנות שלנו ולראות את כל הספרים הזמינים. 🛒';
+  };
+
+  // שליחת הודעה רגילה - MOCK VERSION
   const sendMessageMutation = useMutation({
     mutationFn: async (messageData: { message: string; conversationHistory: ChatMessage[]; provider: ChatProvider }) => {
-      const endpoint = messageData.provider === 'gemini' ? '/api/chat' : '/api/openai/chat';
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: messageData.message,
-          conversationHistory: messageData.conversationHistory,
-          useRAG: true
-        })
-      });
-      return await response.json();
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
+      
+      // Return mock response
+      return {
+        response: getMockResponse(messageData.message),
+        conversationId: conversationId || Date.now().toString()
+      };
     },
     onSuccess: (data) => {
       if (data.response) {
@@ -148,7 +181,7 @@ export default function Chat() {
     }
   });
 
-  // שליחת הודעה עם streaming
+  // שליחת הודעה עם streaming - MOCK VERSION
   const sendStreamingMessage = async (message: string, conversationHistory: ChatMessage[], provider: ChatProvider) => {
     try {
       setIsLoading(true);
@@ -174,54 +207,28 @@ export default function Chat() {
       setMessages(prev => [...prev, userMessage, assistantMessage]);
       setStreamingMessageId(assistantMessageId);
       
-      // קריאה לשרת עם streaming - בחירת endpoint לפי provider
-      const endpoint = provider === 'gemini' ? '/api/chat/stream' : '/api/openai/stream';
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message,
-          conversationHistory,
-          useRAG: true
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      // קריאת streaming response
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
+      // Get mock response
+      const fullResponse = getMockResponse(message);
       
-      if (reader) {
-        let accumulatedContent = '';
-        
-        while (true) {
-          const { done, value } = await reader.read();
-          
-          if (done) break;
-          
-          const chunk = decoder.decode(value, { stream: true });
-          accumulatedContent += chunk;
-          
-          // עדכון ההודעה בזמן אמת
-          setMessages(prev => prev.map(msg => 
-            msg.id === assistantMessageId 
-              ? { ...msg, content: accumulatedContent, isStreaming: true }
-              : msg
-          ));
-        }
-        
-        // סיום streaming
+      // Simulate streaming by adding text character by character
+      let accumulatedContent = '';
+      for (let i = 0; i < fullResponse.length; i++) {
+        accumulatedContent += fullResponse[i];
         setMessages(prev => prev.map(msg => 
           msg.id === assistantMessageId 
-            ? { ...msg, isStreaming: false }
+            ? { ...msg, content: accumulatedContent, isStreaming: true }
             : msg
         ));
+        // Small delay for streaming effect
+        await new Promise(resolve => setTimeout(resolve, 20));
       }
+      
+      // סיום streaming
+      setMessages(prev => prev.map(msg => 
+        msg.id === assistantMessageId 
+          ? { ...msg, isStreaming: false }
+          : msg
+      ));
       
     } catch (error) {
       console.error('Streaming error:', error);
@@ -508,7 +515,7 @@ export default function Chat() {
                     onKeyPress={handleKeyPress}
                     placeholder="שאל שאלה על תורת רבי נחמן..."
                     className="min-h-[50px] max-h-[120px] resize-none text-right"
-                    disabled={isLoading || !chatStatus?.connected}
+                    disabled={isLoading}
                     data-testid="chat-input"
                   />
                 </div>
@@ -516,7 +523,7 @@ export default function Chat() {
                 <div className="flex flex-col gap-2">
                   <Button
                     onClick={() => handleSubmit()}
-                    disabled={!inputMessage.trim() || isLoading || !chatStatus?.connected}
+                    disabled={!inputMessage.trim() || isLoading}
                     className="bg-red-600 hover:bg-red-700"
                     data-testid="send-button"
                   >

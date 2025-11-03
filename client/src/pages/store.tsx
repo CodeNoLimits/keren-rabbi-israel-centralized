@@ -8,6 +8,14 @@ import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, X, Filter, ChevronDown, ChevronUp } from 'lucide-react';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { convertImagePath } from '../utils/imagePathHelper';
 import { getInterfaceDisplayTitle } from '../utils/bookTitleHelper';
 import type { Product } from '../../../shared/schema';
@@ -75,6 +83,7 @@ export default function Store() {
   
   // Sidebar visibility and collapsible sections
   const [sidebarVisible, setSidebarVisible] = useState(true);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [expandedSections, setExpandedSections] = useState({
     categories: true,
     languages: true,
@@ -250,8 +259,8 @@ export default function Store() {
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
 
       <div className="flex min-h-screen bg-gray-50">
-        {/* Clean Simple Sidebar */}
-        <div className={`${sidebarVisible ? 'w-80' : 'w-0'} transition-all duration-200 overflow-hidden`}>
+        {/* Desktop Sidebar */}
+        <div className={`${sidebarVisible ? 'w-80' : 'w-0'} transition-all duration-200 overflow-hidden hidden lg:block`}>
           <div className="h-full bg-gradient-to-br from-[#1e40af] to-[#1e3a8a] shadow-lg border-r-4 border-[#f97316]">
             {/* Header avec style bleu/orange cohérent */}
             <div className="bg-gradient-to-r from-[#1e40af] to-[#1e3a8a] p-4 border-b-4 border-[#f97316]">
@@ -669,18 +678,57 @@ export default function Store() {
         </div>
 
         {/* Main Content Area */}
-        <div className="flex-1">
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-6">
+        <div className="flex-1 w-full">
+          <div className="p-3 sm:p-4 md:p-6">
+            <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
               <div className="flex items-center space-x-4">
+                {/* Mobile Filter Button - Opens Drawer */}
+                <Sheet open={mobileSidebarOpen} onOpenChange={setMobileSidebarOpen}>
+                  <SheetTrigger asChild className="lg:hidden">
+                    <Button 
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                      data-testid="button-toggle-sidebar-mobile"
+                    >
+                      <Filter className="h-5 w-5 mr-2" />
+                      {t('sidebarTitle')}
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side={currentLanguage === 'he' ? 'right' : 'left'} className="w-[90vw] sm:w-[400px] p-0 overflow-y-auto bg-gradient-to-br from-[#1e40af] to-[#1e3a8a]" style={{zIndex: 10003}}>
+                    <div className="p-4 space-y-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <h2 className="text-lg font-bold text-white">{t('sidebarTitle')}</h2>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={clearAllFilters}
+                          className="text-sm border-2 border-[#f97316] text-white hover:bg-[#f97316] hover:text-white bg-transparent"
+                        >
+                          <X className="h-4 w-4 mr-1" />
+                          {t('clearAll')}
+                        </Button>
+                      </div>
+                      <div className="relative mb-4">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#f97316]" />
+                        <Input 
+                          placeholder={t('searchBooks')}
+                          value={filters.searchQuery}
+                          onChange={(e) => setFilters(prev => ({ ...prev, searchQuery: e.target.value }))}
+                          className="pl-10 text-sm bg-white/90 border-2 border-[#f97316]"
+                        />
+                      </div>
+                      {/* Mobile filters will reuse same structure - simplified for now */}
+                    </div>
+                  </SheetContent>
+                </Sheet>
+                {/* Desktop Filter Button */}
                 <Button 
                   onClick={() => setSidebarVisible(!sidebarVisible)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                  className="hidden lg:flex bg-blue-600 hover:bg-blue-700 text-white"
                   data-testid="button-toggle-sidebar"
                 >
                   <Filter className="h-5 w-5" />
                 </Button>
-                <h1 className="text-3xl font-bold text-gray-900" data-testid="text-page-title">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900" data-testid="text-page-title">
                   {t('storeBooks')}
                 </h1>
               </div>
@@ -697,7 +745,7 @@ export default function Store() {
               <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-amber-800 via-amber-700 to-amber-800 rounded-t-lg shadow-2xl border-b-4 border-amber-900" style={{zIndex: 1, boxShadow: '0 4px 6px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.1)'}}></div>
               
               {/* Grille produits avec effet étagère */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 pt-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-3 pt-8 px-2 sm:px-0">
                 {filteredProducts.map((product, index) => (
                   // Encadré étagère individuelle pour chaque livre - Style présentoir discret
                   <div key={product.id} className="relative mb-6">
@@ -723,8 +771,9 @@ export default function Store() {
                           <img 
                             src={convertImagePath(product.images[0])}
                             alt={product.name}
-                            className="w-full h-52 object-cover cursor-pointer hover:scale-110 transition-transform duration-500"
+                            className="w-full h-40 sm:h-48 md:h-52 object-cover cursor-pointer hover:scale-110 transition-transform duration-500"
                             data-testid={`img-product-${product.id}`}
+                            loading="lazy"
                             onError={(e) => {
                               e.currentTarget.style.display = 'none';
                             }}

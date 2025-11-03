@@ -81,7 +81,7 @@ const translations = {
         date: '2025-01-05',
         views: 1120,
         featured: false,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2025/02/הגרלת-טיסה-לרבינו-הקדוש-קרן-רבי-ישראל.webp',
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
         communityImage: true,
         memberPhotos: [
           '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg',
@@ -123,10 +123,10 @@ const translations = {
         date: '2024-12-28',
         views: 1890,
         featured: false,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/07/6.d110a0.webp',
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
         communityImage: true,
         memberPhotos: [
-          '/attached_assets/ליקוטי מוהרן 1_1757275910545.jpg',
+          '/attached_assets/ליקוטי מ��הרן 1_1757275910545.jpg',
           '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
           '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg'
         ]
@@ -189,6 +189,48 @@ const translations = {
         communityImage: true
       },
       {
+        id: 4,
+        title: 'Tales - The Hidden Wisdom',
+        excerpt: 'Discover the wonderful stories of Rabbi Nachman that contain deep wisdom and spiritual secrets for every soul. Each story is a complete world - a king, a prince, a forest, a journey... and within them all the wisdom needed for true life.',
+        category: 'stories',
+        author: 'As told by Rabbi Natan of Breslov',
+        date: '2025-01-08',
+        views: 890,
+        featured: false,
+        image: '/attached_assets/סיפורי מעשיות 1_1757275910546.jpg',
+        communityImage: true
+      },
+      {
+        id: 5,
+        title: 'Pilgrimage to Uman - Spiritual Journey of Thousands',
+        excerpt: 'Photos and reports from Breslov community events worldwide - pilgrimage to Rabbi Nachman\'s gravesite in Uman, Rosh Hashanah, dancing, joy and connection of souls from all over the world. Thousands of Hasidim gather every year to celebrate together.',
+        category: 'community',
+        author: 'Photography: Breslov World Community',
+        date: '2025-01-05',
+        views: 1120,
+        featured: false,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true,
+        memberPhotos: [
+          '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg',
+          '/attached_assets/סיפורי מעשיות 1_1757275910546.jpg',
+          '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+          '/attached_assets/ישראל סבא_1757281003112.jpg'
+        ]
+      },
+      {
+        id: 6,
+        title: 'Daily Practice - Practical Guide to Spiritual Work',
+        excerpt: 'How to integrate Breslov teachings into daily life - practical tips for spiritual work every day. Start with hitbodedut each day, recite the Tikkun HaKlali, read Likutei Moharan, and always be in joy!',
+        category: 'practices',
+        author: 'Rabbi Israel Dov Odesser zt"l',
+        date: '2025-01-03',
+        views: 750,
+        featured: false,
+        image: '/attached_assets/חיי מוהרן 1_1757275910544.jpg',
+        communityImage: true
+      },
+      {
         id: 7,
         title: 'Na Nach Nachma Nachman Meuman - The Famous Note',
         excerpt: 'The story of the miraculous note\'s revelation by Rabbi Israel Dov Odesser zt"l. "Na Nach Nachma Nachman Meuman" - the holy mantra that brings joy and redemption to the entire world. My Fire will burn until the coming of Mashiach!',
@@ -201,15 +243,101 @@ const translations = {
         communityImage: true
       },
       {
-        id: 5,
-        title: 'Pilgrimage to Uman - Spiritual Journey of Thousands',
-        excerpt: 'Photos and reports from Breslov community events worldwide - pilgrimage to Rabbi Nachman\'s gravesite in Uman, Rosh Hashanah, dancing, joy and connection of souls from all over the world. Thousands of Hasidim gather every year to celebrate together.',
+        id: 8,
+        title: 'Dancing in Breslov - Celebration of Joy and Faith',
+        excerpt: 'Enormous celebrations in Jerusalem and around the world! Breslov Hasidim gather to dance, to rejoice, and to spread the light of Rabbi Nachman. "It is a great mitzvah to be in joy" - and in dancing we express that joy!',
         category: 'community',
-        author: 'Photography: Breslov World Community',
+        author: 'Breslov Documentarians',
+        date: '2024-12-28',
+        views: 1890,
+        featured: false,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true,
+        memberPhotos: [
+          '/attached_assets/ליקוטי מוהרן 1_1757275910545.jpg',
+          '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+          '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg'
+        ]
+      }
+    ]
+  },
+  fr: {
+    title: 'Le Magazine - Magazine Breslov',
+    subtitle: 'Contenu à jour et actuel sur la vie Breslov',
+    latestArticles: 'Derniers Articles',
+    categories: 'Catégories',
+    featured: 'Vedette',
+    readMore: 'Lire la suite',
+    published: 'Publié',
+    author: 'Auteur',
+    views: 'Vues',
+    allArticles: 'Tous les articles',
+    categoriesList: {
+      teachings: 'Enseignements',
+      stories: 'Histoires',
+      practices: 'Pratiques',
+      community: 'Communauté',
+      events: 'Événements'
+    },
+    articles: [
+      {
+        id: 1,
+        title: 'Un Grand Commandement: Toujours être Heureux - L\'Enseignement Complet',
+        excerpt: 'Découvrez le plus célèbre enseignement du Rabbi Nahman de Breslov sur la joie éternelle et son importance dans nos vies. Rabbi Nahman a enseigné: "C\'est un grand commandement d\'être toujours dans la joie" - c\'est le plus puissant enseignement face aux difficultés et souffrances de la vie.',
+        category: 'teachings',
+        author: 'Rabbi Israel Dov Odesser zt"l',
+        date: '2025-01-15',
+        views: 1250,
+        featured: true,
+        image: '/attached_assets/ליקוטי מוהרן 1_1757275910545.jpg',
+        communityImage: true
+      },
+      {
+        id: 2,
+        title: 'Hitbodedut - La Sainte Conversation avec le Créateur',
+        excerpt: 'Découvrez le secret de l\'hitbodedut, la prière personnelle et privée du Rabbi Nahman que chacun peut faire n\'importe où et n\'importe quand. L\'hitbodedut est la force la plus puissante qui nous a été donnée - une simple et personnelle conversation avec le Très-Haut, dans notre langue, dans nos paroles.',
+        category: 'practices',
+        author: 'Rabbi Nahman de Breslov',
+        date: '2025-01-12',
+        views: 980,
+        featured: true,
+        image: '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+        communityImage: true
+      },
+      {
+        id: 3,
+        title: 'Il n\'y a Aucun Désespoir au Monde - Message d\'Espérance',
+        excerpt: 'L\'enseignement le plus puissant du Rabbi Nahman sur l\'espérance et l\'importance de nous renforcer en tout ce qui est possible. Na Nach Nachma Nachman Meuman! Même quand tout semble difficile, il y a toujours de l\'espérance. "Sache qu\'une personne doit traverser un pont très, très étroit, et la règle est: ne pas avoir peur du tout!"',
+        category: 'teachings',
+        author: 'Rabbi Nahman de Breslov',
+        date: '2025-01-10',
+        views: 1560,
+        featured: false,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true
+      },
+      {
+        id: 4,
+        title: 'Contes - La Sagesse Cachée',
+        excerpt: 'Découvrez les merveilleux contes du Rabbi Nahman qui contiennent une profonde sagesse et des secrets spirituels pour chaque âme. Chaque conte est un monde complet - un roi, un prince, une forêt, un voyage... et en eux toute la sagesse nécessaire pour la vraie vie.',
+        category: 'stories',
+        author: 'Raconté par Rabbi Natan de Breslov',
+        date: '2025-01-08',
+        views: 890,
+        featured: false,
+        image: '/attached_assets/סיפורי מעשיות 1_1757275910546.jpg',
+        communityImage: true
+      },
+      {
+        id: 5,
+        title: 'Pèlerinage à Ouman - Voyage Spirituel de Milliers',
+        excerpt: 'Photos et rapports des événements de la communauté Breslov dans le monde entier - pèlerinage au tombeau du Rabbi Nahman à Ouman, Rosh Hashanah, danses, joie et connexion des âmes du monde entier. Des milliers de hassidim se réunissent chaque année pour célébrer ensemble.',
+        category: 'community',
+        author: 'Photographie: Communauté Breslov Mondiale',
         date: '2025-01-05',
         views: 1120,
         featured: false,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2025/02/הגרלת-טיסה-לרבינו-הקדוש-קרן-רבי-ישראל.webp',
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
         communityImage: true,
         memberPhotos: [
           '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg',
@@ -219,54 +347,301 @@ const translations = {
         ]
       },
       {
-        id: 2,
-        title: 'Hitbodedut - The Sacred Conversation with the Creator',
-        excerpt: 'Discover the secret of hitbodedut, the personal and private prayer of Rabbi Nachman that anyone can do anywhere and anytime.',
+        id: 6,
+        title: 'Pratique Quotidienne - Guide Pratique du Service Spirituel',
+        excerpt: 'Comment intégrer les enseignements de Breslov dans la vie quotidienne - conseils pratiques pour le travail spirituel chaque jour. Commencez par l\'hitbodedut chaque jour, récitez le Tikkun HaKlali, lisez le Likutei Moharan, et soyez toujours dans la joie!',
         category: 'practices',
-        author: 'My Fire Team',
+        author: 'Rabbi Israel Dov Odesser zt"l',
+        date: '2025-01-03',
+        views: 750,
+        featured: false,
+        image: '/attached_assets/חיי מוהרן 1_1757275910544.jpg',
+        communityImage: true
+      },
+      {
+        id: 7,
+        title: 'Na Nach Nachma Nachman Meuman - Le Célèbre Morceau',
+        excerpt: 'L\'histoire de la révélation miraculeuse du morceau du Rabbi Israel Dov Odesser zt"l. "Na Nach Nachma Nachman Meuman" - le saint mantra qui apporte la joie et la rédemption au monde entier. Mon Feu brûlera jusqu\'à la venue du Messie!',
+        category: 'teachings',
+        author: 'Rabbi Israel Dov Odesser zt"l - Saba',
+        date: '2025-01-01',
+        views: 2340,
+        featured: true,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true
+      },
+      {
+        id: 8,
+        title: 'Danses Breslov - Célébration de Joie et de Foi',
+        excerpt: 'Énormes célébrations à Jérusalem et dans le monde entier! Les hassidim Breslov se rassemblent pour danser, se réjouir, et répandre la lumière du Rabbi Nahman. "C\'est un grand commandement d\'être dans la joie" - et dans la danse, nous exprimons cette joie!',
+        category: 'community',
+        author: 'Documentaristes Breslov',
+        date: '2024-12-28',
+        views: 1890,
+        featured: false,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true,
+        memberPhotos: [
+          '/attached_assets/ליקוטי מוהרן 1_1757275910545.jpg',
+          '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+          '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg'
+        ]
+      }
+    ]
+  },
+  es: {
+    title: 'La Revista - Revista Breslov',
+    subtitle: 'Contenido actualizado y actual sobre la vida Breslov',
+    latestArticles: 'Últimos Artículos',
+    categories: 'Categorías',
+    featured: 'Destacado',
+    readMore: 'Leer Más',
+    published: 'Publicado',
+    author: 'Autor',
+    views: 'Vistas',
+    allArticles: 'Todos los Artículos',
+    categoriesList: {
+      teachings: 'Enseñanzas',
+      stories: 'Historias',
+      practices: 'Prácticas',
+      community: 'Comunidad',
+      events: 'Eventos'
+    },
+    articles: [
+      {
+        id: 1,
+        title: 'Un Gran Mandamiento: Siempre estar Feliz - La Enseñanza Completa',
+        excerpt: 'Aprende sobre la enseñanza más famosa del Rabino Nachman de Breslov sobre la alegría eterna y su importancia en nuestras vidas. El Rabino Nachman enseñó: "Es un gran mandamiento estar siempre en alegría" - esta es la enseñanza más poderosa contra todas las dificultades y sufrimientos de la vida.',
+        category: 'teachings',
+        author: 'Rabino Israel Dov Odesser zt"l',
+        date: '2025-01-15',
+        views: 1250,
+        featured: true,
+        image: '/attached_assets/ליקוטי מוהרן 1_1757275910545.jpg',
+        communityImage: true
+      },
+      {
+        id: 2,
+        title: 'Hitbodedut - La Sagrada Conversación con el Creador',
+        excerpt: 'Descubre el secreto del hitbodedut, la oración personal y privada del Rabino Nachman que cualquiera puede hacer en cualquier lugar y en cualquier momento. El hitbodedut es la fuerza más poderosa que se nos ha dado - una conversación simple y personal con el Todopoderoso, en nuestro idioma, en nuestras palabras.',
+        category: 'practices',
+        author: 'Rabino Nachman de Breslov',
         date: '2025-01-12',
         views: 980,
-        featured: true
+        featured: true,
+        image: '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+        communityImage: true
       },
       {
         id: 3,
-        title: 'There is No Despair in the World - Message of Hope',
-        excerpt: 'Rabbi Nachman\'s strongest teaching on hope and the importance of strengthening ourselves in all that is possible.',
+        title: 'No Hay Desesperación en el Mundo - Mensaje de Esperanza',
+        excerpt: 'La enseñanza más poderosa del Rabino Nachman sobre la esperanza y la importancia de fortalecernos en todo lo posible. ¡Na Nach Nachma Nachman Meuman! Incluso cuando todo parece difícil, siempre hay esperanza. "Sabe que una persona debe cruzar un puente muy, muy estrecho, y la regla es: ¡no tener miedo en absoluto!"',
         category: 'teachings',
-        author: 'My Fire Team',
+        author: 'Rabino Nachman de Breslov',
         date: '2025-01-10',
         views: 1560,
-        featured: false
+        featured: false,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true
       },
       {
         id: 4,
-        title: 'Tales - The Hidden Wisdom',
-        excerpt: 'Discover the wonderful stories of Rabbi Nachman that contain deep wisdom and spiritual secrets for every soul.',
+        title: 'Cuentos - La Sabiduría Oculta',
+        excerpt: 'Descubre los maravillosos cuentos del Rabino Nachman que contienen profunda sabiduría y secretos espirituales para cada alma. Cada cuento es un mundo completo - un rey, un príncipe, un bosque, un viaje... y en ellos toda la sabiduría necesaria para la verdadera vida.',
         category: 'stories',
-        author: 'My Fire Team',
+        author: 'Contado por Rabino Natan de Breslov',
         date: '2025-01-08',
         views: 890,
-        featured: false
+        featured: false,
+        image: '/attached_assets/סיפורי מעשיות 1_1757275910546.jpg',
+        communityImage: true
       },
       {
         id: 5,
-        title: 'Community Events - Connecting Souls',
-        excerpt: 'Photos and reports from Breslov community events around the world - weeks of connection and joy.',
+        title: 'Peregrinación a Uman - Viaje Espiritual de Miles',
+        excerpt: 'Fotos e informes de eventos de la comunidad Breslov en todo el mundo - peregrinación a la tumba del Rabino Nachman en Uman, Rosh Hashanah, bailes, alegría y conexión de almas de todo el mundo. Miles de hasidim se reúnen cada año para celebrar juntos.',
         category: 'community',
-        author: 'My Fire Team',
+        author: 'Fotografía: Comunidad Breslov Mundial',
         date: '2025-01-05',
         views: 1120,
-        featured: false
+        featured: false,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true,
+        memberPhotos: [
+          '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg',
+          '/attached_assets/סיפורי מעשיות 1_1757275910546.jpg',
+          '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+          '/attached_assets/ישראל סבא_1757281003112.jpg'
+        ]
       },
       {
         id: 6,
-        title: 'Daily Practice - Practical Guide',
-        excerpt: 'How to integrate Breslov teachings into daily life - practical tips for daily spiritual work.',
+        title: 'Práctica Diaria - Guía Práctica del Servicio Espiritual',
+        excerpt: 'Cómo integrar las enseñanzas de Breslov en la vida cotidiana - consejos prácticos para el trabajo espiritual cada día. Comienza con hitbodedut cada día, recita el Tikkun HaKlali, lee el Likutei Moharan, ¡y siempre está en alegría!',
         category: 'practices',
-        author: 'My Fire Team',
+        author: 'Rabino Israel Dov Odesser zt"l',
         date: '2025-01-03',
         views: 750,
-        featured: false
+        featured: false,
+        image: '/attached_assets/חיי מוהרן 1_1757275910544.jpg',
+        communityImage: true
+      },
+      {
+        id: 7,
+        title: 'Na Nach Nachma Nachman Meuman - La Famosa Nota',
+        excerpt: 'La historia de la revelación milagrosa de la nota del Rabino Israel Dov Odesser zt"l. "Na Nach Nachma Nachman Meuman" - el santo mantra que trae alegría y redención a todo el mundo. ¡Mi Fuego arderá hasta la venida del Mesías!',
+        category: 'teachings',
+        author: 'Rabino Israel Dov Odesser zt"l - Saba',
+        date: '2025-01-01',
+        views: 2340,
+        featured: true,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true
+      },
+      {
+        id: 8,
+        title: 'Bailes Breslov - Celebración de Alegría y Fe',
+        excerpt: 'Enormes celebraciones en Jerusalén y en todo el mundo! Los hasidim Breslov se reúnen para bailar, regocijarse y difundir la luz del Rabino Nachman. "Es un gran mandamiento estar en alegría" - ¡y en el baile expresamos esa alegría!',
+        category: 'community',
+        author: 'Documentalistas Breslov',
+        date: '2024-12-28',
+        views: 1890,
+        featured: false,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true,
+        memberPhotos: [
+          '/attached_assets/ליקוטי מוהרן 1_1757275910545.jpg',
+          '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+          '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg'
+        ]
+      }
+    ]
+  },
+  ru: {
+    title: 'Журнал - Журнал Бреслова',
+    subtitle: 'Обновленное и актуальное содержание о жизни Бреслова',
+    latestArticles: 'Последние статьи',
+    categories: 'Категории',
+    featured: 'Рекомендуемое',
+    readMore: 'Читать далее',
+    published: 'Опубликовано',
+    author: 'Автор',
+    views: 'Просмотры',
+    allArticles: 'Все статьи',
+    categoriesList: {
+      teachings: 'Учения',
+      stories: 'Истории',
+      practices: 'Практики',
+      community: 'Сообщество',
+      events: 'События'
+    },
+    articles: [
+      {
+        id: 1,
+        title: 'Большая Заповедь: Всегда быть Счастливым - Полное Учение',
+        excerpt: 'Узнайте о самом известном учении Раби Нахмана из Бреслова о вечной радости и ее значении в нашей жизни. Раби Нахман учил: "Это большая заповедь всегда быть в радости" - это самое мощное учение против всех трудностей и страданий жизни.',
+        category: 'teachings',
+        author: 'Раби Израиль Давид Одессер zt"l',
+        date: '2025-01-15',
+        views: 1250,
+        featured: true,
+        image: '/attached_assets/ליקוטי מוהרן 1_1757275910545.jpg',
+        communityImage: true
+      },
+      {
+        id: 2,
+        title: 'Хитбодедут - Святая Беседа с Творцом',
+        excerpt: 'Откройте секрет хитбодедута, личной и частной молитвы Раби Нахмана, которую каждый может делать в любом месте и в любое время. Хитбодедут - это самая мощная сила, данная нам - простая и личная беседа с Всевышним, на нашем языке, нашими словами.',
+        category: 'practices',
+        author: 'Раби Нахман из Бреслова',
+        date: '2025-01-12',
+        views: 980,
+        featured: true,
+        image: '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+        communityImage: true
+      },
+      {
+        id: 3,
+        title: 'Нет Отчаяния в Мире - Сообщение Надежды',
+        excerpt: 'Самое мощное учение Раби Нахмана о надежде и важности укрепления себя во всем, что возможно. На Нах Нахма Нахман Меуман! Даже когда все кажется трудным, всегда есть надежда. "Знай, что человек должен перейти через очень, очень узкий мост, и правило таково: вообще не бояться!"',
+        category: 'teachings',
+        author: 'Раби Нахман из Бреслова',
+        date: '2025-01-10',
+        views: 1560,
+        featured: false,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true
+      },
+      {
+        id: 4,
+        title: 'Сказки - Скрытая Мудрость',
+        excerpt: 'Откройте чудесные сказки Раби Нахмана, которые содержат глубокую мудрость и духовные секреты для каждой души. Каждая сказка - это целый мир - король, принц, лес, путешествие... и в них вся мудрость, необходимая для истинной жизни.',
+        category: 'stories',
+        author: 'Рассказано Раби Натаном из Бреслова',
+        date: '2025-01-08',
+        views: 890,
+        featured: false,
+        image: '/attached_assets/סיפורי מעשיות 1_1757275910546.jpg',
+        communityImage: true
+      },
+      {
+        id: 5,
+        title: 'Паломничество в Умань - Духовное Путешествие Тысяч',
+        excerpt: 'Фотографии и отчеты о событиях сообщества Бреслова по всему миру - паломничество к могиле Раби Нахмана в Умани, Рош Ха-Шана, танцы, радость и связь душ со всего мира. Тысячи хасидов собираются каждый год, чтобы отпраздновать вместе.',
+        category: 'community',
+        author: 'Фотография: Всемирное сообщество Бр��слова',
+        date: '2025-01-05',
+        views: 1120,
+        featured: false,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true,
+        memberPhotos: [
+          '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg',
+          '/attached_assets/סיפורי מעשיות 1_1757275910546.jpg',
+          '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+          '/attached_assets/ישראל סבא_1757281003112.jpg'
+        ]
+      },
+      {
+        id: 6,
+        title: 'Ежедневная Практика - Практическое Руководство Духовного Служения',
+        excerpt: 'Как интегрировать учения Бреслова в повседневную жизнь - практические советы для духовной работы каждый день. Начните с хитбодедута каждый день, читайте Тиккун ХаКлали, читайте Ликутей Мохаран и всегда будьте в радости!',
+        category: 'practices',
+        author: 'Раби Израиль Давид Одессер zt"l',
+        date: '2025-01-03',
+        views: 750,
+        featured: false,
+        image: '/attached_assets/חיי מוהרן 1_1757275910544.jpg',
+        communityImage: true
+      },
+      {
+        id: 7,
+        title: 'На Нах Нахма Нахман Меуман - Знаменитая Записка',
+        excerpt: 'История чудесного откровения записки Раби Израиля Давида Одессера zt"l. "На Нах Нахма Нахман Меуман" - святая мантра, которая приносит радость и искупление всему миру. Мой Огонь будет гореть до прихода Машиаха!',
+        category: 'teachings',
+        author: 'Раби Израиль Давид Одессер zt"l - Саба',
+        date: '2025-01-01',
+        views: 2340,
+        featured: true,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true
+      },
+      {
+        id: 8,
+        title: 'Танцы Бреслова - Празднование Радости и Веры',
+        excerpt: 'Огромные праздники в Иерусалиме и по всему миру! Хасиды Бреслова собираются, чтобы танцевать, радоваться и распространять свет Раби Нахмана. "Это большая заповедь быть в радости" - и в танце мы выражаем эту радость!',
+        category: 'community',
+        author: 'Документалисты Бреслова',
+        date: '2024-12-28',
+        views: 1890,
+        featured: false,
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
+        communityImage: true,
+        memberPhotos: [
+          '/attached_assets/ליקוטי מוהרן 1_1757275910545.jpg',
+          '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+          '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg'
+        ]
       }
     ]
   }
@@ -298,7 +673,13 @@ export default function Magazine() {
         <div className="container mx-auto max-w-6xl text-center relative z-10">
           <div className="inline-block mb-4 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30">
             <Sparkles className="w-5 h-5 inline mr-2" />
-            <span className="text-sm font-medium">תוכן מעודכן יומיומי</span>
+            <span className="text-sm font-medium">
+              {currentLanguage === 'he' ? 'תוכן מעודכן יומיומי' :
+               currentLanguage === 'en' ? 'Updated daily content' :
+               currentLanguage === 'fr' ? 'Contenu mis à jour quotidiennement' :
+               currentLanguage === 'es' ? 'Contenido actualizado diariamente' :
+               'Ежедневно обновляемое содержание'}
+            </span>
           </div>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
             {t.title}
@@ -315,7 +696,11 @@ export default function Magazine() {
           <div className="flex items-center gap-3 mb-4">
             <TrendingUp className="w-6 h-6 text-[#f97316]" />
             <h2 className="text-2xl font-bold text-gray-900">
-              {currentLanguage === 'he' ? 'הנושאים החמים' : 'Hot Topics'}
+              {currentLanguage === 'he' ? 'הנושאים החמים' :
+               currentLanguage === 'en' ? 'Hot Topics' :
+               currentLanguage === 'fr' ? 'Sujets Tendances' :
+               currentLanguage === 'es' ? 'Temas Populares' :
+               'Популярные темы'}
             </h2>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -390,7 +775,7 @@ export default function Magazine() {
                       <img 
                         src={article.image} 
                         alt={article.title}
-                        className="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-500"
+                        className="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-500"
                       />
                     )}
                     {/* Gradient Overlay */}
@@ -411,14 +796,14 @@ export default function Magazine() {
                     </div>
                   </div>
                   <CardContent className="p-6">
-                    <p className="text-gray-600 mb-4 line-clamp-3 text-sm leading-relaxed">{article.excerpt}</p>
+                    <p className="text-gray-700 dark:text-gray-300 mb-4 line-clamp-3 text-sm leading-relaxed font-medium">{article.excerpt}</p>
 
                     {/* Member Photos - Community Articles */}
                     {article.memberPhotos && article.memberPhotos.length > 0 && (
                       <div className="mb-4">
                         <div className="flex items-center gap-2 mb-3">
                           <Users className="w-4 h-4 text-[#f97316]" />
-                          <span className="text-sm font-semibold text-gray-700">
+                          <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                             {currentLanguage === 'he' ? 'חברי הקהילה' :
                              currentLanguage === 'en' ? 'Community Members' :
                              currentLanguage === 'fr' ? 'Membres de la communauté' :
@@ -507,7 +892,7 @@ export default function Magazine() {
                   <h3 className="text-lg font-bold mb-2 text-gray-900 line-clamp-2 group-hover:text-[#1e40af] transition-colors">
                     {article.title}
                   </h3>
-                  <p className="text-gray-600 mb-4 text-sm line-clamp-3 leading-relaxed">{article.excerpt}</p>
+                  <p className="text-gray-700 dark:text-gray-300 mb-4 text-sm line-clamp-3 leading-relaxed font-medium">{article.excerpt}</p>
 
                   {/* Member Photos - Community Articles */}
                   {article.memberPhotos && article.memberPhotos.length > 0 && (

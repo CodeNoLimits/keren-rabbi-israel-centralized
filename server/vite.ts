@@ -68,18 +68,40 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
-  const distPath = path.resolve(import.meta.dirname, "public");
+  // In production, files are in dist/public (relative to project root)
+  // import.meta.dirname points to server/, so we go up two levels then into dist/public
+  const distPath = path.resolve(process.cwd(), "dist", "public");
 
   if (!fs.existsSync(distPath)) {
+    console.error(`ERROR: Could not find build directory: ${distPath}`);
+    console.error(`Current working directory: ${process.cwd()}`);
+    console.error(`Looking for: dist/public`);
     throw new Error(
-      `Could not find the build directory: ${distPath}, make sure to build the client first`,
+      `Could not find the build directory: ${distPath}. Make sure to run 'npm run build' first.`,
     );
   }
 
-  app.use(express.static(distPath));
+  console.log(`✅ Serving static files from: ${distPath}`);
+  
+  // Serve static files
+  app.use(express.static(distPath, {
+    maxAge: '1y', // Cache static assets
+    etag: true,
+    lastModified: true
+  }));
 
-  // fall through to index.html if the file doesn't exist
-  app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+  // Fall through to index.html for SPA routing (must be last, after all API routes)
+  // Use app.use("*") to catch all non-API routes for client-side routing
+  app.use("*", (req, res, next) => {
+    // Skip if it's an API route
+    if (req.path.startsWith('/api/')) {
+      return next();
+    }
+    
+    const indexPath = path.resolve(distPath, "index.html");
+    if (!fs.existsSync(indexPath)) {
+      return res.status(404).json({ error: "index.html not found" });
+    }
+    res.sendFile(indexPath);
   });
 }

@@ -61,11 +61,13 @@ export default function Home() {
                currentLanguage === 'ru' ? 'Книги Нашег���� Учителя Рабби Нахмана из Бреслов' : 'ספרי רבנו נחמן מברסלב זצ״ל'}
             </h2>
             <h3 style={{fontSize: 'var(--heading-4)', fontWeight: '300', color: 'hsl(210, 12%, 55%)', marginBottom: '2rem'}}>
-              {currentLanguage === 'he' ? 'עכשיו אונליין' :
-               currentLanguage === 'en' ? 'Now Online' :
-               currentLanguage === 'fr' ? 'Maintenant en Ligne' :
-               currentLanguage === 'es' ? 'Ahora en Línea' :
-               currentLanguage === 'ru' ? 'Теперь Онлайн' : 'עכשיו אונליין'}
+              <p>
+                {currentLanguage === 'he' ? 'עכשיו אונליין' :
+                 currentLanguage === 'en' ? 'Now Online' :
+                 currentLanguage === 'fr' ? 'Maintenant en Ligne' :
+                 currentLanguage === 'es' ? 'Ahora en Línea' :
+                 currentLanguage === 'ru' ? 'Теперь Онлайн' : 'עכשיו אונליין'}
+              </p>
             </h3>
             <div style={{marginBottom: '3rem'}}>
               <img 
@@ -122,7 +124,7 @@ export default function Home() {
                  currentLanguage === 'en' ? 'Got a suitcase? Got a book for the road? Prepare your heart!\n\nRabbi Israel Foundation invites you to enter the raffle of raffles, a flight ticket to the holy tomb of Rabbi Nachman in Uman, the city of longing\n\nAn unforgettable spiritual experience of strength and power!' :
                  currentLanguage === 'fr' ? 'Vous avez une valise? Un livre pour la route? Préparez votre cœur!\n\nLa Fondation Rabbi Israel vous invite à participer au tirage des tirages, un billet d\'avion vers la tombe sainte de Rabbi Nachman à Uman, la ville de l\'aspiration\n\nUne expérience spirituelle inoubliable de force et de puissance!' :
                  currentLanguage === 'es' ? '¿Tienes maleta? ¿Libro para el camino? ¡Prepara tu corazón!\n\nLa Fundación Rabino Israel te invita a participar en el sorteo de sorteos, un boleto de avión a la tumba sagrada del Rabino Nachman en Uman, la ciudad de la añoranza\n\n¡Una experiencia espiritual inolvidable de fortaleza y poder!' :
-                 currentLanguage === 'ru' ? 'Есть чемодан? Есть книга в дорогу? Подготовьте свое сердце!\n\nФонд Рабби Израэля приглашает вас принять участие в розыгрыше розыгрышей, билет на самолет к святой могиле Рабби Нахман�� в Умани, городе тоски\n\nНезабываемый духовный опыт силы и мощи!' : 'מזוודה יש? ספר לדרך יש? תכינו את הלב!\n\nקרן רבי ישראל מזמינה אתכם להכנס להגרלת ההגרלות, כרטיס טיסה לציונו הקדוש של רבי נחמן באומן, עיר הגעגועים\n\nחוויה רוחנית בלתי נשכחת של תעצומות וכח!'}
+                 currentLanguage === 'ru' ? 'Есть чемодан? Есть книга в дорогу? Подготовьте свое сердце!\n\nФонд Рабби Израэля приглашает вас принять участие в розыгрыше розыгрышей, билет на самолет к святой могиле Рабби Нахман�� в Умани, городе тоски\n\nНезабы��аемый духовный опыт силы и мощи!' : 'מזוודה יש? ספר לדרך יש? תכינו את הלב!\n\nקרן רבי ישראל מזמינה אתכם להכנס להגרלת ההגרלות, כרטיס טיסה לציונו הקדוש של רבי נחמן באומן, עיר הגעגועים\n\nחוויה רוחנית בלתי נשכחת של תעצומות וכח!'}
               </p>
               
               <div style={{marginBottom: '2rem'}}>
@@ -156,7 +158,7 @@ export default function Home() {
                         {currentLanguage === 'he' ? 
                           (step === 1 ? 'מבצעים רכישה באתר.' :
                            step === 2 ? 'שולחים את פרטים עם מספר ההזמנה' :
-                           step === 3 ? 'ונכנסים להגרלה הגדולה.' :
+                           step === 3 ? 'ונכ��סים להגרלה הגדולה.' :
                            'מחכים לזכייה הגדולה, ול��וויות הרוחניות באומן!') :
                          currentLanguage === 'en' ? 
                           (step === 1 ? 'Make a purchase on the site.' :
@@ -266,7 +268,7 @@ export default function Home() {
                    currentLanguage === 'es' ? 'Experiencia de Vida Especial' :
                    currentLanguage === 'ru' ? 'Особый Жизненный Опыт' : 'חווית חיים מיוחדת'}
                 </h5>
-                <p style={{color: 'hsl(210, 12%, 55%)', fontSize: '0.9rem'}}>
+                <p style={{color: 'hsl(210, 12%, 35%)', fontSize: '0.9rem', fontWeight: '500'}}>
                   {currentLanguage === 'he' ? 'טיסה ישירה לאומן הכוללת ביקור במקום הקדוש של רבי נחמן מברסלב.' :
                    currentLanguage === 'en' ? 'Direct flight to Uman including visit to the holy place of Rabbi Nachman of Breslov.' :
                    currentLanguage === 'fr' ? 'Vol direct vers Uman incluant une visite du lieu saint de Rabbi Nachman de Breslov.' :
@@ -284,7 +286,7 @@ export default function Home() {
                    currentLanguage === 'es' ? 'Libros Especiales e Impresionantes de Rabbenu' :
                    currentLanguage === 'ru' ? 'Особые и Впечатляющие Книги Раббену' : 'ספרי רבנו מיוחדים ומרשימים'}
                 </h5>
-                <p style={{color: 'hsl(210, 12%, 55%)', fontSize: '0.9rem'}}>
+                <p style={{color: 'hsl(210, 12%, 35%)', fontSize: '0.9rem', fontWeight: '500'}}>
                   {currentLanguage === 'he' ? 'אפשרות לזכות ספרי רבינו מעור אומנותי במיוחד' :
                    currentLanguage === 'en' ? 'Opportunity to win specially crafted artistic leather Rabbenu books' :
                    currentLanguage === 'fr' ? 'Opportunité de gagner des livres de Rabbenu en cuir artistique spécialement conçus' :
@@ -302,7 +304,7 @@ export default function Home() {
                    currentLanguage === 'es' ? 'Simple y Fácil' :
                    currentLanguage === 'ru' ? 'Просто и Легко' : 'פשוט וקל'}
                 </h5>
-                <p style={{color: 'hsl(210, 12%, 55%)', fontSize: '0.9rem'}}>
+                <p style={{color: 'hsl(210, 12%, 35%)', fontSize: '0.9rem', fontWeight: '500'}}>
                   {currentLanguage === 'he' ? 'רכישה פשוטה בסכום סמלי של 35 שקלים ומעלה באתר.' :
                    currentLanguage === 'en' ? 'Simple purchase for a symbolic amount of 35 shekels and up on the site.' :
                    currentLanguage === 'fr' ? 'Achat simple pour un montant symbolique de 35 shekels et plus sur le site.' :
@@ -320,7 +322,7 @@ export default function Home() {
                    currentLanguage === 'es' ? 'Oportunidad Única' :
                    currentLanguage === 'ru' ? 'Единственная Возможность' : 'הזדמנות חד פעמית'}
                 </h5>
-                <p style={{color: 'hsl(210, 12%, 55%)', fontSize: '0.9rem'}}>
+                <p style={{color: 'hsl(210, 12%, 35%)', fontSize: '0.9rem', fontWeight: '500'}}>
                   {currentLanguage === 'he' ? 'פרס מדהים שמגיע ישר לידיכם.' :
                    currentLanguage === 'en' ? 'Amazing prize that comes straight to your hands.' :
                    currentLanguage === 'fr' ? 'Prix incroyable qui arrive directement entre vos mains.' :
@@ -466,7 +468,7 @@ export default function Home() {
                  currentLanguage === 'es' ? 'Entrega Rápida Gratuita a Domicilio' :
                  currentLanguage === 'ru' ? 'Быстрая Бесплатная Доставка на Дом' : 'משלוח מהיר עד הבית חינם'}
               </h3>
-              <p style={{color: 'hsl(210, 12%, 55%)', fontSize: '0.9rem'}}>
+              <p style={{color: 'hsl(210, 12%, 35%)', fontSize: '0.9rem', fontWeight: '500'}}>
                 {currentLanguage === 'he' ? 'ברכישה מעל 299 ₪ מהחנות' :
                  currentLanguage === 'en' ? 'On purchases over 299 ₪ from the store' :
                  currentLanguage === 'fr' ? 'Sur les achats de plus de 299 ₪ du magasin' :
@@ -484,7 +486,7 @@ export default function Home() {
                  currentLanguage === 'es' ? 'Compra Segura' :
                  currentLanguage === 'ru' ? 'Безопасная Покупка' : 'רכישה מאובטחת'}
               </h3>
-              <p style={{color: 'hsl(210, 12%, 55%)', fontSize: '0.9rem'}}>
+              <p style={{color: 'hsl(210, 12%, 35%)', fontSize: '0.9rem', fontWeight: '500'}}>
                 {currentLanguage === 'he' ? 'באמצעות תעודת SSL ובתקנים המחמירים ביותר' :
                  currentLanguage === 'en' ? 'Using SSL certificate and the most stringent standards' :
                  currentLanguage === 'fr' ? 'En utilisant un certificat SSL et les normes les plus strictes' :
@@ -502,7 +504,7 @@ export default function Home() {
                  currentLanguage === 'es' ? 'Librería en Línea Más Grande para los Libros de Nuestro Maestro' :
                  currentLanguage === 'ru' ? 'Крупнейший Интернет-Книжный Магазин Книг Нашего Учителя' : 'חנות הספרים הגדולה ביותר לספרי רבנו אונליין'}
               </h3>
-              <p style={{color: 'hsl(210, 12%, 55%)', fontSize: '0.9rem'}}>
+              <p style={{color: 'hsl(210, 12%, 35%)', fontSize: '0.9rem', fontWeight: '500'}}>
                 {currentLanguage === 'he' ? 'משלוחים לכל הארץ' :
                  currentLanguage === 'en' ? 'Shipping throughout the country' :
                  currentLanguage === 'fr' ? 'Expédition dans tout le pays' :
@@ -520,7 +522,7 @@ export default function Home() {
                  currentLanguage === 'es' ? 'Excelente Servicio al Cliente Siempre Disponible' :
                  currentLanguage === 'ru' ? 'Отличное Обслуживание Клиентов Всегда Доступно' : 'שירות לקוחות מעולה וזמין תמיד לשירותכם'}
               </h3>
-              <p style={{color: 'hsl(210, 12%, 55%)', fontSize: '0.9rem'}}>
+              <p style={{color: 'hsl(210, 12%, 35%)', fontSize: '0.9rem', fontWeight: '500'}}>
                 {currentLanguage === 'he' ? 'עד 12 תשלומים ללא ריבית' :
                  currentLanguage === 'en' ? 'Up to 12 payments without interest' :
                  currentLanguage === 'fr' ? 'Jusqu\'à 12 paiements sans intérêt' :
@@ -641,7 +643,7 @@ export default function Home() {
              currentLanguage === 'en' ? 'And get 10% discount on your first purchase on the site' :
              currentLanguage === 'fr' ? 'Et obtenez 10% de réduction sur votre premier achat sur le site' :
              currentLanguage === 'es' ? 'Y obtén 10% de descuento en tu primera compra en el sitio' :
-             currentLanguage === 'ru' ? 'И получите скидку 10% на первую покупку на сайте' : 'וקבלו 10% הנחנה ברכישה ראשונה באתר'}
+             currentLanguage === 'ru' ? 'И получите скидку 10% на первую покупк�� на сайте' : 'וקבלו 10% הנחנה ברכישה ראשונה באתר'}
           </p>
           
           <div style={{display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '3rem', flexWrap: 'wrap'}}>
@@ -742,7 +744,7 @@ export default function Home() {
              currentLanguage === 'en' ? 'Your opportunity to help and lend a hand in spreading the name of the Tzaddik in the world' :
              currentLanguage === 'fr' ? 'Votre opportunité d\'aider et de donner un coup de main à la diffusion du nom du Tzaddik dans le monde' :
              currentLanguage === 'es' ? 'Tu oportunidad de ayudar y dar una mano en difundir el nombre del Tzaddik en el mundo' :
-             currentLanguage === 'ru' ? 'Ваша возможность помочь и приложить руку к распространению имени Цадика в мире' : 'ההזדמנות שלכם לעזור ולתת יד לפרסום שם הצדיק בעולם'}
+             currentLanguage === 'ru' ? 'Ваша возможность помочь и приложить руку к распространению имени Цадика в мире' : 'ההזדמנות שלכם לעזור ולתת יד לפר��ום שם הצדיק בעולם'}
           </h3>
           
           <div style={{display: 'flex', gap: '2rem', justifyContent: 'center', flexWrap: 'wrap'}}>
@@ -795,7 +797,7 @@ export default function Home() {
           <div style={{textAlign: 'center', paddingTop: '2rem'}}>
             <div style={{color: 'hsl(210, 12%, 65%)', fontSize: '0.9rem'}}>
               <p style={{marginBottom: '0.5rem'}}>
-                {currentLanguage === 'he' ? 'כל הזכיות שמורות 2025 © קרן רבי ישראל דב אודסר זצ"ל' :
+                {currentLanguage === 'he' ? 'כל הזכי��ת שמורות 2025 © קרן רבי ישראל דב אודסר זצ"ל' :
                  currentLanguage === 'en' ? 'All rights reserved 2025 © Rabbi Israel Dov Odesser Foundation' :
                  currentLanguage === 'fr' ? 'Tous droits réservés 2025 © Fondation Rabbi Israel Dov Odesser' :
                  currentLanguage === 'es' ? 'Todos los derechos reservados 2025 © Fundación Rabino Israel Dov Odesser' :

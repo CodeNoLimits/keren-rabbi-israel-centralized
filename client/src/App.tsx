@@ -8,6 +8,7 @@ import { CartProvider } from "@/contexts/CartContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { InstallPrompt } from "@/components/InstallPrompt";
 import { AmbientMusic } from "@/components/AmbientMusic";
+import BuilderComponent from "@/components/BuilderComponent";
 import Home from "@/pages/home";
 import Store from "@/pages/store";
 import About from "@/pages/about";
@@ -43,7 +44,6 @@ const CheckoutSuccess = () => {
 import Downloads from "@/pages/downloads";
 import Product from "@/pages/product";
 import BreslovWisdom from "@/pages/breslovWisdom";
-import BreslovVideos from "@/pages/breslov-videos";
 import KerenStyle from "@/pages/keren-style";
 import HaeshHype from "@/pages/haesh-hype";
 import Subscription from "@/pages/subscription";
@@ -54,6 +54,7 @@ import Lottery from "@/pages/lottery";
 import LotteryAdmin from "@/pages/lottery-admin";
 import Hilloula from "@/pages/hilloula-2024";
 import Testimonials from "@/pages/testimonials";
+import BreslovVideos from "@/pages/breslov-videos";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -72,14 +73,13 @@ function Router() {
       <Route path="/subscription/manage" component={SubscriptionManagement} />
       <Route path="/product/:id" component={Product} />
       <Route path="/breslov-wisdom" component={BreslovWisdom} />
-      <Route path="/breslov-videos" component={BreslovVideos} />
       <Route path="/keren-style" component={KerenStyle} />
       <Route path="/haesh-hype" component={HaeshHype} />
       <Route path="/chat" component={Chat} />
       <Route path="/lottery" component={Lottery} />
       <Route path="/lottery/admin" component={LotteryAdmin} />
-      <Route path="/hilloula-2024" component={Hilloula} />
-      <Route path="/testimonials" component={Testimonials} />
+      <Route path="/hilloula-2024" component={() => <BuilderComponent model="page" name="hilloula-2024" />} />
+      <Route path="/testimonials" component={() => <BuilderComponent model="page" name="testimonials" />} />
       <Route path="/yaaakov" component={YaakovDashboard} />
       <Route component={NotFound} />
     </Switch>

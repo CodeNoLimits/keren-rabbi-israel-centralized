@@ -13,6 +13,9 @@ services:
     buildCommand: npm install && npm run build
     startCommand: npm run start:prod
     
+    # 📁 Root Directory (if needed)
+    # rootDir: keren-original-backup
+    
     # 🌍 Environment Variables
     envVars:
       # Node Configuration

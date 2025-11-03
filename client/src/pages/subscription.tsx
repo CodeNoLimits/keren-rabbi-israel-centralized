@@ -158,9 +158,15 @@ const SubscriptionPlanCard = ({ plan, isCurrentPlan }: { plan: SubscriptionPlan;
       let errorMessage = "נכשלנו בעיבוד הבקשה. אנא נסה שוב";
       let errorTitle = "אופס!";
       
-      if (error.message?.includes('מערכת התשלומים')) {
-        errorTitle = "יצירת קשר";
-        errorMessage = "נתקלנו בקושי זמני. צוות השירות שלנו יעזור לך להשלים את המנוי. אנא פנה אלינו";
+      if (error.message === 'STRIPE_NOT_CONFIGURED' || error.message?.includes('מערכת התשלומים') || error.message?.includes('stripe')) {
+        errorTitle = "בואו נדבר!";
+        errorMessage = "נשמח לעזור לך להצטרף למשפחת 'האש שלי'. צור איתנו קשר דרך הוואטסאפ או מייל";
+        toast({
+          title: errorTitle,
+          description: errorMessage,
+          duration: 8000,
+        });
+        return; // Don't show additional error toast
       }
       
       toast({

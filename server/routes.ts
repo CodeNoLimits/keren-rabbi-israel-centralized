@@ -93,7 +93,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
     
     // Try to find file in priority order
-    const searchPaths = [distPublicAssets, clientPublicAssets, rootAssets];
+    // In production: dist/public/attached_assets (built files)
+    // In development: client/public/attached_assets
+    // Fallback: root attached_assets/
+    const isProduction = process.env.NODE_ENV === "production";
+    const searchPaths = isProduction 
+      ? [distPublicAssets, rootAssets, clientPublicAssets]
+      : [clientPublicAssets, distPublicAssets, rootAssets];
     
     for (const searchPath of searchPaths) {
       const filePath = path.join(searchPath, fileName);

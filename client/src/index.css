@@ -1564,7 +1564,14 @@ select.form-input {
     gap: 0.2rem;
   }
 
-  .whatsapp-widget,
+  .whatsapp-widget {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.875rem !important;
+    min-width: 120px !important;
+    z-index: 10001 !important;
+    position: relative !important;
+  }
+  
   .auth-widget,
   .cart-widget {
     padding: 0.2rem 0.25rem !important;

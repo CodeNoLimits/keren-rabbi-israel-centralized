@@ -6,7 +6,7 @@ import {
   Star, Heart, Book, Lightbulb, Quote, Mountain, Music, Flame, 
   Sun, Moon, Target, Compass, Crown, Sparkles, Globe, Users,
   Clock, TreePine, Flower, Wind, Eye, Shield, Zap, Diamond,
-  ChevronDown, ChevronUp, Play, Volume2, VolumeX
+  ChevronDown, ChevronUp, Play, Volume2, VolumeX, Youtube
 } from 'lucide-react';
 
 const translations = {
@@ -610,7 +610,8 @@ export default function KerenStyle() {
               { id: 'quotes', label: t.navQuotes, icon: Quote },
               { id: 'practices', label: t.navPractices, icon: Target },
               { id: 'books', label: t.navBooks, icon: Heart },
-              { id: 'wisdom', label: t.navWisdom, icon: Star }
+              { id: 'wisdom', label: t.navWisdom, icon: Star },
+              { id: 'videos', label: currentLanguage === 'he' ? 'וידיאוים' : 'Videos', icon: Play }
             ].map(({ id, label, icon: Icon }) => (
               <motion.button
                 key={id}
@@ -1137,6 +1138,79 @@ export default function KerenStyle() {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* Breslov Videos Section - Integrated from breslov-videos */}
+      {activeSection === 'videos' && (
+        <motion.section
+          key="videos"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 50 }}
+          transition={{ duration: 0.6 }}
+          className="py-16 px-4"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-5xl font-bold text-gray-800 dark:text-gray-200 mb-4">
+              {currentLanguage === 'he' ? 'וידיאוים קדושים' : 'Keren Style Videos'}
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400">
+              {currentLanguage === 'he' ? 'וידיאוים אותנטיים על תורת רבי נחמן מברסלב' : 'Authentic videos on Rabbi Nachman of Breslov\'s teachings'}
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                id: 'video1',
+                title: 'לִהְיוֹת בְּשִׂמְחָה תָּמִיד - התורה המפורסמת',
+                titleEn: 'Always Be Happy - The Famous Teaching',
+                videoId: '3uQP06r20H8',
+                thumbnail: 'https://img.youtube.com/vi/3uQP06r20H8/maxresdefault.jpg',
+                description: 'התורה המפורסמת של רבי נחמן על השמחה הנצחית',
+                category: 'תורות עיקריות'
+              },
+              {
+                id: 'video2',
+                title: 'אין יאוש בעולם כלל - מסר התקווה',
+                titleEn: 'No Despair in the World - Message of Hope',
+                videoId: 'RvlOCvdiUCA',
+                thumbnail: 'https://img.youtube.com/vi/RvlOCvdiUCA/maxresdefault.jpg',
+                description: 'התורה החזקה של רבי נחמן נגד הייאוש',
+                category: 'חיזוק והתגברות'
+              },
+              {
+                id: 'video3',
+                title: 'התבודדות - השיחה עם הבורא',
+                titleEn: 'Hitbodedut - Speaking with the Creator',
+                videoId: '3LFVAOXVB9Y',
+                thumbnail: 'https://img.youtube.com/vi/3LFVAOXVB9Y/maxresdefault.jpg',
+                description: 'הדרכה מעשית להתבודדות עם ה\' בלשון שלנו',
+                category: 'עבודת ה'
+              }
+            ].map((video) => (
+              <motion.div
+                key={video.id}
+                whileHover={{ scale: 1.03 }}
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden cursor-pointer"
+                onClick={() => window.open(`https://www.youtube.com/watch?v=${video.videoId}`, '_blank')}
+              >
+                <div className="relative">
+                  <img src={video.thumbnail} alt={video.title} className="w-full h-48 object-cover" />
+                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                    <Play className="w-12 h-12 text-white" />
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2">
+                    {currentLanguage === 'en' ? video.titleEn : video.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{video.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+      )}
 
       {/* Background ambient music (if enabled) */}
       {ambientMusicEnabled && (

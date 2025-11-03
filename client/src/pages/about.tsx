@@ -150,8 +150,8 @@ const translations = {
 
   en: {
     // SEO
-    title: 'About My Fire - Your Source for Authentic Breslov Books',
-    description: 'Learn about the story behind My Fire, the leading website for high-quality Breslov books. Meet founder Yaakov Hen and our vision to spread Breslov light worldwide.',
+    title: 'About Keren Rabbi Israel - Your Source for Authentic Breslov Books',
+    description: 'Learn about the story behind Keren Rabbi Israel Dov Odesser, the leading organization for high-quality Breslov books. Discover the legacy of Saba Rabbi Israel Dov Odesser and our mission to spread Breslov light worldwide.',
 
     // Hero Section
     heroTitle: 'About My Fire',
@@ -162,9 +162,9 @@ const translations = {
 
     // Founder Section
     founderTitle: 'Meet the Founder',
-    founderName: 'Yaakov Hen',
+    founderName: 'Rabbi Israël Dov Odesser זצ״ל - Saba',
     founderRole: 'Founder and Director of My Fire',
-    founderBio: 'Yaakov is a devoted believer in the wisdom of Breslov and Rabbi Nachman\'s teachings. With dedication and deep spiritual connection to the Breslov tradition, Yaakov has committed himself to a holy mission: bringing the light of Rabbi Nachman to every Jew in the world, wherever they may be. Our hope is that the books and teachings of Rabbi Nachman will reach every heart that needs them.',
+    founderBio: 'Rabbi Israël Dov Odesser, known as "Saba", was one of the greatest disseminators of Rabbi Nachman of Breslov\'s teachings in the world. For decades, he dedicated his life to spreading the light of Rabbi Nachman to every Jew in the world, in every country and every language. He merited to discover the holy note "Na Nach Nachma Nachman MeUman" and spread the Breslov light throughout the world. The Keren was founded to continue Saba\'s holy mission and bring Rabbi Nachman\'s books to every Jewish home.',
     founderMission: 'Following Rabbi Israel Dov Odesser zt"l (the Saba), who spread Rabbi Nachman\'s message to all nations, we strive to continue this mission through technology. Technology is merely a tool - the soul of our work is to illuminate the Breslov light for everyone.',
     personalValues: 'Our Values',
     values: [
@@ -293,7 +293,7 @@ const translations = {
   fr: {
     // SEO
     title: 'À Propos de Mon Feu - Votre Source de Livres Breslov Authentiques',
-    description: 'Découvrez l\'histoire derrière Mon Feu, le site web leader pour les livres Breslov de haute qualité. Rencontrez le fondateur Yaakov Hen et notre vision de répandre la lumière Breslov dans le monde.',
+    description: 'Découvrez l\'histoire derrière la Keren Rabbi Israël Dov Odesser, l\'organisation leader pour les livres Breslov de haute qualité. Découvrez l\'héritage de Saba Rabbi Israël Dov Odesser et notre mission de répandre la lumière Breslov dans le monde.',
 
     // Hero Section
     heroTitle: 'À Propos de Mon Feu',
@@ -304,9 +304,9 @@ const translations = {
 
     // Founder Section
     founderTitle: 'Rencontrez le Fondateur',
-    founderName: 'Yaakov Hen',
+    founderName: 'Rabbi Israël Dov Odesser זצ״ל - Saba',
     founderRole: 'Fondateur et Directeur de Mon Feu',
-    founderBio: 'Yaakov est un croyant dévoué dans la sagesse de Breslov et les enseignements du Rabbi Nachman. Avec dévouement et connexion spirituelle profonde à la tradition Breslov, Yaakov s\'est engagé à une mission sainte : apporter la lumière du Rabbi Nachman à chaque Juif du monde, où qu\'il soit. Notre espoir est que les livres et les enseignements du Rabbi Nachman atteindront chaque cœur qui en a besoin.',
+    founderBio: 'Rabbi Israël Dov Odesser, connu sous le nom de "Saba", était l\'un des plus grands diffuseurs des enseignements du Rabbi Nachman de Breslov dans le monde. Pendant des décennies, il a consacré sa vie à répandre la lumière du Rabbi Nachman à chaque Juif du monde, dans chaque pays et chaque langue. Il a mérité de découvrir le note sacré "Na Nach Nachma Nachman MeUman" et de répandre la lumière Breslov dans le monde entier. La Keren a été fondée pour poursuivre la mission sainte de Saba et apporter les livres du Rabbi Nachman à chaque foyer juif.',
     founderMission: 'En suivant le Rabbi Israel Dov Odesser zt"l (le Saba), qui a répandu le message du Rabbi Nachman à toutes les nations, nous nous efforçons de poursuivre cette mission par la technologie. La technologie n\'est qu\'un outil - l\'âme de notre travail est d\'illuminer la lumière Breslov pour tous.',
     personalValues: 'Nos Valeurs',
     values: [
@@ -435,7 +435,7 @@ const translations = {
   es: {
     // SEO
     title: 'Acerca de Mi Fuego - Tu Fuente de Libros Breslov Auténticos',
-    description: 'Aprende sobre la historia detrás de Mi Fuego, el sitio web líder para libros Breslov de alta calidad. Conoce al fundador Yaakov Hen y nuestra visión de esparcir la luz Breslov mundialmente.',
+    description: 'Aprende sobre la historia detrás de la Keren Rabbi Israel Dov Odesser, la organización líder para libros Breslov de alta calidad. Descubre el legado de Saba Rabbi Israel Dov Odesser y nuestra misión de esparcir la luz Breslov mundialmente.',
 
     // Hero Section
     heroTitle: 'Acerca de Mi Fuego',
@@ -446,9 +446,9 @@ const translations = {
 
     // Founder Section
     founderTitle: 'Conoce al Fundador',
-    founderName: 'Yaakov Hen',
+    founderName: 'Rabbi Israël Dov Odesser זצ״ל - Saba',
     founderRole: 'Fundador y Director de Mi Fuego',
-    founderBio: 'Yaakov es un creyente devoto en la sabiduría de Breslov y las enseñanzas del Rabino Nachman. Con dedicación y profunda conexión espiritual a la tradición Breslov, Yaakov se ha comprometido a una misión sagrada: llevar la luz del Rabino Nachman a cada judío del mundo, donde quiera que esté. Nuestra esperanza es que los libros y las enseñanzas del Rabino Nachman lleguen a cada corazón que los necesite.',
+    founderBio: 'Rabbi Israel Dov Odesser, conocido como "Saba", fue uno de los más grandes difusores de las enseñanzas del Rabino Nachman de Breslov en el mundo. Durante décadas, dedicó su vida a esparcir la luz del Rabino Nachman a cada judío del mundo, en cada país y cada idioma. Merezó descubrir la nota sagrada "Na Nach Nachma Nachman MeUman" y esparcir la luz Breslov por todo el mundo. La Keren fue fundada para continuar la santa misión de Saba y traer los libros del Rabino Nachman a cada hogar judío.',
     founderMission: 'Siguiendo al Rabino Israel Dov Odesser zt"l (el Saba), quien difundió el mensaje del Rabino Nachman a todas las naciones, nos esforzamos por continuar esta misión a través de la tecnología. La tecnología es solo una herramienta - el alma de nuestro trabajo es iluminar la luz Breslov para todos.',
     personalValues: 'Nuestros Valores',
     values: [
