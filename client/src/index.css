@@ -1136,8 +1136,11 @@ select.form-input {
   margin: 0;
   padding: 0.5rem;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
+  width: auto;
+  flex-grow: 1;
+  font-family: Arial, sans-serif;
 }
 
 /* Navigation Link Styles */
