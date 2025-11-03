@@ -3,7 +3,14 @@
 
 import fetch from 'node-fetch';
 
-const OPENROUTER_API_KEY = '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';
+// SÉCURISÉ: Clé depuis variable d'environnement
+import dotenv from 'dotenv';
+dotenv.config();
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+if (!OPENROUTER_API_KEY) {
+  console.error('❌ OPENROUTER_API_KEY manquante dans .env');
+  process.exit(1);
+}
 const BASE_URL = 'https://openrouter.ai/api/v1';
 
 class HaeshSheliAI {

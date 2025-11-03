@@ -1056,8 +1056,8 @@ select.form-input {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 1.5rem 0.75rem 1.5rem;
-  gap: 1.5rem;
+  padding: 0.6rem 1.5rem 0.4rem 1.5rem;
+  gap: 1rem;
   border-bottom: 1px solid rgba(255,255,255,0.15);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -1069,9 +1069,9 @@ select.form-input {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1.5rem 1.25rem 1.5rem;
-  gap: 1.5rem;
-  min-height: 60px;
+  padding: 0.4rem 1.5rem 0.6rem 1.5rem;
+  gap: 1rem;
+  min-height: 48px;
 }
 
 /* Legacy container for compatibility */

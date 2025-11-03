@@ -14,16 +14,16 @@ const translations = {
     // Hero Section
     heroTitle: 'אודות האש שלי',
     heroSubtitle: 'המקום שלכם לספרי ברסלב אמיתיים באיכות מעולה',
-    heroDescription: 'אנחנו מאמינים שכל יהודי בעולם זכאי לגשת לאוצרות החכמה של רבי נחמן מברסלב. האש שלי נוסדה כדי להביא את האור הברסלבי לכל בית יהודי באמצעות הטכנולוגיה המתקדמת ביותר.',
+    heroDescription: 'אנחנו מאמינים שכל יהודי בעולם זכאי לגשת לאוצרות החכמה של רבי נחמן מברסלב. האש שלי נוסדה כדי להביא את האור הברסלבי לכל בית יהודי באמצעות הטכנולוגיה המתקדמת ביו��ר.',
     heroCtaPrimary: 'צור קשר עכשיו',
     heroCtaSecondary: 'הורדות חינמיות',
 
     // Founder Section
-    founderTitle: 'הכירו את המייסד',
+    founderTitle: 'הכירו את המייסד ומשהו של אתכם',
     founderName: 'יעקב חן',
-    founderRole: 'מייסד ומפתח האש שלי',
-    founderBio: 'יעקב הוא מפתח Full-Stack מנוסה עם תשוקה עמוקה להפצת הספרות הברסלבית. עם מעל 8 שנות ניסיון בפיתוח אתרים מתקדמים, יעקב הקדיש את כישוריו הטכניים למשימה קדושה: לייצר מהפכה דיגיטלית בעולם הספרות היהודית.',
-    founderMission: 'החזון שלי פשוט: כל יהודי בעולם צריך לקבל גישה קלה ונוחה לחכמת רבי נחמן. הטכנולוגיה היא הכלי, האור הברסלבי הוא המטרה.',
+    founderRole: 'מייסד ומנהל האש שלי',
+    founderBio: 'יעק�� נשאר בעל אמונה עמוקה בברסלב והשתאבות את אלו החוכמות של רבי נחמן. עם זריזות וחיבור עמוק לרוח ברסלב, יעקב הקדיש עצמו למשימה קדושה: להביא את אור רבי נחמן לכל יהודי בעולם, ולא משנה אי שם הם שוהים או מה המצב שלהם. התקווה היא שהספרים והתורות של רבי נחמן יגיעו לכל לב שצריך אותם.',
+    founderMission: 'בעקבות רבי ישראל דב אודסר זצ״ל (הסבא), שהפיץ את מסרו של רבי נחמן בכל המדינות, אנו משתדלים להשלים את המשימה הזו דרך הטכנולוגיה. הטכנולוגיה היא כלי בלבד - הנשמה של העבודה היא להקרים את אור ברסלב לכל אחד.',
     personalValues: 'הערכים שלנו',
     values: [
       {
@@ -111,7 +111,7 @@ const translations = {
       {
         name: 'הרב משה כהן',
         location: 'ירושלים, ישראל',
-        quote: 'האתר הכי מתקדם ונוח לקניית ספרי ברסלב. איכות מעולה, שירות מהיר, ומבחר שלא קיים בשום מקום אחר. ממליץ בחום!',
+        quote: 'האתר הכי מתקדם ונוח לקניית ספרי ברסלב. איכות מעולה, שי��ות מהיר, ומבחר שלא קיים בשום מקום אחר. מ��ליץ בחום!',
         rating: 5
       },
       {
@@ -135,7 +135,7 @@ const translations = {
       {
         name: 'רחל גולדברג',
         location: 'מלבורן, אוסטרליה',
-        quote: 'האתר קל לשימוש, המידע מדויק והתמיכה בעברית מושלמת. המלצה גדולה למי שמחפש ספרי ברסלב אמיתיים.',
+        quote: 'האתר קל לשימוש, המידע מדויק והתמיכה בעברית מושלמת. המלצה גדולה למי שמחפש ספ���י ברסלב אמיתיים.',
         rating: 5
       }
     ],
@@ -163,9 +163,9 @@ const translations = {
     // Founder Section
     founderTitle: 'Meet the Founder',
     founderName: 'Yaakov Hen',
-    founderRole: 'Founder & Developer of My Fire',
-    founderBio: 'Yaakov is an experienced Full-Stack developer with a deep passion for spreading Breslov literature. With over 8 years of experience developing advanced websites, Yaakov dedicated his technical skills to a holy mission: creating a digital revolution in the world of Jewish literature.',
-    founderMission: 'My vision is simple: every Jew in the world should have easy and convenient access to Rabbi Nachman\'s wisdom. Technology is the tool, Breslov light is the goal.',
+    founderRole: 'Founder and Director of My Fire',
+    founderBio: 'Yaakov is a devoted believer in the wisdom of Breslov and Rabbi Nachman\'s teachings. With dedication and deep spiritual connection to the Breslov tradition, Yaakov has committed himself to a holy mission: bringing the light of Rabbi Nachman to every Jew in the world, wherever they may be. Our hope is that the books and teachings of Rabbi Nachman will reach every heart that needs them.',
+    founderMission: 'Following Rabbi Israel Dov Odesser zt"l (the Saba), who spread Rabbi Nachman\'s message to all nations, we strive to continue this mission through technology. Technology is merely a tool - the soul of our work is to illuminate the Breslov light for everyone.',
     personalValues: 'Our Values',
     values: [
       {
@@ -305,9 +305,9 @@ const translations = {
     // Founder Section
     founderTitle: 'Rencontrez le Fondateur',
     founderName: 'Yaakov Hen',
-    founderRole: 'Fondateur & Développeur de Mon Feu',
-    founderBio: 'Yaakov est un développeur Full-Stack expérimenté avec une passion profonde pour répandre la littérature Breslov. Avec plus de 8 ans d\'expérience dans le développement de sites web avancés, Yaakov a dédié ses compétences techniques à une mission sainte : créer une révolution numérique dans le monde de la littérature juive.',
-    founderMission: 'Ma vision est simple : chaque Juif dans le monde devrait avoir un accès facile et pratique à la sagesse du Rabbi Nachman. La technologie est l\'outil, la lumière Breslov est l\'objectif.',
+    founderRole: 'Fondateur et Directeur de Mon Feu',
+    founderBio: 'Yaakov est un croyant dévoué dans la sagesse de Breslov et les enseignements du Rabbi Nachman. Avec dévouement et connexion spirituelle profonde à la tradition Breslov, Yaakov s\'est engagé à une mission sainte : apporter la lumière du Rabbi Nachman à chaque Juif du monde, où qu\'il soit. Notre espoir est que les livres et les enseignements du Rabbi Nachman atteindront chaque cœur qui en a besoin.',
+    founderMission: 'En suivant le Rabbi Israel Dov Odesser zt"l (le Saba), qui a répandu le message du Rabbi Nachman à toutes les nations, nous nous efforçons de poursuivre cette mission par la technologie. La technologie n\'est qu\'un outil - l\'âme de notre travail est d\'illuminer la lumière Breslov pour tous.',
     personalValues: 'Nos Valeurs',
     values: [
       {
@@ -447,9 +447,9 @@ const translations = {
     // Founder Section
     founderTitle: 'Conoce al Fundador',
     founderName: 'Yaakov Hen',
-    founderRole: 'Fundador y Desarrollador de Mi Fuego',
-    founderBio: 'Yaakov es un desarrollador Full-Stack experimentado con una pasión profunda por esparcir la literatura Breslov. Con más de 8 años de experiencia desarrollando sitios web avanzados, Yaakov dedicó sus habilidades técnicas a una misión sagrada: crear una revolución digital en el mundo de la literatura judía.',
-    founderMission: 'Mi visión es simple: cada judío en el mundo debería tener acceso fácil y conveniente a la sabiduría del Rabino Nachman. La tecnología es la herramienta, la luz Breslov es el objetivo.',
+    founderRole: 'Fundador y Director de Mi Fuego',
+    founderBio: 'Yaakov es un creyente devoto en la sabiduría de Breslov y las enseñanzas del Rabino Nachman. Con dedicación y profunda conexión espiritual a la tradición Breslov, Yaakov se ha comprometido a una misión sagrada: llevar la luz del Rabino Nachman a cada judío del mundo, donde quiera que esté. Nuestra esperanza es que los libros y las enseñanzas del Rabino Nachman lleguen a cada corazón que los necesite.',
+    founderMission: 'Siguiendo al Rabino Israel Dov Odesser zt"l (el Saba), quien difundió el mensaje del Rabino Nachman a todas las naciones, nos esforzamos por continuar esta misión a través de la tecnología. La tecnología es solo una herramienta - el alma de nuestro trabajo es iluminar la luz Breslov para todos.',
     personalValues: 'Nuestros Valores',
     values: [
       {
@@ -590,7 +590,7 @@ const translations = {
     founderTitle: 'Познакомьтесь с Основателем',
     founderName: 'Яаков Хен',
     founderRole: 'Основатель и Разработчик Моего Огня',
-    founderBio: 'Яаков - опытный Full-Stack разработчик с глубокой страстью к распространению литературы Бреслов. Имея более 8 лет опыта в разработке передовых веб-сайтов, Яаков посвятил свои технические навыки святой миссии: созданию цифровой революции в мире еврейской литературы.',
+    founderBio: 'Яаков - опытн��й Full-Stack разработчик с глубокой страстью к распространению литературы Бреслов. Имея более 8 лет опыта в разработке передовых веб-сайтов, Яаков посвятил свои технические навыки святой миссии: созданию цифровой революции в мире еврейской литературы.',
     founderMission: 'Мое видение простое: каждый еврей в мире должен иметь легкий и удобный доступ к мудрости рабби Нахмана. Технология - это инструмент, свет Бреслов - это цель.',
     personalValues: 'Наши Ценности',
     values: [
@@ -605,7 +605,7 @@ const translations = {
         icon: 'Award'
       },
       {
-        title: 'Служение Общине',
+        title: 'Служени�� Общине',
         description: 'Давать наше лучшее для общины Бреслов',
         icon: 'Heart'
       },
@@ -632,7 +632,7 @@ const translations = {
       },
       {
         number: '5,500+',
-        label: 'Успешных Заказов',
+        label: 'Успешн��х Заказов',
         icon: 'Award'
       },
       {
@@ -703,7 +703,7 @@ const translations = {
       {
         name: 'Рахель Гольдберг',
         location: 'Мельбурн, Австралия',
-        quote: 'Легко используемый веб-сайт, точная информация и идеальная поддержка иврита. Отличная рекомендация для всех, кто ищет подлинные книги Бреслов.',
+        quote: 'Легко используемый веб-сайт, точная информация и идеальная поддержка иврита. Отличная рекомендация для всех, кто ищет подлинны�� книги Бреслов.',
         rating: 5
       }
     ],
@@ -711,7 +711,7 @@ const translations = {
     // Final CTA Section
     ctaTitle: 'Присоединяйтесь к Семье Мой Огонь',
     ctaSubtitle: 'Откройте полную коллекцию качественных книг Бреслов и начните свое духовное путешествие сегодня',
-    ctaDescription: 'Ищете ли вы конкретную книгу, хотите открыть новые произведения или просто поддержать нашу миссию - мы здесь для вас.',
+    ctaDescription: 'Ищете ли вы кон��ретную книгу, хотите открыть новые произведения или просто поддержать нашу миссию - мы здесь для вас.',
     ctaButtonPrimary: 'Изучить Магазин',
     ctaButtonSecondary: 'Свяжитесь с Нами'
   }
@@ -914,24 +914,9 @@ export default function About() {
               {/* Founder Bio */}
               <div className="space-y-6" data-testid="founder-bio">
                 <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-6 rounded-xl border border-primary/10">
-                  <p className="text-lg leading-relaxed text-foreground mb-4">
+                  <p className="text-lg leading-relaxed text-foreground">
                     {t.founderBio}
                   </p>
-                  <div className="flex items-center gap-2 text-primary">
-                    <span className="text-xl">💻</span>
-                    <span className="font-semibold">React • TypeScript • Node.js • PostgreSQL</span>
-                  </div>
-                </div>
-                <div className="bg-yellow-50 dark:bg-yellow-950/20 p-6 rounded-xl border border-yellow-200 dark:border-yellow-800">
-                  <div className="flex items-start gap-3">
-                    <span className="text-2xl">📚</span>
-                    <div>
-                      <h4 className="font-bold text-primary mb-2">המטרה הקדושה</h4>
-                      <p className="text-foreground leading-relaxed">
-                        להביא את אור ברסלב לכל בית יהודי באמצעות טכנולוגיה מתקדמת, תוך שמירה על איכות מעולה ושירות מהיר.
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -984,7 +969,7 @@ export default function About() {
               </p>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl mb-2">📚</div>
+                  <div className="text-3xl mb-2">����</div>
                   <p className="font-semibold text-primary">ספרים אמיתיים</p>
                   <p className="text-sm text-muted-foreground">רק מהמקורות הנכונים</p>
                 </div>
@@ -1097,7 +1082,7 @@ export default function About() {
             </h2>
             <p className="text-lg text-muted-foreground">
               {currentLanguage === 'he' 
-                ? 'מהדרך שעשינו עד היום - תוצאות מדויקות ומדודות'
+                ? 'מהדרך שעשינו עד ��יום - תוצאות מדויקות ומדודות'
                 : 'From our journey so far - measurable results and achievements'
               }
             </p>
@@ -1112,12 +1097,12 @@ export default function About() {
             <div className="bg-white dark:bg-gray-900 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all">
               <div className="text-3xl mb-3">🌍</div>
               <div className="text-2xl font-bold text-primary mb-1">5</div>
-              <div className="text-sm text-muted-foreground">שפות זמינות</div>
+              <div className="text-sm text-muted-foreground">ש��ות זמינות</div>
             </div>
             <div className="bg-white dark:bg-gray-900 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all">
               <div className="text-3xl mb-3">⚡</div>
               <div className="text-2xl font-bold text-primary mb-1">24/7</div>
-              <div className="text-sm text-muted-foreground">זמינות האתר</div>
+              <div className="text-sm text-muted-foreground">זמינ��ת האתר</div>
             </div>
             <div className="bg-white dark:bg-gray-900 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all">
               <div className="text-3xl mb-3">🏆</div>

@@ -43,81 +43,6 @@ export default function Home() {
         {/* <HilloulaCountdown /> */}
       </div>
 
-      {/* HERO SECTION */}
-      <section className="hero-gradient animate-fade-in-scale"
-        style={{
-          background: `linear-gradient(135deg, hsl(0, 0%, 100%, 0.95) 0%, hsl(210, 85%, 45%, 0.05) 100%), url('/images/hero-books-composition.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
-          color: 'hsl(210, 8%, 25%)',
-          padding: 'clamp(2rem, 10vw, 8rem) 0',
-          minHeight: 'clamp(60vh, 90vh, 100vh)',
-          display: 'flex',
-          alignItems: 'center'
-        }}>
-        <div className="elementor-container elementor-column-gap-default" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', width: '100%'}}>
-          <div className="elementor-column elementor-col-100 elementor-top-column elementor-element">
-            <div className="elementor-widget-wrap elementor-element-populated">
-              <div className="elementor-element elementor-widget elementor-widget-heading" style={{textAlign: 'center'}}>
-                <div className="card-premium animate-scale-in" style={{background: 'rgba(255,255,255,0.95)', padding: 'clamp(1.5rem, 5vw, 3rem)', borderRadius: '15px', backdropFilter: 'blur(10px)', boxShadow: '0 25px 50px -12px hsl(210, 85%, 45%, 0.25)'}}>
-                  <h1 className="heading-oversized text-breslov-gradient" style={{
-                    marginBottom: '1.5rem', 
-                    lineHeight: '1.1',
-                    fontFamily: currentLanguage === 'he' ? 'var(--font-hebrew)' : 'var(--font-latin)'
-                  }}>
-                    {currentLanguage === 'he' ? 'ספרי רבינו נחמן מברסלב זצ״ל' : 
-                     currentLanguage === 'en' ? 'Books of Our Master Rabbi Nachman of Breslov' :
-                     currentLanguage === 'fr' ? 'Livres de Notre Maître Rabbi Nachman de Breslov' :
-                     currentLanguage === 'es' ? 'Libros de Nuestro Maestro Rabino Nachman de Breslov' :
-                     currentLanguage === 'ru' ? 'Книги Нашего Учителя Рабби Нахмана из Бреслов' : 'ספרי רבינו נחמן מברסלב זצ״ל'}
-                  </h1>
-                  <h2 style={{
-                    fontSize: 'var(--heading-3)',
-                    fontWeight: '300', 
-                    marginBottom: '2rem', 
-                    color: 'hsl(210, 12%, 55%)',
-                    fontFamily: currentLanguage === 'he' ? 'var(--font-hebrew)' : 'var(--font-serif)'
-                  }}>
-                    {currentLanguage === 'he' ? 'הדרך לאוצר שלך.' :
-                     currentLanguage === 'en' ? 'The Path to Your Treasure.' :
-                     currentLanguage === 'fr' ? 'Le Chemin vers Votre Trésor.' :
-                     currentLanguage === 'es' ? 'El Camino hacia Tu Tesoro.' :
-                     currentLanguage === 'ru' ? 'Путь к Вашему Сокровищу.' : 'הדרך לאוצר שלך.'}
-                  </h2>
-                  <p className="text-large" style={{marginBottom: '2rem', fontStyle: 'italic', color: 'hsl(210, 8%, 25%)', textAlign: 'center'}}>
-                    {currentLanguage === 'he' ? '\'\'רק תנו לי את ליבכם ואוליך אתכם בדרך חדשה..\'\' (רבי נחמן)' :
-                     currentLanguage === 'en' ? '"Just give me your hearts and I will lead you on a new path..." (Rabbi Nachman)' :
-                     currentLanguage === 'fr' ? '"Donnez-moi simplement vos cœurs et je vous mènerai sur un nouveau chemin..." (Rabbi Nachman)' :
-                     currentLanguage === 'es' ? '"Solo denme sus corazones y los guiaré por un camino nuevo..." (Rabino Nachman)' :
-                     currentLanguage === 'ru' ? '"Просто дайте мне ваши сердца и я поведу вас новым путем..." (Рабби Нахман)' : '\'\'רק תנו לי את ליבכם ואוליך אתכם בדרך חדשה..\'\' (רבי נחמן)'}
-                  </p>
-                  <div style={{display: 'flex', gap: '2rem', justifyContent: 'center', flexWrap: 'wrap'}}>
-                    <a href="/store" style={{textDecoration: 'none'}}>
-                      <button className="btn-breslov-primary" data-testid="button-enter-store">
-                        {currentLanguage === 'he' ? 'כניסה לחנות' :
-                         currentLanguage === 'en' ? 'Enter Store' :
-                         currentLanguage === 'fr' ? 'Entrer dans la Boutique' :
-                         currentLanguage === 'es' ? 'Entrar a la Tienda' :
-                         currentLanguage === 'ru' ? 'Войти в Магазин' : 'כניסה לחנות'}
-                      </button>
-                    </a>
-                    <a href="/join" style={{textDecoration: 'none'}}>
-                      <button className="btn-breslov-secondary" data-testid="button-discover-activities">
-                        {currentLanguage === 'he' ? 'באו לגלות על הפעילות שלנו' :
-                         currentLanguage === 'en' ? 'Discover Our Activities' :
-                         currentLanguage === 'fr' ? 'Découvrez nos Activités' :
-                         currentLanguage === 'es' ? 'Descubra Nuestras Actividades' :
-                         currentLanguage === 'ru' ? 'Узнайте о Наших Мероприятиях' : 'באו לגלות על הפעילות שלנו'}
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ONLINE BOOKS SECTION */}
       <section className="hero-gradient animate-fade-in-up" style={{background: 'linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(180, 30%, 98%) 30%, hsl(210, 70%, 98%) 100%)', padding: '6rem 0'}}>
@@ -133,7 +58,7 @@ export default function Home() {
                currentLanguage === 'en' ? 'Books of Our Master Rabbi Nachman of Breslov' :
                currentLanguage === 'fr' ? 'Livres de Notre Maître Rabbi Nachman de Breslov' :
                currentLanguage === 'es' ? 'Libros de Nuestro Maestro Rabino Nachman de Breslov' :
-               currentLanguage === 'ru' ? 'Книги Нашег�� Учителя Рабби Нахмана из Бреслов' : 'ספרי רבנו נחמן מברסלב זצ״ל'}
+               currentLanguage === 'ru' ? 'Книги Нашег���� Учителя Рабби Нахмана из Бреслов' : 'ספרי רבנו נחמן מברסלב זצ״ל'}
             </h2>
             <h3 style={{fontSize: 'var(--heading-4)', fontWeight: '300', color: 'hsl(210, 12%, 55%)', marginBottom: '2rem'}}>
               {currentLanguage === 'he' ? 'עכשיו אונליין' :
@@ -364,7 +289,7 @@ export default function Home() {
                    currentLanguage === 'en' ? 'Opportunity to win specially crafted artistic leather Rabbenu books' :
                    currentLanguage === 'fr' ? 'Opportunité de gagner des livres de Rabbenu en cuir artistique spécialement conçus' :
                    currentLanguage === 'es' ? 'Oportunidad de ganar libros de Rabbenu de cuero artístico especialmente elaborados' :
-                   currentLanguage === 'ru' ? 'Возможность выиграть специально изготовленные книги Раббену из художественной кожи' : 'אפשרות לזכות ספרי רבינו מעו�� אומנותי במיוחד'}
+                   currentLanguage === 'ru' ? 'Возможность выиграть специально изготовленные книги Раббену из художественной кожи' : 'אפשרות לזכות ספרי רבינ�� מעו�� אומנותי במיוחד'}
                 </p>
               </div>
               

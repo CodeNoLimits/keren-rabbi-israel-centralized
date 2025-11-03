@@ -23,7 +23,7 @@ const translations = {
     subscription: 'הוראת קבע',
     breslovVideos: 'קרן סגנון',
     haeshHype: '🔥 האש הייפ',
-    chat: '💬 צ\'אט ברסלבי',
+    chat: '💬 צ\'אט ברסלב��',
     whatsapp: '💬 דבר איתנו',
     fire: '🔥 האש שלי',
     login: 'כניסה',
@@ -149,12 +149,12 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
         {/* LOGO */}
         <div className="header-logo" style={{ zIndex: 100, position: 'relative' }}>
           <Link href="/" data-testid="link-home" className="transition-all duration-500 hover:scale-110 hover:rotate-2 hover:drop-shadow-2xl inline-block hover:-translate-y-2">
-            <img 
-              src="https://www.haesh-sheli.co.il/wp-content/uploads/2021/12/cropped-%D7%A7%D7%A8%D7%95-%D7%A8%D7%91%D7%99-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%A8-%D7%90%D7%95%D7%93%D7%A1%D7%A8.d110a0.webp" 
+            <img
+              src="https://www.haesh-sheli.co.il/wp-content/uploads/2021/12/cropped-%D7%A7%D7%A8%D7%95-%D7%A8%D7%91%D7%99-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%A8-%D7%90%D7%95%D7%93%D7%A1%D7%A8.d110a0.webp"
               alt="האש שלי תוקף עד ביאת המשיח"
               data-testid="img-logo"
               className="transition-all duration-500 hover:brightness-110 hover:contrast-110"
-              style={{ maxHeight: '150px', maxWidth: '350px', objectFit: 'contain' }}
+              style={{ maxHeight: '80px', maxWidth: '280px', objectFit: 'contain' }}
             />
           </Link>
         </div>

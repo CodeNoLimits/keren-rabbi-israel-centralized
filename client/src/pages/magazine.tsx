@@ -33,7 +33,7 @@ const translations = {
         date: '2025-01-15',
         views: 1250,
         featured: true,
-        image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&h=600&fit=crop',
+        image: '/attached_assets/ליקוטי מוהרן 1_1757275910545.jpg',
         communityImage: true
       },
       {
@@ -45,7 +45,7 @@ const translations = {
         date: '2025-01-12',
         views: 980,
         featured: true,
-        image: 'https://images.unsplash.com/photo-1483389127117-b6a2102724ae?w=800&h=600&fit=crop',
+        image: '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
         communityImage: true
       },
       {
@@ -57,7 +57,7 @@ const translations = {
         date: '2025-01-10',
         views: 1560,
         featured: false,
-        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
         communityImage: true
       },
       {
@@ -69,7 +69,7 @@ const translations = {
         date: '2025-01-08',
         views: 890,
         featured: false,
-        image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=600&fit=crop',
+        image: '/attached_assets/סיפורי מעשיות 1_1757275910546.jpg',
         communityImage: true
       },
       {
@@ -81,13 +81,13 @@ const translations = {
         date: '2025-01-05',
         views: 1120,
         featured: false,
-        image: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&h=600&fit=crop',
+        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2025/02/הגרלת-טיסה-לרבינו-הקדוש-קרן-רבי-ישראל.webp',
         communityImage: true,
         memberPhotos: [
-          'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop',
-          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
-          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-          'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&h=400&fit=crop'
+          '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg',
+          '/attached_assets/סיפורי מעשיות 1_1757275910546.jpg',
+          '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+          '/attached_assets/ישראל סבא_1757281003112.jpg'
         ]
       },
       {
@@ -99,7 +99,7 @@ const translations = {
         date: '2025-01-03',
         views: 750,
         featured: false,
-        image: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800&h=600&fit=crop',
+        image: '/attached_assets/חיי מוהרן 1_1757275910544.jpg',
         communityImage: true
       },
       {
@@ -111,7 +111,7 @@ const translations = {
         date: '2025-01-01',
         views: 2340,
         featured: true,
-        image: 'https://images.unsplash.com/photo-1509909756405-be0199881695?w=800&h=600&fit=crop',
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
         communityImage: true
       },
       {
@@ -123,12 +123,12 @@ const translations = {
         date: '2024-12-28',
         views: 1890,
         featured: false,
-        image: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&h=600&fit=crop',
+        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/07/6.d110a0.webp',
         communityImage: true,
         memberPhotos: [
-          'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=400&fit=crop',
-          'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop',
-          'https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=400&h=400&fit=crop'
+          '/attached_assets/ליקוטי מוהרן 1_1757275910545.jpg',
+          '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+          '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg'
         ]
       }
     ]
@@ -161,7 +161,7 @@ const translations = {
         date: '2025-01-15',
         views: 1250,
         featured: true,
-        image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&h=600&fit=crop',
+        image: '/attached_assets/ליקוטי מוהרן 1_1757275910545.jpg',
         communityImage: true
       },
       {
@@ -173,7 +173,7 @@ const translations = {
         date: '2025-01-12',
         views: 980,
         featured: true,
-        image: 'https://images.unsplash.com/photo-1483389127117-b6a2102724ae?w=800&h=600&fit=crop',
+        image: '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
         communityImage: true
       },
       {
@@ -185,7 +185,7 @@ const translations = {
         date: '2025-01-10',
         views: 1560,
         featured: false,
-        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop',
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
         communityImage: true
       },
       {
@@ -197,7 +197,7 @@ const translations = {
         date: '2025-01-01',
         views: 2340,
         featured: true,
-        image: 'https://images.unsplash.com/photo-1509909756405-be0199881695?w=800&h=600&fit=crop',
+        image: '/attached_assets/ישראל סבא_1757281003112.jpg',
         communityImage: true
       },
       {
@@ -209,13 +209,13 @@ const translations = {
         date: '2025-01-05',
         views: 1120,
         featured: false,
-        image: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&h=600&fit=crop',
+        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2025/02/הגרלת-טיסה-לרבינו-הקדוש-קרן-רבי-ישראל.webp',
         communityImage: true,
         memberPhotos: [
-          'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop',
-          'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop',
-          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-          'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&h=400&fit=crop'
+          '/attached_assets/ליקוטי תפילות 1_1757275910545.jpg',
+          '/attached_assets/סיפורי מעשיות 1_1757275910546.jpg',
+          '/attached_assets/ליקוטי עצות 1_1757275910545.jpg',
+          '/attached_assets/ישראל סבא_1757281003112.jpg'
         ]
       },
       {
