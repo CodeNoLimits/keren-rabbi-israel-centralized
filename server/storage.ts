@@ -514,6 +514,10 @@ export class DatabaseStorage implements IStorage {
 
   // User methods - Database implementation for Replit Auth
   async getUser(id: string): Promise<User | undefined> {
+    if (!db) {
+      console.warn("Database not available - user features disabled");
+      return undefined;
+    }
     try {
       const result = await db.select().from(users).where(eq(users.id, id));
       return result[0] || undefined;
@@ -524,6 +528,10 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
+    if (!db) {
+      console.warn("Database not available - user features disabled");
+      return undefined;
+    }
     try {
       const result = await db.select().from(users).where(eq(users.username, username));
       return result[0] || undefined;
@@ -534,6 +542,10 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getUserByEmail(email: string): Promise<User | undefined> {
+    if (!db) {
+      console.warn("Database not available - user features disabled");
+      return undefined;
+    }
     try {
       const result = await db.select().from(users).where(eq(users.email, email));
       return result[0] || undefined;
@@ -544,6 +556,9 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
+    if (!db) {
+      throw new Error("Database not available - user features disabled");
+    }
     try {
       const result = await db.insert(users).values({
         ...insertUser,
@@ -559,13 +574,16 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateUser(id: string, updates: Partial<User>): Promise<User> {
+    if (!db) {
+      throw new Error("Database not available - user features disabled");
+    }
     try {
       const result = await db
         .update(users)
         .set({ ...updates, updatedAt: new Date() })
         .where(eq(users.id, id))
         .returning();
-      
+
       if (result.length === 0) {
         throw new Error(`User with id ${id} not found`);
       }
@@ -578,6 +596,9 @@ export class DatabaseStorage implements IStorage {
 
   // REQUIRED for Replit Auth - upsertUser method
   async upsertUser(userData: UpsertUser): Promise<User> {
+    if (!db) {
+      throw new Error("Database not available - user features disabled");
+    }
     try {
       const result = await db
         .insert(users)

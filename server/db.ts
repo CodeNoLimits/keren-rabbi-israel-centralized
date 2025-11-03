@@ -5,11 +5,16 @@ import * as schema from "@shared/schema";
 
 neonConfig.webSocketConstructor = ws;
 
+// Make DATABASE_URL optional - if not provided, user features will be disabled
+// but the site will still work for browsing products
 if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
-}
+  console.warn("⚠️  DATABASE_URL not set - User authentication features will be disabled");
+  console.warn("⚠️  Product browsing and store features will work normally");
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle({ client: pool, schema });
+  // Create a mock pool and db for when DATABASE_URL is not available
+  export const pool = null as any;
+  export const db = null as any;
+} else {
+  export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  export const db = drizzle({ client: pool, schema });
+}
