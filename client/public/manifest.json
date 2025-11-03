@@ -1,0 +1,27 @@
+{
+  "name": "האש שלי - ספרי ברסלב",
+  "short_name": "האש שלי",
+  "description": "חנות ספרי ברסלב מקוונת - ספרי רבי נחמן מברסלב ואוספים אמיתיים",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0B61B3",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://www.haesh-sheli.co.il/wp-content/uploads/2021/12/cropped-קרו-רבי-ישראל-בר-אודסר.d110a0.webp",
+      "sizes": "192x192",
+      "type": "image/webp",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "https://www.haesh-sheli.co.il/wp-content/uploads/2021/12/cropped-קרו-רבי-ישראל-בר-אודסר.d110a0.webp",
+      "sizes": "512x512",
+      "type": "image/webp",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["books", "education", "shopping"],
+  "lang": "he",
+  "dir": "rtl"
+}
