@@ -7,7 +7,7 @@ import fs from "fs";
 import { fileURLToPath } from "url";
 import Stripe from "stripe";
 import { User } from "@shared/schema";
-import { sendOrderConfirmation } from "./emailService";
+import { sendOrderConfirmation, sendLotteryConfirmationEmail } from "./emailService";
 import { chatWithGemini, chatWithGeminiStream, checkGeminiConnection, analyzeUserSentiment, type ChatRequest, type ChatMessage } from "./geminiService";
 import { chatWithOpenAI, chatWithOpenAIStream, checkOpenAIConnection, analyzeUserSentimentOpenAI } from "./openaiService";
 import { setupAuth, isAuthenticated } from "./replitAuth";
@@ -1280,6 +1280,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const data = LotteryJoinSchema.parse(req.body);
 
+      // Point 43: Calcul automatique des tickets (1 ticket = 36₪)
+      const donationAmount = data.donation_amount
+        ? parseFloat(data.donation_amount)
+        : 0;
+
+      // Minimum 1 ticket même si pas de don, sinon 1 ticket par tranche de 36₪
+      const tickets = donationAmount > 0
+        ? Math.floor(donationAmount / 36) || 1
+        : 1;
+
       const insertData: any = {
         email: data.email,
         name: data.name,
@@ -1287,16 +1297,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       if (data.phone) insertData.phone = data.phone;
-      if (data.donation_amount) {
-        insertData.metadata = { donation_amount: data.donation_amount };
-      }
+
+      // Stocker donation_amount ET tickets dans metadata
+      insertData.metadata = {
+        donation_amount: donationAmount.toString(),
+        tickets: tickets
+      };
 
       const entry = await createLotteryEntry(insertData);
 
+      // Point 44: Envoyer email de confirmation (non-bloquant)
+      try {
+        await sendLotteryConfirmationEmail(
+          data.email,
+          data.name,
+          tickets,
+          'he' // TODO: détecter langue depuis data si disponible
+        );
+        console.log(`✅ Email de confirmation envoyé à ${data.email}`);
+      } catch (emailError) {
+        console.error('⚠️ Erreur envoi email (non-critique):', emailError);
+        // Ne pas bloquer la réponse si l'email échoue
+      }
+
+      // Retourner tickets dans la réponse
       res.json({
         ok: true,
-        message: 'Inscription enregistrée avec succès !',
-        entryId: entry.id
+        message: `Inscription enregistrée avec succès ! Vous avez ${tickets} ticket(s).`,
+        messageHe: `ההרשמה נקלטה בהצלחה! יש לך ${tickets} כרטיס(ים).`,
+        entryId: entry.id,
+        tickets: tickets,
+        donationAmount: donationAmount
       });
 
     } catch (error: any) {
@@ -1355,6 +1386,91 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({
         ok: false,
         error: 'Erreur serveur lors de la récupération des participants.'
+      });
+    }
+  });
+
+  // Point 48: API Export CSV/JSON des participants (GET /api/lottery/entries/export) - Admin uniquement
+  // Marqueur: 555
+  app.get('/api/lottery/entries/export', async (req, res) => {
+    try {
+      if (!verifyBasicAuth(req)) {
+        return res.status(401).json({
+          ok: false,
+          error: 'Non autorisé. Authentification requise.'
+        });
+      }
+
+      if (!supa) {
+        return res.status(503).json({
+          ok: false,
+          error: 'La loterie n\'est pas configurée.'
+        });
+      }
+
+      const format = (req.query.format as string) || 'json';
+      const entries = await getLotteryEntries();
+
+      if (format === 'csv') {
+        // Export CSV
+        const headers = 'ID,Name,Email,Phone,Source,Tickets,Donation Amount,Created At';
+        const rows = entries.map(e => {
+          const tickets = e.metadata?.tickets || 1;
+          const donation = e.metadata?.donation_amount || '0';
+          const phone = e.phone || '';
+          const createdAt = new Date(e.created_at).toISOString();
+
+          // Escape commas and quotes in CSV
+          const escapeCsv = (str: string) => {
+            if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+              return `"${str.replace(/"/g, '""')}"`;
+            }
+            return str;
+          };
+
+          return [
+            escapeCsv(e.id),
+            escapeCsv(e.name || ''),
+            escapeCsv(e.email),
+            escapeCsv(phone),
+            escapeCsv(e.source),
+            tickets.toString(),
+            donation,
+            createdAt
+          ].join(',');
+        });
+
+        const csv = `${headers}\n${rows.join('\n')}`;
+
+        res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+        res.setHeader('Content-Disposition', `attachment; filename=lottery-entries-${Date.now()}.csv`);
+        return res.send(csv);
+      } else {
+        // Export JSON
+        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-Disposition', `attachment; filename=lottery-entries-${Date.now()}.json`);
+        return res.json({
+          ok: true,
+          exportedAt: new Date().toISOString(),
+          total: entries.length,
+          entries: entries.map(e => ({
+            id: e.id,
+            name: e.name,
+            email: e.email,
+            phone: e.phone,
+            source: e.source,
+            tickets: e.metadata?.tickets || 1,
+            donationAmount: e.metadata?.donation_amount || '0',
+            createdAt: e.created_at
+          }))
+        });
+      }
+
+    } catch (error: any) {
+      console.error('Lottery export error:', error);
+      res.status(500).json({
+        ok: false,
+        error: 'Erreur serveur lors de l\'export.'
       });
     }
   });
@@ -1501,6 +1617,76 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({
         ok: false,
         error: 'Erreur serveur lors de la récupération des statistiques.'
+      });
+    }
+  });
+
+  // Point 54: API Dernier gagnant (GET /api/lottery/winner) - Public
+  // Marqueur: 555
+  app.get('/api/lottery/winner', async (req, res) => {
+    try {
+      if (!supa) {
+        return res.status(503).json({
+          ok: false,
+          error: 'La loterie n\'est pas configurée.'
+        });
+      }
+
+      // Récupérer tous les tirages (déjà triés par date décroissante)
+      const draws = await getDraws();
+
+      if (!draws || draws.length === 0) {
+        return res.json({
+          ok: true,
+          hasWinner: false,
+          message: 'Aucun tirage effectué pour le moment.',
+          messageHe: 'עדיין לא בוצעה הגרלה.'
+        });
+      }
+
+      // Le dernier tirage est le premier dans la liste (tri décroissant)
+      const lastDraw = draws[0];
+
+      if (!lastDraw.winner_entry_id) {
+        return res.json({
+          ok: true,
+          hasWinner: false,
+          message: 'Le dernier tirage n\'a pas de gagnant enregistré.'
+        });
+      }
+
+      // Récupérer les infos du gagnant
+      const winner = await getLotteryEntryById(lastDraw.winner_entry_id);
+
+      if (!winner) {
+        return res.status(404).json({
+          ok: false,
+          error: 'Gagnant non trouvé.'
+        });
+      }
+
+      // Retourner infos publiques uniquement (PAS d'email/phone)
+      return res.json({
+        ok: true,
+        hasWinner: true,
+        draw: {
+          id: lastDraw.id,
+          drawName: lastDraw.draw_name,
+          executedAt: lastDraw.executed_at,
+          totalEntries: lastDraw.details?.total || 0
+        },
+        winner: {
+          name: winner.name || 'Anonyme',
+          // Ne PAS exposer email/phone publiquement
+          tickets: winner.metadata?.tickets || 1
+        }
+      });
+
+    } catch (error: any) {
+      console.error('Lottery winner error:', error);
+      res.status(500).json({
+        ok: false,
+        error: 'Erreur serveur lors de la récupération du gagnant.'
       });
     }
   });

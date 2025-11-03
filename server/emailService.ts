@@ -265,3 +265,275 @@ export async function sendOrderConfirmation(orderData: {
     html
   });
 }
+
+// ===========================================
+// Point 44: Email Confirmation Lottery Registration
+// Marqueur: 555
+// ===========================================
+
+export async function sendLotteryConfirmationEmail(
+  email: string,
+  name: string,
+  tickets: number,
+  language: 'he' | 'en' | 'fr' = 'he'
+): Promise<boolean> {
+  const subjects = {
+    he: 'אישור הרשמה להגרלה - קרן רבי ישראל 🎉',
+    en: 'Lottery Registration Confirmation - Rabbi Israel Foundation 🎉',
+    fr: 'Confirmation d\'inscription à la loterie - Fondation Rabbi Israel 🎉'
+  };
+
+  const htmlTemplates = {
+    he: `
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אישור הרשמה להגרלה</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f7f7f7;">
+    <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <div style="background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 28px;">🎉 ההרשמה אושרה!</h1>
+            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 16px;">קרן רבי ישראל בר אודסר</p>
+        </div>
+
+        <div style="padding: 30px;">
+            <h2 style="color: #333; margin-top: 0;">שלום ${name},</h2>
+            <p style="color: #666; line-height: 1.6; font-size: 16px;">
+                תודה רבה על הרשמתך להגרלה החודשית של קרן רבי ישראל! 🙏
+            </p>
+
+            <div style="background-color: #f0f8ff; border-right: 4px solid #4A90E2; padding: 20px; margin: 20px 0; border-radius: 5px;">
+                <h3 style="color: #4A90E2; margin-top: 0;">פרטי ההרשמה שלך</h3>
+                <p style="margin: 10px 0; color: #333;">
+                    <strong>מספר כרטיסים:</strong> ${tickets} 🎫
+                </p>
+                <p style="margin: 10px 0; color: #666; font-size: 14px;">
+                    כל כרטיס מעניק לך הזדמנות לזכות בפרס החודשי!
+                </p>
+            </div>
+
+            <div style="background-color: #fff9e6; padding: 15px; margin: 20px 0; border-radius: 5px; border: 1px solid #ffd700;">
+                <p style="margin: 0; color: #855d00; text-align: center; font-size: 14px;">
+                    ⭐ נציג מהקרן ייצור איתך קשר בקרוב ⭐
+                </p>
+            </div>
+
+            <p style="color: #666; line-height: 1.6; margin-top: 20px;">
+                ההגרלה מתקיימת מדי חודש, וכל התרומות מיועדות להפצת אור רבי נחמן מברסלב בכל העולם.
+            </p>
+
+            <div style="text-align: center; margin: 30px 0;">
+                <p style="color: #4A90E2; font-size: 18px; font-weight: bold; margin: 0;">
+                    בהצלחה! 🍀
+                </p>
+            </div>
+        </div>
+
+        <div style="background-color: #f7f7f7; padding: 20px; text-align: center; border-radius: 0 0 10px 10px;">
+            <p style="margin: 0; color: #999; font-size: 14px;">
+                <strong>קרן רבי ישראל בר אודסר - האש שלי</strong>
+            </p>
+            <p style="margin: 5px 0; color: #999; font-size: 12px;">
+                מפיצים את אור רבי נחמן מברסלב בכל העולם
+            </p>
+            <p style="margin: 10px 0 0 0; color: #4A90E2; font-size: 14px; font-weight: bold;">
+                נ נח נחמ נחמן מאומן ✨
+            </p>
+        </div>
+    </div>
+</body>
+</html>`,
+    en: `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lottery Registration Confirmation</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f7f7f7;">
+    <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <div style="background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 28px;">🎉 Registration Confirmed!</h1>
+            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 16px;">Rabbi Israel Bar Odesser Foundation</p>
+        </div>
+
+        <div style="padding: 30px;">
+            <h2 style="color: #333; margin-top: 0;">Hello ${name},</h2>
+            <p style="color: #666; line-height: 1.6; font-size: 16px;">
+                Thank you for registering for the monthly Rabbi Israel Foundation lottery! 🙏
+            </p>
+
+            <div style="background-color: #f0f8ff; border-left: 4px solid #4A90E2; padding: 20px; margin: 20px 0; border-radius: 5px;">
+                <h3 style="color: #4A90E2; margin-top: 0;">Your Registration Details</h3>
+                <p style="margin: 10px 0; color: #333;">
+                    <strong>Number of Tickets:</strong> ${tickets} 🎫
+                </p>
+                <p style="margin: 10px 0; color: #666; font-size: 14px;">
+                    Each ticket gives you a chance to win the monthly prize!
+                </p>
+            </div>
+
+            <div style="background-color: #fff9e6; padding: 15px; margin: 20px 0; border-radius: 5px; border: 1px solid #ffd700;">
+                <p style="margin: 0; color: #855d00; text-align: center; font-size: 14px;">
+                    ⭐ A representative will contact you soon ⭐
+                </p>
+            </div>
+
+            <p style="color: #666; line-height: 1.6; margin-top: 20px;">
+                The draw takes place monthly, and all donations support spreading the light of Rabbi Nachman of Breslov worldwide.
+            </p>
+
+            <div style="text-align: center; margin: 30px 0;">
+                <p style="color: #4A90E2; font-size: 18px; font-weight: bold; margin: 0;">
+                    Good Luck! 🍀
+                </p>
+            </div>
+        </div>
+
+        <div style="background-color: #f7f7f7; padding: 20px; text-align: center; border-radius: 0 0 10px 10px;">
+            <p style="margin: 0; color: #999; font-size: 14px;">
+                <strong>Rabbi Israel Bar Odesser Foundation - HaEsh Sheli</strong>
+            </p>
+            <p style="margin: 5px 0; color: #999; font-size: 12px;">
+                Spreading the light of Rabbi Nachman of Breslov worldwide
+            </p>
+            <p style="margin: 10px 0 0 0; color: #4A90E2; font-size: 14px; font-weight: bold;">
+                Na Nach Nachma Nachman Meuman ✨
+            </p>
+        </div>
+    </div>
+</body>
+</html>`,
+    fr: `
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation d'inscription à la loterie</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f7f7f7;">
+    <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <div style="background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 28px;">🎉 Inscription confirmée !</h1>
+            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 16px;">Fondation Rabbi Israel Bar Odesser</p>
+        </div>
+
+        <div style="padding: 30px;">
+            <h2 style="color: #333; margin-top: 0;">Bonjour ${name},</h2>
+            <p style="color: #666; line-height: 1.6; font-size: 16px;">
+                Merci de vous être inscrit à la loterie mensuelle de la Fondation Rabbi Israel ! 🙏
+            </p>
+
+            <div style="background-color: #f0f8ff; border-left: 4px solid #4A90E2; padding: 20px; margin: 20px 0; border-radius: 5px;">
+                <h3 style="color: #4A90E2; margin-top: 0;">Vos détails d'inscription</h3>
+                <p style="margin: 10px 0; color: #333;">
+                    <strong>Nombre de tickets :</strong> ${tickets} 🎫
+                </p>
+                <p style="margin: 10px 0; color: #666; font-size: 14px;">
+                    Chaque ticket vous donne une chance de gagner le prix mensuel !
+                </p>
+            </div>
+
+            <div style="background-color: #fff9e6; padding: 15px; margin: 20px 0; border-radius: 5px; border: 1px solid #ffd700;">
+                <p style="margin: 0; color: #855d00; text-align: center; font-size: 14px;">
+                    ⭐ Un représentant vous contactera bientôt ⭐
+                </p>
+            </div>
+
+            <p style="color: #666; line-height: 1.6; margin-top: 20px;">
+                Le tirage a lieu chaque mois, et tous les dons servent à diffuser la lumière de Rabbi Nachman de Breslov dans le monde entier.
+            </p>
+
+            <div style="text-align: center; margin: 30px 0;">
+                <p style="color: #4A90E2; font-size: 18px; font-weight: bold; margin: 0;">
+                    Bonne chance ! 🍀
+                </p>
+            </div>
+        </div>
+
+        <div style="background-color: #f7f7f7; padding: 20px; text-align: center; border-radius: 0 0 10px 10px;">
+            <p style="margin: 0; color: #999; font-size: 14px;">
+                <strong>Fondation Rabbi Israel Bar Odesser - HaEsh Sheli</strong>
+            </p>
+            <p style="margin: 5px 0; color: #999; font-size: 12px;">
+                Diffusion de la lumière de Rabbi Nachman de Breslov dans le monde entier
+            </p>
+            <p style="margin: 10px 0 0 0; color: #4A90E2; font-size: 14px; font-weight: bold;">
+                Na Nach Nachma Nachman Meuman ✨
+            </p>
+        </div>
+    </div>
+</body>
+</html>`
+  };
+
+  const textTemplates = {
+    he: `
+שלום ${name},
+
+תודה רבה על הרשמתך להגרלה החודשית של קרן רבי ישראל! 🎉
+
+פרטי ההרשמה שלך:
+• מספר כרטיסים: ${tickets}
+
+נציג מהקרן ייצור איתך קשר בקרוב.
+
+ההגרלה מתקיימת מדי חודש, וכל התרומות מיועדות להפצת אור רבי נחמן מברסלב בכל העולם.
+
+בהצלחה! 🍀
+
+בברכה,
+קרן רבי ישראל בר אודסר - האש שלי
+נ נח נחמ נחמן מאומן ✨
+    `,
+    en: `
+Hello ${name},
+
+Thank you for registering for the monthly Rabbi Israel Foundation lottery! 🎉
+
+Your Registration Details:
+• Number of Tickets: ${tickets}
+
+A representative will contact you soon.
+
+The draw takes place monthly, and all donations support spreading the light of Rabbi Nachman of Breslov worldwide.
+
+Good Luck! 🍀
+
+Best regards,
+Rabbi Israel Bar Odesser Foundation - HaEsh Sheli
+Na Nach Nachma Nachman Meuman ✨
+    `,
+    fr: `
+Bonjour ${name},
+
+Merci de vous être inscrit à la loterie mensuelle de la Fondation Rabbi Israel ! 🎉
+
+Vos détails d'inscription :
+• Nombre de tickets : ${tickets}
+
+Un représentant vous contactera bientôt.
+
+Le tirage a lieu chaque mois, et tous les dons servent à diffuser la lumière de Rabbi Nachman de Breslov dans le monde entier.
+
+Bonne chance ! 🍀
+
+Cordialement,
+Fondation Rabbi Israel Bar Odesser - HaEsh Sheli
+Na Nach Nachma Nachman Meuman ✨
+    `
+  };
+
+  return await sendEmail({
+    to: email,
+    from: process.env.SENDGRID_FROM_EMAIL || 'noreply@haesh-sheli.co.il',
+    subject: subjects[language],
+    text: textTemplates[language],
+    html: htmlTemplates[language]
+  });
+}
