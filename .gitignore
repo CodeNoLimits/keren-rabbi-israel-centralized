@@ -1,0 +1,14 @@
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz
+# Exclude large files that can't be uploaded to GitHub
+attached_assets/*.zip
+attached_assets/*.pdf
+# Keep only essential attached assets for GitHub
+!attached_assets/*.png
+!attached_assets/*.jpg
+!attached_assets/*.csv
+!attached_assets/*.md
