@@ -13,7 +13,8 @@
     "setup": "bash scripts/setup.sh",
     "init-lottery": "tsx scripts/init-lottery.ts",
     "test-all": "tsx scripts/test-all.ts",
-    "deploy-check": "npm run test-all && npm run build"
+    "verify": "bash scripts/verify-config.sh",
+    "deploy-check": "npm run verify && npm run test-all && npm run build"
   },
   "dependencies": {
     "@google/genai": "^1.19.0",
