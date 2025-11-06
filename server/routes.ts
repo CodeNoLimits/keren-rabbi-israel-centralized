@@ -10,6 +10,7 @@ import { sendOrderConfirmation } from "./emailService";
 import { chatWithGemini, chatWithGeminiStream, checkGeminiConnection, analyzeUserSentiment, type ChatRequest, type ChatMessage } from "./geminiService";
 import { chatWithOpenAI, chatWithOpenAIStream, checkOpenAIConnection, analyzeUserSentimentOpenAI } from "./openaiService";
 import { setupAuth, isAuthenticated } from "./replitAuth";
+import { registerDonationRoutes } from "./routes/donations";
 
 // Extend Request interface to include authentication properties
 declare global {
@@ -30,6 +31,9 @@ if (process.env.STRIPE_SECRET_KEY) {
 export async function registerRoutes(app: Express): Promise<Server> {
   // Setup Replit Auth middleware
   await setupAuth(app);
+
+  // Register donation and lottery routes
+  registerDonationRoutes(app);
 
   // Auth routes - required for Replit Auth
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {

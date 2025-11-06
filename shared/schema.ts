@@ -292,3 +292,126 @@ export const shippingRates = pgTable("shipping_rates", {
 export const insertShippingRateSchema = createInsertSchema(shippingRates);
 export type InsertShippingRate = z.infer<typeof insertShippingRateSchema>;
 export type ShippingRate = typeof shippingRates.$inferSelect;
+
+// Lottery system tables
+export const lotteryDraws = pgTable("lottery_draws", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  nameHebrew: text("name_hebrew").notNull(),
+  description: text("description"),
+  descriptionHebrew: text("description_hebrew"),
+
+  // Prize information
+  prizeAmount: integer("prize_amount").notNull(), // in agorot
+  prizeCurrency: text("prize_currency").default("ILS"),
+  prizeDescription: text("prize_description"),
+  prizeDescriptionHebrew: text("prize_description_hebrew"),
+
+  // Draw dates
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  drawDate: timestamp("draw_date").notNull(),
+
+  // Status
+  status: text("status").$type<'upcoming' | 'active' | 'drawn' | 'completed' | 'canceled'>().default('upcoming'),
+
+  // Winner information
+  winnerId: varchar("winner_id").references(() => lotteryEntries.id),
+  winnerNotified: boolean("winner_notified").default(false),
+  winnerNotifiedAt: timestamp("winner_notified_at"),
+
+  // Minimum donation for entry
+  minimumDonation: integer("minimum_donation").notNull().default(1800), // 18 shekels minimum
+
+  // Settings
+  maxEntriesPerPerson: integer("max_entries_per_person"),
+  allowMultipleEntries: boolean("allow_multiple_entries").default(true),
+
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertLotteryDrawSchema = createInsertSchema(lotteryDraws);
+export type InsertLotteryDraw = z.infer<typeof insertLotteryDrawSchema>;
+export type LotteryDraw = typeof lotteryDraws.$inferSelect;
+
+// Lottery entries table
+export const lotteryEntries = pgTable("lottery_entries", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  drawId: varchar("draw_id").notNull().references(() => lotteryDraws.id),
+
+  // Participant information
+  userId: varchar("user_id").references(() => users.id), // Optional if user is registered
+  email: text("email").notNull(),
+  fullName: text("full_name").notNull(),
+  phone: text("phone"),
+
+  // Donation details
+  donationId: varchar("donation_id").references(() => donations.id),
+  donationAmount: integer("donation_amount").notNull(), // in agorot
+
+  // Entry details
+  entryNumber: integer("entry_number"), // Sequential number for this draw
+  numberOfTickets: integer("number_of_tickets").default(1), // Multiple tickets based on donation
+
+  // Status
+  isActive: boolean("is_active").default(true),
+  isWinner: boolean("is_winner").default(false),
+
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+export const insertLotteryEntrySchema = createInsertSchema(lotteryEntries);
+export type InsertLotteryEntry = z.infer<typeof insertLotteryEntrySchema>;
+export type LotteryEntry = typeof lotteryEntries.$inferSelect;
+
+// Donations table
+export const donations = pgTable("donations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+
+  // Donor information
+  userId: varchar("user_id").references(() => users.id), // Optional if user is registered
+  email: text("email").notNull(),
+  fullName: text("full_name").notNull(),
+  phone: text("phone"),
+
+  // Donation details
+  amount: integer("amount").notNull(), // in agorot
+  currency: text("currency").default("ILS"),
+
+  // Donation type and purpose
+  donationType: text("donation_type").$type<'one_time' | 'monthly' | 'yearly'>().default('one_time'),
+  donationPurpose: text("donation_purpose"), // General, specific project, etc.
+  donationPurposeHebrew: text("donation_purpose_hebrew"),
+
+  // Payment information
+  paymentMethod: text("payment_method").notNull(), // paypal, stripe, bank_transfer, etc.
+  paymentProvider: text("payment_provider"),
+  providerTransactionId: text("provider_transaction_id").unique(),
+  paymentStatus: text("payment_status").$type<'pending' | 'processing' | 'completed' | 'failed' | 'refunded'>().default('pending'),
+
+  // Lottery participation
+  participateInLottery: boolean("participate_in_lottery").default(true),
+  lotteryDrawId: varchar("lottery_draw_id").references(() => lotteryDraws.id),
+  lotteryEntryCreated: boolean("lottery_entry_created").default(false),
+
+  // Receipt and tax deduction
+  receiptSent: boolean("receipt_sent").default(false),
+  receiptNumber: text("receipt_number"),
+  taxDeductible: boolean("tax_deductible").default(true),
+
+  // Donor preferences
+  isAnonymous: boolean("is_anonymous").default(false),
+  displayName: text("display_name"), // Public display name if not anonymous
+
+  // Notes
+  donorMessage: text("donor_message"),
+  adminNotes: text("admin_notes"),
+
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertDonationSchema = createInsertSchema(donations);
+export type InsertDonation = z.infer<typeof insertDonationSchema>;
+export type Donation = typeof donations.$inferSelect;

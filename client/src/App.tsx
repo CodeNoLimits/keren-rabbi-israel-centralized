@@ -49,6 +49,7 @@ import Subscription from "@/pages/subscription";
 import SubscriptionManagement from "@/pages/subscription-management";
 import YaakovDashboard from "@/pages/yaaakov";
 import Chat from "@/pages/chat";
+import Donate from "@/pages/donate";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -71,6 +72,9 @@ function Router() {
       <Route path="/haesh-hype" component={HaeshHype} />
       <Route path="/chat" component={Chat} />
       <Route path="/yaaakov" component={YaakovDashboard} />
+      <Route path="/donate" component={Donate} />
+      <Route path="/donate/success" component={() => <div>Merci pour votre don!</div>} />
+      <Route path="/donate/cancel" component={() => <div>Don annulé</div>} />
       <Route component={NotFound} />
     </Switch>
   );
