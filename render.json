@@ -1,0 +1,45 @@
+{
+  "name": "keren-rabbi-israel",
+  "type": "web",
+  "env": "node",
+  "region": "frankfurt",
+  "plan": "starter",
+  "buildCommand": "npm install && npm run build",
+  "startCommand": "npm start",
+  "healthCheckPath": "/",
+  "envVars": [
+    {
+      "key": "NODE_ENV",
+      "value": "production"
+    },
+    {
+      "key": "PORT",
+      "value": "10000"
+    },
+    {
+      "key": "SESSION_SECRET",
+      "generateValue": true
+    },
+    {
+      "key": "PAYPAL_CLIENT_ID",
+      "description": "PayPal Client ID from https://developer.paypal.com/dashboard"
+    },
+    {
+      "key": "PAYPAL_CLIENT_SECRET",
+      "description": "PayPal Client Secret from https://developer.paypal.com/dashboard"
+    },
+    {
+      "key": "PAYPAL_MODE",
+      "value": "sandbox",
+      "description": "Change to 'live' for production"
+    },
+    {
+      "key": "DATABASE_URL",
+      "description": "PostgreSQL connection string"
+    },
+    {
+      "key": "FRONTEND_URL",
+      "description": "Your Render service URL (e.g., https://your-app.onrender.com)"
+    }
+  ]
+}

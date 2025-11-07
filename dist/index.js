@@ -13,8 +13,12 @@ import { createServer } from "http";
 // shared/schema.ts
 var schema_exports = {};
 __export(schema_exports, {
+  donations: () => donations,
   downloads: () => downloads,
+  insertDonationSchema: () => insertDonationSchema,
   insertDownloadSchema: () => insertDownloadSchema,
+  insertLotteryDrawSchema: () => insertLotteryDrawSchema,
+  insertLotteryEntrySchema: () => insertLotteryEntrySchema,
   insertOrderItemSchema: () => insertOrderItemSchema,
   insertOrderSchema: () => insertOrderSchema,
   insertPaymentTransactionSchema: () => insertPaymentTransactionSchema,
@@ -23,6 +27,8 @@ __export(schema_exports, {
   insertSubscriptionHistorySchema: () => insertSubscriptionHistorySchema,
   insertSubscriptionPlanSchema: () => insertSubscriptionPlanSchema,
   insertUserSchema: () => insertUserSchema,
+  lotteryDraws: () => lotteryDraws,
+  lotteryEntries: () => lotteryEntries,
   orderItems: () => orderItems,
   orders: () => orders,
   paymentTransactions: () => paymentTransactions,
@@ -248,6 +254,104 @@ var shippingRates = pgTable("shipping_rates", {
   updatedAt: timestamp("updated_at").defaultNow()
 });
 var insertShippingRateSchema = createInsertSchema(shippingRates);
+var lotteryDraws = pgTable("lottery_draws", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  nameHebrew: text("name_hebrew").notNull(),
+  description: text("description"),
+  descriptionHebrew: text("description_hebrew"),
+  // Prize information
+  prizeAmount: integer("prize_amount").notNull(),
+  // in agorot
+  prizeCurrency: text("prize_currency").default("ILS"),
+  prizeDescription: text("prize_description"),
+  prizeDescriptionHebrew: text("prize_description_hebrew"),
+  // Draw dates
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  drawDate: timestamp("draw_date").notNull(),
+  // Status
+  status: text("status").$type().default("upcoming"),
+  // Winner information
+  winnerId: varchar("winner_id").references(() => lotteryEntries.id),
+  winnerNotified: boolean("winner_notified").default(false),
+  winnerNotifiedAt: timestamp("winner_notified_at"),
+  // Minimum donation for entry
+  minimumDonation: integer("minimum_donation").notNull().default(1800),
+  // 18 shekels minimum
+  // Settings
+  maxEntriesPerPerson: integer("max_entries_per_person"),
+  allowMultipleEntries: boolean("allow_multiple_entries").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+});
+var insertLotteryDrawSchema = createInsertSchema(lotteryDraws);
+var lotteryEntries = pgTable("lottery_entries", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  drawId: varchar("draw_id").notNull().references(() => lotteryDraws.id),
+  // Participant information
+  userId: varchar("user_id").references(() => users.id),
+  // Optional if user is registered
+  email: text("email").notNull(),
+  fullName: text("full_name").notNull(),
+  phone: text("phone"),
+  // Donation details
+  donationId: varchar("donation_id").references(() => donations.id),
+  donationAmount: integer("donation_amount").notNull(),
+  // in agorot
+  // Entry details
+  entryNumber: integer("entry_number"),
+  // Sequential number for this draw
+  numberOfTickets: integer("number_of_tickets").default(1),
+  // Multiple tickets based on donation
+  // Status
+  isActive: boolean("is_active").default(true),
+  isWinner: boolean("is_winner").default(false),
+  createdAt: timestamp("created_at").defaultNow()
+});
+var insertLotteryEntrySchema = createInsertSchema(lotteryEntries);
+var donations = pgTable("donations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  // Donor information
+  userId: varchar("user_id").references(() => users.id),
+  // Optional if user is registered
+  email: text("email").notNull(),
+  fullName: text("full_name").notNull(),
+  phone: text("phone"),
+  // Donation details
+  amount: integer("amount").notNull(),
+  // in agorot
+  currency: text("currency").default("ILS"),
+  // Donation type and purpose
+  donationType: text("donation_type").$type().default("one_time"),
+  donationPurpose: text("donation_purpose"),
+  // General, specific project, etc.
+  donationPurposeHebrew: text("donation_purpose_hebrew"),
+  // Payment information
+  paymentMethod: text("payment_method").notNull(),
+  // paypal, stripe, bank_transfer, etc.
+  paymentProvider: text("payment_provider"),
+  providerTransactionId: text("provider_transaction_id").unique(),
+  paymentStatus: text("payment_status").$type().default("pending"),
+  // Lottery participation
+  participateInLottery: boolean("participate_in_lottery").default(true),
+  lotteryDrawId: varchar("lottery_draw_id").references(() => lotteryDraws.id),
+  lotteryEntryCreated: boolean("lottery_entry_created").default(false),
+  // Receipt and tax deduction
+  receiptSent: boolean("receipt_sent").default(false),
+  receiptNumber: text("receipt_number"),
+  taxDeductible: boolean("tax_deductible").default(true),
+  // Donor preferences
+  isAnonymous: boolean("is_anonymous").default(false),
+  displayName: text("display_name"),
+  // Public display name if not anonymous
+  // Notes
+  donorMessage: text("donor_message"),
+  adminNotes: text("admin_notes"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+});
+var insertDonationSchema = createInsertSchema(donations);
 
 // server/storage.ts
 import { randomUUID } from "crypto";
@@ -257,13 +361,17 @@ import { Pool, neonConfig } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-serverless";
 import ws from "ws";
 neonConfig.webSocketConstructor = ws;
+var pool;
+var db;
 if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?"
-  );
+  console.warn("\u26A0\uFE0F  DATABASE_URL not set - User authentication features will be disabled");
+  console.warn("\u26A0\uFE0F  Product browsing and store features will work normally");
+  pool = null;
+  db = null;
+} else {
+  pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  db = drizzle({ client: pool, schema: schema_exports });
 }
-var pool = new Pool({ connectionString: process.env.DATABASE_URL });
-var db = drizzle({ client: pool, schema: schema_exports });
 
 // server/storage.ts
 import { eq } from "drizzle-orm";
@@ -669,6 +777,10 @@ var DatabaseStorage = class {
   }
   // User methods - Database implementation for Replit Auth
   async getUser(id) {
+    if (!db) {
+      console.warn("Database not available - user features disabled");
+      return void 0;
+    }
     try {
       const result = await db.select().from(users).where(eq(users.id, id));
       return result[0] || void 0;
@@ -678,6 +790,10 @@ var DatabaseStorage = class {
     }
   }
   async getUserByUsername(username) {
+    if (!db) {
+      console.warn("Database not available - user features disabled");
+      return void 0;
+    }
     try {
       const result = await db.select().from(users).where(eq(users.username, username));
       return result[0] || void 0;
@@ -687,6 +803,10 @@ var DatabaseStorage = class {
     }
   }
   async getUserByEmail(email) {
+    if (!db) {
+      console.warn("Database not available - user features disabled");
+      return void 0;
+    }
     try {
       const result = await db.select().from(users).where(eq(users.email, email));
       return result[0] || void 0;
@@ -696,6 +816,9 @@ var DatabaseStorage = class {
     }
   }
   async createUser(insertUser) {
+    if (!db) {
+      throw new Error("Database not available - user features disabled");
+    }
     try {
       const result = await db.insert(users).values({
         ...insertUser,
@@ -710,6 +833,9 @@ var DatabaseStorage = class {
     }
   }
   async updateUser(id, updates) {
+    if (!db) {
+      throw new Error("Database not available - user features disabled");
+    }
     try {
       const result = await db.update(users).set({ ...updates, updatedAt: /* @__PURE__ */ new Date() }).where(eq(users.id, id)).returning();
       if (result.length === 0) {
@@ -723,6 +849,9 @@ var DatabaseStorage = class {
   }
   // REQUIRED for Replit Auth - upsertUser method
   async upsertUser(userData) {
+    if (!db) {
+      throw new Error("Database not available - user features disabled");
+    }
     try {
       const result = await db.insert(users).values(userData).onConflictDoUpdate({
         target: users.id,
@@ -5289,6 +5418,238 @@ var isAuthenticated = async (req, res, next) => {
   }
 };
 
+// server/routes/donations.ts
+import { eq as eq2, and, gte, lte } from "drizzle-orm";
+var PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID || "";
+var PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET || "";
+var PAYPAL_MODE = process.env.PAYPAL_MODE || "sandbox";
+var PAYPAL_API_BASE = PAYPAL_MODE === "live" ? "https://api-m.paypal.com" : "https://api-m.sandbox.paypal.com";
+async function getPayPalAccessToken() {
+  const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_CLIENT_SECRET}`).toString("base64");
+  const response = await fetch(`${PAYPAL_API_BASE}/v1/oauth2/token`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Basic ${auth}`,
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: "grant_type=client_credentials"
+  });
+  const data = await response.json();
+  return data.access_token;
+}
+async function createPayPalOrder(amount, currency = "ILS") {
+  const accessToken = await getPayPalAccessToken();
+  const response = await fetch(`${PAYPAL_API_BASE}/v2/checkout/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({
+      intent: "CAPTURE",
+      purchase_units: [{
+        amount: {
+          currency_code: currency,
+          value: (amount / 100).toFixed(2)
+          // Convert agorot to shekels
+        },
+        description: "Donation to Rabbi Israel Dov Odesser Foundation"
+      }],
+      application_context: {
+        brand_name: "Keren Rabbi Israel",
+        landing_page: "NO_PREFERENCE",
+        user_action: "PAY_NOW",
+        return_url: `${process.env.FRONTEND_URL || "http://localhost:5000"}/donate/success`,
+        cancel_url: `${process.env.FRONTEND_URL || "http://localhost:5000"}/donate/cancel`
+      }
+    })
+  });
+  const data = await response.json();
+  return data;
+}
+async function capturePayPalPayment(orderId) {
+  const accessToken = await getPayPalAccessToken();
+  const response = await fetch(`${PAYPAL_API_BASE}/v2/checkout/orders/${orderId}/capture`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${accessToken}`
+    }
+  });
+  const data = await response.json();
+  return data;
+}
+async function getActiveLotteryDraw() {
+  if (!db) return null;
+  const now = /* @__PURE__ */ new Date();
+  const activeDraws = await db.select().from(lotteryDraws).where(
+    and(
+      eq2(lotteryDraws.status, "active"),
+      lte(lotteryDraws.startDate, now),
+      gte(lotteryDraws.endDate, now)
+    )
+  ).limit(1);
+  return activeDraws[0] || null;
+}
+async function createLotteryEntry(donationData, drawId) {
+  if (!db) return null;
+  const numberOfTickets = Math.floor(donationData.amount / 1800);
+  const [entry] = await db.insert(lotteryEntries).values({
+    drawId,
+    userId: donationData.userId,
+    email: donationData.email,
+    fullName: donationData.fullName,
+    phone: donationData.phone,
+    donationId: donationData.donationId,
+    donationAmount: donationData.amount,
+    numberOfTickets,
+    isActive: true,
+    isWinner: false
+  }).returning();
+  return entry;
+}
+function registerDonationRoutes(app2) {
+  app2.post("/api/donations/create", async (req, res) => {
+    try {
+      const { amount, currency, donorInfo, participateInLottery, paymentMethod } = req.body;
+      if (!amount || amount < 1800) {
+        return res.status(400).json({ error: "Minimum donation is 18 \u20AA" });
+      }
+      if (!donorInfo.fullName || !donorInfo.email) {
+        return res.status(400).json({ error: "Full name and email are required" });
+      }
+      if (!db) {
+        return res.status(503).json({
+          error: "Database not available. Please try again later."
+        });
+      }
+      let activeDraw = null;
+      if (participateInLottery) {
+        activeDraw = await getActiveLotteryDraw();
+      }
+      const [donation] = await db.insert(donations).values({
+        email: donorInfo.email,
+        fullName: donorInfo.fullName,
+        phone: donorInfo.phone || null,
+        amount,
+        currency: currency || "ILS",
+        donationType: "one_time",
+        paymentMethod,
+        paymentProvider: paymentMethod === "paypal" ? "paypal" : "stripe",
+        paymentStatus: "pending",
+        participateInLottery,
+        lotteryDrawId: activeDraw?.id || null,
+        lotteryEntryCreated: false,
+        taxDeductible: true
+      }).returning();
+      if (paymentMethod === "paypal") {
+        const paypalOrder = await createPayPalOrder(amount, currency);
+        if (paypalOrder.id) {
+          await db.update(donations).set({
+            providerTransactionId: paypalOrder.id
+          }).where(eq2(donations.id, donation.id));
+          const approvalUrl = paypalOrder.links.find(
+            (link) => link.rel === "approve"
+          )?.href;
+          return res.json({
+            donationId: donation.id,
+            paypalOrderId: paypalOrder.id,
+            approvalUrl
+          });
+        } else {
+          return res.status(500).json({ error: "Failed to create PayPal order" });
+        }
+      } else {
+        return res.json({
+          donationId: donation.id
+          // Add Stripe setup here if needed
+        });
+      }
+    } catch (error) {
+      console.error("Donation creation error:", error);
+      return res.status(500).json({ error: "Failed to create donation" });
+    }
+  });
+  app2.post("/api/donations/complete-paypal", async (req, res) => {
+    try {
+      const { orderId, donationId } = req.body;
+      if (!db) {
+        return res.status(503).json({ error: "Database not available" });
+      }
+      const captureData = await capturePayPalPayment(orderId);
+      if (captureData.status === "COMPLETED") {
+        await db.update(donations).set({
+          paymentStatus: "completed"
+        }).where(eq2(donations.id, donationId));
+        const [donation] = await db.select().from(donations).where(eq2(donations.id, donationId));
+        if (donation.participateInLottery && donation.lotteryDrawId) {
+          await createLotteryEntry(
+            {
+              ...donation,
+              donationId: donation.id
+            },
+            donation.lotteryDrawId
+          );
+          await db.update(donations).set({
+            lotteryEntryCreated: true
+          }).where(eq2(donations.id, donationId));
+        }
+        return res.json({
+          success: true,
+          message: "Donation completed successfully"
+        });
+      } else {
+        return res.status(400).json({ error: "Payment not completed" });
+      }
+    } catch (error) {
+      console.error("Donation completion error:", error);
+      return res.status(500).json({ error: "Failed to complete donation" });
+    }
+  });
+  app2.get("/api/lottery/active", async (req, res) => {
+    try {
+      if (!db) {
+        return res.status(503).json({ error: "Database not available" });
+      }
+      const activeDraw = await getActiveLotteryDraw();
+      if (!activeDraw) {
+        return res.json({ activeDraw: null });
+      }
+      const entries = await db.select().from(lotteryEntries).where(eq2(lotteryEntries.drawId, activeDraw.id));
+      const totalTickets = entries.reduce(
+        (sum, entry) => sum + (entry.numberOfTickets || 1),
+        0
+      );
+      return res.json({
+        activeDraw: {
+          ...activeDraw,
+          totalEntries: entries.length,
+          totalTickets
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching active lottery:", error);
+      return res.status(500).json({ error: "Failed to fetch lottery info" });
+    }
+  });
+  app2.get("/api/lottery/my-entries", async (req, res) => {
+    try {
+      const { email } = req.query;
+      if (!email) {
+        return res.status(400).json({ error: "Email is required" });
+      }
+      if (!db) {
+        return res.status(503).json({ error: "Database not available" });
+      }
+      const entries = await db.select().from(lotteryEntries).where(eq2(lotteryEntries.email, email));
+      return res.json({ entries });
+    } catch (error) {
+      console.error("Error fetching lottery entries:", error);
+      return res.status(500).json({ error: "Failed to fetch entries" });
+    }
+  });
+}
+
 // server/routes.ts
 var stripe = null;
 if (process.env.STRIPE_SECRET_KEY) {
@@ -5296,6 +5657,7 @@ if (process.env.STRIPE_SECRET_KEY) {
 }
 async function registerRoutes(app2) {
   await setupAuth(app2);
+  registerDonationRoutes(app2);
   app2.get("/api/auth/user", isAuthenticated, async (req, res) => {
     try {
       const userId = req.user.claims.sub;
