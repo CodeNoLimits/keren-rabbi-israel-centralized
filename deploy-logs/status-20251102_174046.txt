@@ -1,0 +1,7 @@
+HTTP Status: 502
+Response Time: 1.021459s
+Health Check Status: 502
+Response: 
+Deploy ID: dep-d43kvrehf83s73dnt4l0
+Status: build_failed
+Commit: Ajout script déploiement automatique via API Render
