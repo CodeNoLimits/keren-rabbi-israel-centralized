@@ -1,4 +1,5 @@
 import { Switch, Route } from "wouter";
+import { Suspense, lazy } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,13 +9,15 @@ import { CartProvider } from "@/contexts/CartContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { InstallPrompt } from "@/components/InstallPrompt";
 import { AmbientMusic } from "@/components/AmbientMusic";
-import Home from "@/pages/home";
-import Store from "@/pages/store";
-import About from "@/pages/about";
-import Magazine from "@/pages/magazine";
-import Join from "@/pages/join";
-import Contact from "@/pages/contact";
-import Checkout from "@/pages/checkout";
+
+// Lazy load all page components for code splitting
+const Home = lazy(() => import("@/pages/home"));
+const Store = lazy(() => import("@/pages/store"));
+const About = lazy(() => import("@/pages/about"));
+const Magazine = lazy(() => import("@/pages/magazine"));
+const Join = lazy(() => import("@/pages/join"));
+const Contact = lazy(() => import("@/pages/contact"));
+const Checkout = lazy(() => import("@/pages/checkout"));
 
 // Simple checkout success component
 const CheckoutSuccess = () => {
@@ -40,20 +43,27 @@ const CheckoutSuccess = () => {
     </div>
   );
 };
-import Downloads from "@/pages/downloads";
-import Product from "@/pages/product";
-import BreslovWisdom from "@/pages/breslovWisdom";
-import BreslovVideos from "@/pages/breslov-videos";
-import KerenStyle from "@/pages/keren-style";
-import HaeshHype from "@/pages/haesh-hype";
-import Subscription from "@/pages/subscription";
-import SubscriptionManagement from "@/pages/subscription-management";
-import YaakovDashboard from "@/pages/yaaakov";
-import Chat from "@/pages/chat";
-import Lottery from "@/pages/lottery";
-import LotteryAdmin from "@/pages/lottery-admin";
-import Hilloula from "@/pages/hilloula-2024";
-import NotFound from "@/pages/not-found";
+const Downloads = lazy(() => import("@/pages/downloads"));
+const Product = lazy(() => import("@/pages/product"));
+const BreslovWisdom = lazy(() => import("@/pages/breslovWisdom"));
+const BreslovVideos = lazy(() => import("@/pages/breslov-videos"));
+const KerenStyle = lazy(() => import("@/pages/keren-style"));
+const HaeshHype = lazy(() => import("@/pages/haesh-hype"));
+const Subscription = lazy(() => import("@/pages/subscription"));
+const SubscriptionManagement = lazy(() => import("@/pages/subscription-management"));
+const YaakovDashboard = lazy(() => import("@/pages/yaaakov"));
+const Chat = lazy(() => import("@/pages/chat"));
+const Lottery = lazy(() => import("@/pages/lottery"));
+const LotteryAdmin = lazy(() => import("@/pages/lottery-admin"));
+const Hilloula = lazy(() => import("@/pages/hilloula-2024"));
+const NotFound = lazy(() => import("@/pages/not-found"));
+
+// Loading fallback for Suspense
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-amber-50 to-orange-100 dark:from-gray-900 dark:to-gray-800">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-600"></div>
+  </div>
+);
 
 function Router() {
   return (
@@ -94,7 +104,9 @@ function App() {
               <Toaster />
               <InstallPrompt />
               <AmbientMusic />
-              <Router />
+              <Suspense fallback={<PageLoader />}>
+                <Router />
+              </Suspense>
             </CartProvider>
           </LanguageProvider>
         </ThemeProvider>
