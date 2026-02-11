@@ -176,55 +176,68 @@ export default function Home() {
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
 
       {/* ============================================ */}
-      {/* HERO SECTION - Clean centered, one CTA        */}
+      {/* HERO SECTION - Minimalist & Powerful         */}
       {/* ============================================ */}
       <section style={{
         background: '#FFFFFF',
-        padding: '0',
-        minHeight: '50vh',
+        padding: '6rem 0',
+        minHeight: '60vh',
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
         overflow: 'hidden',
-        borderBottom: '1px solid #f0f0f0',
       }}>
-
-        <div style={{maxWidth: '800px', margin: '0 auto', padding: '4rem 2rem', width: '100%', position: 'relative', zIndex: 1, textAlign: 'center'}}>
-            <div>
+        <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', width: '100%'}}>
+          <div className="hero-grid" style={{
+            display: 'grid',
+            gridTemplateColumns: isRTL ? '1fr 1.2fr' : '1.2fr 1fr',
+            gap: '4rem',
+            alignItems: 'center',
+          }}>
+            <div style={{order: isRTL ? 1 : 0}}>
               <h1 style={{
-                fontSize: 'clamp(2rem, 4.5vw, 3.2rem)',
-                fontWeight: '800',
-                marginBottom: '1rem',
-                lineHeight: '1.15',
-                color: '#1E3A5F',
+                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                fontWeight: '900',
+                marginBottom: '1.5rem',
+                lineHeight: '1.1',
+                color: '#0F172A',
                 fontFamily: isRTL ? 'var(--font-hebrew)' : 'var(--font-latin)',
-                letterSpacing: '-0.01em',
+                letterSpacing: '-0.02em',
               }}>
                 {ml(currentLanguage, {
-                  he: '\u05D4\u05D0\u05E9 \u05E9\u05DC\u05D9 - \u05D4\u05E4\u05E6\u05EA \u05E1\u05E4\u05E8\u05D9 \u05D1\u05E8\u05E1\u05DC\u05D1',
-                  en: 'My Fire - Spreading Breslov Books',
-                  fr: 'Mon Feu - Diffusion des Livres Breslov',
-                  es: 'Mi Fuego - Difusi\u00F3n de Libros Breslov',
-                  ru: '\u041C\u043E\u0439 \u041E\u0433\u043E\u043D\u044C - \u0420\u0430\u0441\u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0435\u043D\u0438\u0435 \u041A\u043D\u0438\u0433 \u0411\u0440\u0435\u0441\u043B\u043E\u0432',
+                  he: '\u05D4\u05D0\u05E9 \u05E9\u05DC\u05D9',
+                  en: 'My Fire',
+                  fr: 'Mon Feu',
+                  es: 'Mi Fuego',
+                  ru: '\u041C\u043E\u0439 \u041E\u0433\u043E\u043D\u044C',
                 })}
+                <span style={{display: 'block', color: '#FF6B00', fontSize: '0.6em', marginTop: '0.5rem'}}>
+                  {ml(currentLanguage, {
+                    he: '\u05D4\u05E4\u05E6\u05EA \u05E1\u05E4\u05E8\u05D9 \u05D1\u05E8\u05E1\u05DC\u05D1',
+                    en: 'Spreading Breslov Books',
+                    fr: 'Diffusion des Livres Breslov',
+                    es: 'Difusi\u00F3n de Libros Breslov',
+                    ru: '\u0420\u0430\u0441\u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0435\u043D\u0438\u0435 \u041A\u043D\u0438\u0433 \u0411\u0440\u0435\u0441\u043B\u043E\u0432',
+                  })}
+                </span>
               </h1>
               <p style={{
-                fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
+                fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
                 fontWeight: '400',
-                marginBottom: '2rem',
-                color: '#5A6F85',
-                lineHeight: '1.5',
+                marginBottom: '2.5rem',
+                color: '#475569',
+                lineHeight: '1.6',
                 fontFamily: isRTL ? 'var(--font-hebrew)' : 'var(--font-serif)',
               }}>
                 {ml(currentLanguage, {
-                  he: '\u05D7\u05E0\u05D5\u05EA \u05D4\u05E1\u05E4\u05E8\u05D9\u05DD \u05D4\u05DE\u05D5\u05D1\u05D9\u05DC\u05D4 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1',
-                  en: 'The leading bookstore of Rabbi Nachman of Breslov',
-                  fr: 'La librairie de r\u00E9f\u00E9rence de Rabbi Nachman de Breslov',
-                  es: 'La librer\u00EDa l\u00EDder de Rab\u00ED Nachman de Breslov',
-                  ru: '\u0412\u0435\u0434\u0443\u0449\u0438\u0439 \u043A\u043D\u0438\u0436\u043D\u044B\u0439 \u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0420\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430 \u0438\u0437 \u0411\u0440\u0435\u0441\u043B\u043E\u0432',
+                  he: '\u05D7\u05E0\u05D5\u05EA \u05D4\u05E1\u05E4\u05E8\u05D9\u05DD \u05D4\u05DE\u05D5\u05D1\u05D9\u05DC\u05D4 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1. \u05DE\u05E7\u05D5\u05DD \u05E9\u05D1\u05D5 \u05DB\u05DC \u05E0\u05E9\u05DE\u05D4 \u05DE\u05D5\u05E6\u05D0\u05EA \u05D0\u05EA \u05D4\u05D3\u05E8\u05DA \u05E9\u05DC\u05D4.',
+                  en: 'The leading bookstore of Rabbi Nachman of Breslov. A place where every soul finds its way.',
+                  fr: 'La librairie de r\u00E9f\u00E9rence de Rabbi Nachman de Breslov. Un lieu o\u00F9 chaque \u00E2me trouve son chemin.',
+                  es: 'La librer\u00EDa l\u00EDder de Rab\u00ED Nachman de Breslov. Un lugar donde cada alma encuentra su camino.',
+                  ru: '\u0412\u0435\u0434\u0443\u0449\u0438\u0439 \u043A\u043D\u0438\u0436\u043D\u044B\u0439 \u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0420\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430. \u041C\u0435\u0441\u0442\u043E, \u0433\u0434\u0435 \u043A\u0430\u0436\u0434\u0430\u044F \u0434\u0443\u0448\u0430 \u043D\u0430\u0445\u043E\u0434\u0438\u0442 \u0441\u0432\u043E\u0439 \u043F\u0443\u0442\u044C.',
                 })}
               </p>
-              <div style={{display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center'}}>
+              <div style={{display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center'}}>
                 <a href="/store" style={{textDecoration: 'none'}}>
                   <button data-testid="button-enter-store" style={{
                     background: '#FF6B00',
@@ -278,21 +291,22 @@ export default function Home() {
               justifyContent: 'center',
               alignItems: 'center',
               position: 'relative',
-              minHeight: '320px',
+              minHeight: '400px',
             }}>
               <img
                 src="/images/book-1.webp"
                 alt={ml(currentLanguage, {he: 'ספרי רבי נחמן', en: 'Rabbi Nachman Books', fr: 'Livres de Rabbi Nachman', es: 'Libros de Rabí Nachman', ru: 'Книги Рабби Нахмана'})}
                 style={{
-                  maxWidth: '280px',
+                  maxWidth: '380px',
                   width: '100%',
                   height: 'auto',
-                  borderRadius: '12px',
-                  boxShadow: '0 20px 60px rgba(0,0,0,0.12)',
+                  borderRadius: '16px',
+                  boxShadow: '0 30px 80px rgba(0,0,0,0.15)',
                 }}
               />
             </div>
           </div>
+        </div>
 
         {/* Responsive: stack on mobile */}
         <style>{`
