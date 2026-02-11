@@ -282,6 +282,30 @@ export default function Home() {
                   </button>
                 </a>
               </div>
+              <div style={{marginTop: '2rem'}}>
+                <a href="/haesh-hype" style={{textDecoration: 'none'}}>
+                  <button className="animate-pulse" style={{
+                    background: '#FFFFFF',
+                    color: '#FF6B00',
+                    border: '2px solid #FF6B00',
+                    padding: '0.8rem 2rem',
+                    borderRadius: '50px',
+                    cursor: 'pointer',
+                    fontSize: '1rem',
+                    fontWeight: '800',
+                    boxShadow: '0 0 15px rgba(255,107,0,0.4)',
+                    transition: 'all 0.3s ease',
+                  }}>
+                    {ml(currentLanguage, {
+                      he: '\u05D2\u05DD \u05D0\u05E0\u05D9 \u05D7\u05DC\u05E7 \u05DE\u05D4\u05D0\u05E9',
+                      en: 'I am also part of the fire',
+                      fr: 'Je fais aussi partie du feu',
+                      es: 'Yo tambi\u00E9n soy parte del fuego',
+                      ru: '\u042F \u0442\u043E\u0436\u0435 \u0447\u0430\u0441\u0442\u044C \u043E\u0433\u043D\u044F',
+                    })}
+                  </button>
+                </a>
+              </div>
             </div>
 
             {/* Hero image - clean book composition */}
