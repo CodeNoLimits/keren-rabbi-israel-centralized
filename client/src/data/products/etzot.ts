@@ -100,11 +100,14 @@ export const etzotProducts: Record<string, Product> = {
     id: 'etzot-hamevuarot',
     name: 'עצות המבוארות',
     nameEnglish: 'Eitzos Mevu\'arot',
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
+    nameFrench: 'Conseils Expliqués',
+    nameSpanish: 'Consejos Explicados',
+    nameRussian: 'Объясненные Советы',
     description: 'חובר על ידי רבי שמשון בארסקי נכד רבינו, במקור באידיש, השפה המדוברת באותן שנים. הספר הוא ביאור לספר \'ליקוטי עצות\' של רבי נתן, נכתב בסגנון פשוט וקולח המתאים לכל שכבות הציבור.',
     descriptionEnglish: 'Compiled by Rabbi Shimshon Barsky, grandson of Rabbenu, originally in Yiddish. The book is an explanation of Rabbi Nathan\'s \'Likutei Etzot\', written in a simple and flowing style suitable for all segments of the public.',
+    descriptionFrench: 'Compilé par Rabbi Chimchon Barsky, petit-fils de Rabbénou, originellement en yiddish, la langue parlée à cette époque. Le livre est une explication du \'Likouté Étsot\' de Rabbi Nathan, écrit dans un style simple et fluide adapté à tous les publics.',
+    descriptionSpanish: 'Compilado por el Rabino Shimshon Barsky, nieto de Rabenu, originalmente en yiddish, el idioma hablado en aquellos años. El libro es una explicación del \'Likutei Etzot\' del Rabino Nathan, escrito en un estilo simple y fluido adecuado para todos los sectores del público.',
+    descriptionRussian: 'Составлено рабби Шимшоном Барским, внуком Рабейну, первоначально на идише, языке, на котором говорили в те годы. Книга является объяснением \'Ликутей Эцот\' рабби Натана, написанная в простом и плавном стиле, подходящем для всех слоев общества.',
     category: 'עצות והדרכה',
     subcategory: 'ביאורים',
     author: 'רבי שמשון בארסקי',
@@ -137,6 +140,27 @@ export const etzotProducts: Record<string, Product> = {
       'סגנון פשוט וקולח',
       'מתאים לכל שכבות הציבור',
       'תורגם מאידיש'
+    ],
+    featuresFrench: [
+      'Explication du Likouté Étsot',
+      'Petit-fils de Rabbénou',
+      'Style simple et fluide',
+      'Adapté à tous les publics',
+      'Traduit du yiddish'
+    ],
+    featuresSpanish: [
+      'Explicación del Likutei Etzot',
+      'Nieto de Rabenu',
+      'Estilo simple y fluido',
+      'Adecuado para todos los públicos',
+      'Traducido del yiddish'
+    ],
+    featuresRussian: [
+      'Объяснение Ликутей Эцот',
+      'Внук Рабейну',
+      'Простой и плавный стиль',
+      'Подходит для всех слоев общества',
+      'Переведено с идиша'
     ],
     tags: ['עצות', 'ביאור', 'נכד רבינו', 'פשוט', 'מבואר'],
     isActive: true,

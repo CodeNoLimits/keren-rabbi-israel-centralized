@@ -66,6 +66,23 @@ export default function Product() {
     return <div>{currentLanguage === 'he' ? 'שגיאה: לא נמצאו גרסאות למוצר' : 'Error: No variants found'}</div>;
   }
 
+  // Task 50: Calculate image scale based on variant size
+  const getImageScaleForVariant = (size: string) => {
+    const sizeMap: Record<string, number> = {
+      'קטן': 0.75,      // Small: 75%
+      'בינוני': 1.0,    // Medium: 100%
+      'גדול': 1.25,     // Large: 125%
+      'ענק': 1.5,       // Extra Large: 150%
+      'small': 0.75,
+      'medium': 1.0,
+      'large': 1.25,
+      'extra-large': 1.5,
+    };
+    return sizeMap[size.toLowerCase()] || 1.0;
+  };
+
+  const imageScale = getImageScaleForVariant(currentVariant.size);
+
   const displayTitle = getInterfaceDisplayTitle(product, currentLanguage);
   const displayDescription = getInterfaceDisplayDescription(product, currentLanguage);
   const displayCategory = getInterfaceCategoryName(product.category, currentLanguage);
@@ -387,10 +404,10 @@ export default function Product() {
                   style={{
                     width: '100%',
                     height: '500px',
-                    objectFit: 'cover',
-                    transform: isZoomed ? 'scale(2)' : 'scale(1)',
+                    objectFit: 'contain',
+                    transform: isZoomed ? 'scale(2)' : `scale(${imageScale})`,
                     transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
-                    transition: isZoomed ? 'transform-origin 0.05s ease-out, transform 0.3s ease' : 'transform 0.3s ease',
+                    transition: isZoomed ? 'transform-origin 0.05s ease-out, transform 0.3s ease' : 'transform 0.3s ease-in-out',
                     pointerEvents: 'none',
                   }}
                 />

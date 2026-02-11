@@ -152,16 +152,18 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
+  // Task 32: Added Arabic language support
   const languageFlags = {
     he: '🇮🇱',
-    en: '🇺🇸', 
+    en: '🇺🇸',
     fr: '🇫🇷',
     es: '🇪🇸',
-    ru: '🇷🇺'
+    ru: '🇷🇺',
+    ar: '🇵🇸'  // Palestinian flag for Arabic (common in Israeli Arab community)
   };
 
   return (
-    <header className={`site-header sticky top-0 z-50 backdrop-blur-md transition-shadow duration-300 ${isScrolled ? 'shadow-md' : ''}`} data-testid="main-header" dir={currentLanguage === 'he' ? 'rtl' : 'ltr'}>
+    <header className={`site-header sticky top-0 z-50 backdrop-blur-md transition-shadow duration-300 ${isScrolled ? 'shadow-md' : ''}`} data-testid="main-header" dir={currentLanguage === 'he' || currentLanguage === 'ar' ? 'rtl' : 'ltr'}>
       {/* TOP ROW - Logo + Special Links */}
       <div className="header-container-top">
         {/* LOGO */}
@@ -390,7 +392,7 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
                 onClick={() => setLanguage(lang)}
                 className={`language-btn ${currentLanguage === lang ? 'active' : ''} transition-all duration-300 hover:scale-125 hover:bg-white hover:text-blue-600 hover:shadow-xl hover:-translate-y-1 hover:rotate-3`}
                 data-testid={`button-language-${lang}`}
-                aria-label={`${lang === 'he' ? 'Hebrew' : lang === 'en' ? 'English' : lang === 'fr' ? 'French' : lang === 'es' ? 'Spanish' : 'Russian'}`}
+                aria-label={`${lang === 'he' ? 'Hebrew' : lang === 'en' ? 'English' : lang === 'fr' ? 'French' : lang === 'es' ? 'Spanish' : lang === 'ru' ? 'Russian' : 'Arabic'}`}
                 aria-pressed={currentLanguage === lang}
               >
                 <span className="transition-all duration-300 hover:scale-125" aria-hidden="true">{flag}</span>
@@ -522,7 +524,7 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
                 className={`language-btn ${currentLanguage === lang ? 'active' : ''}`}
                 style={{minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem', padding: '0.5rem 0.75rem'}}
                 data-testid={`mobile-button-language-${lang}`}
-                aria-label={`${lang === 'he' ? 'Hebrew' : lang === 'en' ? 'English' : lang === 'fr' ? 'French' : lang === 'es' ? 'Spanish' : 'Russian'}`}
+                aria-label={`${lang === 'he' ? 'Hebrew' : lang === 'en' ? 'English' : lang === 'fr' ? 'French' : lang === 'es' ? 'Spanish' : lang === 'ru' ? 'Russian' : 'Arabic'}`}
                 aria-pressed={currentLanguage === lang}
               >
                 <span aria-hidden="true">{flag}</span>

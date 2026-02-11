@@ -9,11 +9,14 @@ export const sefarimTalmidimProducts: Record<string, Product> = {
     id: 'yekara-deshabbata',
     name: 'יקרא דשבתא',
     nameEnglish: 'Yekara DeShabbata',
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
+    nameFrench: 'La Préciosité du Chabbat',
+    nameSpanish: 'La Preciosidad del Shabat',
+    nameRussian: 'Драгоценность Шаббата',
     description: 'חובר על ידי רבי נחמן מטשעהרין תלמיד רבי נתן. תוכן הספר: גילוי הקשר בין מאמרי רבינו הקדוש ב"ליקוטי מוהר"ן", "סיפורי מעשיות" ו"שיחות הר"ן", ליקרת קדושת שבת. המחבר מציין: "שמעתי בשם גדולי הצדיקים קדמונים שהיו מפליגין מאוד בקדושת תורתו ומאמריו הקדושים של רבינו ואמרו עליהם בפירוש שהם בבחינת קדושת שבת"',
     descriptionEnglish: 'Composed by Rabbi Nachman of Tchehrin, student of Rabbi Nathan. The book reveals the connection between Rabbenu\'s teachings in Likutei Moharan, Tales, and Sichos HaRan to the holiness of Shabbat.',
+    descriptionFrench: 'Composé par Rabbi Nahman de Tcherin, disciple de Rabbi Nathan. Le livre révèle le lien entre les enseignements de Rabbénou dans Likouté Moharan, les Contes et Sihot HaRane, et la sainteté du Chabbat. L\'auteur note : "J\'ai entendu au nom des grands tsadikim anciens qu\'ils exaltaient grandement la sainteté de la Torah et des enseignements sacrés de Rabbénou, et ils disaient explicitement qu\'ils sont de l\'aspect de la sainteté du Chabbat"',
+    descriptionSpanish: 'Compuesto por el Rabino Najman de Tcherin, discípulo del Rabino Nathan. El libro revela la conexión entre las enseñanzas de Rabenu en Likutei Moharan, los Cuentos y Sijot HaRan, y la santidad del Shabat. El autor nota: "Escuché en nombre de los grandes tsadikim antiguos que exaltaban grandemente la santidad de la Torá y las enseñanzas sagradas de Rabenu, y dijeron explícitamente que son del aspecto de la santidad del Shabat"',
+    descriptionRussian: 'Составлено рабби Нахманом из Черина, учеником рабби Натана. Книга раскрывает связь между учениями Рабейну в Ликутей Моаран, Рассказами и Сихот аРан, и святостью Шаббата. Автор отмечает: "Я слышал от имени великих праведников древности, что они чрезвычайно восхваляли святость Торы и священных учений Рабейну, и говорили явно, что они из аспекта святости Шаббата"',
     category: 'ספרי התלמידים',
     subcategory: 'חגים ומועדים',
     author: 'רבי נחמן מטשעהרין',
@@ -44,6 +47,27 @@ export const sefarimTalmidimProducts: Record<string, Product> = {
       'מבוסס על כל ספרי רבינו',
       'מחבר תלמיד רבי נתן',
       'גילוי עומק התורות'
+    ],
+    featuresFrench: [
+      'Lien des enseignements de Rabbénou au Chabbat saint',
+      'Innovations sur la sainteté du Chabbat',
+      'Basé sur tous les livres de Rabbénou',
+      'Auteur disciple de Rabbi Nathan',
+      'Révélation de la profondeur des enseignements'
+    ],
+    featuresSpanish: [
+      'Conexión de las enseñanzas de Rabenu al Shabat santo',
+      'Innovaciones sobre la santidad del Shabat',
+      'Basado en todos los libros de Rabenu',
+      'Autor discípulo del Rabino Nathan',
+      'Revelación de la profundidad de las enseñanzas'
+    ],
+    featuresRussian: [
+      'Связь учений Рабейну со святым Шаббатом',
+      'Новшества о святости Шаббата',
+      'Основано на всех книгах Рабейну',
+      'Автор ученик рабби Натана',
+      'Раскрытие глубины учений'
     ],
     tags: ['שבת', 'קדושה', 'תורות', 'חגים', 'מטשעהרין'],
     isActive: true,

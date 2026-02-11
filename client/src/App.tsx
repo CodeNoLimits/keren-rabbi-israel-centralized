@@ -44,6 +44,7 @@ const Favorites = lazy(() => import("@/pages/favorites"));
 const Legal = lazy(() => import("@/pages/legal"));
 const Shipping = lazy(() => import("@/pages/shipping"));
 const Admin = lazy(() => import("@/pages/admin"));
+const OrderTracking = lazy(() => import("@/pages/order-tracking"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 // Loading fallback component
@@ -336,6 +337,8 @@ function Router() {
         <Route path="/blog" component={Blog} />
         <Route path="/yaaakov" component={YaakovDashboard} />
         <Route path="/admin" component={Admin} />
+        <Route path="/orders/:id" component={OrderTracking} />
+        <Route path="/orders" component={OrderTracking} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>

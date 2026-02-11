@@ -9,11 +9,14 @@ export const michtavimProducts: Record<string, Product> = {
     id: 'alim-letrufah',
     name: 'עלים לתרופה',
     nameEnglish: 'Alim Letrufah',
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
+    nameFrench: 'Feuilles de Guérison',
+    nameSpanish: 'Hojas de Curación',
+    nameRussian: 'Листья Исцеления',
     description: 'מאות מכתביו של רבי נתן, ששלח לבניו ולתלמידיו עד סמוך לפטירתו. מכתבים אלו הם אוצר בלום של יראת שמים, התחזקות, שיחות קודש, עצות מאירות חיים, ורוויים בדביקות עזה ברבינו.',
     descriptionEnglish: 'Hundreds of letters from Rabbi Nathan, sent to his sons and students until close to his passing. These letters are a treasury of fear of Heaven, strengthening, holy conversations, and life-illuminating advice.',
+    descriptionFrench: 'Des centaines de lettres de Rabbi Nathan, envoyées à ses fils et ses disciples jusqu\'à peu avant son décès. Ces lettres sont un trésor inestimable de crainte du Ciel, de renforcement, de conversations saintes, de conseils illuminant la vie, et imprégnées d\'un attachement intense à Rabbénou.',
+    descriptionSpanish: 'Cientos de cartas del Rabino Nathan, enviadas a sus hijos y discípulos hasta cerca de su fallecimiento. Estas cartas son un tesoro invaluable de temor del Cielo, fortalecimiento, conversaciones santas, consejos que iluminan la vida, e impregnadas de un apego intenso a Rabenu.',
+    descriptionRussian: 'Сотни писем рабби Натана, отправленных его сыновьям и ученикам вплоть до времени близкого к его кончине. Эти письма являются бесценной сокровищницей трепета перед Небесами, укрепления, святых бесед, советов, освещающих жизнь, и пропитаны сильной привязанностью к Рабейну.',
     category: 'מכתבים וכתבים',
     subcategory: 'מכתבי רבי נתן',
     author: 'רבי נתן מברסלב',
@@ -81,6 +84,27 @@ export const michtavimProducts: Record<string, Product> = {
       'דביקות עזה ברבינו',
       'שיחות קודש והתחזקות'
     ],
+    featuresFrench: [
+      'Lettres saintes de Rabbi Nathan',
+      'Trésor de crainte du Ciel',
+      'Conseils illuminant la vie',
+      'Attachement intense à Rabbénou',
+      'Conversations saintes et renforcement'
+    ],
+    featuresSpanish: [
+      'Cartas santas del Rabino Nathan',
+      'Tesoro de temor del Cielo',
+      'Consejos que iluminan la vida',
+      'Apego intenso a Rabenu',
+      'Conversaciones santas y fortalecimiento'
+    ],
+    featuresRussian: [
+      'Святые письма рабби Натана',
+      'Сокровищница трепета перед Небесами',
+      'Советы, освещающие жизнь',
+      'Сильная привязанность к Рабейну',
+      'Святые беседы и укрепление'
+    ],
     tags: ['מכתבים', 'רבי נתן', 'יראת שמים', 'התחזקות', 'עצות'],
     isActive: true,
     isFeatured: true
@@ -89,11 +113,14 @@ export const michtavimProducts: Record<string, Product> = {
     id: 'mikhtavei-rabbi-natan-tiveria',
     name: 'מכתבי רבי נתן מטבריה',
     nameEnglish: 'Mikhtavei Rabbi Natan MeTiveria',
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
+    nameFrench: 'Lettres de Rabbi Nathan de Tibériade',
+    nameSpanish: 'Cartas del Rabino Nathan de Tiberíades',
+    nameRussian: 'Письма рабби Натана из Тверии',
     description: 'ספר המכיל קרוב למאתיים מכתבים שכתב רבי נתן ב"ר יהודה מטבריה, מתלמידיו המובהקים של רבי נתן, לידידיו בארץ ובחו"ל. גדוש בשיחות ודיבורים נלהבים בגדולת רבינו ותלמידו רבי נתן, מעלת לימוד ספריהם, והתחזקות בעבודת השם.',
     descriptionEnglish: 'Book containing nearly two hundred letters written by Rabbi Nathan bar Yehuda of Tiberias, one of Rabbi Nathan\'s distinguished students, to friends in Israel and abroad. Full of enthusiastic conversations about the greatness of Rabbenu and Rabbi Nathan.',
+    descriptionFrench: 'Livre contenant près de deux cents lettres écrites par Rabbi Nathan bar Yéhouda de Tibériade, l\'un des disciples distingués de Rabbi Nathan, à des amis en Israël et à l\'étranger. Rempli de conversations enthousiastes sur la grandeur de Rabbénou et de son disciple Rabbi Nathan, la valeur de l\'étude de leurs livres, et le renforcement dans le service divin.',
+    descriptionSpanish: 'Libro que contiene casi doscientas cartas escritas por el Rabino Nathan bar Yehuda de Tiberíades, uno de los discípulos distinguidos del Rabino Nathan, a amigos en Israel y en el extranjero. Lleno de conversaciones entusiastas sobre la grandeza de Rabenu y de su discípulo Rabino Nathan, el valor del estudio de sus libros, y el fortalecimiento en el servicio divino.',
+    descriptionRussian: 'Книга, содержащая почти двести писем, написанных рабби Натаном бар Иегудой из Тверии, одним из выдающихся учеников рабби Натана, друзьям в Израиле и за рубежом. Полна восторженных бесед о величии Рабейну и его ученика рабби Натана, ценности изучения их книг и укрепления в служении Всевышнему.',
     category: 'מכתבים',
     subcategory: 'מכתבי קודש',
     author: 'רבי נתן בר יהודה מטבריה',
@@ -124,6 +151,27 @@ export const michtavimProducts: Record<string, Product> = {
       'מטבריה הקדושה',
       'התחזקות באמונה',
       'לימוד ספרי רבינו'
+    ],
+    featuresFrench: [
+      'Deux cents lettres',
+      'Disciple de Rabbi Nathan',
+      'De la sainte Tibériade',
+      'Renforcement dans la foi',
+      'Étude des livres de Rabbénou'
+    ],
+    featuresSpanish: [
+      'Doscientas cartas',
+      'Discípulo del Rabino Nathan',
+      'De la santa Tiberíades',
+      'Fortalecimiento en la fe',
+      'Estudio de los libros de Rabenu'
+    ],
+    featuresRussian: [
+      'Двести писем',
+      'Ученик рабби Натана',
+      'Из святой Тверии',
+      'Укрепление в вере',
+      'Изучение книг Рабейну'
     ],
     tags: ['מכתבים', 'טבריה', 'תלמיד', 'התחזקות', 'אמונה'],
     isActive: true,

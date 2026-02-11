@@ -9,11 +9,14 @@ export const halachaProducts: Record<string, Product> = {
     id: 'likutei-halakhot',
     name: 'ליקוטי הלכות',
     nameEnglish: 'Likutei Halakhot',
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
+    nameFrench: 'Recueil de Lois',
+    nameSpanish: 'Colección de Leyes',
+    nameRussian: 'Собрание Законов',
     description: 'חיבורו הגדול והמופלא של רבי נתן, תלמידו המובהק של רבינו נחמן מברסלב זיע"א, מכיל דרושים נפלאים בעבודת השם, מסודר על ארבעת חלקי שולחן-ערוך, מחולק לשמונה כרכים. רבי נתן התבטא: "העולם אומרים על ספר השל"ה הקדוש, שהוא השער לגן עדן, ואני אומר על ספרי ליקוטי הלכות – שהוא הגן עדן של השם יתברך בעצמו!"',
     descriptionEnglish: 'The great and wonderful work of Rabbi Nathan, the outstanding student of our teacher Rabbi Nachman of Breslov, containing wonderful discourses on divine service, arranged according to the four sections of the Shulchan Aruch.',
+    descriptionFrench: 'L\'œuvre majestueuse et merveilleuse de Rabbi Nathan, le disciple éminent de notre maître Rabbi Nahman de Breslev, contenant des discours merveilleux sur le service divin, organisée selon les quatre sections du Choulhan Aroukh, divisée en huit volumes. Rabbi Nathan a déclaré : "Le monde dit du livre du Chela HaKadoch qu\'il est la porte du Jardin d\'Éden, et moi je dis de mon livre Likouté Halakhot qu\'il est le Jardin d\'Éden de Hachem Lui-même !"',
+    descriptionSpanish: 'La gran y maravillosa obra del Rabino Nathan, el destacado estudiante de nuestro maestro Rabino Najman de Breslov, que contiene discursos maravillosos sobre el servicio divino, organizada según las cuatro secciones del Shulján Aruj, dividida en ocho volúmenes. El Rabino Nathan declaró: "El mundo dice del libro del Shela HaKadosh que es la puerta del Jardín del Edén, y yo digo de mi libro Likutei Halajot que es el Jardín del Edén de Hashem mismo!"',
+    descriptionRussian: 'Великий и чудесный труд рабби Натана, выдающегося ученика нашего учителя рабби Нахмана из Брацлава, содержащий прекрасные рассуждения о служении Всевышнему, организованный согласно четырем разделам Шулхан Аруха, разделенный на восемь томов. Рабби Натан заявил: "Мир говорит о книге Шела ХаКадош, что она врата в Ган Эден, а я говорю о моей книге Ликутей Алахот, что она сам Ган Эден Всевышнего!"',
     category: 'הלכה ועבודה',
     subcategory: 'ליקוטי הלכות',
     author: 'רבי נתן מברסלב',
@@ -79,6 +82,27 @@ export const halachaProducts: Record<string, Product> = {
       'דרושים נפלאים בעבודת השם',
       'הגן עדן של השם יתברך',
       'זמין במספר מהדורות'
+    ],
+    featuresFrench: [
+      'L\'œuvre majeure de Rabbi Nathan',
+      'Organisé selon les 4 sections du Choulhan Aroukh',
+      'Discours merveilleux sur le service divin',
+      'Le Jardin d\'Éden de Hachem Lui-même',
+      'Disponible en plusieurs éditions'
+    ],
+    featuresSpanish: [
+      'La gran obra del Rabino Nathan',
+      'Organizado según las 4 secciones del Shulján Aruj',
+      'Discursos maravillosos sobre el servicio divino',
+      'El Jardín del Edén de Hashem mismo',
+      'Disponible en varias ediciones'
+    ],
+    featuresRussian: [
+      'Великий труд рабби Натана',
+      'Организован по 4 разделам Шулхан Аруха',
+      'Чудесные рассуждения о служении Всевышнему',
+      'Сам Ган Эден Всевышнего',
+      'Доступно в нескольких изданиях'
     ],
     tags: ['הלכה', 'רבי נתן', 'שולחן ערוך', 'עבודת השם', 'דרושים'],
     isActive: true,

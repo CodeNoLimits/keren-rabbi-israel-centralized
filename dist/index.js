@@ -111,6 +111,9 @@ var products = pgTable("products", {
   nameRussian: text("name_russian"),
   description: text("description").notNull(),
   descriptionEnglish: text("description_english"),
+  descriptionFrench: text("description_french"),
+  descriptionSpanish: text("description_spanish"),
+  descriptionRussian: text("description_russian"),
   category: text("category").notNull(),
   subcategory: text("subcategory"),
   author: text("author").default("\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1"),
@@ -6544,12 +6547,9 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
-  const port = parseInt(process.env.PORT || "5000", 10);
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true
-  }, () => {
-    log(`serving on port ${port}`);
+  const port = parseInt(process.env.PORT || "5080", 10);
+  const host = process.env.HOST || "127.0.0.1";
+  server.listen(port, host, () => {
+    log(`serving on http://${host}:${port}`);
   });
 })();

@@ -121,11 +121,14 @@ export const sipurimProducts: Record<string, Product> = {
     id: 'kochvei-ohr',
     name: 'כוכבי אור',
     nameEnglish: 'Kochvei Ohr',
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
+    nameFrench: 'Étoiles de Lumière',
+    nameSpanish: 'Estrellas de Luz',
+    nameRussian: 'Звезды Света',
     description: 'ספרו של רבי אברהם חזן, בנו של רבי נחמן מטולטשין תלמיד רבי נתן. מכיל ארבעה חלקים: \'אנשי מוהר"ן\' –סיפורים על רבינו ותלמידיו, \'אמת ואמונה\' – שיחות במעלת האמונה, \'חכמה ובינה\' רמזים וסודות בגדולת רבינו, \'ששון ושמחה\' – שיחות ותפילות על מעלת השמחה.',
     descriptionEnglish: 'The book of Rabbi Avraham Chazan, son of Rabbi Nachman of Tulchyn, student of Rabbi Nathan. Contains four parts: \'People of Moharan\' - stories about Rabbenu and his students, \'Truth and Faith\' - conversations about the excellence of faith.',
+    descriptionFrench: 'Le livre de Rabbi Avraham Hazan, fils de Rabbi Nahman de Tultchyn, disciple de Rabbi Nathan. Contient quatre parties : \'Les Gens de Moharane\' - récits sur Rabbénou et ses disciples, \'Vérité et Foi\' - conversations sur l\'excellence de la foi, \'Sagesse et Intelligence\' - allusions et secrets sur la grandeur de Rabbénou, \'Joie et Allégresse\' - conversations et prières sur la valeur de la joie.',
+    descriptionSpanish: 'El libro del Rabino Abraham Jazán, hijo del Rabino Najman de Tultchyn, discípulo del Rabino Nathan. Contiene cuatro partes: \'La Gente de Moharán\' - historias sobre Rabenu y sus discípulos, \'Verdad y Fe\' - conversaciones sobre la excelencia de la fe, \'Sabiduría e Inteligencia\' - alusiones y secretos sobre la grandeza de Rabenu, \'Gozo y Alegría\' - conversaciones y oraciones sobre el valor de la alegría.',
+    descriptionRussian: 'Книга рабби Авраама Хазана, сына рабби Нахмана из Тульчина, ученика рабби Натана. Содержит четыре части: \'Люди Моарана\' - рассказы о Рабейну и его учениках, \'Истина и Вера\' - беседы о превосходстве веры, \'Мудрость и Разум\' - намеки и тайны о величии Рабейну, \'Радость и Веселье\' - беседы и молитвы о ценности радости.',
     category: 'שיחות וסיפורים',
     subcategory: 'כוכבי אור',
     author: 'רבי אברהם חזן',
@@ -191,6 +194,27 @@ export const sipurimProducts: Record<string, Product> = {
       'שיחות באמונה ושמחה',
       'רמזים וסודות',
       'בן רבי נחמן מטולטשין'
+    ],
+    featuresFrench: [
+      'Quatre parties merveilleuses',
+      'Récits sur Rabbénou et ses disciples',
+      'Conversations sur la foi et la joie',
+      'Allusions et secrets',
+      'Fils de Rabbi Nahman de Tultchyn'
+    ],
+    featuresSpanish: [
+      'Cuatro partes maravillosas',
+      'Historias sobre Rabenu y sus discípulos',
+      'Conversaciones sobre fe y alegría',
+      'Alusiones y secretos',
+      'Hijo del Rabino Najman de Tultchyn'
+    ],
+    featuresRussian: [
+      'Четыре чудесные части',
+      'Рассказы о Рабейну и его учениках',
+      'Беседы о вере и радости',
+      'Намеки и тайны',
+      'Сын рабби Нахмана из Тульчина'
     ],
     tags: ['סיפורים', 'אמונה', 'שמחה', 'רמזים', 'תלמידים'],
     isActive: true,
