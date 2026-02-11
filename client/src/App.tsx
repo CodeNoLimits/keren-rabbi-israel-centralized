@@ -345,16 +345,16 @@ function Router() {
   );
 }
 
-// Task 63: Dynamic hreflang tags for multi-language SEO
-function HreflangTags() {
+// Task 63 & 56: Dynamic meta tags for SEO
+function MetaTags() {
   const { currentLanguage } = useLanguage();
   useEffect(() => {
     const langs = ['he', 'en', 'fr', 'es', 'ru'];
     const base = 'https://haesh-sheli-new.vercel.app';
     const path = window.location.pathname;
-    // Remove existing hreflang links
+    
+    // 1. Hreflang Tags
     document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove());
-    // Add hreflang for each language
     langs.forEach(lang => {
       const link = document.createElement('link');
       link.rel = 'alternate';
@@ -362,12 +362,51 @@ function HreflangTags() {
       link.href = `${base}${path}?lang=${lang}`;
       document.head.appendChild(link);
     });
-    // Add x-default
     const xDefault = document.createElement('link');
     xDefault.rel = 'alternate';
     xDefault.setAttribute('hreflang', 'x-default');
     xDefault.href = `${base}${path}`;
     document.head.appendChild(xDefault);
+
+    // 2. Dynamic Title & Description
+    const metaData = {
+      he: { title: 'האש שלי - ספרי ברסלב והפצה', desc: 'החנות המקוונת המובילה לספרי רבי נחמן מברסלב וכל ספרי הקרן.' },
+      en: { title: 'HaEsh Sheli - Breslov Books & Spreading', desc: 'The leading online store for Rabbi Nachman of Breslov books and all Keren publications.' },
+      fr: { title: 'HaEsh Sheli - Livres Breslov & Diffusion', desc: 'La boutique en ligne de référence pour les livres de Rabbi Nahman de Breslev.' },
+      es: { title: 'HaEsh Sheli - Libros Breslov y Difusión', desc: 'La tienda en línea líder para los libros del Rabino Najman de Breslov.' },
+      ru: { title: 'ХаЭш Шели - Книги Бреслов и Распространение', desc: 'Ведущий интернет-магазин книг Рабби Нахмана из Бреслова.' }
+    };
+
+    const currentMeta = metaData[currentLanguage as keyof typeof metaData] || metaData.he;
+    document.title = currentMeta.title;
+
+    let descMeta = document.querySelector('meta[name="description"]');
+    if (!descMeta) {
+      descMeta = document.createElement('meta');
+      descMeta.setAttribute('name', 'description');
+      document.head.appendChild(descMeta);
+    }
+    descMeta.setAttribute('content', currentMeta.desc);
+
+    // 3. Open Graph
+    const ogTags = [
+      { property: 'og:title', content: currentMeta.title },
+      { property: 'og:description', content: currentMeta.desc },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: `${base}${path}` },
+      { property: 'og:image', content: `${base}/images/og-image.jpg` }
+    ];
+
+    ogTags.forEach(tag => {
+      let el = document.querySelector(`meta[property="${tag.property}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute('property', tag.property);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', tag.content);
+    });
+
     // Set html lang attribute
     document.documentElement.lang = currentLanguage;
     document.documentElement.dir = currentLanguage === 'he' ? 'rtl' : 'ltr';
@@ -383,7 +422,7 @@ function App() {
           <CurrencyProvider>
             <CartProvider>
               <FavoritesProvider>
-                <HreflangTags />
+                <MetaTags />
                 <Toaster />
                 <InstallPrompt />
                 <AmbientMusic />
