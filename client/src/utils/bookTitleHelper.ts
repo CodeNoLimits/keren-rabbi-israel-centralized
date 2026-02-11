@@ -61,12 +61,11 @@ export function getInterfaceDisplayDescription(product: Product, interfaceLangua
     case 'en':
       return product.descriptionEnglish || fallback;
     case 'fr':
-      // No dedicated French description field exists yet; fall back to English then Hebrew
-      return product.descriptionEnglish || fallback;
+      return (product as any).descriptionFrench || product.descriptionEnglish || fallback;
     case 'es':
-      return product.descriptionEnglish || fallback;
+      return (product as any).descriptionSpanish || product.descriptionEnglish || fallback;
     case 'ru':
-      return product.descriptionEnglish || fallback;
+      return (product as any).descriptionRussian || product.descriptionEnglish || fallback;
     case 'he':
     default:
       return fallback;
