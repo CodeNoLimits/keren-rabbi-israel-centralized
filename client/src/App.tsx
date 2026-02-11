@@ -37,6 +37,7 @@ const Chat = lazy(() => import("@/pages/chat"));
 const Blog = lazy(() => import("@/pages/blog"));
 const Favorites = lazy(() => import("@/pages/favorites"));
 const Legal = lazy(() => import("@/pages/legal"));
+const Shipping = lazy(() => import("@/pages/shipping"));
 const Admin = lazy(() => import("@/pages/admin"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
@@ -321,7 +322,7 @@ function Router() {
         <Route path="/privacy" component={() => <Legal page="privacy" />} />
         <Route path="/terms" component={() => <Legal page="terms" />} />
         <Route path="/returns" component={() => <Legal page="returns" />} />
-        <Route path="/shipping" component={() => <Legal page="shipping" />} />
+        <Route path="/shipping" component={Shipping} />
         <Route path="/product/:id" component={Product} />
         <Route path="/breslov-wisdom" component={BreslovWisdom} />
         <Route path="/keren-style" component={KerenStyle} />

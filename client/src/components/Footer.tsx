@@ -101,6 +101,8 @@ export function Footer() {
   return (
     <footer
       dir={isRTL ? 'rtl' : 'ltr'}
+      role="contentinfo"
+      aria-label={isRTL ? 'תחתית האתר' : 'Site footer'}
       style={{ background: '#1a1a2e', color: '#d1d5db', direction: isRTL ? 'rtl' : 'ltr' }}
     >
       <div
@@ -140,7 +142,7 @@ export function Footer() {
           </div>
 
           {/* Column 2: Quick Links */}
-          <div>
+          <nav aria-label={t.quickLinks}>
             <h3 style={{ color: '#ffffff', fontSize: '1.05rem', fontWeight: '600', marginBottom: '1rem' }}>
               {t.quickLinks}
             </h3>
@@ -170,10 +172,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Column 3: Customer Service */}
-          <div>
+          <nav aria-label={t.customerService}>
             <h3 style={{ color: '#ffffff', fontSize: '1.05rem', fontWeight: '600', marginBottom: '1rem' }}>
               {t.customerService}
             </h3>
@@ -221,7 +223,7 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
+          </nav>
 
           {/* Column 4: Follow Us (Social Icons) */}
           <div>
@@ -337,17 +339,17 @@ export function Footer() {
             textAlign: 'center',
           }}
         >
-          <p style={{ fontSize: '0.8rem', color: '#6b7280', marginBottom: '0.5rem' }}>
+          <p style={{ fontSize: '0.8rem', color: '#9ca3af', marginBottom: '0.5rem' }}>
             {t.copyright}
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', fontSize: '0.75rem' }}>
-            <a href="/privacy" style={{ color: '#6b7280', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#6b7280')}>
+            <a href="/privacy" style={{ color: '#9ca3af', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#9ca3af')}>
               {currentLanguage === 'he' ? 'מדיניות פרטיות' : currentLanguage === 'fr' ? 'Confidentialite' : 'Privacy Policy'}
             </a>
-            <a href="/terms" style={{ color: '#6b7280', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#6b7280')}>
+            <a href="/terms" style={{ color: '#9ca3af', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#9ca3af')}>
               {currentLanguage === 'he' ? 'תנאי שימוש' : currentLanguage === 'fr' ? 'Conditions' : 'Terms'}
             </a>
-            <a href="/returns" style={{ color: '#6b7280', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#6b7280')}>
+            <a href="/returns" style={{ color: '#9ca3af', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#9ca3af')}>
               {currentLanguage === 'he' ? 'החזרות' : currentLanguage === 'fr' ? 'Retours' : 'Returns'}
             </a>
           </div>

@@ -48,6 +48,11 @@ export default function Product() {
   const displayCategory = getInterfaceCategoryName(product.category, currentLanguage);
   const isRTL = currentLanguage === 'he';
 
+  // Build descriptive alt text including title, author, language, and format
+  const productAuthor = product.author || (isRTL ? 'רבי נחמן מברסלב' : 'Rabbi Nachman of Breslov');
+  const productLang = product.language || '';
+  const descriptiveAlt = [displayTitle, productAuthor, productLang].filter(Boolean).join(' - ');
+
   // Translated navigation labels
   const navLabels = {
     home: isRTL ? 'דף הבית' : currentLanguage === 'en' ? 'Home' : currentLanguage === 'fr' ? 'Accueil' : currentLanguage === 'es' ? 'Inicio' : currentLanguage === 'ru' ? 'Главная' : 'Home',
@@ -309,7 +314,7 @@ export default function Product() {
                 <img loading="lazy"
                   decoding="async"
                   src={convertImagePath(product.images && product.images[selectedImage] || '')}
-                  alt={displayTitle}
+                  alt={descriptiveAlt}
                   draggable={false}
                   style={{
                     width: '100%',
@@ -370,7 +375,7 @@ export default function Product() {
                         width="60"
                         height="60"
                         src={convertImagePath(image)}
-                        alt={`${displayTitle} ${index + 1}`}
+                        alt={`${descriptiveAlt} - ${isRTL ? 'תמונה' : 'image'} ${index + 1}`}
                         style={{width: '60px', height: '60px', objectFit: 'cover', borderRadius: '3px'}}
                       />
                     </button>
@@ -862,7 +867,7 @@ export default function Product() {
                     width="220"
                     height="200"
                     src={convertImagePath(relatedProduct.images && relatedProduct.images[0] || '')}
-                    alt={getInterfaceDisplayTitle(relatedProduct, currentLanguage)}
+                    alt={[getInterfaceDisplayTitle(relatedProduct, currentLanguage), relatedProduct.author || productAuthor, relatedProduct.language || ''].filter(Boolean).join(' - ')}
                     style={{width: '100%', height: '200px', objectFit: 'cover'}}
                   />
                   <div style={{padding: '1.25rem'}}>
@@ -905,7 +910,7 @@ export default function Product() {
                 <a key={p.id} href={`/product/${p.id}`} style={{textDecoration: 'none', color: 'inherit', flexShrink: 0, width: '140px'}}>
                   <img loading="lazy" decoding="async" width="140" height="140"
                     src={convertImagePath(p.images?.[0] || '')}
-                    alt={getInterfaceDisplayTitle(p, currentLanguage)}
+                    alt={[getInterfaceDisplayTitle(p, currentLanguage), p.author || productAuthor, p.language || ''].filter(Boolean).join(' - ')}
                     style={{width: '140px', height: '140px', objectFit: 'cover', borderRadius: '8px', border: '1px solid #eee'}}
                   />
                   <div style={{fontSize: '0.8rem', fontWeight: '600', marginTop: '0.5rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
@@ -1020,7 +1025,7 @@ export default function Product() {
         {/* Main image */}
         <img
           src={convertImagePath(product.images[selectedImage] || '')}
-          alt={displayTitle}
+          alt={descriptiveAlt}
           onClick={(e) => e.stopPropagation()}
           style={{
             maxWidth: '90vw', maxHeight: '85vh',

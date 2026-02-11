@@ -121,6 +121,9 @@ export const CartWidget: React.FC = () => {
         }`}
         onClick={(e) => e.stopPropagation()}
         dir={isRtl ? 'rtl' : 'ltr'}
+        role="dialog"
+        aria-label={strings.cartTitle}
+        aria-modal="true"
       >
         {/* Header */}
         <div className="p-4 border-b border-border bg-primary text-primary-foreground flex-shrink-0">
@@ -129,8 +132,9 @@ export const CartWidget: React.FC = () => {
             <button
               onClick={() => setIsCartOpen(false)}
               className="text-white hover:text-gray-200 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/20"
+              aria-label={isRtl ? 'סגור סל קניות' : 'Close cart'}
             >
-              <span className="text-xl leading-none">&times;</span>
+              <span className="text-xl leading-none" aria-hidden="true">&times;</span>
             </button>
           </div>
           <p className="text-sm mt-1">
@@ -208,26 +212,29 @@ export const CartWidget: React.FC = () => {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+                            className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+                            aria-label={isRtl ? 'הפחת כמות' : 'Decrease quantity'}
                           >
-                            <Minus size={12} />
+                            <Minus size={12} aria-hidden="true" />
                           </button>
-                          <span className="text-sm font-medium min-w-[2rem] text-center">
+                          <span className="text-sm font-medium min-w-[2rem] text-center" aria-label={isRtl ? `כמות: ${item.quantity}` : `Quantity: ${item.quantity}`}>
                             {item.quantity}
                           </span>
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+                            className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+                            aria-label={isRtl ? 'הוסף כמות' : 'Increase quantity'}
                           >
-                            <Plus size={12} />
+                            <Plus size={12} aria-hidden="true" />
                           </button>
                         </div>
 
                         <button
                           onClick={() => removeItem(item.id)}
                           className="text-red-600 hover:text-red-700 p-1 transition-colors"
+                          aria-label={isRtl ? `הסר ${item.name}` : `Remove ${item.nameEnglish || item.name}`}
                         >
-                          <Trash2 size={14} />
+                          <Trash2 size={14} aria-hidden="true" />
                         </button>
                       </div>
                     </div>

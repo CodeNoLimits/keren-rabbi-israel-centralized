@@ -416,10 +416,14 @@ export default function Store() {
 
               {/* Languages Filter - PROMINENT POSITION */}
               <div className="bg-blue-50 border-2 border-blue-200 rounded p-4">
-                <div 
-                  className="flex items-center justify-between cursor-pointer mb-3"
+                <button
+                  type="button"
+                  className="flex items-center justify-between cursor-pointer mb-3 w-full text-left"
                   onClick={() => toggleSection('languages')}
                   data-testid="label-languages"
+                  aria-expanded={expandedSections.languages}
+                  aria-controls="filter-languages"
+                  style={{minHeight: '44px', background: 'transparent', border: 'none', padding: '0.5rem 0'}}
                 >
                   <span className="text-sm font-semibold text-blue-800">
                     {currentLanguage === 'he' ? 'שפות' :
@@ -428,23 +432,24 @@ export default function Store() {
                      currentLanguage === 'es' ? 'Idiomas' :
                      currentLanguage === 'ru' ? 'Языки' : 'שפות'}
                   </span>
-                  {expandedSections.languages ? <ChevronUp className="h-4 w-4 text-blue-600" /> : <ChevronDown className="h-4 w-4 text-blue-600" />}
-                </div>
+                  {expandedSections.languages ? <ChevronUp className="h-4 w-4 text-blue-600" aria-hidden="true" /> : <ChevronDown className="h-4 w-4 text-blue-600" aria-hidden="true" />}
+                </button>
                 {expandedSections.languages && (
-                  <div className="space-y-2">
+                  <div id="filter-languages" className="space-y-1">
                     {filterOptions.languages.map((language) => (
-                      <div key={language} className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <div key={language} className="flex items-center space-x-2 rtl:space-x-reverse" style={{minHeight: '44px', padding: '0.375rem 0'}}>
                         <Checkbox
                           id={`language-${language}`}
                           checked={filters.languages.includes(language)}
                           onCheckedChange={() => toggleFilter('languages', language)}
-                          className="border-blue-400 text-blue-600"
+                          className="border-blue-400 text-blue-600 h-5 w-5"
                           data-testid={`checkbox-language-${language}`}
                         />
-                        <label 
-                          htmlFor={`language-${language}`} 
-                          className="text-sm cursor-pointer text-blue-700 font-medium"
+                        <label
+                          htmlFor={`language-${language}`}
+                          className="text-sm cursor-pointer text-blue-700 font-medium flex-1"
                           data-testid={`text-language-${language}`}
+                          style={{minHeight: '44px', display: 'flex', alignItems: 'center'}}
                         >
                           {language}
                         </label>
@@ -456,10 +461,14 @@ export default function Store() {
 
               {/* Categories Filter */}
               <div className="bg-white border border-gray-200 rounded p-4">
-                <div 
-                  className="flex items-center justify-between cursor-pointer mb-3"
+                <button
+                  type="button"
+                  className="flex items-center justify-between cursor-pointer mb-3 w-full text-left"
                   onClick={() => toggleSection('categories')}
                   data-testid="label-categories"
+                  aria-expanded={expandedSections.categories}
+                  aria-controls="filter-categories"
+                  style={{minHeight: '44px', background: 'transparent', border: 'none', padding: '0.5rem 0'}}
                 >
                   <span className="text-sm font-medium text-gray-700">
                     {currentLanguage === 'he' ? 'קטגוריות' :
@@ -468,22 +477,24 @@ export default function Store() {
                      currentLanguage === 'es' ? 'Categorías' :
                      currentLanguage === 'ru' ? 'Категории' : 'קטגוריות'}
                   </span>
-                  {expandedSections.categories ? <ChevronUp className="h-4 w-4 text-gray-500" /> : <ChevronDown className="h-4 w-4 text-gray-500" />}
-                </div>
+                  {expandedSections.categories ? <ChevronUp className="h-4 w-4 text-gray-600" aria-hidden="true" /> : <ChevronDown className="h-4 w-4 text-gray-600" aria-hidden="true" />}
+                </button>
                 {expandedSections.categories && (
-                  <div className="space-y-2 max-h-48 overflow-y-auto">
+                  <div id="filter-categories" className="space-y-1 max-h-48 overflow-y-auto">
                     {filterOptions.categories.map((category) => (
-                      <div key={category} className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <div key={category} className="flex items-center space-x-2 rtl:space-x-reverse" style={{minHeight: '44px', padding: '0.375rem 0'}}>
                         <Checkbox
                           id={`category-${category}`}
                           checked={filters.categories.includes(category)}
                           onCheckedChange={() => toggleFilter('categories', category)}
+                          className="h-5 w-5"
                           data-testid={`checkbox-category-${category}`}
                         />
                         <label
                           htmlFor={`category-${category}`}
-                          className="text-xs cursor-pointer text-gray-700"
+                          className="text-sm cursor-pointer text-gray-700 flex-1"
                           data-testid={`text-category-${category}`}
+                          style={{minHeight: '44px', display: 'flex', alignItems: 'center'}}
                         >
                           {getInterfaceCategoryName(category, currentLanguage)}
                         </label>
@@ -495,10 +506,14 @@ export default function Store() {
 
               {/* Sizes Filter */}
               <div className="bg-white border border-gray-200 rounded p-4">
-                <div 
-                  className="flex items-center justify-between cursor-pointer mb-3"
+                <button
+                  type="button"
+                  className="flex items-center justify-between cursor-pointer mb-3 w-full text-left"
                   onClick={() => toggleSection('sizes')}
                   data-testid="label-sizes"
+                  aria-expanded={expandedSections.sizes}
+                  aria-controls="filter-sizes"
+                  style={{minHeight: '44px', background: 'transparent', border: 'none', padding: '0.5rem 0'}}
                 >
                   <span className="text-sm font-medium text-gray-700">
                     {currentLanguage === 'he' ? 'גדלים' :
@@ -507,22 +522,24 @@ export default function Store() {
                      currentLanguage === 'es' ? 'Tamaños' :
                      currentLanguage === 'ru' ? 'Размеры' : 'גדלים'}
                   </span>
-                  {expandedSections.sizes ? <ChevronUp className="h-4 w-4 text-gray-500" /> : <ChevronDown className="h-4 w-4 text-gray-500" />}
-                </div>
+                  {expandedSections.sizes ? <ChevronUp className="h-4 w-4 text-gray-600" aria-hidden="true" /> : <ChevronDown className="h-4 w-4 text-gray-600" aria-hidden="true" />}
+                </button>
                 {expandedSections.sizes && (
-                  <div className="space-y-2">
+                  <div id="filter-sizes" className="space-y-1">
                     {filterOptions.sizes.map((size) => (
-                      <div key={size} className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <div key={size} className="flex items-center space-x-2 rtl:space-x-reverse" style={{minHeight: '44px', padding: '0.375rem 0'}}>
                         <Checkbox
                           id={`size-${size}`}
                           checked={filters.sizes.includes(size)}
                           onCheckedChange={() => toggleFilter('sizes', size)}
+                          className="h-5 w-5"
                           data-testid={`checkbox-size-${size}`}
                         />
-                        <label 
-                          htmlFor={`size-${size}`} 
-                          className="text-xs cursor-pointer text-gray-700"
+                        <label
+                          htmlFor={`size-${size}`}
+                          className="text-sm cursor-pointer text-gray-700 flex-1"
                           data-testid={`text-size-${size}`}
+                          style={{minHeight: '44px', display: 'flex', alignItems: 'center'}}
                         >
                           {size}
                         </label>
@@ -534,10 +551,14 @@ export default function Store() {
 
               {/* Formats Filter */}
               <div className="bg-white border border-gray-200 rounded p-4">
-                <div 
-                  className="flex items-center justify-between cursor-pointer mb-3"
+                <button
+                  type="button"
+                  className="flex items-center justify-between cursor-pointer mb-3 w-full text-left"
                   onClick={() => toggleSection('formats')}
                   data-testid="label-formats"
+                  aria-expanded={expandedSections.formats}
+                  aria-controls="filter-formats"
+                  style={{minHeight: '44px', background: 'transparent', border: 'none', padding: '0.5rem 0'}}
                 >
                   <span className="text-sm font-medium text-gray-700">
                     {currentLanguage === 'he' ? 'כריכות' :
@@ -546,29 +567,31 @@ export default function Store() {
                      currentLanguage === 'es' ? 'Encuadernaciones' :
                      currentLanguage === 'ru' ? 'Переплеты' : 'כריכות'}
                   </span>
-                  {expandedSections.formats ? <ChevronUp className="h-4 w-4 text-gray-500" /> : <ChevronDown className="h-4 w-4 text-gray-500" />}
-                </div>
+                  {expandedSections.formats ? <ChevronUp className="h-4 w-4 text-gray-600" aria-hidden="true" /> : <ChevronDown className="h-4 w-4 text-gray-600" aria-hidden="true" />}
+                </button>
                 {expandedSections.formats && (
-                  <div className="space-y-2 max-h-48 overflow-y-auto">
+                  <div id="filter-formats" className="space-y-1 max-h-48 overflow-y-auto">
                     {filterOptions.formats.slice(0, 12).map((format) => (
-                      <div key={format} className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <div key={format} className="flex items-center space-x-2 rtl:space-x-reverse" style={{minHeight: '44px', padding: '0.375rem 0'}}>
                         <Checkbox
                           id={`format-${format}`}
                           checked={filters.formats.includes(format)}
                           onCheckedChange={() => toggleFilter('formats', format)}
+                          className="h-5 w-5"
                           data-testid={`checkbox-format-${format}`}
                         />
-                        <label 
-                          htmlFor={`format-${format}`} 
-                          className="text-xs cursor-pointer text-gray-700"
+                        <label
+                          htmlFor={`format-${format}`}
+                          className="text-sm cursor-pointer text-gray-700 flex-1"
                           data-testid={`text-format-${format}`}
+                          style={{minHeight: '44px', display: 'flex', alignItems: 'center'}}
                         >
                           {format}
                         </label>
                       </div>
                     ))}
                     {filterOptions.formats.length > 12 && (
-                      <div className="text-xs text-gray-500 pt-1" data-testid="text-more-formats">
+                      <div className="text-xs text-gray-600 pt-1" data-testid="text-more-formats">
                         ועוד {filterOptions.formats.length - 12} אפשרויות...
                       </div>
                     )}
@@ -584,12 +607,14 @@ export default function Store() {
           <div className="p-6">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-4">
-                <Button 
+                <Button
                   onClick={() => setSidebarVisible(!sidebarVisible)}
                   className="bg-blue-600 hover:bg-blue-700 text-white"
                   data-testid="button-toggle-sidebar"
+                  aria-label={sidebarVisible ? (currentLanguage === 'he' ? 'סגור מסננים' : 'Close filters') : (currentLanguage === 'he' ? 'פתח מסננים' : 'Open filters')}
+                  aria-expanded={sidebarVisible}
                 >
-                  <Filter className="h-5 w-5" />
+                  <Filter className="h-5 w-5" aria-hidden="true" />
                 </Button>
                 <h1 className="text-3xl font-bold text-gray-900" data-testid="text-page-title">
                   {currentLanguage === 'he' ? 'ספרי ברסלב' :
@@ -666,7 +691,7 @@ export default function Store() {
                         ${currentLanguage === 'he' ? 'left-3' : 'right-3'}
                         ${liked
                           ? 'bg-red-500 text-white hover:bg-red-600'
-                          : 'bg-white/90 text-gray-400 hover:text-red-500 hover:bg-white'}
+                          : 'bg-white/90 text-gray-600 hover:text-red-500 hover:bg-white'}
                       `}
                       data-testid={`button-favorite-${product.id}`}
                       aria-label={liked ? 'Remove from favorites' : 'Add to favorites'}
@@ -873,7 +898,7 @@ export default function Store() {
                 </button>
               </div>
             )}
-            <div className="text-center text-sm text-gray-500 mb-6">
+            <div className="text-center text-sm text-gray-600 mb-6">
               {currentLanguage === 'he'
                 ? `מציג ${(currentPage - 1) * PRODUCTS_PER_PAGE + 1}-${Math.min(currentPage * PRODUCTS_PER_PAGE, sortedProducts.length)} מתוך ${sortedProducts.length} מוצרים`
                 : `Showing ${(currentPage - 1) * PRODUCTS_PER_PAGE + 1}-${Math.min(currentPage * PRODUCTS_PER_PAGE, sortedProducts.length)} of ${sortedProducts.length} products`

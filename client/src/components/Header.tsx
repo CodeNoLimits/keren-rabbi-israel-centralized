@@ -180,7 +180,7 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
         </div>
 
         {/* SPECIAL NAVIGATION - TOP ROW (subtle, smaller) */}
-        <nav className="header-nav-special" data-testid="nav-special">
+        <nav className="header-nav-special" data-testid="nav-special" role="navigation" aria-label={currentLanguage === 'he' ? 'ניווט מיוחד' : 'Special navigation'}>
           <ul className="nav-menu-special" style={{fontSize: '0.78rem', gap: '0.6rem', opacity: 0.85}}>
             <li className={location === '/chat' ? 'current-menu-item' : ''}>
               <a href="/chat" data-testid="link-chat" style={{color: '#10B981', fontWeight: '500', fontSize: '0.78rem'}} className="px-2 py-0.5 rounded transition-all duration-300 hover:scale-110 hover:text-white hover:bg-green-500 hover:shadow-md inline-block">{t.chat}</a>
@@ -203,11 +203,14 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
         </nav>
 
         {/* MOBILE MENU TOGGLE */}
-        <button 
-          className="mobile-menu-toggle transition-all duration-300 hover:scale-125 hover:bg-white hover:text-red-600 hover:shadow-xl hover:rotate-90"
+        <button
+          className="mobile-menu-toggle transition-all duration-300 hover:scale-110 hover:bg-white hover:text-red-600 hover:shadow-xl"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           data-testid="button-mobile-menu"
-          aria-label="Toggle mobile menu"
+          aria-label={mobileMenuOpen ? (currentLanguage === 'he' ? 'סגור תפריט' : 'Close menu') : (currentLanguage === 'he' ? 'פתח תפריט' : 'Open menu')}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-navigation"
+          style={{minWidth: '44px', minHeight: '44px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center'}}
         >
           <span className="transition-all duration-300">
             {mobileMenuOpen ? <X /> : <Menu />}
@@ -218,7 +221,7 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
       {/* BOTTOM ROW - Basic Navigation + User Actions */}
       <div className="header-container-bottom">
         {/* BASIC NAVIGATION - Simple clean categories */}
-        <nav className="header-nav" data-testid="nav-main">
+        <nav className="header-nav" data-testid="nav-main" role="navigation" aria-label={currentLanguage === 'he' ? 'ניווט ראשי' : 'Main navigation'}>
           <ul className="nav-menu" style={{gap: '1.5rem'}}>
             <li className={location === '/' ? 'current-menu-item' : ''}>
               <a href="/" data-testid="link-home" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.home}</a>
@@ -255,12 +258,13 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
         {/* USER ACTIONS */}
         <div className="header-actions">
           {/* WhatsApp Button */}
-          <a 
-            href="https://wa.me/972501234567?text=שלום, אני מעוניין לשמוע עוד על הספרים והמנויים שלכם" 
-            target="_blank" 
+          <a
+            href="https://wa.me/972501234567?text=שלום, אני מעוניין לשמוע עוד על הספרים והמנויים שלכם"
+            target="_blank"
             rel="noopener noreferrer"
-            className="whatsapp-widget transition-all duration-300 hover:scale-110 hover:bg-green-500 hover:text-white hover:shadow-xl hover:-translate-y-1 cursor-pointer flex items-center px-3 py-2 rounded-lg bg-white bg-opacity-20 text-white border border-white border-opacity-30" 
+            className="whatsapp-widget transition-all duration-300 hover:scale-110 hover:bg-green-500 hover:text-white hover:shadow-xl hover:-translate-y-1 cursor-pointer flex items-center px-3 py-2 rounded-lg bg-white bg-opacity-20 text-white border border-white border-opacity-30"
             data-testid="button-whatsapp"
+            aria-label={currentLanguage === 'he' ? 'שלח הודעה בוואטסאפ' : 'Send WhatsApp message'}
             style={{marginRight: currentLanguage === 'he' ? '10px' : '0', marginLeft: currentLanguage !== 'he' ? '10px' : '0'}}
           >
             <span className="text-sm">{t.whatsapp}</span>
@@ -333,14 +337,18 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
             className="cart-widget transition-all duration-300 hover:scale-110 hover:bg-white hover:text-red-600 hover:shadow-xl hover:-translate-y-1 cursor-pointer"
             onClick={() => setIsCartOpen(true)}
             data-testid="button-cart"
+            role="button"
+            tabIndex={0}
+            aria-label={currentLanguage === 'he' ? `סל קניות, ${totalItems} פריטים` : `Shopping cart, ${totalItems} items`}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsCartOpen(true); } }}
           >
             <div className="cart-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/>
                 <path d="M9 8V17H11V8H9ZM13 8V17H15V8H13Z"/>
               </svg>
               {totalItems > 0 && (
-                <span className="cart-badge" key={totalItems} data-testid="cart-badge">
+                <span className="cart-badge" key={totalItems} data-testid="cart-badge" aria-live="polite" aria-atomic="true">
                   {totalItems}
                 </span>
               )}
@@ -356,7 +364,7 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
           </h2>
 
           {/* CURRENCY SELECTOR */}
-          <div className="language-selector" data-testid="currency-selector" style={{marginRight: currentLanguage === 'he' ? '8px' : '0', marginLeft: currentLanguage !== 'he' ? '8px' : '0'}}>
+          <div className="language-selector" data-testid="currency-selector" role="group" aria-label={currentLanguage === 'he' ? 'בחירת מטבע' : 'Currency selector'} style={{marginRight: currentLanguage === 'he' ? '8px' : '0', marginLeft: currentLanguage !== 'he' ? '8px' : '0'}}>
             {(['NIS', 'USD', 'EUR'] as CurrencyCode[]).map((cur) => {
               const labels: Record<CurrencyCode, string> = { NIS: '₪ NIS', USD: '$ USD', EUR: '€ EUR' };
               return (
@@ -365,6 +373,8 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
                   onClick={() => setCurrency(cur)}
                   className={`language-btn ${currency === cur ? 'active' : ''} transition-all duration-300 hover:scale-125 hover:bg-white hover:text-blue-600 hover:shadow-xl hover:-translate-y-1 hover:rotate-3`}
                   data-testid={`button-currency-${cur.toLowerCase()}`}
+                  aria-label={`${cur === 'NIS' ? 'Israeli Shekel' : cur === 'USD' ? 'US Dollar' : 'Euro'}`}
+                  aria-pressed={currency === cur}
                 >
                   <span className="transition-all duration-300">{labels[cur]}</span>
                 </button>
@@ -373,15 +383,17 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
           </div>
 
           {/* LANGUAGE SELECTOR */}
-          <div className="language-selector" data-testid="language-selector">
+          <div className="language-selector" data-testid="language-selector" role="group" aria-label={currentLanguage === 'he' ? 'בחירת שפה' : 'Language selector'}>
             {Object.entries(languageFlags).map(([lang, flag]) => (
               <button
                 key={lang}
                 onClick={() => setLanguage(lang)}
                 className={`language-btn ${currentLanguage === lang ? 'active' : ''} transition-all duration-300 hover:scale-125 hover:bg-white hover:text-blue-600 hover:shadow-xl hover:-translate-y-1 hover:rotate-3`}
                 data-testid={`button-language-${lang}`}
+                aria-label={`${lang === 'he' ? 'Hebrew' : lang === 'en' ? 'English' : lang === 'fr' ? 'French' : lang === 'es' ? 'Spanish' : 'Russian'}`}
+                aria-pressed={currentLanguage === lang}
               >
-                <span className="transition-all duration-300 hover:scale-125">{flag}</span>
+                <span className="transition-all duration-300 hover:scale-125" aria-hidden="true">{flag}</span>
                 <span className="transition-all duration-300">{lang.toUpperCase()}</span>
               </button>
             ))}
@@ -391,8 +403,11 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
 
       {/* MOBILE NAVIGATION - RTL-friendly slide panel */}
       <nav
+        id="mobile-navigation"
         className={`mobile-nav ${mobileMenuOpen ? 'open' : ''}`}
         data-testid="nav-mobile"
+        role="navigation"
+        aria-label={currentLanguage === 'he' ? 'תפריט נייד' : 'Mobile navigation'}
         dir={currentLanguage === 'he' ? 'rtl' : 'ltr'}
         style={{
           transform: mobileMenuOpen ? 'translateX(0)' : (currentLanguage === 'he' ? 'translateX(100%)' : 'translateX(-100%)'),
@@ -420,31 +435,31 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
           </button>
         </div>
 
-        {/* Primary nav links - simple clean categories */}
+        {/* Primary nav links - simple clean categories with 44px min touch targets */}
         <ul className="nav-menu" style={{flexDirection: 'column', padding: '0 1rem', gap: '0.25rem', textAlign: currentLanguage === 'he' ? 'right' : 'left'}}>
           <li className={location === '/' ? 'current-menu-item' : ''}>
-            <a href="/" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-home" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.home}</a>
+            <a href="/" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-home" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block', minHeight: '44px', lineHeight: '1.5'}}>{t.home}</a>
           </li>
           <li className={location === '/store' ? 'current-menu-item' : ''}>
-            <a href="/store" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-books" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.books}</a>
+            <a href="/store" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-books" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block', minHeight: '44px', lineHeight: '1.5'}}>{t.books}</a>
           </li>
           <li>
-            <a href="/store?category=judaica" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-judaica" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.judaica}</a>
+            <a href="/store?category=judaica" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-judaica" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block', minHeight: '44px', lineHeight: '1.5'}}>{t.judaica}</a>
           </li>
           <li>
-            <a href="/store?sort=new" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-new-arrivals" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.newArrivals}</a>
+            <a href="/store?sort=new" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-new-arrivals" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block', minHeight: '44px', lineHeight: '1.5'}}>{t.newArrivals}</a>
           </li>
           <li>
-            <a href="/store?promotions=true" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-promotions" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block', color: '#FFD700'}}>{t.promotions}</a>
+            <a href="/store?promotions=true" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-promotions" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block', color: '#FFD700', minHeight: '44px', lineHeight: '1.5'}}>{t.promotions}</a>
           </li>
           <li className={location === '/about' ? 'current-menu-item' : ''}>
-            <a href="/about" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-about" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.about}</a>
+            <a href="/about" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-about" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block', minHeight: '44px', lineHeight: '1.5'}}>{t.about}</a>
           </li>
           <li className={location === '/contact' ? 'current-menu-item' : ''}>
-            <a href="/contact" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-contact" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.contact}</a>
+            <a href="/contact" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-contact" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block', minHeight: '44px', lineHeight: '1.5'}}>{t.contact}</a>
           </li>
           <li className={location === '/blog' ? 'current-menu-item' : ''}>
-            <a href="/blog" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-blog" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.blog}</a>
+            <a href="/blog" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-blog" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block', minHeight: '44px', lineHeight: '1.5'}}>{t.blog}</a>
           </li>
         </ul>
 
@@ -499,16 +514,18 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
 
         {/* Language flags in mobile menu */}
         <div style={{margin: '1rem', borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '1rem'}}>
-          <div style={{display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center'}}>
+          <div style={{display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center'}} role="group" aria-label={currentLanguage === 'he' ? 'בחירת שפה' : 'Language selector'}>
             {Object.entries(languageFlags).map(([lang, flag]) => (
               <button
                 key={lang}
                 onClick={() => { setLanguage(lang); setMobileMenuOpen(false); }}
                 className={`language-btn ${currentLanguage === lang ? 'active' : ''}`}
-                style={{minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem'}}
+                style={{minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem', padding: '0.5rem 0.75rem'}}
                 data-testid={`mobile-button-language-${lang}`}
+                aria-label={`${lang === 'he' ? 'Hebrew' : lang === 'en' ? 'English' : lang === 'fr' ? 'French' : lang === 'es' ? 'Spanish' : 'Russian'}`}
+                aria-pressed={currentLanguage === lang}
               >
-                <span>{flag}</span>
+                <span aria-hidden="true">{flag}</span>
                 <span>{lang.toUpperCase()}</span>
               </button>
             ))}
