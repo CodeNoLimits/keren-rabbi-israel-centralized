@@ -121,7 +121,7 @@ export function Footer() {
                 decoding="async"
                 width="37"
                 height="60"
-                src="https://www.haesh-sheli.co.il/wp-content/uploads/2021/12/cropped-%D7%A7%D7%A8%D7%95-%D7%A8%D7%91%D7%99-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%A8-%D7%90%D7%95%D7%93%D7%A1%D7%A8.d110a0.webp"
+                src="/images/logo.webp"
                 alt="קרן רבי ישראל - האש שלי"
                 style={{ height: '60px', width: 'auto', filter: 'brightness(1.2)' }}
               />

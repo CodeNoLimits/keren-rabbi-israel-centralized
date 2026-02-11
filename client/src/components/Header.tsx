@@ -309,10 +309,10 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
             data-testid="button-favorites"
             aria-label="Favorites"
           >
-            <Heart size={22} className="text-white" fill={favorites.length > 0 ? 'currentColor' : 'none'} />
-            {favorites.length > 0 && (
+            <Heart size={22} className="text-white" fill={favorites.size > 0 ? 'currentColor' : 'none'} />
+            {favorites.size > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                {favorites.length}
+                {favorites.size}
               </span>
             )}
           </a>

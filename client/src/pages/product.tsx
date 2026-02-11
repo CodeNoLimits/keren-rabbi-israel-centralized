@@ -19,6 +19,7 @@ export default function Product() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const { toggleFavorite, isFavorite } = useFavorites();
   const { addItem } = useCart();
@@ -172,6 +173,25 @@ export default function Product() {
        `Add to cart - ${(currentVariant.price * quantity).toFixed(2)} ₪`)
     : (isRTL ? 'אזל מהמלאי' : currentLanguage === 'en' ? 'Out of stock' : currentLanguage === 'fr' ? 'Rupture de stock' : currentLanguage === 'es' ? 'Agotado' : currentLanguage === 'ru' ? 'Нет в наличии' : 'Out of stock');
 
+  // Track recently viewed products in localStorage
+  useEffect(() => {
+    if (!product) return;
+    const key = 'recentlyViewed';
+    const stored: string[] = JSON.parse(localStorage.getItem(key) || '[]');
+    const updated = [product.id, ...stored.filter(id => id !== product.id)].slice(0, 10);
+    localStorage.setItem(key, JSON.stringify(updated));
+  }, [product?.id]);
+
+  // Get recently viewed products (excluding current)
+  const recentlyViewed = useMemo(() => {
+    const stored: string[] = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+    return stored
+      .filter(id => id !== product?.id)
+      .slice(0, 5)
+      .map(id => realBreslovProducts[id])
+      .filter(Boolean);
+  }, [product?.id]);
+
   // Related products: prefer same category, then fill with others, show 4 total
   const allProducts = Object.values(realBreslovProducts).filter(p => p.id !== product.id);
   const sameCategoryProducts = allProducts.filter(p => p.category === product.category);
@@ -179,6 +199,7 @@ export default function Product() {
   const relatedProducts = [...sameCategoryProducts, ...otherProducts].slice(0, 4);
 
   return (
+    <>
     <div className={isRTL ? 'rtl' : 'ltr'} style={{direction: isRTL ? 'rtl' : 'ltr', paddingBottom: '80px'}}>
       {/* pb-[80px] reserves space for sticky mobile bar */}
 
@@ -213,7 +234,7 @@ export default function Product() {
                       decoding="async"
                       width="185"
                       height="300"
-                      src="https://www.haesh-sheli.co.il/wp-content/uploads/2021/12/cropped-%D7%A7%D7%A8%D7%95-%D7%A8%D7%91%D7%99-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%A8-%D7%90%D7%95%D7%93%D7%A1%D7%A8.d110a0.webp"
+                      src="/images/logo.webp"
                       className="attachment-full size-full wp-image-27"
                       alt="האש שלי תוקף עד ביאת המשיח"
                       style={{height: '80px', width: 'auto'}}
@@ -300,33 +321,34 @@ export default function Product() {
                     pointerEvents: 'none',
                   }}
                 />
-                {/* Zoom hint icon - hidden when zoomed */}
-                {!isZoomed && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      bottom: '12px',
-                      right: '12px',
-                      background: 'rgba(0,0,0,0.5)',
-                      color: 'white',
-                      borderRadius: '50%',
-                      width: '36px',
-                      height: '36px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      pointerEvents: 'none',
-                      transition: 'opacity 0.3s ease',
-                    }}
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="11" cy="11" r="8" />
-                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                      <line x1="11" y1="8" x2="11" y2="14" />
-                      <line x1="8" y1="11" x2="14" y2="11" />
-                    </svg>
-                  </div>
-                )}
+                {/* Fullscreen button */}
+                <button
+                  onClick={(e) => { e.stopPropagation(); setLightboxOpen(true); }}
+                  style={{
+                    position: 'absolute',
+                    bottom: '12px',
+                    right: '12px',
+                    background: 'rgba(0,0,0,0.5)',
+                    color: 'white',
+                    borderRadius: '50%',
+                    width: '36px',
+                    height: '36px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'background 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(0,0,0,0.8)'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(0,0,0,0.5)'; }}
+                  aria-label="View fullscreen"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 3 21 3 21 9" /><polyline points="9 21 3 21 3 15" />
+                    <line x1="21" y1="3" x2="14" y2="10" /><line x1="3" y1="21" x2="10" y2="14" />
+                  </svg>
+                </button>
               </div>
 
               {product.images && product.images.length > 1 && (
@@ -868,6 +890,37 @@ export default function Product() {
         </div>
       </section>
 
+      {/* RECENTLY VIEWED */}
+      {recentlyViewed.length > 0 && (
+        <section style={{background: 'white', padding: '2rem 0', borderTop: '1px solid #eee'}}>
+          <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
+            <h3 style={{fontSize: '1.3rem', fontWeight: '600', color: '#666', marginBottom: '1rem'}}>
+              {isRTL ? 'צפית לאחרונה' :
+               currentLanguage === 'fr' ? 'Vus Récemment' :
+               currentLanguage === 'es' ? 'Vistos Recientemente' :
+               currentLanguage === 'ru' ? 'Недавно Просмотренные' : 'Recently Viewed'}
+            </h3>
+            <div style={{display: 'flex', gap: '1rem', overflowX: 'auto', paddingBottom: '0.5rem'}}>
+              {recentlyViewed.map((p) => (
+                <a key={p.id} href={`/product/${p.id}`} style={{textDecoration: 'none', color: 'inherit', flexShrink: 0, width: '140px'}}>
+                  <img loading="lazy" decoding="async" width="140" height="140"
+                    src={convertImagePath(p.images?.[0] || '')}
+                    alt={getInterfaceDisplayTitle(p, currentLanguage)}
+                    style={{width: '140px', height: '140px', objectFit: 'cover', borderRadius: '8px', border: '1px solid #eee'}}
+                  />
+                  <div style={{fontSize: '0.8rem', fontWeight: '600', marginTop: '0.5rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+                    {getInterfaceDisplayTitle(p, currentLanguage)}
+                  </div>
+                  <div style={{fontSize: '0.75rem', color: '#dc3545', fontWeight: 'bold'}}>
+                    {(p.variants?.[0] || {price: 0}).price} ₪
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* STICKY ADD TO CART - MOBILE ONLY */}
       <div
         className="md:hidden"
@@ -921,5 +974,88 @@ export default function Product() {
         </button>
       </div>
     </div>
+
+    {/* Lightbox / Fullscreen Image Viewer */}
+    {lightboxOpen && product.images && (
+      <div
+        style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          background: 'rgba(0,0,0,0.92)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          cursor: 'pointer',
+        }}
+        onClick={() => setLightboxOpen(false)}
+      >
+        {/* Close button */}
+        <button
+          onClick={() => setLightboxOpen(false)}
+          style={{
+            position: 'absolute', top: '20px', right: '20px',
+            background: 'rgba(255,255,255,0.15)', border: 'none',
+            color: 'white', fontSize: '28px', width: '44px', height: '44px',
+            borderRadius: '50%', cursor: 'pointer', display: 'flex',
+            alignItems: 'center', justifyContent: 'center',
+          }}
+          aria-label="Close"
+        >
+          ✕
+        </button>
+
+        {/* Prev arrow */}
+        {product.images.length > 1 && (
+          <button
+            onClick={(e) => { e.stopPropagation(); setSelectedImage(i => i > 0 ? i - 1 : product.images!.length - 1); }}
+            style={{
+              position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)',
+              background: 'rgba(255,255,255,0.15)', border: 'none',
+              color: 'white', fontSize: '24px', width: '44px', height: '44px',
+              borderRadius: '50%', cursor: 'pointer',
+            }}
+            aria-label="Previous image"
+          >
+            ‹
+          </button>
+        )}
+
+        {/* Main image */}
+        <img
+          src={convertImagePath(product.images[selectedImage] || '')}
+          alt={displayTitle}
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            maxWidth: '90vw', maxHeight: '85vh',
+            objectFit: 'contain', borderRadius: '8px',
+            cursor: 'default',
+          }}
+        />
+
+        {/* Next arrow */}
+        {product.images.length > 1 && (
+          <button
+            onClick={(e) => { e.stopPropagation(); setSelectedImage(i => i < product.images!.length - 1 ? i + 1 : 0); }}
+            style={{
+              position: 'absolute', right: '20px', top: '50%', transform: 'translateY(-50%)',
+              background: 'rgba(255,255,255,0.15)', border: 'none',
+              color: 'white', fontSize: '24px', width: '44px', height: '44px',
+              borderRadius: '50%', cursor: 'pointer',
+            }}
+            aria-label="Next image"
+          >
+            ›
+          </button>
+        )}
+
+        {/* Image counter */}
+        {product.images.length > 1 && (
+          <div style={{
+            position: 'absolute', bottom: '20px',
+            color: 'rgba(255,255,255,0.7)', fontSize: '14px',
+          }}>
+            {selectedImage + 1} / {product.images.length}
+          </div>
+        )}
+      </div>
+    )}
+    </>
   );
 }

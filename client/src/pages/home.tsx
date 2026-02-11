@@ -159,52 +159,18 @@ export default function Home() {
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
 
       {/* ============================================ */}
-      {/* HERO SECTION - Warm gradient, split layout   */}
+      {/* HERO SECTION - Clean white, Oz VeHadar style  */}
       {/* ============================================ */}
       <section style={{
-        background: 'linear-gradient(135deg, #FFFFFF 0%, #FFF8F2 50%, #FFF3E8 100%)',
+        background: '#FFFFFF',
         padding: '0',
         minHeight: '60vh',
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
         overflow: 'hidden',
+        borderBottom: '1px solid #f0f0f0',
       }}>
-        {/* Decorative circles - pure CSS */}
-        <div style={{
-          position: 'absolute',
-          top: '-80px',
-          right: isRTL ? 'auto' : '-80px',
-          left: isRTL ? '-80px' : 'auto',
-          width: '350px',
-          height: '350px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,107,53,0.08) 0%, rgba(255,107,53,0) 70%)',
-          pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute',
-          bottom: '-60px',
-          right: isRTL ? '-60px' : 'auto',
-          left: isRTL ? 'auto' : '-60px',
-          width: '280px',
-          height: '280px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,107,53,0.06) 0%, rgba(255,107,53,0) 70%)',
-          pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute',
-          top: '50%',
-          right: isRTL ? 'auto' : '10%',
-          left: isRTL ? '10%' : 'auto',
-          transform: 'translateY(-50%)',
-          width: '200px',
-          height: '200px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,107,53,0.05) 0%, rgba(255,107,53,0) 70%)',
-          pointerEvents: 'none',
-        }} />
 
         <div style={{maxWidth: '1200px', margin: '0 auto', padding: '4rem 2rem', width: '100%', position: 'relative', zIndex: 1}}>
           <div className="hero-grid" style={{
@@ -314,7 +280,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Decorative visual element - right side (or left in RTL) */}
+            {/* Hero image - clean book composition */}
             <div style={{
               order: isRTL ? 0 : 1,
               display: 'flex',
@@ -323,71 +289,17 @@ export default function Home() {
               position: 'relative',
               minHeight: '320px',
             }}>
-              {/* Large decorative circle cluster */}
-              <div style={{
-                position: 'relative',
-                width: '300px',
-                height: '300px',
-              }}>
-                {/* Outer ring */}
-                <div style={{
-                  position: 'absolute',
-                  inset: '0',
-                  borderRadius: '50%',
-                  border: '2px solid rgba(255,107,53,0.15)',
-                }} />
-                {/* Middle circle */}
-                <div style={{
-                  position: 'absolute',
-                  inset: '30px',
-                  borderRadius: '50%',
-                  background: 'rgba(255,107,53,0.06)',
-                  border: '1px solid rgba(255,107,53,0.1)',
-                }} />
-                {/* Inner warm circle */}
-                <div style={{
-                  position: 'absolute',
-                  inset: '70px',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, rgba(255,107,53,0.12) 0%, rgba(255,140,80,0.08) 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  {/* Flame SVG icon */}
-                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style={{opacity: 0.6}}>
-                    <path d="M12 2C12 2 4 10 4 15C4 19 7.58 22 12 22C16.42 22 20 19 20 15C20 10 12 2 12 2ZM12 20C8.69 20 6 17.54 6 15C6 12.5 9 7.5 12 4.5C15 7.5 18 12.5 18 15C18 17.54 15.31 20 12 20ZM12 18C14.21 18 16 16.21 16 14C16 11.79 12 7 12 7C12 7 8 11.79 8 14C8 16.21 9.79 18 12 18Z" fill="#FF6B00"/>
-                  </svg>
-                </div>
-                {/* Small floating accent circles */}
-                <div style={{
-                  position: 'absolute',
-                  top: '-10px',
-                  right: '40px',
-                  width: '24px',
-                  height: '24px',
-                  borderRadius: '50%',
-                  background: 'rgba(255,107,53,0.15)',
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  bottom: '10px',
-                  left: '-5px',
-                  width: '16px',
-                  height: '16px',
-                  borderRadius: '50%',
-                  background: 'rgba(255,107,53,0.1)',
-                }} />
-                <div style={{
-                  position: 'absolute',
-                  top: '60px',
-                  left: '-15px',
-                  width: '20px',
-                  height: '20px',
-                  borderRadius: '50%',
-                  background: 'rgba(255,107,53,0.12)',
-                }} />
-              </div>
+              <img
+                src="/images/book-1.webp"
+                alt={ml(currentLanguage, {he: 'ספרי רבי נחמן', en: 'Rabbi Nachman Books', fr: 'Livres de Rabbi Nachman', es: 'Libros de Rabí Nachman', ru: 'Книги Рабби Нахмана'})}
+                style={{
+                  maxWidth: '280px',
+                  width: '100%',
+                  height: 'auto',
+                  borderRadius: '12px',
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.12)',
+                }}
+              />
             </div>
           </div>
         </div>
@@ -554,7 +466,7 @@ export default function Home() {
                             src={imgSrc}
                             alt={title}
                             style={{width: '100%', height: '100%', objectFit: 'cover'}}
-                            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                            onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
                           />
                         ) : (
                           <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem'}}>
@@ -709,7 +621,7 @@ export default function Home() {
                           src={imgSrc}
                           alt={title}
                           style={{width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease'}}
-                          onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                          onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
                         />
                       ) : (
                         <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.5rem'}}>
@@ -785,14 +697,14 @@ export default function Home() {
 
           <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem'}}>
             {[
-              { title: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF', titleEn: 'Likutei Moharan', image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/07/6.d110a0.webp' },
-              { title: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA', titleEn: 'Likutei Tefilot', image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/07/3.d110a0.webp' },
-              { title: '\u05D7\u05D5\u05DE\u05E9 \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA', titleEn: 'Chumash Likutei Halachos', image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/07/5.d110a0.webp' },
-              { title: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA', titleEn: 'Likutei Halachos', image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/07/2.d110a0.webp' },
-              { title: '\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA', titleEn: 'Tales of Ancient Times', image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2025/02/%D7%AA%D7%9E%D7%95%D7%A0%D7%AA-%D7%9E%D7%95%D7%A6%D7%A8-3.d110a0.webp' },
-              { title: '\u05DB\u05DC \u05D1\u05D5 \u05DC\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA', titleEn: 'Complete Guide to Salvation', image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/07/1.d110a0.webp' }
+              { title: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF', titleEn: 'Likutei Moharan', image: '/images/book-6.webp', href: '/product/likutei-moharan' },
+              { title: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA', titleEn: 'Likutei Tefilot', image: '/images/book-3.webp', href: '/product/likutei-tefilot' },
+              { title: '\u05D7\u05D5\u05DE\u05E9 \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA', titleEn: 'Chumash Likutei Halachos', image: '/images/book-5.webp', href: '/product/chumash-likutei-halakhot' },
+              { title: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA', titleEn: 'Likutei Halachos', image: '/images/book-2.webp', href: '/product/likutei-halakhot' },
+              { title: '\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA', titleEn: 'Tales of Ancient Times', image: '/images/book-product-3.webp', href: '/product/siporei-masiyot' },
+              { title: '\u05DB\u05DC \u05D1\u05D5 \u05DC\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA', titleEn: 'Complete Guide to Salvation', image: '/images/book-1.webp', href: '/product/kol-bo-leyeshuot' }
             ].map((book, index) => (
-              <a key={index} href="/store" style={{textDecoration: 'none', color: 'inherit'}}>
+              <a key={index} href={book.href} style={{textDecoration: 'none', color: 'inherit'}}>
                 <div style={{
                   borderRadius: '12px',
                   overflow: 'hidden',

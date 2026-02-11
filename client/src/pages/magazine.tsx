@@ -133,7 +133,7 @@ const translations = {
         date: '15 ינואר 2025',
         readTime: '8 דקות קריאה',
         views: 1250,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp',
+        image: '/images/book-1-1.webp',
         featured: true,
         tags: ['שמחה', 'ליקוטי מוהרן', 'חיזוק']
       },
@@ -146,7 +146,7 @@ const translations = {
         date: '12 ינואר 2025',
         readTime: '6 דקות קריאה',
         views: 980,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/44-300x300.d110a0.webp',
+        image: '/images/book-44.webp',
         featured: true,
         tags: ['עדויות', 'חו"ל', 'ישועות']
       },
@@ -159,7 +159,7 @@ const translations = {
         date: '10 ינואר 2025',
         readTime: '12 דקות קריאה',
         views: 1450,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp',
+        image: '/images/book-2-1.webp',
         featured: false,
         tags: ['התבודדות', 'תפילה', 'חיבור']
       },
@@ -172,7 +172,7 @@ const translations = {
         date: '8 ינואר 2025',
         readTime: '5 דקות קריאה',
         views: 750,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/02/Untitled-design-10-1024x1024.d110a0.webp',
+        image: '/images/book-untitled-design.webp',
         featured: false,
         tags: ['פעילויות', 'הפצה', 'חינוך']
       },
@@ -185,7 +185,7 @@ const translations = {
         date: '5 ינואר 2025',
         readTime: '7 דקות קריאה',
         views: 620,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp',
+        image: '/images/book-3.webp',
         featured: false,
         tags: ['טו בשבת', 'טבע', 'חגים']
       },
@@ -198,7 +198,7 @@ const translations = {
         date: '3 ינואר 2025',
         readTime: '15 דקות קריאה',
         views: 2100,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/5-1-300x300.d110a0.webp',
+        image: '/images/book-5.webp',
         featured: true,
         tags: ['אומן', 'נסיעה', 'ראש השנה']
       },
@@ -211,7 +211,7 @@ const translations = {
         date: '2 ינואר 2025',
         readTime: '10 דקות קריאה',
         views: 1850,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp',
+        image: '/images/book-1-1.webp',
         featured: true,
         tags: ['נ נח', 'ניגון', 'קבלה']
       },
@@ -224,7 +224,7 @@ const translations = {
         date: '30 דצמבר 2024',
         readTime: '14 דקות קריאה',
         views: 1320,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp',
+        image: '/images/book-2-1.webp',
         featured: false,
         tags: ['ליקוטי תפילות', 'רב נתן', 'תפילה']
       },
@@ -237,7 +237,7 @@ const translations = {
         date: '28 דצמבר 2024',
         readTime: '16 דקות קריאה',
         views: 2240,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp',
+        image: '/images/book-3.webp',
         featured: true,
         tags: ['סיפורי מעשיות', 'נסתר', 'חכמה']
       },
@@ -250,7 +250,7 @@ const translations = {
         date: '25 דצמבר 2024',
         readTime: '12 דקות קריאה',
         views: 3150,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/5-1-300x300.d110a0.webp',
+        image: '/images/book-5.webp',
         featured: true,
         tags: ['אומן', 'ראש השנה', 'קיבוץ']
       },
@@ -263,7 +263,7 @@ const translations = {
         date: '22 דצמבר 2024',
         readTime: '8 דקות קריאה',
         views: 890,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/44-300x300.d110a0.webp',
+        image: '/images/book-44.webp',
         featured: false,
         tags: ['ספר המידות', 'מעשי', 'חיים']
       },
@@ -276,7 +276,7 @@ const translations = {
         date: '20 דצמבר 2024',
         readTime: '11 דקות קריאה',
         views: 1450,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp',
+        image: '/images/book-1-1.webp',
         featured: false,
         tags: ['רב נתן', 'תלמיד', 'נאמנות']
       },
@@ -289,7 +289,7 @@ const translations = {
         date: '18 דצמבר 2024',
         readTime: '13 דקות קריאה',
         views: 1920,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp',
+        image: '/images/book-2-1.webp',
         featured: true,
         tags: ['תיקון כללי', 'תשובה', 'מזמורים']
       },
@@ -302,7 +302,7 @@ const translations = {
         date: '15 דצמבר 2024',
         readTime: '7 דקות קריאה',
         views: 680,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/02/Untitled-design-10-1024x1024.d110a0.webp',
+        image: '/images/book-untitled-design.webp',
         featured: false,
         tags: ['ישראל', 'מרכזים', 'פעילויות']
       },
@@ -315,7 +315,7 @@ const translations = {
         date: '12 דצמבר 2024',
         readTime: '6 דקות קריאה',
         views: 520,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp',
+        image: '/images/book-3.webp',
         featured: false,
         tags: ['ראש חודש', 'התחדשות', 'זמן']
       },
@@ -328,7 +328,7 @@ const translations = {
         date: '10 דצמבר 2024',
         readTime: '15 דקות קריאה',
         views: 2850,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/5-1-300x300.d110a0.webp',
+        image: '/images/book-5.webp',
         featured: true,
         tags: ['היכל הקודש', 'אומן', 'קדושה']
       },
@@ -341,7 +341,7 @@ const translations = {
         date: '8 דצמבר 2024',
         readTime: '9 דקות קריאה',
         views: 1150,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/44-300x300.d110a0.webp',
+        image: '/images/book-44.webp',
         featured: false,
         tags: ['שיחות הרן', 'עצות', 'חכמה']
       },
@@ -354,7 +354,7 @@ const translations = {
         date: '5 דצמבר 2024',
         readTime: '10 דקות קריאה',
         views: 980,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/02/Untitled-design-10-1024x1024.d110a0.webp',
+        image: '/images/book-untitled-design.webp',
         featured: false,
         tags: ['הפצה', 'עולם', 'ספרים']
       }
@@ -453,7 +453,7 @@ const translations = {
         name: 'יעקב לוי',
         location: 'ירושלים, ישראל',
         content: 'המגזין הזה שינה את החיים שלי. כל מאמר מביא לי חיזוק והשראה חדשה. במיוחד אהבתי את המאמר על ההתבודדות - עזר לי להתחבר באמת לתפילה.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp',
+        image: '/images/book-1-1.webp',
         rating: 5
       },
       {
@@ -461,7 +461,7 @@ const translations = {
         name: 'שרה כהן',
         location: 'תל אביב, ישראל',
         content: 'אני קוראת כבר שנתיים ולא מפסיקה להתרגש מהתוכן. הסיפורים מברסלב ברחבי העולם נותנים לי כוח והאמונה שהקב"ה שומר עלינו תמיד.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp',
+        image: '/images/book-2-1.webp',
         rating: 5
       },
       {
@@ -469,7 +469,7 @@ const translations = {
         name: 'אברהם גולדברג',
         location: 'ניו יורק, ארה"ב',
         content: 'המגזין מחבר אותי לקהילת ברסלב ברחבי העולם. הציטוטים היומיים עוזרים לי להתחיל כל יום בהשראה, והמאמרים עמוקים ומעניינים.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp',
+        image: '/images/book-3.webp',
         rating: 5
       },
       {
@@ -477,7 +477,7 @@ const translations = {
         name: 'מרים שוורץ',
         location: 'בני ברק, ישראל',
         content: 'תוכן איכותי שבאמת בנוי על יסודות תורת רבנו הקדוש. המדריכים המעשיים עוזרים לי ליישם את ההלכות בחיי היום יום שלי.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/44-300x300.d110a0.webp',
+        image: '/images/book-44.webp',
         rating: 5
       }
     ],
@@ -492,7 +492,7 @@ const translations = {
         date: '18 ינואר 2025',
         location: 'בית מדרש ברסלב, ירושלים',
         type: 'שיעור',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp'
+        image: '/images/book-1-1.webp'
       },
       {
         id: 2,
@@ -500,7 +500,7 @@ const translations = {
         date: '30 ינואר 2025',
         location: 'מירון, ישראל',
         type: 'התכנסות',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp'
+        image: '/images/book-2-1.webp'
       },
       {
         id: 3,
@@ -508,7 +508,7 @@ const translations = {
         date: '15 ספטמבר 2025',
         location: 'אומן, אוקראינה',
         type: 'נסיעה',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/5-1-300x300.d110a0.webp'
+        image: '/images/book-5.webp'
       },
       {
         id: 4,
@@ -516,7 +516,7 @@ const translations = {
         date: '25 ינואר 2025',
         location: 'מרכז האש שלי, ירושלים',
         type: 'התנדבות',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/02/Untitled-design-10-1024x1024.d110a0.webp'
+        image: '/images/book-untitled-design.webp'
       }
     ],
 
@@ -530,7 +530,7 @@ const translations = {
         description: 'הרצאה מעמיקה על דברי רבנו הקדוש בענין השמחה והאמונה',
         duration: '45:30',
         views: 15420,
-        thumbnail: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp'
+        thumbnail: '/images/book-1-1.webp'
       },
       {
         id: 2,
@@ -538,7 +538,7 @@ const translations = {
         description: 'עדות מרגשת של חסיד ברסלב על ישועה שקיבל בזכות רבנו הקדוש',
         duration: '22:15',
         views: 8930,
-        thumbnail: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp'
+        thumbnail: '/images/book-2-1.webp'
       },
       {
         id: 3,
@@ -546,7 +546,7 @@ const translations = {
         description: 'הדרכה מעשית לביצוע התבודדות על פי תורת רבי נחמן מברסלב',
         duration: '31:45',
         views: 12650,
-        thumbnail: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp'
+        thumbnail: '/images/book-3.webp'
       }
     ],
 
@@ -560,7 +560,7 @@ const translations = {
         location: 'ניו יורק, ארה"ב',
         date: '10 ינואר 2025',
         summary: 'מרכז חדש לחסידי ברסלב נפתח בברוקלין עם בית מדרש ומקווה טהרה',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp'
+        image: '/images/book-1-1.webp'
       },
       {
         id: 2,
@@ -568,7 +568,7 @@ const translations = {
         location: 'פריז, צרפת',
         date: '5 ינואר 2025',
         summary: 'מבצע הפצת ספרים נרחב ברובע היהודי בפריז הגיע ל-500 משפחות',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp'
+        image: '/images/book-2-1.webp'
       },
       {
         id: 3,
@@ -576,7 +576,7 @@ const translations = {
         location: 'לונדון, אנגליה',
         date: '2 ינואר 2025',
         summary: 'למעלה מ-300 צעירים השתתפו בכנס השנתי לחיזוק והתעוררות רוחנית',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp'
+        image: '/images/book-3.webp'
       }
     ],
 
@@ -646,7 +646,7 @@ const translations = {
         date: 'January 15, 2025',
         readTime: '8 min read',
         views: 1250,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp',
+        image: '/images/book-1-1.webp',
         featured: true,
         tags: ['joy', 'Likutei Moharan', 'encouragement']
       },
@@ -659,7 +659,7 @@ const translations = {
         date: 'January 12, 2025',
         readTime: '6 min read',
         views: 980,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/44-300x300.d110a0.webp',
+        image: '/images/book-44.webp',
         featured: true,
         tags: ['testimonies', 'worldwide', 'salvations']
       },
@@ -672,7 +672,7 @@ const translations = {
         date: 'January 10, 2025',
         readTime: '12 min read',
         views: 1450,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp',
+        image: '/images/book-2-1.webp',
         featured: false,
         tags: ['hitbodedut', 'prayer', 'connection']
       },
@@ -685,7 +685,7 @@ const translations = {
         date: 'January 8, 2025',
         readTime: '5 min read',
         views: 750,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/02/Untitled-design-10-1024x1024.d110a0.webp',
+        image: '/images/book-untitled-design.webp',
         featured: false,
         tags: ['activities', 'distribution', 'education']
       },
@@ -698,7 +698,7 @@ const translations = {
         date: 'January 5, 2025',
         readTime: '7 min read',
         views: 620,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp',
+        image: '/images/book-3.webp',
         featured: false,
         tags: ['Tu BiShvat', 'nature', 'holidays']
       },
@@ -711,7 +711,7 @@ const translations = {
         date: 'January 3, 2025',
         readTime: '15 min read',
         views: 2100,
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/5-1-300x300.d110a0.webp',
+        image: '/images/book-5.webp',
         featured: true,
         tags: ['Uman', 'travel', 'Rosh Hashana']
       }
@@ -762,7 +762,7 @@ const translations = {
         name: 'Jacob Levi',
         location: 'Jerusalem, Israel',
         content: 'This magazine has changed my life. Every article brings me encouragement and new inspiration. I especially loved the article on hitbodedut - it helped me truly connect to prayer.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp',
+        image: '/images/book-1-1.webp',
         rating: 5
       },
       {
@@ -770,7 +770,7 @@ const translations = {
         name: 'Sarah Cohen',
         location: 'Tel Aviv, Israel',
         content: 'I\'ve been reading for two years now and never stop being moved by the content. The Breslov stories from around the world give me strength and faith that Hashem is always watching over us.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp',
+        image: '/images/book-2-1.webp',
         rating: 5
       },
       {
@@ -778,7 +778,7 @@ const translations = {
         name: 'Abraham Goldberg',
         location: 'New York, USA',
         content: 'The magazine connects me to the Breslov community worldwide. The daily quotes help me start each day with inspiration, and the articles are deep and interesting.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp',
+        image: '/images/book-3.webp',
         rating: 5
       },
       {
@@ -786,7 +786,7 @@ const translations = {
         name: 'Miriam Schwartz',
         location: 'Bnei Brak, Israel',
         content: 'Quality content that is truly built on the foundations of our holy Rabbi\'s teachings. The practical guides help me apply the teachings in my daily life.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/44-300x300.d110a0.webp',
+        image: '/images/book-44.webp',
         rating: 5
       }
     ],
@@ -801,7 +801,7 @@ const translations = {
         date: 'January 18, 2025',
         location: 'Breslov Study Hall, Jerusalem',
         type: 'Class',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp'
+        image: '/images/book-1-1.webp'
       },
       {
         id: 2,
@@ -809,7 +809,7 @@ const translations = {
         date: 'January 30, 2025',
         location: 'Meron, Israel',
         type: 'Gathering',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp'
+        image: '/images/book-2-1.webp'
       },
       {
         id: 3,
@@ -817,7 +817,7 @@ const translations = {
         date: 'September 15, 2025',
         location: 'Uman, Ukraine',
         type: 'Travel',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/5-1-300x300.d110a0.webp'
+        image: '/images/book-5.webp'
       },
       {
         id: 4,
@@ -825,7 +825,7 @@ const translations = {
         date: 'January 25, 2025',
         location: 'My Fire Center, Jerusalem',
         type: 'Volunteer',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/02/Untitled-design-10-1024x1024.d110a0.webp'
+        image: '/images/book-untitled-design.webp'
       }
     ],
 
@@ -839,7 +839,7 @@ const translations = {
         description: 'In-depth lecture on our holy Rabbi\'s words about joy and faith',
         duration: '45:30',
         views: 15420,
-        thumbnail: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp'
+        thumbnail: '/images/book-1-1.webp'
       },
       {
         id: 2,
@@ -847,7 +847,7 @@ const translations = {
         description: 'Moving testimony of a Breslov Hasid about salvation received through our holy Rabbi',
         duration: '22:15',
         views: 8930,
-        thumbnail: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp'
+        thumbnail: '/images/book-2-1.webp'
       },
       {
         id: 3,
@@ -855,7 +855,7 @@ const translations = {
         description: 'Practical guidance for performing hitbodedut according to Rabbi Nachman of Breslov\'s teachings',
         duration: '31:45',
         views: 12650,
-        thumbnail: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp'
+        thumbnail: '/images/book-3.webp'
       }
     ],
 
@@ -869,7 +869,7 @@ const translations = {
         location: 'New York, USA',
         date: 'January 10, 2025',
         summary: 'New center for Breslov Hasidim opened in Brooklyn with study hall and mikveh',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp'
+        image: '/images/book-1-1.webp'
       },
       {
         id: 2,
@@ -877,7 +877,7 @@ const translations = {
         location: 'Paris, France',
         date: 'January 5, 2025',
         summary: 'Extensive book distribution campaign in Jewish quarter of Paris reached 500 families',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp'
+        image: '/images/book-2-1.webp'
       },
       {
         id: 3,
@@ -885,7 +885,7 @@ const translations = {
         location: 'London, England',
         date: 'January 2, 2025',
         summary: 'Over 300 young people participated in annual convention for spiritual strengthening and awakening',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp'
+        image: '/images/book-3.webp'
       }
     ],
 
@@ -1098,7 +1098,7 @@ const translations = {
         name: 'Jacques Lévy',
         location: 'Jérusalem, Israël',
         content: 'Ce magazine a changé ma vie. Chaque article m\'apporte une nouvelle force et inspiration. J\'ai particulièrement aimé l\'article sur la hitbodedout - cela m\'a aidé à vraiment me connecter à la prière.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp',
+        image: '/images/book-1-1.webp',
         rating: 5
       },
       {
@@ -1106,7 +1106,7 @@ const translations = {
         name: 'Sarah Cohen',
         location: 'Tel Aviv, Israël',
         content: 'Je lis depuis deux ans et ne cesse jamais d\'être émue par le contenu. Les histoires de Breslov du monde entier me donnent force et foi que Hachem veille toujours sur nous.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp',
+        image: '/images/book-2-1.webp',
         rating: 5
       },
       {
@@ -1114,7 +1114,7 @@ const translations = {
         name: 'Abraham Goldberg',
         location: 'New York, États-Unis',
         content: 'Le magazine me connecte à la communauté Breslov mondiale. Les citations quotidiennes m\'aident à commencer chaque journée avec inspiration, et les articles sont profonds et intéressants.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp',
+        image: '/images/book-3.webp',
         rating: 5
       },
       {
@@ -1122,7 +1122,7 @@ const translations = {
         name: 'Miriam Schwartz',
         location: 'Bnei Brak, Israël',
         content: 'Contenu de qualité vraiment basé sur les fondements des enseignements de notre saint Rabbi. Les guides pratiques m\'aident à mettre en œuvre les enseignements dans ma vie quotidienne.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/44-300x300.d110a0.webp',
+        image: '/images/book-44.webp',
         rating: 5
       }
     ],
@@ -1137,7 +1137,7 @@ const translations = {
         date: '18 janvier 2025',
         location: 'Salle d\'Étude Breslov, Jérusalem',
         type: 'Cours',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp'
+        image: '/images/book-1-1.webp'
       },
       {
         id: 2,
@@ -1145,7 +1145,7 @@ const translations = {
         date: '30 janvier 2025',
         location: 'Meron, Israël',
         type: 'Rassemblement',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp'
+        image: '/images/book-2-1.webp'
       },
       {
         id: 3,
@@ -1153,7 +1153,7 @@ const translations = {
         date: '15 septembre 2025',
         location: 'Ouman, Ukraine',
         type: 'Voyage',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/5-1-300x300.d110a0.webp'
+        image: '/images/book-5.webp'
       },
       {
         id: 4,
@@ -1161,7 +1161,7 @@ const translations = {
         date: '25 janvier 2025',
         location: 'Centre Mon Feu, Jérusalem',
         type: 'Bénévolat',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/02/Untitled-design-10-1024x1024.d110a0.webp'
+        image: '/images/book-untitled-design.webp'
       }
     ],
 
@@ -1175,7 +1175,7 @@ const translations = {
         description: 'Conférence profonde sur les paroles de notre saint Rabbi concernant la joie et la foi',
         duration: '45:30',
         views: 15420,
-        thumbnail: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp'
+        thumbnail: '/images/book-1-1.webp'
       },
       {
         id: 2,
@@ -1183,7 +1183,7 @@ const translations = {
         description: 'Témoignage émouvant d\'un Hassid Breslov sur un salut reçu grâce au mérite de notre saint Rabbi',
         duration: '22:15',
         views: 8930,
-        thumbnail: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp'
+        thumbnail: '/images/book-2-1.webp'
       },
       {
         id: 3,
@@ -1191,7 +1191,7 @@ const translations = {
         description: 'Guidance pratique pour effectuer la hitbodedout selon les enseignements du Rabbi Nachman de Breslov',
         duration: '31:45',
         views: 12650,
-        thumbnail: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp'
+        thumbnail: '/images/book-3.webp'
       }
     ],
 
@@ -1205,7 +1205,7 @@ const translations = {
         location: 'New York, États-Unis',
         date: '10 janvier 2025',
         summary: 'Nouveau centre pour les Hassidim Breslov ouvert à Brooklyn avec salle d\'étude et mikvé',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp'
+        image: '/images/book-1-1.webp'
       },
       {
         id: 2,
@@ -1213,7 +1213,7 @@ const translations = {
         location: 'Paris, France',
         date: '5 janvier 2025',
         summary: 'Vaste campagne de distribution de livres dans le quartier juif de Paris a atteint 500 familles',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp'
+        image: '/images/book-2-1.webp'
       },
       {
         id: 3,
@@ -1221,7 +1221,7 @@ const translations = {
         location: 'Londres, Angleterre',
         date: '2 janvier 2025',
         summary: 'Plus de 300 jeunes ont participé à la convention annuelle pour renforcement et réveil spirituel',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp'
+        image: '/images/book-3.webp'
       }
     ],
 
@@ -1506,7 +1506,7 @@ const translations = {
         name: 'Яков Леви',
         location: 'Иерусалим, Израиль',
         content: 'Этот журнал изменил мою жизнь. Каждая статья приносит мне новую силу и вдохновение. Особенно понравилась статья о hitbodedut - она помогла мне по-настоящему связаться с молитвой.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp',
+        image: '/images/book-1-1.webp',
         rating: 5
       },
       {
@@ -1514,7 +1514,7 @@ const translations = {
         name: 'Сара Коэн',
         location: 'Тель-Авив, Израиль',
         content: 'Читаю уже два года и не перестаю трогаться содержанием. Истории Бреслов со всего мира дают мне силу и веру, что Всевышний всегда следит за нами.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp',
+        image: '/images/book-2-1.webp',
         rating: 5
       },
       {
@@ -1522,7 +1522,7 @@ const translations = {
         name: 'Авраам Гольдберг',
         location: 'Нью-Йорк, США',
         content: 'Журнал соединяет меня с мировым сообществом Бреслов. Ежедневные цитаты помогают мне начинать каждый день с вдохновения, а статьи глубокие и интересные.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp',
+        image: '/images/book-3.webp',
         rating: 5
       },
       {
@@ -1530,7 +1530,7 @@ const translations = {
         name: 'Мириам Шварц',
         location: 'Бней-Брак, Израиль',
         content: 'Качественное содержание, действительно основанное на основах учений нашего святого Рабби. Практические руководства помогают мне применять учения в повседневной жизни.',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/44-300x300.d110a0.webp',
+        image: '/images/book-44.webp',
         rating: 5
       }
     ],
@@ -1545,7 +1545,7 @@ const translations = {
         date: '18 января 2025',
         location: 'Зал изучения Бреслов, Иерусалим',
         type: 'Урок',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp'
+        image: '/images/book-1-1.webp'
       },
       {
         id: 2,
@@ -1553,7 +1553,7 @@ const translations = {
         date: '30 января 2025',
         location: 'Мерон, Израиль',
         type: 'Собрание',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp'
+        image: '/images/book-2-1.webp'
       },
       {
         id: 3,
@@ -1561,7 +1561,7 @@ const translations = {
         date: '15 сентября 2025',
         location: 'Умань, Украина',
         type: 'Поездка',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/5-1-300x300.d110a0.webp'
+        image: '/images/book-5.webp'
       },
       {
         id: 4,
@@ -1569,7 +1569,7 @@ const translations = {
         date: '25 января 2025',
         location: 'Центр Мой Огонь, Иерусалим',
         type: 'Волонтерство',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/02/Untitled-design-10-1024x1024.d110a0.webp'
+        image: '/images/book-untitled-design.webp'
       }
     ],
 
@@ -1583,7 +1583,7 @@ const translations = {
         description: 'Глубокая лекция о словах нашего святого Рабби о радости и вере',
         duration: '45:30',
         views: 15420,
-        thumbnail: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp'
+        thumbnail: '/images/book-1-1.webp'
       },
       {
         id: 2,
@@ -1591,7 +1591,7 @@ const translations = {
         description: 'Трогательное свидетельство хасида Бреслов о спасении, полученном заслугой нашего святого Рабби',
         duration: '22:15',
         views: 8930,
-        thumbnail: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp'
+        thumbnail: '/images/book-2-1.webp'
       },
       {
         id: 3,
@@ -1599,7 +1599,7 @@ const translations = {
         description: 'Практическое руководство по выполнению hitbodedut согласно учениям Рабби Нахмана из Бреслов',
         duration: '31:45',
         views: 12650,
-        thumbnail: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp'
+        thumbnail: '/images/book-3.webp'
       }
     ],
 
@@ -1613,7 +1613,7 @@ const translations = {
         location: 'Нью-Йорк, США',
         date: '10 января 2025',
         summary: 'Новый центр для хасидов Бреслов открылся в Бруклине с залом для изучения и микве',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/1-1-300x300.d110a0.webp'
+        image: '/images/book-1-1.webp'
       },
       {
         id: 2,
@@ -1621,7 +1621,7 @@ const translations = {
         location: 'Париж, Франция',
         date: '5 января 2025',
         summary: 'Обширная кампания по распространению книг в еврейском квартале Парижа достигла 500 семей',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/2-1-300x300.d110a0.webp'
+        image: '/images/book-2-1.webp'
       },
       {
         id: 3,
@@ -1629,7 +1629,7 @@ const translations = {
         location: 'Лондон, Англия',
         date: '2 января 2025',
         summary: 'Более 300 молодых людей приняли участие в ежегодной конвенции для духовного укрепления и пробуждения',
-        image: 'https://www.haesh-sheli.co.il/wp-content/uploads/2023/03/3-1-300x300.d110a0.webp'
+        image: '/images/book-3.webp'
       }
     ],
 

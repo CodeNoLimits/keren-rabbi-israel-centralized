@@ -32,6 +32,7 @@ const Subscription = lazy(() => import("@/pages/subscription"));
 const SubscriptionManagement = lazy(() => import("@/pages/subscription-management"));
 const YaakovDashboard = lazy(() => import("@/pages/yaaakov"));
 const Chat = lazy(() => import("@/pages/chat"));
+const Favorites = lazy(() => import("@/pages/favorites"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 // Loading fallback component
@@ -311,6 +312,7 @@ function Router() {
         <Route path="/downloads" component={Downloads} />
         <Route path="/subscription" component={Subscription} />
         <Route path="/subscription/manage" component={SubscriptionManagement} />
+        <Route path="/favorites" component={Favorites} />
         <Route path="/product/:id" component={Product} />
         <Route path="/breslov-wisdom" component={BreslovWisdom} />
         <Route path="/keren-style" component={KerenStyle} />
