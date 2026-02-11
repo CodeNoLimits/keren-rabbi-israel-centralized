@@ -100,6 +100,7 @@ export const products = pgTable("products", {
   author: text("author").default("רבי נחמן מברסלב"),
   publisher: text("publisher").default("קרן רבי ישראל"),
   language: text("language").default("עברית"),
+  languageGroupId: text("language_group_id"), // Groups same book in different languages
   pages: integer("pages"),
   isbn: text("isbn"),
   images: json("images").$type<string[]>(),
@@ -292,3 +293,22 @@ export const shippingRates = pgTable("shipping_rates", {
 export const insertShippingRateSchema = createInsertSchema(shippingRates);
 export type InsertShippingRate = z.infer<typeof insertShippingRateSchema>;
 export type ShippingRate = typeof shippingRates.$inferSelect;
+
+// Coupons table for promo codes and discounts
+export const coupons = pgTable("coupons", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  code: text("code").notNull().unique(), // Coupon code (e.g., BRESLEV10, SUMMER20)
+  discountType: text("discount_type").$type<'percentage' | 'fixed'>().notNull(), // percentage or fixed amount
+  discountValue: integer("discount_value").notNull(), // 10 for 10%, or 1000 for 10 ILS fixed discount (in agorot)
+  minOrderValue: integer("min_order_value"), // Minimum order value to apply coupon (in agorot)
+  maxUses: integer("max_uses"), // Maximum number of times this coupon can be used (null = unlimited)
+  usedCount: integer("used_count").default(0), // Track how many times it's been used
+  expiresAt: timestamp("expires_at"), // Expiration date (null = never expires)
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const insertCouponSchema = createInsertSchema(coupons);
+export type InsertCoupon = z.infer<typeof insertCouponSchema>;
+export type Coupon = typeof coupons.$inferSelect;

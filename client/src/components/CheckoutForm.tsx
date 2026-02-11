@@ -121,6 +121,10 @@ export function CheckoutForm() {
   const { currentLanguage, t } = useLanguage();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [couponCode, setCouponCode] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState<{ code: string; discountAmount: number; discountType: string; discountValue: number } | null>(null);
+  const [couponError, setCouponError] = useState('');
+  const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
 
   const isRTL = currentLanguage === 'he';
   const dir = isRTL ? 'rtl' : 'ltr';
@@ -141,6 +145,49 @@ export function CheckoutForm() {
       paymentMethod: 'credit_card',
     },
   });
+
+  const validateCoupon = async () => {
+    if (!couponCode.trim()) {
+      setCouponError(currentLanguage === 'he' ? 'אנא הזן קוד קופון' : 'Please enter a coupon code');
+      return;
+    }
+
+    setIsValidatingCoupon(true);
+    setCouponError('');
+
+    try {
+      const res = await apiRequest('POST', '/api/coupons/validate', {
+        code: couponCode,
+        subtotal: subtotalPrice * 100 // Convert to agorot
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        setCouponError(error.message || error.messageEn || (currentLanguage === 'he' ? 'קוד קופון לא תקין' : 'Invalid coupon code'));
+        setAppliedCoupon(null);
+        return;
+      }
+
+      const data = await res.json();
+      setAppliedCoupon(data.coupon);
+      toast({
+        title: currentLanguage === 'he' ? 'קוד קופון הוחל בהצלחה!' : 'Coupon applied successfully!',
+        description: data.message || data.messageEn,
+      });
+      setCouponError('');
+    } catch (error: any) {
+      setCouponError(error.message || (currentLanguage === 'he' ? 'שגיאה באימות קוד הקופון' : 'Error validating coupon'));
+      setAppliedCoupon(null);
+    } finally {
+      setIsValidatingCoupon(false);
+    }
+  };
+
+  const removeCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponCode('');
+    setCouponError('');
+  };
 
   const onSubmit = async (data: CheckoutFormValues) => {
     setIsLoading(true);
@@ -177,6 +224,7 @@ export function CheckoutForm() {
         paymentMethod: data.paymentMethod,
         orderNotes: data.orderNotes,
         shippingMethod: 'standard',
+        couponCode: appliedCoupon?.code || undefined,
       });
 
       if (!res.ok) {
@@ -562,6 +610,74 @@ export function CheckoutForm() {
 
               <Separator className="my-3" />
 
+              {/* Coupon code input */}
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">
+                  {currentLanguage === 'he' ? 'קוד קופון' :
+                   currentLanguage === 'fr' ? 'Code Promo' :
+                   currentLanguage === 'es' ? 'Código de Cupón' :
+                   currentLanguage === 'ru' ? 'Промокод' :
+                   'Coupon Code'}
+                </Label>
+                {!appliedCoupon ? (
+                  <div className="flex gap-2">
+                    <Input
+                      type="text"
+                      value={couponCode}
+                      onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                      placeholder={currentLanguage === 'he' ? 'הזן קוד קופון' :
+                                   currentLanguage === 'fr' ? 'Entrez le code' :
+                                   currentLanguage === 'es' ? 'Ingrese código' :
+                                   currentLanguage === 'ru' ? 'Введите код' :
+                                   'Enter code'}
+                      disabled={isValidatingCoupon}
+                      className="flex-1"
+                    />
+                    <button
+                      type="button"
+                      onClick={validateCoupon}
+                      disabled={isValidatingCoupon || !couponCode.trim()}
+                      className="px-4 py-2 bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 text-white rounded-md font-medium text-sm transition-colors"
+                    >
+                      {isValidatingCoupon ? (
+                        <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
+                      ) : (
+                        currentLanguage === 'he' ? 'החל' :
+                        currentLanguage === 'fr' ? 'Appliquer' :
+                        currentLanguage === 'es' ? 'Aplicar' :
+                        currentLanguage === 'ru' ? 'Применить' :
+                        'Apply'
+                      )}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-md">
+                    <div className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span className="text-sm font-medium text-green-800">{appliedCoupon.code}</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={removeCoupon}
+                      className="text-sm text-red-600 hover:text-red-800 font-medium"
+                    >
+                      {currentLanguage === 'he' ? 'הסר' :
+                       currentLanguage === 'fr' ? 'Retirer' :
+                       currentLanguage === 'es' ? 'Eliminar' :
+                       currentLanguage === 'ru' ? 'Удалить' :
+                       'Remove'}
+                    </button>
+                  </div>
+                )}
+                {couponError && (
+                  <p className="text-xs text-red-600">{couponError}</p>
+                )}
+              </div>
+
+              <Separator className="my-3" />
+
               {/* Totals */}
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
@@ -578,6 +694,22 @@ export function CheckoutForm() {
                     <span>
                       -{t('shekel')}
                       {discount}
+                    </span>
+                  </div>
+                )}
+
+                {appliedCoupon && appliedCoupon.discountAmount > 0 && (
+                  <div className="flex justify-between text-green-600">
+                    <span>
+                      {currentLanguage === 'he' ? 'הנחת קופון' :
+                       currentLanguage === 'fr' ? 'Réduction Promo' :
+                       currentLanguage === 'es' ? 'Descuento Cupón' :
+                       currentLanguage === 'ru' ? 'Скидка Промокод' :
+                       'Coupon Discount'}:
+                    </span>
+                    <span>
+                      -{t('shekel')}
+                      {(appliedCoupon.discountAmount / 100).toFixed(0)}
                     </span>
                   </div>
                 )}

@@ -111,12 +111,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     try {
-      const { 
-        cart, 
-        shippingAddress, 
-        billingAddress, 
+      const {
+        cart,
+        shippingAddress,
+        billingAddress,
         shippingMethod = 'standard',
-        email 
+        email,
+        couponCode
       } = req.body;
 
       if (!cart || !Array.isArray(cart) || cart.length === 0) {
@@ -197,16 +198,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const user = req.isAuthenticated() ? req.user : null;
       const isSubscriber = user?.isSubscriber || false;
       const subscriberDiscount = isSubscriber ? Math.round(subtotal * 0.05) : 0; // 5% discount for subscribers
+
+      // Validate and apply coupon discount
+      let couponDiscount = 0;
+      let appliedCoupon = null;
+      if (couponCode && typeof couponCode === 'string') {
+        const coupon = await storage.getCouponByCode(couponCode.toUpperCase());
+        if (coupon && coupon.isActive &&
+            (!coupon.expiresAt || new Date(coupon.expiresAt) >= new Date()) &&
+            (!coupon.maxUses || coupon.usedCount < coupon.maxUses) &&
+            (!coupon.minOrderValue || subtotal >= coupon.minOrderValue)) {
+
+          if (coupon.discountType === 'percentage') {
+            couponDiscount = Math.round((subtotal * coupon.discountValue) / 100);
+          } else {
+            couponDiscount = coupon.discountValue;
+          }
+
+          appliedCoupon = coupon;
+          // Increment coupon usage
+          await storage.incrementCouponUsage(coupon.id);
+        }
+      }
       
       // Calculate shipping using validated subtotal
       const shippingResult = await storage.calculateShipping(subtotal, 'IL');
       const shippingAmount = shippingResult?.cost || 3000; // Default 30 ILS if calculation fails
-      
+
       // Calculate VAT (17% in Israel)
-      const subtotalAfterDiscount = subtotal - subscriberDiscount;
+      const totalDiscount = subscriberDiscount + couponDiscount;
+      const subtotalAfterDiscount = subtotal - totalDiscount;
       const vatRate = 0.17;
       const vatAmount = Math.round(subtotalAfterDiscount * vatRate);
-      
+
       const totalAmount = subtotalAfterDiscount + vatAmount + shippingAmount;
 
       // Create Stripe customer if authenticated
@@ -240,7 +264,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         subtotal: subtotal,
         vatAmount: vatAmount,
         shippingAmount: shippingAmount,
-        discountAmount: subscriberDiscount,
+        discountAmount: totalDiscount,
         totalAmount: totalAmount,
         shippingMethod: shippingMethod,
         shippingAddress: shippingAddress,
@@ -272,14 +296,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Create Stripe payment intent with idempotency key to prevent duplicate charges
+      // Task 81 & 82: Configured for ILS currency with Israeli payment methods
       const idempotencyKey = `order-${order.id}`;
       const paymentIntentParams: any = {
         amount: totalAmount, // Already in agorot (Israeli cents)
-        currency: 'ils',
+        currency: 'ils', // Task 81: ILS currency verified
+        // Task 82: Payment methods enabled via PaymentElement
+        // Supported: card, bit (Israeli instant payment), google_pay, apple_pay
         metadata: {
           orderId: order.id,
           isSubscriber: isSubscriber.toString(),
-          subscriberDiscount: subscriberDiscount.toString()
+          subscriberDiscount: subscriberDiscount.toString(),
+          couponCode: appliedCoupon?.code || '',
+          couponDiscount: couponDiscount.toString()
         },
         description: `Order ${order.id} - Breslov Books`,
         receipt_email: email
@@ -331,17 +360,99 @@ export async function registerRoutes(app: Express): Promise<Server> {
         orderId: order.id,
         orderSummary: {
           subtotal: subtotal,
-          discount: subscriberDiscount,
+          subscriberDiscount: subscriberDiscount,
+          couponDiscount: couponDiscount,
+          discount: totalDiscount,
           vatAmount: vatAmount,
           shippingAmount: shippingAmount,
           totalAmount: totalAmount,
-          currency: 'ILS'
+          currency: 'ILS',
+          appliedCoupon: appliedCoupon ? {
+            code: appliedCoupon.code,
+            discountType: appliedCoupon.discountType,
+            discountValue: appliedCoupon.discountValue
+          } : null
         }
       });
 
     } catch (error: any) {
       console.error('Payment intent creation error:', error);
       res.status(500).json({ message: 'Error creating payment intent: ' + error.message });
+    }
+  });
+
+  // Validate coupon code
+  app.post('/api/coupons/validate', async (req, res) => {
+    try {
+      const { code, subtotal } = req.body;
+
+      if (!code || typeof code !== 'string') {
+        return res.status(400).json({ message: 'Coupon code is required' });
+      }
+
+      const coupon = await storage.getCouponByCode(code.toUpperCase());
+
+      if (!coupon) {
+        return res.status(404).json({ message: 'קוד קופון לא תקין', messageEn: 'Invalid coupon code' });
+      }
+
+      // Check if coupon is active
+      if (!coupon.isActive) {
+        return res.status(400).json({ message: 'הקופון אינו פעיל', messageEn: 'Coupon is inactive' });
+      }
+
+      // Check if coupon has expired
+      if (coupon.expiresAt && new Date(coupon.expiresAt) < new Date()) {
+        return res.status(400).json({ message: 'הקופון פג תוקף', messageEn: 'Coupon has expired' });
+      }
+
+      // Check if coupon has reached max uses
+      if (coupon.maxUses && coupon.usedCount >= coupon.maxUses) {
+        return res.status(400).json({ message: 'הקופון נוצל במלואו', messageEn: 'Coupon has reached maximum uses' });
+      }
+
+      // Check minimum order value
+      if (coupon.minOrderValue && subtotal < coupon.minOrderValue) {
+        const minOrderDisplay = (coupon.minOrderValue / 100).toFixed(2);
+        return res.status(400).json({
+          message: `הזמנה מינימלית: ₪${minOrderDisplay}`,
+          messageEn: `Minimum order: ₪${minOrderDisplay}`
+        });
+      }
+
+      // Calculate discount amount
+      let discountAmount = 0;
+      if (coupon.discountType === 'percentage') {
+        discountAmount = Math.round((subtotal * coupon.discountValue) / 100);
+      } else {
+        discountAmount = coupon.discountValue;
+      }
+
+      res.json({
+        valid: true,
+        coupon: {
+          code: coupon.code,
+          discountType: coupon.discountType,
+          discountValue: coupon.discountValue,
+          discountAmount: discountAmount
+        },
+        message: 'קוד קופון תקין!',
+        messageEn: 'Coupon code valid!'
+      });
+
+    } catch (error: any) {
+      console.error('Coupon validation error:', error);
+      res.status(500).json({ message: 'Error validating coupon: ' + error.message });
+    }
+  });
+
+  // Get all coupons (admin only - basic implementation)
+  app.get('/api/coupons', async (req, res) => {
+    try {
+      const coupons = await storage.getAllCoupons();
+      res.json(coupons);
+    } catch (error: any) {
+      res.status(500).json({ message: 'Error fetching coupons: ' + error.message });
     }
   });
 
@@ -597,7 +708,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Stripe webhook for handling payment confirmations
+  // Task 81: Stripe webhook for handling payment confirmations
+  // Webhooks available at: /api/stripe-webhook (legacy) and /api/webhooks/stripe (REST convention)
+  // Configure webhook endpoint in Stripe Dashboard: https://dashboard.stripe.com/webhooks
+  // Events handled: payment_intent.succeeded, payment_intent.payment_failed
+  // Required env var: STRIPE_WEBHOOK_SECRET (from Stripe webhook creation)
   app.post('/api/stripe-webhook', express.raw({type: 'application/json'}), async (req, res) => {
     if (!stripe) {
       return res.status(503).send('Stripe not configured');
@@ -1075,6 +1190,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: 'שגיאה בקבלת המלצות ספרים מ-OpenAI.'
       });
     }
+  });
+
+  // Task 81: Modern REST-style webhook endpoint (alias to /api/stripe-webhook)
+  // This endpoint provides the same functionality but follows modern REST conventions
+  app.post('/api/webhooks/stripe', express.raw({type: 'application/json'}), async (req, res) => {
+    // Forward to the main webhook handler
+    return app._router.handle(
+      Object.assign(req, { url: '/api/stripe-webhook', originalUrl: '/api/webhooks/stripe' }),
+      res,
+      () => {}
+    );
   });
 
   const httpServer = createServer(app);

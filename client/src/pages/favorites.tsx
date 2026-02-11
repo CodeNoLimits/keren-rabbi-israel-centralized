@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'wouter';
 import { Header } from '../components/Header';
 import { useFavorites } from '../contexts/FavoritesContext';
@@ -7,19 +7,34 @@ import { useCart } from '../contexts/CartContext';
 import { realBreslovProducts } from '../data/realProducts';
 import { getInterfaceDisplayTitle, getInterfaceCategoryName } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';
-import { Heart, ShoppingCart, Trash2, ArrowRight, Share2 } from 'lucide-react';
+import { Heart, ShoppingCart, Trash2, ArrowRight, Share2, GitCompareArrows, X } from 'lucide-react';
 
 export default function Favorites() {
   const { favorites, toggleFavorite } = useFavorites();
   const { currentLanguage } = useLanguage();
   const { addItem, setIsCartOpen } = useCart();
   const isRTL = currentLanguage === 'he';
+  const [compareIds, setCompareIds] = useState<Set<string>>(new Set());
+  const [showCompare, setShowCompare] = useState(false);
 
   const favoriteProducts = useMemo(() => {
     return Array.from(favorites)
       .map(id => realBreslovProducts[id])
       .filter(Boolean);
   }, [favorites]);
+
+  const toggleCompare = (id: string) => {
+    setCompareIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) { next.delete(id); } else if (next.size < 3) { next.add(id); }
+      return next;
+    });
+  };
+
+  const compareProducts = useMemo(() =>
+    Array.from(compareIds).map(id => realBreslovProducts[id]).filter(Boolean),
+    [compareIds]
+  );
 
   const t = {
     title: isRTL ? 'המועדפים שלי' : currentLanguage === 'fr' ? 'Mes Favoris' : currentLanguage === 'es' ? 'Mis Favoritos' : currentLanguage === 'ru' ? 'Мои Избранные' : 'My Favorites',
@@ -31,6 +46,15 @@ export default function Favorites() {
     viewProduct: isRTL ? 'צפה במוצר' : currentLanguage === 'fr' ? 'Voir le produit' : 'View Product',
     itemCount: (n: number) => isRTL ? `${n} מוצרים` : `${n} items`,
     share: isRTL ? 'שתף מועדפים' : currentLanguage === 'fr' ? 'Partager les favoris' : 'Share Favorites',
+    compare: isRTL ? 'השווה' : currentLanguage === 'fr' ? 'Comparer' : 'Compare',
+    compareSelected: isRTL ? 'השווה נבחרים' : currentLanguage === 'fr' ? 'Comparer la sélection' : 'Compare Selected',
+    selectToCompare: isRTL ? 'בחר עד 3 מוצרים להשוואה' : currentLanguage === 'fr' ? 'Sélectionnez jusqu\'à 3 produits' : 'Select up to 3 products to compare',
+    price: isRTL ? 'מחיר' : currentLanguage === 'fr' ? 'Prix' : 'Price',
+    category: isRTL ? 'קטגוריה' : currentLanguage === 'fr' ? 'Catégorie' : 'Category',
+    variants: isRTL ? 'אפשרויות' : currentLanguage === 'fr' ? 'Variantes' : 'Variants',
+    pages: isRTL ? 'עמודים' : currentLanguage === 'fr' ? 'Pages' : 'Pages',
+    language: isRTL ? 'שפה' : currentLanguage === 'fr' ? 'Langue' : 'Language',
+    close: isRTL ? 'סגור' : currentLanguage === 'fr' ? 'Fermer' : 'Close',
   };
 
   // Task 46: Share favorites via WhatsApp

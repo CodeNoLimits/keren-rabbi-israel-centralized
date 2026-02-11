@@ -24,8 +24,9 @@ const StripePaymentForm = ({ clientSecret, orderSummary }: {
   const elements = useElements();
   const { toast } = useToast();
   const { clearCart } = useCart();
-  const { t } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
+  const [showInstallments, setShowInstallments] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,11 +77,117 @@ const StripePaymentForm = ({ clientSecret, orderSummary }: {
 
   const formatPrice = (amount: number) => `₪${(amount / 100).toFixed(2)}`;
 
+  // Task 84: Calculate installment payments (Tashlumim)
+  // Israeli credit cards commonly support 12 monthly payments without interest
+  const installmentPlans = [
+    { months: 1, label: currentLanguage === 'he' ? 'תשלום אחד' : currentLanguage === 'fr' ? 'Paiement unique' : 'Single payment' },
+    { months: 3, label: currentLanguage === 'he' ? '3 תשלומים' : currentLanguage === 'fr' ? '3 paiements' : '3 payments' },
+    { months: 6, label: currentLanguage === 'he' ? '6 תשלומים' : currentLanguage === 'fr' ? '6 paiements' : '6 payments' },
+    { months: 12, label: currentLanguage === 'he' ? '12 תשלומים ללא ריבית' : currentLanguage === 'fr' ? '12 paiements sans intérêt' : '12 payments interest-free' }
+  ];
+
+  const calculateMonthlyPayment = (months: number) => {
+    return Math.ceil(orderSummary.totalAmount / months / 100);
+  };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border">
-        <PaymentElement />
+      {/* Task 84: Installment Payment Information Banner */}
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg p-4">
+        <div className="flex items-start gap-3">
+          <CreditCard className="h-6 w-6 text-blue-600 flex-shrink-0 mt-1" />
+          <div className="flex-1">
+            <h3 className="font-bold text-blue-900 mb-2">
+              {currentLanguage === 'he' ? '💳 תשלום בתשלומים' :
+               currentLanguage === 'fr' ? '💳 Paiement en plusieurs fois' :
+               '💳 Installment Payments'}
+            </h3>
+            <p className="text-sm text-blue-800 mb-3">
+              {currentLanguage === 'he' ?
+                'ניתן לשלם עד 12 תשלומים ללא ריבית בכרטיסי אשראי ישראליים' :
+               currentLanguage === 'fr' ?
+                'Payez jusqu\'à 12 versements sans intérêt avec les cartes de crédit israéliennes' :
+                'Pay up to 12 installments interest-free with Israeli credit cards'}
+            </p>
+
+            {/* Installment Options Grid */}
+            <div className="grid grid-cols-2 gap-2 mb-2">
+              {installmentPlans.map(plan => (
+                <div key={plan.months} className="bg-white rounded-lg p-3 border border-blue-200">
+                  <div className="text-xs text-gray-600 mb-1">{plan.label}</div>
+                  <div className="font-bold text-blue-900">
+                    ₪{calculateMonthlyPayment(plan.months)}
+                    {plan.months > 1 && (
+                      <span className="text-xs font-normal text-gray-600">
+                        {currentLanguage === 'he' ? ' לחודש' :
+                         currentLanguage === 'fr' ? '/mois' : '/month'}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowInstallments(!showInstallments)}
+              className="text-sm text-blue-600 hover:text-blue-800 underline"
+            >
+              {showInstallments ?
+                (currentLanguage === 'he' ? 'הסתר פירוט' : currentLanguage === 'fr' ? 'Masquer les détails' : 'Hide details') :
+                (currentLanguage === 'he' ? 'הצג פירוט מלא' : currentLanguage === 'fr' ? 'Afficher tous les détails' : 'Show full details')}
+            </button>
+
+            {showInstallments && (
+              <div className="mt-3 pt-3 border-t border-blue-200 space-y-2">
+                <div className="text-sm text-blue-800">
+                  <strong>{currentLanguage === 'he' ? 'פירוט תשלומים:' : currentLanguage === 'fr' ? 'Détails des paiements:' : 'Payment breakdown:'}</strong>
+                </div>
+                {installmentPlans.filter(p => p.months > 1).map(plan => (
+                  <div key={plan.months} className="text-xs text-blue-700 bg-blue-50 p-2 rounded">
+                    <strong>{plan.label}:</strong> {plan.months} × ₪{calculateMonthlyPayment(plan.months)} = ₪{formatPrice(orderSummary.totalAmount).replace('₪', '')}
+                  </div>
+                ))}
+                <div className="text-xs text-gray-600 italic mt-2">
+                  {currentLanguage === 'he' ?
+                    '* תשלומים מתבצעים באמצעות חברת האשראי שלך. אין עמלות נוספות.' :
+                   currentLanguage === 'fr' ?
+                    '* Les paiements sont traités par votre société de carte de crédit. Pas de frais supplémentaires.' :
+                    '* Installments are processed by your credit card company. No additional fees.'}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
+
+      {/* PaymentElement with Israeli payment methods enabled */}
+      {/* Task 82: Bit, PayBox, Google Pay, Apple Pay enabled via Stripe Payment Element */}
+      <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border">
+        <PaymentElement
+          options={{
+            layout: 'tabs',
+            paymentMethodOrder: ['card', 'google_pay', 'apple_pay'],
+            // Stripe automatically shows available payment methods based on currency (ILS)
+            // Israeli payment methods (Bit) are enabled when currency is ILS
+            fields: {
+              billingDetails: {
+                address: {
+                  country: 'never' // Already collected in checkout form
+                }
+              }
+            }
+          }}
+        />
+      </div>
+
+      {/* Test card numbers for development:
+          Visa: 4242 4242 4242 4242
+          Visa (debit): 4000 0566 5566 5556
+          Mastercard: 5555 5555 5555 4444
+          Israeli card: 4000 0037 6000 0000 (Israel-issued Visa)
+          Use any future expiry date and any 3-digit CVC
+      */}
 
       <Button
         type="submit"

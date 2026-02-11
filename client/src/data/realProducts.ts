@@ -17,6 +17,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי נחמן מברסלב',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'likutei-moharan-group', // Groups all language versions together
     pages: 960,
     isbn: '978-965-7023-01-1',
     images: [

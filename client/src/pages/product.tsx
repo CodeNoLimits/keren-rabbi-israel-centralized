@@ -37,6 +37,28 @@ export default function Product() {
     return <div>{currentLanguage === 'he' ? 'מוצר לא נמצא' : 'Product not found'}</div>;
   }
 
+  // Task 26: Find products in the same language group (different language versions)
+  const languageVersions = product.languageGroupId
+    ? Object.values(realBreslovProducts).filter(p =>
+        p.languageGroupId === product.languageGroupId && p.id !== product.id
+      )
+    : [];
+
+  const availableLanguages = [
+    { code: product.language || 'עברית', id: product.id, name: product.name },
+    ...languageVersions.map(v => ({ code: v.language || 'עברית', id: v.id, name: v.name }))
+  ];
+
+  // Language display names for the tabs
+  const languageLabels: Record<string, string> = {
+    'עברית': currentLanguage === 'he' ? 'עברית' : currentLanguage === 'en' ? 'Hebrew' : currentLanguage === 'fr' ? 'Hébreu' : 'עברית',
+    'אנגלית': currentLanguage === 'he' ? 'אנגלית' : currentLanguage === 'en' ? 'English' : currentLanguage === 'fr' ? 'Anglais' : 'English',
+    'צרפתית': currentLanguage === 'he' ? 'צרפתית' : currentLanguage === 'en' ? 'French' : currentLanguage === 'fr' ? 'Français' : 'Français',
+    'English': currentLanguage === 'he' ? 'אנגלית' : 'English',
+    'French': currentLanguage === 'he' ? 'צרפתית' : 'Français',
+    'Hebrew': currentLanguage === 'he' ? 'עברית' : 'Hebrew',
+  };
+
   const variants = product.variants || [];
   const currentVariant = variants.find(v => v.id === selectedVariant) || variants[0];
 
@@ -197,6 +219,40 @@ export default function Product() {
       .map(id => realBreslovProducts[id])
       .filter((p): p is Product => Boolean(p));
   }, [product?.id]);
+
+  // Task 14: Detect if product is part of a series and find related volumes
+  const detectSeriesPattern = (productName: string): string | null => {
+    // Common patterns for series detection
+    const patterns = [
+      /(.+?)\s+(?:חלק|כרך|חוברת)\s*(\d+)/,  // Hebrew: "ליקוטי מוהרן חלק 1"
+      /(.+?)\s+(?:vol|volume|part)\s*\.?\s*(\d+)/i,  // English: "Likutei Moharan Vol 1"
+      /(.+?)\s+(\d+)$/,  // Generic: "Name 1"
+    ];
+
+    for (const pattern of patterns) {
+      const match = productName.match(pattern);
+      if (match && match[1]) {
+        return match[1].trim();
+      }
+    }
+    return null;
+  };
+
+  const seriesBaseName = detectSeriesPattern(product.name);
+  const relatedVolumes = seriesBaseName
+    ? Object.values(realBreslovProducts).filter(p =>
+        p.id !== product.id &&
+        p.name.includes(seriesBaseName) &&
+        detectSeriesPattern(p.name) === seriesBaseName
+      )
+    : [];
+
+  // Calculate bundle discount (15% off when buying all volumes)
+  const bundleDiscount = 0.15;
+  const bundleProducts = [product, ...relatedVolumes];
+  const bundleSubtotal = bundleProducts.reduce((sum, p) => sum + (p.variants?.[0]?.price || 0), 0);
+  const bundlePrice = Math.round(bundleSubtotal * (1 - bundleDiscount));
+  const bundleSavings = bundleSubtotal - bundlePrice;
 
   // Related products: prefer same category, then fill with others, show 4 total
   const allProducts = Object.values(realBreslovProducts).filter(p => p.id !== product.id);
@@ -430,6 +486,58 @@ export default function Product() {
                 </button>
               </div>
 
+              {/* LANGUAGE SELECTOR - Task 26 */}
+              {availableLanguages.length > 1 && (
+                <div style={{marginBottom: '1.5rem'}}>
+                  <div style={{
+                    display: 'inline-flex',
+                    gap: '0.5rem',
+                    padding: '0.5rem',
+                    background: '#f8f9fa',
+                    borderRadius: '8px',
+                    border: '1px solid #e5e7eb'
+                  }}>
+                    {availableLanguages.map((lang) => (
+                      <a
+                        key={lang.id}
+                        href={`/product/${lang.id}`}
+                        style={{
+                          padding: '0.5rem 1rem',
+                          borderRadius: '6px',
+                          background: lang.id === product.id ? '#dc3545' : 'transparent',
+                          color: lang.id === product.id ? 'white' : '#666',
+                          textDecoration: 'none',
+                          fontSize: '0.9rem',
+                          fontWeight: lang.id === product.id ? 'bold' : 'normal',
+                          transition: 'all 0.2s',
+                          cursor: 'pointer'
+                        }}
+                        onMouseEnter={(e) => {
+                          if (lang.id !== product.id) {
+                            e.currentTarget.style.background = '#e5e7eb';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (lang.id !== product.id) {
+                            e.currentTarget.style.background = 'transparent';
+                          }
+                        }}
+                      >
+                        {languageLabels[lang.code] || lang.code}
+                      </a>
+                    ))}
+                  </div>
+                  <p style={{fontSize: '0.85rem', color: '#666', marginTop: '0.5rem', marginLeft: '0.5rem'}}>
+                    {isRTL ? 'גרסאות שפה זמינות' :
+                     currentLanguage === 'en' ? 'Available language versions' :
+                     currentLanguage === 'fr' ? 'Versions linguistiques disponibles' :
+                     currentLanguage === 'es' ? 'Versiones de idioma disponibles' :
+                     currentLanguage === 'ru' ? 'Доступные языковые версии' :
+                     'Available language versions'}
+                  </p>
+                </div>
+              )}
+
               <div style={{display: 'flex', alignItems: 'center', marginBottom: '1rem'}}>
                 <div style={{color: '#ffc107', fontSize: '1.2rem', marginLeft: '0.5rem'}}>
                   {'\u2605\u2605\u2605\u2605\u2605'}
@@ -659,6 +767,137 @@ export default function Product() {
                   {addToCartLabel}
                 </button>
               </div>
+
+              {/* COMPLETE SET BUNDLE SUGGESTION - Task 14 */}
+              {relatedVolumes.length > 0 && (
+                <div style={{
+                  marginBottom: '2rem',
+                  padding: '1.5rem',
+                  background: 'linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%)',
+                  border: '2px solid #dc3545',
+                  borderRadius: '12px',
+                  boxShadow: '0 4px 12px rgba(220, 53, 69, 0.15)'
+                }}>
+                  <div style={{display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem'}}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dc3545" strokeWidth="2">
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                      <line x1="12" y1="7" x2="12" y2="13"></line>
+                      <line x1="9" y1="10" x2="15" y2="10"></line>
+                    </svg>
+                    <h3 style={{fontSize: '1.3rem', fontWeight: 'bold', color: '#dc3545', margin: 0}}>
+                      {isRTL ? 'מארז שלם - חסוך כסף!' :
+                       currentLanguage === 'en' ? 'Complete Set - Save Money!' :
+                       currentLanguage === 'fr' ? 'Collection Complète - Économisez!' :
+                       currentLanguage === 'es' ? '¡Colección Completa - Ahorra!' :
+                       currentLanguage === 'ru' ? 'Полный набор - Сэкономьте!' :
+                       'Complete Set - Save Money!'}
+                    </h3>
+                  </div>
+
+                  <p style={{fontSize: '1rem', color: '#666', marginBottom: '1rem', lineHeight: '1.5'}}>
+                    {isRTL ? `קבל את כל הסדרה (${bundleProducts.length} כרכים) בהנחה של 15%!` :
+                     currentLanguage === 'en' ? `Get the complete series (${bundleProducts.length} volumes) with 15% off!` :
+                     currentLanguage === 'fr' ? `Obtenez la série complète (${bundleProducts.length} volumes) avec 15% de réduction!` :
+                     currentLanguage === 'es' ? `¡Obtén la serie completa (${bundleProducts.length} volúmenes) con 15% de descuento!` :
+                     currentLanguage === 'ru' ? `Получите полную серию (${bundleProducts.length} томов) со скидкой 15%!` :
+                     `Get the complete series (${bundleProducts.length} volumes) with 15% off!`}
+                  </p>
+
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.5rem',
+                    marginBottom: '1rem',
+                    padding: '1rem',
+                    background: 'white',
+                    borderRadius: '8px'
+                  }}>
+                    {bundleProducts.map((vol, index) => (
+                      <div key={vol.id} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <span style={{fontSize: '0.9rem', color: '#333'}}>
+                          {index + 1}. {getInterfaceDisplayTitle(vol, currentLanguage)}
+                        </span>
+                        <span style={{fontSize: '0.9rem', color: '#666', textDecoration: 'line-through'}}>
+                          ₪{vol.variants?.[0]?.price || 0}
+                        </span>
+                      </div>
+                    ))}
+                    <div style={{borderTop: '2px solid #e5e7eb', paddingTop: '0.75rem', marginTop: '0.5rem'}}>
+                      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <span style={{fontSize: '1rem', fontWeight: 'bold', color: '#333'}}>
+                          {isRTL ? 'סך הכל:' : currentLanguage === 'en' ? 'Total:' : currentLanguage === 'fr' ? 'Total:' : currentLanguage === 'es' ? 'Total:' : currentLanguage === 'ru' ? 'Итого:' : 'Total:'}
+                        </span>
+                        <div style={{display: 'flex', alignItems: 'center', gap: '1rem'}}>
+                          <span style={{fontSize: '0.9rem', color: '#999', textDecoration: 'line-through'}}>₪{bundleSubtotal}</span>
+                          <span style={{fontSize: '1.5rem', fontWeight: 'bold', color: '#dc3545'}}>₪{bundlePrice}</span>
+                        </div>
+                      </div>
+                      <div style={{textAlign: 'right', marginTop: '0.5rem'}}>
+                        <span style={{fontSize: '0.9rem', color: '#28a745', fontWeight: 'bold'}}>
+                          {isRTL ? `חיסכון של ₪${bundleSavings}` :
+                           currentLanguage === 'en' ? `Save ₪${bundleSavings}` :
+                           currentLanguage === 'fr' ? `Économisez ₪${bundleSavings}` :
+                           currentLanguage === 'es' ? `Ahorre ₪${bundleSavings}` :
+                           currentLanguage === 'ru' ? `Экономия ₪${bundleSavings}` :
+                           `Save ₪${bundleSavings}`}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      // Add all bundle items to cart
+                      bundleProducts.forEach(vol => {
+                        const defaultVariant = vol.variants?.[0];
+                        if (defaultVariant && defaultVariant.inStock) {
+                          addItem({
+                            productId: vol.id,
+                            variantId: defaultVariant.id,
+                            name: vol.name,
+                            nameEnglish: vol.nameEnglish || vol.name,
+                            image: vol.images?.[0] || '',
+                            price: Math.round(defaultVariant.price * (1 - bundleDiscount)), // Apply bundle discount
+                            quantity: 1,
+                            variant: {
+                              format: defaultVariant.format,
+                              binding: defaultVariant.binding,
+                              size: defaultVariant.size
+                            }
+                          });
+                        }
+                      });
+                      toast({
+                        title: isRTL ? 'המארז השלם נוסף לסל!' : currentLanguage === 'en' ? 'Complete set added to cart!' : 'Complete set added!',
+                        description: isRTL ? `${bundleProducts.length} כרכים בהנחה של 15%` : `${bundleProducts.length} volumes with 15% discount`,
+                      });
+                    }}
+                    style={{
+                      background: '#28a745',
+                      color: 'white',
+                      border: 'none',
+                      padding: '1rem 2rem',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      width: '100%',
+                      fontSize: '1.1rem',
+                      fontWeight: 'bold',
+                      boxShadow: '0 4px 8px rgba(40, 167, 69, 0.2)',
+                      transition: 'all 0.2s'
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = '#218838'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = '#28a745'; e.currentTarget.style.transform = 'translateY(0)'; }}
+                  >
+                    {isRTL ? `הוסף מארז שלם - ₪${bundlePrice}` :
+                     currentLanguage === 'en' ? `Add Complete Set - ₪${bundlePrice}` :
+                     currentLanguage === 'fr' ? `Ajouter Collection - ₪${bundlePrice}` :
+                     currentLanguage === 'es' ? `Agregar Colección - ₪${bundlePrice}` :
+                     currentLanguage === 'ru' ? `Добавить набор - ₪${bundlePrice}` :
+                     `Add Complete Set - ₪${bundlePrice}`}
+                  </button>
+                </div>
+              )}
 
               {/* REASSURANCE ICONS */}
               <div style={{

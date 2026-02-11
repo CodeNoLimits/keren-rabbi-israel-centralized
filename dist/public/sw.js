@@ -1,43 +1,94 @@
-// Service Worker for PWA capabilities
-const CACHE_NAME = 'haesh-sheli-v1';
-const urlsToCache = [
+// Service Worker for PWA capabilities - Task 69: Stale-while-revalidate strategy
+const CACHE_NAME = 'haesh-sheli-v2';
+const STATIC_CACHE = 'haesh-sheli-static-v2';
+const IMAGE_CACHE = 'haesh-sheli-images-v1';
+
+// Static assets to precache
+const PRECACHE_URLS = [
   '/',
-  '/static/js/bundle.js',
-  '/static/css/main.css',
-  '/manifest.json'
+  '/manifest.json',
 ];
 
-// Install Service Worker
+// Install - precache critical assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(urlsToCache))
+    caches.open(STATIC_CACHE)
+      .then((cache) => cache.addAll(PRECACHE_URLS))
       .then(() => self.skipWaiting())
   );
 });
 
-// Fetch event - serve from cache when offline
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Return cached version or fetch from network
-        return response || fetch(event.request);
-      })
+// Activate - clean old caches
+self.addEventListener('activate', (event) => {
+  const validCaches = [CACHE_NAME, STATIC_CACHE, IMAGE_CACHE];
+  event.waitUntil(
+    caches.keys().then((cacheNames) =>
+      Promise.all(
+        cacheNames
+          .filter((name) => !validCaches.includes(name))
+          .map((name) => caches.delete(name))
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
-// Activate event - clean old caches
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
+// Fetch - strategy depends on request type
+self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+
+  // Skip non-GET requests
+  if (event.request.method !== 'GET') return;
+
+  // Images: cache-first with long TTL
+  if (url.pathname.match(/\.(webp|jpg|jpeg|png|gif|svg|ico)$/i) ||
+      url.pathname.startsWith('/attached_assets/') ||
+      url.pathname.startsWith('/images/')) {
+    event.respondWith(
+      caches.open(IMAGE_CACHE).then((cache) =>
+        cache.match(event.request).then((cached) => {
+          if (cached) return cached;
+          return fetch(event.request).then((response) => {
+            if (response.ok) cache.put(event.request, response.clone());
+            return response;
+          });
         })
-      );
-    }).then(() => self.clients.claim())
+      )
+    );
+    return;
+  }
+
+  // JS/CSS assets: stale-while-revalidate
+  if (url.pathname.match(/\.(js|css)$/)) {
+    event.respondWith(
+      caches.open(STATIC_CACHE).then((cache) =>
+        cache.match(event.request).then((cached) => {
+          const fetchPromise = fetch(event.request).then((response) => {
+            if (response.ok) cache.put(event.request, response.clone());
+            return response;
+          });
+          return cached || fetchPromise;
+        })
+      )
+    );
+    return;
+  }
+
+  // HTML pages: network-first with cache fallback
+  if (event.request.headers.get('accept')?.includes('text/html')) {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          const cache = caches.open(CACHE_NAME);
+          cache.then((c) => c.put(event.request, response.clone()));
+          return response;
+        })
+        .catch(() => caches.match(event.request).then((cached) => cached || caches.match('/')))
+    );
+    return;
+  }
+
+  // Default: network with cache fallback
+  event.respondWith(
+    fetch(event.request).catch(() => caches.match(event.request))
   );
 });

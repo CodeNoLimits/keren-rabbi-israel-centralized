@@ -1,7 +1,7 @@
-import { 
-  type User, 
+import {
+  type User,
   type InsertUser,
-  type UpsertUser, 
+  type UpsertUser,
   type Product,
   type InsertProduct,
   type SubscriptionPlan,
@@ -16,6 +16,8 @@ import {
   type InsertPaymentTransaction,
   type ShippingRate,
   type InsertShippingRate,
+  type Coupon,
+  type InsertCoupon,
   type ProductVariant,
   type ShippingAddress,
   users,
@@ -25,7 +27,8 @@ import {
   orders,
   orderItems,
   paymentTransactions,
-  shippingRates
+  shippingRates,
+  coupons
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -88,6 +91,12 @@ export interface IStorage {
   getShippingRates(country?: string): Promise<ShippingRate[]>;
   createShippingRate(rate: InsertShippingRate): Promise<ShippingRate>;
   calculateShipping(subtotal: number, country: string, weight?: number): Promise<{ rate: ShippingRate; cost: number } | null>;
+
+  // Coupon methods
+  getCouponByCode(code: string): Promise<Coupon | undefined>;
+  getAllCoupons(): Promise<Coupon[]>;
+  createCoupon(coupon: InsertCoupon): Promise<Coupon>;
+  incrementCouponUsage(id: string): Promise<Coupon>;
 }
 
 // Database storage implementation using PostgreSQL - UPDATED for Replit Auth
@@ -849,6 +858,44 @@ export class DatabaseStorage implements IStorage {
     }
     
     return null; // No applicable shipping rate found
+  }
+
+  // ====================
+  // Coupon methods
+  // ====================
+
+  async getCouponByCode(code: string): Promise<Coupon | undefined> {
+    const result = await db.select().from(coupons).where(eq(coupons.code, code.toUpperCase())).limit(1);
+    return result[0];
+  }
+
+  async getAllCoupons(): Promise<Coupon[]> {
+    return await db.select().from(coupons);
+  }
+
+  async createCoupon(coupon: InsertCoupon): Promise<Coupon> {
+    const result = await db.insert(coupons).values({
+      ...coupon,
+      code: coupon.code.toUpperCase()
+    }).returning();
+    return result[0];
+  }
+
+  async incrementCouponUsage(id: string): Promise<Coupon> {
+    const coupon = await db.select().from(coupons).where(eq(coupons.id, id)).limit(1);
+    if (!coupon[0]) {
+      throw new Error('Coupon not found');
+    }
+
+    const result = await db.update(coupons)
+      .set({
+        usedCount: (coupon[0].usedCount || 0) + 1,
+        updatedAt: new Date()
+      })
+      .where(eq(coupons.id, id))
+      .returning();
+
+    return result[0];
   }
 }
 
