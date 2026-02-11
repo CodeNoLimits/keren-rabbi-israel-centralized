@@ -152,105 +152,101 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
-  // Task 32: Added Arabic language support
+  // Language selection reduced to original scope
   const languageFlags = {
     he: '🇮🇱',
     en: '🇺🇸',
     fr: '🇫🇷',
     es: '🇪🇸',
-    ru: '🇷🇺',
-    ar: '🇵🇸'  // Palestinian flag for Arabic (common in Israeli Arab community)
+    ru: '🇷🇺'
   };
 
   return (
-    <header className={`site-header sticky top-0 z-50 backdrop-blur-md transition-shadow duration-300 ${isScrolled ? 'shadow-md' : ''}`} data-testid="main-header" dir={currentLanguage === 'he' || currentLanguage === 'ar' ? 'rtl' : 'ltr'}>
-      {/* TOP ROW - Logo + Special Links */}
-      <div className="header-container-top">
+    <header className={`site-header sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 shadow-md backdrop-blur-sm' : 'bg-white'}`} data-testid="main-header" dir={currentLanguage === 'he' ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-8">
         {/* LOGO */}
-        <div className="header-logo">
-          <a href="/" data-testid="link-home" className="transition-all duration-500 hover:scale-110 hover:rotate-2 hover:drop-shadow-2xl inline-block hover:-translate-y-2">
+        <div className="flex-shrink-0">
+          <a href="/" data-testid="link-home" className="block transition-transform hover:scale-105">
             <img loading="lazy"
               decoding="async"
               width="185"
               height="300"
               src="/images/logo.webp"
-              alt="האש שלי תוקף עד ביאת המשיח"
-              data-testid="img-logo"
-              className="transition-all duration-500 hover:brightness-110 hover:contrast-110"
+              alt="Haesh Sheli"
+              className="h-14 w-auto object-contain"
             />
           </a>
         </div>
 
-        {/* SPECIAL NAVIGATION - TOP ROW (subtle, smaller) */}
-        <nav className="header-nav-special" data-testid="nav-special" role="navigation" aria-label={currentLanguage === 'he' ? 'ניווט מיוחד' : 'Special navigation'}>
-          <ul className="nav-menu-special" style={{fontSize: '0.78rem', gap: '0.6rem', opacity: 0.85}}>
-            <li className={location === '/chat' ? 'current-menu-item' : ''}>
-              <a href="/chat" data-testid="link-chat" style={{color: '#10B981', fontWeight: '500', fontSize: '0.78rem'}} className="px-2 py-0.5 rounded transition-all duration-300 hover:scale-110 hover:text-white hover:bg-green-500 hover:shadow-md inline-block">{t.chat}</a>
-            </li>
-            <li className={location === '/subscription' ? 'current-menu-item' : ''}>
-              <a href="/subscription" data-testid="link-subscription" style={{color: '#FFD700', fontWeight: '500', fontSize: '0.78rem'}} className="px-2 py-0.5 rounded transition-all duration-300 hover:scale-110 hover:text-white hover:bg-yellow-500 hover:shadow-md inline-block">{t.subscription}</a>
-            </li>
-            <li className={location === '/keren-style' ? 'current-menu-item' : ''}>
-              <a href="/keren-style" data-testid="link-keren-style" style={{color: '#FF6B35', fontWeight: '500', fontSize: '0.78rem'}} className="px-2 py-0.5 rounded transition-all duration-300 hover:scale-110 hover:text-white hover:bg-orange-500 hover:shadow-md inline-block">{t.breslovVideos}</a>
-            </li>
-            <li className={location === '/haesh-hype' ? 'current-menu-item' : ''}>
-              <a href="/haesh-hype" data-testid="link-haesh-hype" style={{color: '#EF4444', fontWeight: '500', fontSize: '0.78rem'}} className="px-2 py-0.5 rounded transition-all duration-300 hover:scale-110 hover:text-white hover:bg-red-500 hover:shadow-md inline-block">{t.haeshHype}</a>
-            </li>
-            <li className={location === '/yaaakov' ? 'current-menu-item' : ''}>
-              <a href="/yaaakov" data-testid="link-yaaakov" style={{fontWeight: '500', fontSize: '0.78rem'}} className="px-2 py-0.5 rounded transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block">
-                {currentLanguage === 'he' ? 'יעקב' : currentLanguage === 'en' ? 'Yaaakov' : currentLanguage === 'fr' ? 'Yaaakov' : currentLanguage === 'es' ? 'Yaaakov' : currentLanguage === 'ru' ? 'Яааков' : 'יעקב'}
-              </a>
-            </li>
+        {/* PRIMARY NAVIGATION - Minimal Apple Style */}
+        <nav className="hidden lg:flex flex-grow justify-center" data-testid="nav-main">
+          <ul className="flex items-center gap-10">
+            {[
+              { href: '/', label: t.home },
+              { href: '/store', label: t.books },
+              { href: '/about', label: t.about },
+              { href: '/blog', label: t.blog },
+              { href: '/contact', label: t.contact }
+            ].map((link) => (
+              <li key={link.href}>
+                <a 
+                  href={link.href} 
+                  className={`text-sm font-bold tracking-tight uppercase transition-colors hover:text-orange-600 ${location === link.href ? 'text-orange-600' : 'text-gray-600'}`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </nav>
 
-        {/* MOBILE MENU TOGGLE */}
-        <button
-          className="mobile-menu-toggle transition-all duration-300 hover:scale-110 hover:bg-white hover:text-red-600 hover:shadow-xl"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          data-testid="button-mobile-menu"
-          aria-label={mobileMenuOpen ? (currentLanguage === 'he' ? 'סגור תפריט' : 'Close menu') : (currentLanguage === 'he' ? 'פתח תפריט' : 'Open menu')}
-          aria-expanded={mobileMenuOpen}
-          aria-controls="mobile-navigation"
-          style={{minWidth: '44px', minHeight: '44px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center'}}
-        >
-          <span className="transition-all duration-300">
-            {mobileMenuOpen ? <X /> : <Menu />}
-          </span>
-        </button>
+        {/* ACTIONS */}
+        <div className="flex items-center gap-4 flex-shrink-0">
+          <div className="hidden sm:block w-48 xl:w-64">
+            <SearchAutocomplete onNavigate={(productId) => setLocation(`/product/${productId}`)} />
+          </div>
+          
+          <div className="h-6 w-px bg-gray-200 hidden sm:block mx-2" />
+
+          <div className="flex items-center gap-2">
+            {/* Language Codes - Minimalist */}
+            <div className="hidden sm:flex gap-3">
+              {Object.keys(languageFlags).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => setLanguage(lang)}
+                  className={`text-[10px] font-black tracking-widest uppercase transition-all ${currentLanguage === lang ? 'text-orange-600' : 'text-gray-400 hover:text-gray-900'}`}
+                >
+                  {lang}
+                </button>
+              ))}
+            </div>
+
+            {/* Cart Icon */}
+            <button 
+              onClick={() => setIsCartOpen(true)} 
+              className="p-2 text-gray-700 hover:text-orange-600 transition-colors relative"
+              aria-label="Shopping Cart"
+            >
+              <ShoppingCart size={20} />
+              {totalItems > 0 && (
+                <span className="absolute top-0 right-0 bg-orange-600 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+
+            {/* Mobile Toggle */}
+            <button 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+              className="lg:hidden p-2 text-gray-700"
+              aria-label="Menu"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
       </div>
-
-      {/* BOTTOM ROW - Basic Navigation + User Actions */}
-      <div className="header-container-bottom">
-        {/* BASIC NAVIGATION - Simple clean categories */}
-        <nav className="header-nav" data-testid="nav-main" role="navigation" aria-label={currentLanguage === 'he' ? 'ניווט ראשי' : 'Main navigation'}>
-          <ul className="nav-menu" style={{gap: '1.5rem'}}>
-            <li className={location === '/' ? 'current-menu-item' : ''}>
-              <a href="/" data-testid="link-home" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.home}</a>
-            </li>
-            <li className={location === '/store' ? 'current-menu-item' : ''}>
-              <a href="/store" data-testid="link-books" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.books}</a>
-            </li>
-            <li className={location === '/store?category=judaica' ? 'current-menu-item' : ''}>
-              <a href="/store?category=judaica" data-testid="link-judaica" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.judaica}</a>
-            </li>
-            <li className={location === '/store?sort=new' ? 'current-menu-item' : ''}>
-              <a href="/store?sort=new" data-testid="link-new-arrivals" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.newArrivals}</a>
-            </li>
-            <li className={location === '/store?promotions=true' ? 'current-menu-item' : ''}>
-              <a href="/store?promotions=true" data-testid="link-promotions" style={{fontSize: '1.05rem', fontWeight: '600', color: '#FFD700'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-200 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.promotions}</a>
-            </li>
-            <li className={location === '/about' ? 'current-menu-item' : ''}>
-              <a href="/about" data-testid="link-about" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.about}</a>
-            </li>
-            <li className={location === '/contact' ? 'current-menu-item' : ''}>
-              <a href="/contact" data-testid="link-contact" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.contact}</a>
-            </li>
-            <li className={location === '/blog' ? 'current-menu-item' : ''}>
-              <a href="/blog" data-testid="link-blog" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.blog}</a>
-            </li>
-          </ul>
-        </nav>
 
         {/* SEARCH AUTOCOMPLETE - Task #3: Added onNavigate for SPA navigation */}
         <div className="header-search" data-testid="header-search" style={{flex: '0 1 340px', margin: '0 12px'}}>

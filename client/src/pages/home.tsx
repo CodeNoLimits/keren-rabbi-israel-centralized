@@ -187,38 +187,8 @@ export default function Home() {
         alignItems: 'center',
         position: 'relative',
         overflow: 'hidden',
+        borderBottom: '1px solid #f1f5f9',
       }}>
-        {/* Subtle Jerusalem skyline background - respectful and minimal */}
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: '100%',
-          backgroundImage: 'url(/images/jerusalem-skyline.svg)',
-          backgroundPosition: 'bottom center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'contain',
-          opacity: 0.4,
-          pointerEvents: 'none',
-          zIndex: 0,
-        }} aria-hidden="true" />
-
-        {/* Optional: Very subtle Kotel stone texture overlay */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: 'url(/images/kotel-texture.svg)',
-          backgroundSize: '200px 160px',
-          backgroundRepeat: 'repeat',
-          opacity: 0.03,
-          pointerEvents: 'none',
-          zIndex: 0,
-        }} aria-hidden="true" />
-
         <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', width: '100%', position: 'relative', zIndex: 1}}>
           <div className="hero-grid" style={{
             display: 'grid',
@@ -310,30 +280,6 @@ export default function Home() {
                       fr: 'Don \u00E0 la Fondation',
                       es: 'Donar a la Fundaci\u00F3n',
                       ru: '\u041F\u043E\u0436\u0435\u0440\u0442\u0432\u043E\u0432\u0430\u0442\u044C \u0432 \u0424\u043E\u043D\u0434',
-                    })}
-                  </button>
-                </a>
-              </div>
-              <div style={{marginTop: '2rem'}}>
-                <a href="/haesh-hype" style={{textDecoration: 'none'}}>
-                  <button className="animate-pulse" style={{
-                    background: '#FFFFFF',
-                    color: '#FF6B00',
-                    border: '2px solid #FF6B00',
-                    padding: '0.8rem 2rem',
-                    borderRadius: '50px',
-                    cursor: 'pointer',
-                    fontSize: '1rem',
-                    fontWeight: '800',
-                    boxShadow: '0 0 15px rgba(255,107,0,0.4)',
-                    transition: 'all 0.3s ease',
-                  }}>
-                    {ml(currentLanguage, {
-                      he: '\u05D2\u05DD \u05D0\u05E0\u05D9 \u05D7\u05DC\u05E7 \u05DE\u05D4\u05D0\u05E9',
-                      en: 'I am also part of the fire',
-                      fr: 'Je fais aussi partie du feu',
-                      es: 'Yo tambi\u00E9n soy parte del fuego',
-                      ru: '\u042F \u0442\u043E\u0436\u0435 \u0447\u0430\u0441\u0442\u044C \u043E\u0433\u043D\u044F',
                     })}
                   </button>
                 </a>
@@ -519,33 +465,18 @@ export default function Home() {
                     }}
                   >
                     <Link href={`/product/${product.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                      <div className="relative group" style={{width: '100%', height: '200px', overflow: 'hidden', background: '#FFFFFF'}}>
+                      <div style={{width: '100%', height: '200px', overflow: 'hidden', background: '#FFFFFF'}}>
                         {imgSrc ? (
-                          <>
-                            <img
-                              loading="lazy"
-                              decoding="async"
-                              width="220"
-                              height="200"
-                              src={imgSrc}
-                              alt={descriptiveAlt}
-                              className="transition-opacity duration-500 ease-in-out group-hover:opacity-0"
-                              style={{width: '100%', height: '100%', objectFit: 'cover'}}
-                              onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
-                            />
-                            {product.images && product.images.length > 1 && (
-                              <img
-                                loading="lazy"
-                                decoding="async"
-                                width="220"
-                                height="200"
-                                src={convertImagePath(product.images[1])}
-                                alt={descriptiveAlt + " - 2"}
-                                className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
-                                onError={(e) => { e.currentTarget.remove(); }}
-                              />
-                            )}
-                          </>
+                          <img
+                            loading="lazy"
+                            decoding="async"
+                            width="220"
+                            height="200"
+                            src={imgSrc}
+                            alt={descriptiveAlt}
+                            style={{width: '100%', height: '100%', objectFit: 'cover'}}
+                            onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
+                          />
                         ) : (
                           <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem'}}>
                             &#128214;
@@ -693,33 +624,19 @@ export default function Home() {
                   }}
                 >
                   <Link href={`/product/${product.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                    <div className="relative overflow-hidden" style={{width: '100%', height: '240px', background: '#FFFFFF'}}>
+                    <div style={{width: '100%', height: '240px', overflow: 'hidden', background: '#FFFFFF'}}>
                       {imgSrc ? (
-                        <>
-                          <img
-                            loading="lazy"
-                            decoding="async"
-                            width="280"
-                            height="240"
-                            src={imgSrc}
-                            alt={bsAlt}
-                            className="transition-opacity duration-500 ease-in-out group-hover:opacity-0"
-                            style={{width: '100%', height: '100%', objectFit: 'cover'}}
-                            onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
-                          />
-                          {product.images && product.images.length > 1 && (
-                            <img
-                              loading="lazy"
-                              decoding="async"
-                              width="280"
-                              height="240"
-                              src={convertImagePath(product.images[1])}
-                              alt={bsAlt + " - 2"}
-                              className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
-                              onError={(e) => { e.currentTarget.remove(); }}
-                            />
-                          )}
-                        </>
+                        <img
+                          loading="lazy"
+                          decoding="async"
+                          width="280"
+                          height="240"
+                          src={imgSrc}
+                          alt={bsAlt}
+                          style={{width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease-out'}}
+                          className="group-hover:scale-105"
+                          onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
+                        />
                       ) : (
                         <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.5rem'}}>
                           &#128214;

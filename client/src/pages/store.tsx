@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'wouter';
+import { motion, AnimatePresence } from 'framer-motion';
 import { realBreslovProducts } from '../data/products';
 import { Header } from '../components/Header';
 import { ProductVariantModal } from '../components/ProductVariantModal';

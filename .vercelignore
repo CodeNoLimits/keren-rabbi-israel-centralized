@@ -1,0 +1,10 @@
+node_modules
+.git
+.DS_Store
+*.tar.gz
+.env
+.env.local
+.env.production
+.env.*.local
+attached_assets/*.zip
+attached_assets/*.pdf
