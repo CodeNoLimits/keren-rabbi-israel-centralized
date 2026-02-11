@@ -223,9 +223,12 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
       className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center"
       onClick={onClose}
       dir={isRTL ? 'rtl' : 'ltr'}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="variant-modal-title"
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" aria-hidden="true" />
 
       {/* Modal - slides up on mobile, centered on desktop */}
       <div
@@ -236,6 +239,7 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
         <button
           onClick={onClose}
           className="absolute top-3 right-3 z-20 p-2 rounded-full bg-white/90 hover:bg-gray-100 shadow-md transition-all duration-200 hover:scale-110"
+          aria-label={t.close}
         >
           <X className="h-5 w-5 text-gray-600" />
         </button>
@@ -264,7 +268,7 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
 
           {/* Product info */}
           <div className="flex-1 min-w-0 pt-1">
-            <h3 className="font-bold text-lg text-gray-900 line-clamp-2 mb-1">
+            <h3 id="variant-modal-title" className="font-bold text-lg text-gray-900 line-clamp-2 mb-1">
               {displayTitle}
             </h3>
             <div className="flex items-baseline gap-2 mb-1">

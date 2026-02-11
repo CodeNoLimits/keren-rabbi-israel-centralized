@@ -74,7 +74,7 @@
 - [ ] **19. [P2/S] Fuzzy Search / Typo Tolerance**
   Hebrew keyboard users often make typos. Implement basic fuzzy matching (Levenshtein distance or similar) so "ליקוטי מהורן" still finds "ליקוטי מוהר"ן".
 
-- [ ] **20. [P3/S] Search History / Recent Searches**
+- [x] **20. [P3/S] Search History / Recent Searches** ✓
   Store last 5 searches in localStorage. Show them as suggestions when the search input is focused but empty.
 
 - [x] **21. [P3/S] "No Results" Smart Suggestions** ✓
@@ -195,7 +195,7 @@
 - [ ] **54. [P3/M] High-Resolution Image Upscaling**
   Current product images are medium resolution. Use AI upscaling (Let's Enhance.io or similar) to produce 1080p/4K versions for zoom feature and print-ready quality.
 
-- [ ] **55. [P3/S] Image Lazy Loading with Blur Placeholder**
+- [x] **55. [P3/S] Image Lazy Loading with Blur Placeholder** ✓
   Images already use `loading="lazy"` but there is no blur-up placeholder. Add low-quality image placeholders (LQIP) for smoother loading experience.
 
 ---
@@ -242,7 +242,7 @@
 - [x] **67. [P2/S] Preload Critical Assets** ✓
   Add `<link rel="preload">` for the Google Fonts CSS, logo image, and hero background image to improve LCP.
 
-- [ ] **68. [P2/S] Memoize Expensive Computations**
+- [x] **68. [P2/S] Memoize Expensive Computations** ✓
   `filterOptions` in `store.tsx` recalculates on every render. Already uses `useMemo` but ensure dependency arrays are correct. Product data is static so consider moving to module-level constants.
 
 - [ ] **69. [P2/S] Service Worker Cache Strategy**
@@ -279,7 +279,7 @@
 - [ ] **78. [P2/S] Swipeable Product Image Gallery**
   Product page image thumbnails need touch swipe support. Use `embla-carousel` (already in dependencies) for mobile image gallery.
 
-- [ ] **79. [P3/S] Bottom Navigation Bar on Mobile**
+- [x] **79. [P3/S] Bottom Navigation Bar on Mobile** ✓
   Add a fixed bottom navigation bar on mobile with: Home, Store, Cart, Favorites, Menu. Common mobile commerce pattern.
 
 - [x] **80. [P3/S] Cart Drawer Width on Mobile** ✓
@@ -346,10 +346,10 @@
 
 ## M. ACCESSIBILITY (Tasks 96-99)
 
-- [ ] **96. [P2/M] ARIA Labels and Roles**
+- [x] **96. [P2/M] ARIA Labels and Roles** ✓
   Many interactive elements lack ARIA attributes. Add `aria-label` to icon-only buttons, `role="navigation"` to nav elements, `aria-expanded` to collapsible sidebar sections.
 
-- [ ] **97. [P2/S] Keyboard Navigation**
+- [x] **97. [P2/S] Keyboard Navigation** ✓
   Ensure all interactive elements (product cards, filters, modals) are keyboard-navigable. Add visible focus indicators. Cart widget and Quick View modal need focus trap.
 
 - [x] **98. [P2/S] Color Contrast Compliance** ✓

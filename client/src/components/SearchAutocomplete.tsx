@@ -10,6 +10,26 @@ interface SearchAutocompleteProps {
   onNavigate?: (productId: string) => void;
 }
 
+const SEARCH_HISTORY_KEY = 'keren-search-history';
+const MAX_HISTORY = 5;
+
+function getSearchHistory(): string[] {
+  try {
+    const raw = localStorage.getItem(SEARCH_HISTORY_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
+}
+
+function saveSearchHistory(term: string) {
+  const history = getSearchHistory().filter(h => h !== term);
+  history.unshift(term);
+  localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(history.slice(0, MAX_HISTORY)));
+}
+
+function clearSearchHistory() {
+  localStorage.removeItem(SEARCH_HISTORY_KEY);
+}
+
 const searchTranslations = {
   he: {
     placeholder: 'חיפוש ספרים...',
@@ -17,6 +37,8 @@ const searchTranslations = {
     tryDifferent: 'נסו מילות חיפוש אחרות',
     viewAll: 'הצג את כל התוצאות',
     resultsFound: 'תוצאות',
+    recentSearches: 'חיפושים אחרונים',
+    clearHistory: 'נקה היסטוריה',
   },
   en: {
     placeholder: 'Search books...',
@@ -24,6 +46,8 @@ const searchTranslations = {
     tryDifferent: 'Try different keywords',
     viewAll: 'View all results',
     resultsFound: 'results',
+    recentSearches: 'Recent searches',
+    clearHistory: 'Clear history',
   },
   fr: {
     placeholder: 'Rechercher des livres...',
@@ -31,6 +55,8 @@ const searchTranslations = {
     tryDifferent: 'Essayez des mots-cles differents',
     viewAll: 'Voir tous les resultats',
     resultsFound: 'resultats',
+    recentSearches: 'Recherches récentes',
+    clearHistory: 'Effacer l\'historique',
   },
   es: {
     placeholder: 'Buscar libros...',
@@ -38,6 +64,8 @@ const searchTranslations = {
     tryDifferent: 'Pruebe diferentes palabras clave',
     viewAll: 'Ver todos los resultados',
     resultsFound: 'resultados',
+    recentSearches: 'Búsquedas recientes',
+    clearHistory: 'Borrar historial',
   },
   ru: {
     placeholder: 'Poisk knig...',
@@ -45,6 +73,8 @@ const searchTranslations = {
     tryDifferent: 'Poprobujte drugie slova',
     viewAll: 'Posmotret vse rezultaty',
     resultsFound: 'rezultatov',
+    recentSearches: 'Недавние поиски',
+    clearHistory: 'Очистить историю',
   },
 };
 
@@ -52,6 +82,7 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [searchHistory, setSearchHistory] = useState<string[]>(getSearchHistory);
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { currentLanguage } = useLanguage();
@@ -159,6 +190,11 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
   }, [isOpen, highlightedIndex, suggestions]);
 
   const handleSelect = (product: Product) => {
+    // Task 20: Save search term to history
+    if (query.trim()) {
+      saveSearchHistory(query.trim());
+      setSearchHistory(getSearchHistory());
+    }
     setQuery('');
     setIsOpen(false);
     setHighlightedIndex(-1);
@@ -168,6 +204,19 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
     } else {
       window.location.href = `/product/${product.id}`;
     }
+  };
+
+  // Task 20: Apply a history term as search query
+  const applyHistoryTerm = (term: string) => {
+    setQuery(term);
+    setIsOpen(true);
+    setHighlightedIndex(-1);
+    inputRef.current?.focus();
+  };
+
+  const handleClearHistory = () => {
+    clearSearchHistory();
+    setSearchHistory([]);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -216,7 +265,7 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
           type="text"
           value={query}
           onChange={handleInputChange}
-          onFocus={() => query.length > 0 && setIsOpen(true)}
+          onFocus={() => (query.length > 0 || searchHistory.length > 0) && setIsOpen(true)}
           onKeyDown={handleKeyDown}
           placeholder={t.placeholder}
           className={`
@@ -343,6 +392,20 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
               <Search className="h-8 w-8 text-gray-300 mx-auto mb-2" />
               <p className="text-sm text-gray-500 font-medium">{t.noResults}</p>
               <p className="text-xs text-gray-500 mt-1">{t.tryDifferent}</p>
+            </div>
+          ) : searchHistory.length > 0 ? (
+            /* Task 20: Recent search history */
+            <div className="py-2">
+              <div className="flex items-center justify-between px-3 py-1.5">
+                <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{t.recentSearches}</span>
+                <button onClick={handleClearHistory} className="text-xs text-gray-400 hover:text-red-500 transition-colors">{t.clearHistory}</button>
+              </div>
+              {searchHistory.map((term, i) => (
+                <button key={i} onClick={() => applyHistoryTerm(term)} className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                  <Search className="h-3.5 w-3.5 text-gray-400 flex-shrink-0" />
+                  <span className="truncate">{term}</span>
+                </button>
+              ))}
             </div>
           ) : null}
         </div>

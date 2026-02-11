@@ -111,11 +111,13 @@ const quickAddLabels: Record<string, string> = {
   ru: '\u0411\u044B\u0441\u0442\u0440\u043E \u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C',
 };
 
+// Task 68: Module-level constant - realBreslovProducts is static, no need to recompute
+const allProducts = Object.values(realBreslovProducts);
+
 export default function Store() {
   const { currentLanguage, setLanguage } = useLanguage();
   const { toggleFavorite, isFavorite } = useFavorites();
   const { addItem, setIsCartOpen } = useCart();
-  const allProducts = Object.values(realBreslovProducts);
   const quickAddTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [variantModalProduct, setVariantModalProduct] = useState<Product | null>(null);
 
