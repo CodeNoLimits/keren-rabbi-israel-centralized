@@ -91,6 +91,9 @@ export default function Store() {
     languages: []
   });
   
+  // Sort state
+  const [sortBy, setSortBy] = useState<string>('default');
+
   // Sidebar visibility and collapsible sections
   // Default to hidden on mobile (< 768px)
   const [sidebarVisible, setSidebarVisible] = useState(() => {
@@ -197,7 +200,32 @@ export default function Store() {
       return true;
     });
   }, [allProducts, filters, currentLanguage]);
-  
+
+  // Sorted products
+  const sortedProducts = useMemo(() => {
+    const products = [...filteredProducts];
+    switch (sortBy) {
+      case 'price-asc':
+        return products.sort((a, b) => {
+          const aMin = a.variants?.length ? Math.min(...a.variants.map(v => v.price)) : 0;
+          const bMin = b.variants?.length ? Math.min(...b.variants.map(v => v.price)) : 0;
+          return aMin - bMin;
+        });
+      case 'price-desc':
+        return products.sort((a, b) => {
+          const aMax = a.variants?.length ? Math.max(...a.variants.map(v => v.price)) : 0;
+          const bMax = b.variants?.length ? Math.max(...b.variants.map(v => v.price)) : 0;
+          return bMax - aMax;
+        });
+      case 'name-az':
+        return products.sort((a, b) => a.name.localeCompare(b.name));
+      case 'name-za':
+        return products.sort((a, b) => b.name.localeCompare(a.name));
+      default:
+        return products;
+    }
+  }, [filteredProducts, sortBy]);
+
   const toggleFilter = <T,>(key: keyof Filters, value: T) => {
     setFilters(prev => {
       const current = prev[key] as T[];
@@ -530,10 +558,23 @@ export default function Store() {
                     <>נמצאו <span className="font-semibold text-blue-600">{filteredProducts.length}</span> מתוך <span className="font-semibold">{allProducts.length}</span> ספרים</>}
                 </span>
               </div>
+              {/* Sort dropdown */}
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="bg-white border border-gray-200 rounded px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                data-testid="select-sort"
+              >
+                <option value="default">{currentLanguage === 'he' ? 'מיון: ברירת מחדל' : currentLanguage === 'fr' ? 'Tri: par défaut' : 'Sort: Default'}</option>
+                <option value="price-asc">{currentLanguage === 'he' ? 'מחיר: נמוך לגבוה' : currentLanguage === 'fr' ? 'Prix: croissant' : 'Price: Low to High'}</option>
+                <option value="price-desc">{currentLanguage === 'he' ? 'מחיר: גבוה לנמוך' : currentLanguage === 'fr' ? 'Prix: décroissant' : 'Price: High to Low'}</option>
+                <option value="name-az">{currentLanguage === 'he' ? 'שם: א-ת' : currentLanguage === 'fr' ? 'Nom: A-Z' : 'Name: A-Z'}</option>
+                <option value="name-za">{currentLanguage === 'he' ? 'שם: ת-א' : currentLanguage === 'fr' ? 'Nom: Z-A' : 'Name: Z-A'}</option>
+              </select>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredProducts.map((product) => {
+              {sortedProducts.map((product) => {
                 const liked = isFavorite(product.id);
                 return (
                   <div
@@ -573,6 +614,9 @@ export default function Store() {
                         <div className="relative w-full aspect-square overflow-hidden cursor-pointer">
                           {/* Primary image (default) */}
                           <img loading="lazy"
+                            decoding="async"
+                            width="300"
+                            height="300"
                             src={convertImagePath(product.images[0])}
                             alt={getInterfaceDisplayTitle(product, currentLanguage)}
                             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
@@ -586,6 +630,9 @@ export default function Store() {
                           {/* Secondary image (shown on hover) */}
                           {product.images.length > 1 && (
                             <img loading="lazy"
+                              decoding="async"
+                              width="300"
+                              height="300"
                               src={convertImagePath(product.images[1])}
                               alt={`${getInterfaceDisplayTitle(product, currentLanguage)} - 2`}
                               className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
@@ -665,17 +712,27 @@ export default function Store() {
                         className="text-sm font-bold text-blue-600 mb-1"
                         data-testid={`text-price-${product.id}`}
                       >
-                        {product.variants && product.variants.length > 0 ?
-                          `${Math.min(...product.variants.map(v => v.price))} \u20AA \u2013 ${Math.max(...product.variants.map(v => v.price))} \u20AA` :
-                          currentLanguage === 'he' ? '\u05DE\u05D7\u05D9\u05E8 \u05DC\u05D0 \u05D6\u05DE\u05D9\u05DF' : 'Price unavailable'
+                        {product.variants && product.variants.length > 0 ? (() => {
+                          const minPrice = Math.min(...product.variants.map(v => v.price));
+                          const maxPrice = Math.max(...product.variants.map(v => v.price));
+                          const fromLabel = currentLanguage === 'he' ? 'החל מ-' : currentLanguage === 'fr' ? 'À partir de ' : currentLanguage === 'es' ? 'Desde ' : currentLanguage === 'ru' ? 'От ' : 'From ';
+                          if (minPrice === maxPrice) return `${minPrice} ₪`;
+                          return <>{fromLabel}<span className="text-lg">{minPrice} ₪</span></>;
+                        })() :
+                          currentLanguage === 'he' ? 'מחיר לא זמין' : 'Price unavailable'
                         }
                       </div>
 
                       <div
-                        className="text-xs text-gray-600 mb-2"
+                        className="flex items-center justify-between text-xs text-gray-600 mb-2"
                         data-testid={`text-category-${product.id}`}
                       >
-                        {getInterfaceCategoryName(product.category, currentLanguage)}
+                        <span>{getInterfaceCategoryName(product.category, currentLanguage)}</span>
+                        {product.variants && product.variants.length > 1 && (
+                          <span className="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded text-[10px] font-medium">
+                            {product.variants.length} {currentLanguage === 'he' ? 'אפשרויות' : 'options'}
+                          </span>
+                        )}
                       </div>
 
                       {/* Two buttons: View Details + Add to Cart */}

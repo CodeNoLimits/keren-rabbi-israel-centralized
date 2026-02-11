@@ -289,6 +289,10 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
                     <div className="flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
                       {product.images && product.images.length > 0 ? (
                         <img
+                          loading="lazy"
+                          decoding="async"
+                          width="40"
+                          height="40"
                           src={convertImagePath(product.images[0])}
                           alt=""
                           className="w-full h-full object-cover"

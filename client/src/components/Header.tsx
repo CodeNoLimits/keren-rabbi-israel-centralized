@@ -137,8 +137,11 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
         {/* LOGO */}
         <div className="header-logo">
           <a href="/" data-testid="link-home" className="transition-all duration-500 hover:scale-110 hover:rotate-2 hover:drop-shadow-2xl inline-block hover:-translate-y-2">
-            <img loading="lazy" 
-              src="https://www.haesh-sheli.co.il/wp-content/uploads/2021/12/cropped-%D7%A7%D7%A8%D7%95-%D7%A8%D7%91%D7%99-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%A8-%D7%90%D7%95%D7%93%D7%A1%D7%A8.d110a0.webp" 
+            <img loading="lazy"
+              decoding="async"
+              width="185"
+              height="300"
+              src="https://www.haesh-sheli.co.il/wp-content/uploads/2021/12/cropped-%D7%A7%D7%A8%D7%95-%D7%A8%D7%91%D7%99-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%A8-%D7%90%D7%95%D7%93%D7%A1%D7%A8.d110a0.webp"
               alt="האש שלי תוקף עד ביאת המשיח"
               data-testid="img-logo"
               className="transition-all duration-500 hover:brightness-110 hover:contrast-110"
@@ -254,9 +257,23 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
             )}
           </div>
 
+          {/* User Profile Icon */}
+          <a
+            href="#"
+            className="user-profile-icon transition-all duration-300 hover:scale-110 hover:bg-white hover:bg-opacity-20 hover:shadow-xl hover:-translate-y-1 cursor-pointer flex items-center justify-center rounded-lg p-2"
+            data-testid="button-user-profile"
+            aria-label="User profile"
+            title={currentLanguage === 'he' ? 'פרופיל' : 'Profile'}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M20 21a8 8 0 0 0-16 0" />
+            </svg>
+          </a>
+
           {/* Cart Widget */}
-          <div 
-            className="cart-widget transition-all duration-300 hover:scale-110 hover:bg-white hover:text-red-600 hover:shadow-xl hover:-translate-y-1 cursor-pointer" 
+          <div
+            className="cart-widget transition-all duration-300 hover:scale-110 hover:bg-white hover:text-red-600 hover:shadow-xl hover:-translate-y-1 cursor-pointer"
             onClick={() => setIsCartOpen(true)}
             data-testid="button-cart"
           >

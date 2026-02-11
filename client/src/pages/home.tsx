@@ -548,6 +548,9 @@ export default function Home() {
                         {imgSrc ? (
                           <img
                             loading="lazy"
+                            decoding="async"
+                            width="220"
+                            height="200"
                             src={imgSrc}
                             alt={title}
                             style={{width: '100%', height: '100%', objectFit: 'cover'}}
@@ -700,6 +703,9 @@ export default function Home() {
                       {imgSrc ? (
                         <img
                           loading="lazy"
+                          decoding="async"
+                          width="280"
+                          height="240"
                           src={imgSrc}
                           alt={title}
                           style={{width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease'}}
@@ -804,7 +810,7 @@ export default function Home() {
                     e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)';
                   }}>
                   <div style={{height: '240px', overflow: 'hidden'}}>
-                    <img loading="lazy" src={book.image} alt={book.title} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+                    <img loading="lazy" decoding="async" width="280" height="240" src={book.image} alt={book.title} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
                   </div>
                   <div style={{padding: '1.25rem', textAlign: 'center'}}>
                     <h3 style={{fontSize: '1.1rem', fontWeight: '600', color: 'hsl(210, 25%, 25%)', margin: 0}}>

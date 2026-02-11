@@ -527,9 +527,10 @@ export default function Contact() {
         <div className="hero-overlay absolute inset-0"></div>
         {/* Background Image */}
         <div className="absolute inset-0 opacity-10">
-          <img loading="lazy" 
-            src="/images/hero-books-composition.png" 
-            alt="Breslov Books Collection" 
+          <img loading="lazy"
+            decoding="async"
+            src="/images/hero-books-composition.png"
+            alt="Breslov Books Collection"
             className="w-full h-full object-cover object-center"
           />
         </div>
@@ -678,19 +679,28 @@ export default function Contact() {
               {/* Breslov Books Visual */}
               <div className="relative mb-8">
                 <div className="grid grid-cols-3 gap-4 opacity-80">
-                  <img loading="lazy" 
-                    src="/images/ליקוטי מוהרן 1_1757275910545.jpg" 
-                    alt="Likutei Moharan" 
+                  <img loading="lazy"
+                    decoding="async"
+                    width="200"
+                    height="128"
+                    src="/images/ליקוטי מוהרן 1_1757275910545.jpg"
+                    alt="Likutei Moharan"
                     className="w-full h-32 object-cover rounded-lg shadow-lg transform rotate-1 hover:rotate-0 transition-transform duration-300"
                   />
-                  <img loading="lazy" 
-                    src="/images/ספר המידות 1_1757275910546.jpg" 
-                    alt="Sefer HaMidot" 
+                  <img loading="lazy"
+                    decoding="async"
+                    width="200"
+                    height="128"
+                    src="/images/ספר המידות 1_1757275910546.jpg"
+                    alt="Sefer HaMidot"
                     className="w-full h-32 object-cover rounded-lg shadow-lg transform -rotate-1 hover:rotate-0 transition-transform duration-300"
                   />
-                  <img loading="lazy" 
-                    src="/images/חיי מוהרן 1_1757275910544.jpg" 
-                    alt="Chayei Moharan" 
+                  <img loading="lazy"
+                    decoding="async"
+                    width="200"
+                    height="128"
+                    src="/images/חיי מוהרן 1_1757275910544.jpg"
+                    alt="Chayei Moharan"
                     className="w-full h-32 object-cover rounded-lg shadow-lg transform rotate-2 hover:rotate-0 transition-transform duration-300"
                   />
                 </div>
@@ -758,9 +768,12 @@ export default function Contact() {
               <div className="card-premium p-8 relative overflow-hidden" data-testid="features-section">
                 {/* Background book image */}
                 <div className="absolute top-4 right-4 opacity-5 pointer-events-none">
-                  <img loading="lazy" 
-                    src="/images/ליקוטי תפילות 1_1757275910545.jpg" 
-                    alt="Likutei Tefilot" 
+                  <img loading="lazy"
+                    decoding="async"
+                    width="128"
+                    height="160"
+                    src="/images/ליקוטי תפילות 1_1757275910545.jpg"
+                    alt="Likutei Tefilot"
                     className="w-32 h-40 object-cover rounded-lg transform rotate-12"
                   />
                 </div>
@@ -800,9 +813,10 @@ export default function Contact() {
         <div className="absolute inset-0 bg-primary/90"></div>
         {/* Breslov books composition background */}
         <div className="absolute inset-0 opacity-20">
-          <img loading="lazy" 
-            src="/images/hero-books-composition.png" 
-            alt="Breslov Books Collection" 
+          <img loading="lazy"
+            decoding="async"
+            src="/images/hero-books-composition.png"
+            alt="Breslov Books Collection"
             className="w-full h-full object-cover object-center"
           />
         </div>

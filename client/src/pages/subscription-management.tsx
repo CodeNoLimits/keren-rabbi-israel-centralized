@@ -135,7 +135,7 @@ export default function SubscriptionManagement() {
               יש להתחבר כדי לצפות בפרטי המנוי
             </p>
             <Button asChild>
-              <a href="/login">התחבר</a>
+              <a href="/api/login">התחבר</a>
             </Button>
           </div>
         </div>

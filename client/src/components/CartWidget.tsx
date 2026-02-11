@@ -180,6 +180,9 @@ export const CartWidget: React.FC = () => {
                     {/* Product Image */}
                     <div className="w-16 h-16 bg-gray-100 rounded overflow-hidden flex-shrink-0">
                       <img loading="lazy"
+                        decoding="async"
+                        width="64"
+                        height="64"
                         src={item.image || '/placeholder-book.jpg'}
                         alt={item.name}
                         className="w-full h-full object-cover"

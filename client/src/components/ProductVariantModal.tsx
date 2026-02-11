@@ -246,6 +246,8 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
           <div className="flex-shrink-0 w-28 h-28 rounded-xl overflow-hidden bg-gray-100 border border-gray-200 shadow-sm">
             {product.images && product.images.length > 0 ? (
               <img
+                loading="lazy"
+                decoding="async"
                 src={convertImagePath(product.images[selectedImage] || product.images[0])}
                 alt={displayTitle}
                 className="w-full h-full object-cover"

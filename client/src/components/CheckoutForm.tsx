@@ -27,6 +27,7 @@ import {
   Heart,
   Lock,
   Truck,
+  UserCheck,
 } from 'lucide-react';
 
 // ----- Payment method SVG icons -----
@@ -206,6 +207,16 @@ export function CheckoutForm() {
     <div dir={dir} className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* ============ FORM COLUMN (right in RTL) ============ */}
       <div className="order-1">
+        {/* Guest checkout banner */}
+        <div className="flex items-center gap-3 p-4 mb-4 rounded-lg bg-blue-50 border border-blue-200 text-blue-800">
+          <UserCheck className="h-5 w-5 flex-shrink-0" />
+          <p className="text-sm font-medium">
+            {isRTL
+              ? 'אין צורך בהרשמה! ניתן לבצע הזמנה כאורח.'
+              : 'No account needed! You can checkout as a guest.'}
+          </p>
+        </div>
+
         <Card className="bg-white shadow-sm border border-gray-100">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center gap-2 text-xl">
@@ -219,6 +230,8 @@ export function CheckoutForm() {
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-5"
+                autoComplete="on"
+                name="checkout"
               >
                 {/* First + Last name row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -231,6 +244,8 @@ export function CheckoutForm() {
                         <FormControl>
                           <Input
                             placeholder={t('firstName')}
+                            autoComplete="given-name"
+                            required
                             {...field}
                           />
                         </FormControl>
@@ -247,6 +262,8 @@ export function CheckoutForm() {
                         <FormControl>
                           <Input
                             placeholder={t('lastName')}
+                            autoComplete="family-name"
+                            required
                             {...field}
                           />
                         </FormControl>
@@ -268,6 +285,8 @@ export function CheckoutForm() {
                           <Input
                             type="email"
                             placeholder="email@example.com"
+                            autoComplete="email"
+                            required
                             {...field}
                           />
                         </FormControl>
@@ -286,6 +305,8 @@ export function CheckoutForm() {
                             type="tel"
                             placeholder="050-1234567"
                             dir="ltr"
+                            autoComplete="tel"
+                            required
                             {...field}
                           />
                         </FormControl>
@@ -305,6 +326,8 @@ export function CheckoutForm() {
                       <FormControl>
                         <Input
                           placeholder={t('address')}
+                          autoComplete="street-address"
+                          required
                           {...field}
                         />
                       </FormControl>
@@ -324,6 +347,8 @@ export function CheckoutForm() {
                         <FormControl>
                           <Input
                             placeholder={t('city')}
+                            autoComplete="address-level2"
+                            required
                             {...field}
                           />
                         </FormControl>
@@ -341,6 +366,8 @@ export function CheckoutForm() {
                           <Input
                             placeholder={t('zipCode')}
                             dir="ltr"
+                            autoComplete="postal-code"
+                            required
                             {...field}
                           />
                         </FormControl>
@@ -498,6 +525,10 @@ export function CheckoutForm() {
                   {item.image && (
                     <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
                       <img
+                        loading="lazy"
+                        decoding="async"
+                        width="64"
+                        height="64"
                         src={item.image}
                         alt={item.name}
                         className="w-full h-full object-cover"

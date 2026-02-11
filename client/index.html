@@ -29,9 +29,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- FONTS - Optimized with display=swap -->
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    <!-- FONTS - All fonts loaded here (non-blocking) with display=swap to prevent FOIT -->
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
 
     <!-- FAVICON -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -43,6 +43,34 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="האש שלי">
+
+    <!-- Preload critical assets for Lighthouse performance -->
+    <link rel="preload" as="style" href="/src/index.css">
+
+    <!-- Performance: Critical above-the-fold CSS inlined to prevent FOUC and CLS -->
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+      body {
+        min-height: 100dvh;
+        background: #FFFFFF;
+        font-family: 'Assistant', 'Inter', 'Segoe UI', system-ui, sans-serif;
+        color: #334155;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      #root { min-height: 100dvh; background: #FFFFFF; }
+      /* Prevent CLS for images */
+      img { max-width: 100%; height: auto; }
+    </style>
+
+    <!--
+      IMAGE OPTIMIZATION NOTE:
+      Product images should ideally be served as WebP format from the API/CDN.
+      The haesh-sheli.co.il WordPress backend already serves .webp images.
+      For any new image uploads, ensure WebP conversion is enabled server-side
+      to reduce payload size by 25-35% compared to JPEG/PNG.
+    -->
 </head>
 <body>
     <div id="root"></div>

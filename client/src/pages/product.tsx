@@ -2,12 +2,13 @@ import { useState, useCallback, useRef } from 'react';
 import { useRoute } from 'wouter';
 import { realBreslovProducts } from '../data/realProducts';
 import { useCart } from '../contexts/CartContext';
+import { useFavorites } from '../contexts/FavoritesContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
 import { getInterfaceDisplayTitle, getInterfaceDisplayDescription, getInterfaceCategoryName } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Truck, Shield, RotateCcw, Star } from 'lucide-react';
+import { Truck, Shield, RotateCcw, Star, Heart } from 'lucide-react';
 import type { Product } from '../../../shared/schema';
 
 export default function Product() {
@@ -19,6 +20,7 @@ export default function Product() {
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
   const imageContainerRef = useRef<HTMLDivElement>(null);
+  const { toggleFavorite, isFavorite } = useFavorites();
   const { addItem } = useCart();
   const { toast } = useToast();
   const { currentLanguage } = useLanguage();
@@ -208,6 +210,7 @@ export default function Product() {
                 <div className="elementor-widget-container">
                   <a href="/">
                     <img loading="lazy"
+                      decoding="async"
                       width="185"
                       height="300"
                       src="https://www.haesh-sheli.co.il/wp-content/uploads/2021/12/cropped-%D7%A7%D7%A8%D7%95-%D7%A8%D7%91%D7%99-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%A8-%D7%90%D7%95%D7%93%D7%A1%D7%A8.d110a0.webp"
@@ -283,6 +286,7 @@ export default function Product() {
                 }}
               >
                 <img loading="lazy"
+                  decoding="async"
                   src={convertImagePath(product.images && product.images[selectedImage] || '')}
                   alt={displayTitle}
                   draggable={false}
@@ -340,6 +344,9 @@ export default function Product() {
                       }}
                     >
                       <img loading="lazy"
+                        decoding="async"
+                        width="60"
+                        height="60"
                         src={convertImagePath(image)}
                         alt={`${displayTitle} ${index + 1}`}
                         style={{width: '60px', height: '60px', objectFit: 'cover', borderRadius: '3px'}}
@@ -358,9 +365,31 @@ export default function Product() {
                 </span>
               </div>
 
-              <h1 style={{fontSize: '2.5rem', fontWeight: 'bold', color: '#333', marginBottom: '1rem'}}>
-                {displayTitle}
-              </h1>
+              <div style={{display: 'flex', alignItems: 'flex-start', gap: '0.75rem', marginBottom: '1rem'}}>
+                <h1 style={{fontSize: '2.5rem', fontWeight: 'bold', color: '#333', flex: 1}}>
+                  {displayTitle}
+                </h1>
+                <button
+                  onClick={() => toggleFavorite(product.id)}
+                  style={{
+                    padding: '0.5rem',
+                    borderRadius: '50%',
+                    border: '1px solid #e5e7eb',
+                    background: isFavorite(product.id) ? '#fef2f2' : 'white',
+                    cursor: 'pointer',
+                    flexShrink: 0,
+                    marginTop: '0.5rem',
+                    transition: 'all 0.2s'
+                  }}
+                  aria-label={isRTL ? 'הוסף למועדפים' : 'Add to favorites'}
+                >
+                  <Heart
+                    size={24}
+                    fill={isFavorite(product.id) ? '#ef4444' : 'none'}
+                    stroke={isFavorite(product.id) ? '#ef4444' : '#9ca3af'}
+                  />
+                </button>
+              </div>
 
               <div style={{display: 'flex', alignItems: 'center', marginBottom: '1rem'}}>
                 <div style={{color: '#ffc107', fontSize: '1.2rem', marginLeft: '0.5rem'}}>
@@ -807,6 +836,9 @@ export default function Product() {
               <div key={relatedProduct.id} style={{background: 'white', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease'}}>
                 <a href={`/product/${relatedProduct.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
                   <img loading="lazy"
+                    decoding="async"
+                    width="220"
+                    height="200"
                     src={convertImagePath(relatedProduct.images && relatedProduct.images[0] || '')}
                     alt={getInterfaceDisplayTitle(relatedProduct, currentLanguage)}
                     style={{width: '100%', height: '200px', objectFit: 'cover'}}
