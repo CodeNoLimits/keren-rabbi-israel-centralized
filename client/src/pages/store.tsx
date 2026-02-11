@@ -602,6 +602,20 @@ export default function Store() {
                     data-testid={`card-product-${product.id}`}
                   >
 
+                    {/* Badges - Sale / Bestseller */}
+                    <div className={`absolute top-3 z-10 flex flex-col gap-1 ${currentLanguage === 'he' ? 'right-3' : 'left-3'}`}>
+                      {product.variants?.some(v => v.originalPrice && v.originalPrice > v.price) && (
+                        <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
+                          {currentLanguage === 'he' ? 'מבצע' : currentLanguage === 'fr' ? 'Promo' : 'Sale'}
+                        </span>
+                      )}
+                      {product.isFeatured && (
+                        <span className="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
+                          {currentLanguage === 'he' ? 'מומלץ' : currentLanguage === 'fr' ? 'Populaire' : 'Popular'}
+                        </span>
+                      )}
+                    </div>
+
                     {/* Favorite Heart Button - top-right corner overlay */}
                     <button
                       onClick={(e) => {

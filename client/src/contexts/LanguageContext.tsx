@@ -1,5 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
+/** All supported language codes */
+export type SupportedLanguage = 'he' | 'en' | 'fr' | 'es' | 'ru';
+
+/** All valid translation keys (derived from the Hebrew translations object) */
+export type TranslationKey = keyof typeof translations['he'];
+
 interface LanguageContextType {
   currentLanguage: string;
   setLanguage: (language: string) => void;
@@ -395,6 +401,23 @@ export const translations = {
     ratedOutOf: 'Calificado 5.00 de 5',
     options: 'opciones',
 
+    // Downloads page
+    freeDownloads: 'Descargas Gratuitas',
+    downloadDescription: 'Descarga libros Breslov en varios idiomas - todos los libros disponibles gratis para la comunidad',
+    search: 'Buscar',
+    searchBooks: 'Buscar libros...',
+    category: 'Categoria',
+    rebbeNachman: 'Escritos del Rebe Najman',
+    rebbeNathan: 'Escritos del Rebe Natan',
+    compilations: 'Compilaciones',
+    downloadLanguage: 'Idioma de Descarga',
+    allLanguages: 'Todos los Idiomas',
+    availableLanguages: 'Idiomas Disponibles',
+    noResultsFound: 'No se Encontraron Resultados',
+    tryDifferentSearch: 'Intenta con otros terminos de busqueda',
+    importantNote: 'Nota Importante',
+    freeDownloadNote: 'Todos los libros estan disponibles para descarga gratuita en el espiritu de Breslov - toda la Tora debe ser gratis',
+
     // Checkout page
     checkoutTitle: 'Completar pedido',
     shippingDetails: 'Datos de envio',
@@ -493,6 +516,23 @@ export const translations = {
     ratedOutOf: 'Рейтинг 5.00 из 5',
     options: 'вариантов',
 
+    // Downloads page
+    freeDownloads: 'Бесплатные Загрузки',
+    downloadDescription: 'Скачайте книги Бреслов на разных языках - все книги бесплатно для сообщества',
+    search: 'Поиск',
+    searchBooks: 'Поиск книг...',
+    category: 'Категория',
+    rebbeNachman: 'Писания Ребе Нахмана',
+    rebbeNathan: 'Писания Ребе Натана',
+    compilations: 'Сборники',
+    downloadLanguage: 'Язык Загрузки',
+    allLanguages: 'Все Языки',
+    availableLanguages: 'Доступные Языки',
+    noResultsFound: 'Результаты Не Найдены',
+    tryDifferentSearch: 'Попробуйте другие поисковые запросы',
+    importantNote: 'Важное Примечание',
+    freeDownloadNote: 'Все книги доступны для бесплатного скачивания в духе Бреслов - вся Тора должна быть бесплатной',
+
     // Checkout page
     checkoutTitle: 'Оформление заказа',
     shippingDetails: 'Данные доставки',
@@ -557,7 +597,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const saved = localStorage.getItem('site-language');
-    if (saved && translations[saved as keyof typeof translations]) {
+    if (saved && saved in translations) {
       setCurrentLanguage(saved);
     }
   }, []);

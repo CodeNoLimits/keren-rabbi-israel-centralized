@@ -505,7 +505,7 @@ export default function Chat() {
                     onKeyPress={handleKeyPress}
                     placeholder="שאל שאלה על תורת רבי נחמן..."
                     className="min-h-[50px] max-h-[120px] resize-none text-right"
-                    disabled={isLoading || !chatStatus?.connected}
+                    disabled={isLoading || !currentStatus?.connected}
                     data-testid="chat-input"
                   />
                 </div>
@@ -513,7 +513,7 @@ export default function Chat() {
                 <div className="flex flex-col gap-2">
                   <Button
                     onClick={() => handleSubmit()}
-                    disabled={!inputMessage.trim() || isLoading || !chatStatus?.connected}
+                    disabled={!inputMessage.trim() || isLoading || !currentStatus?.connected}
                     className="bg-red-600 hover:bg-red-700"
                     data-testid="send-button"
                   >

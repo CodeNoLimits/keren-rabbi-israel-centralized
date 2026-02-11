@@ -211,9 +211,11 @@ export function CheckoutForm() {
         <div className="flex items-center gap-3 p-4 mb-4 rounded-lg bg-blue-50 border border-blue-200 text-blue-800">
           <UserCheck className="h-5 w-5 flex-shrink-0" />
           <p className="text-sm font-medium">
-            {isRTL
-              ? 'אין צורך בהרשמה! ניתן לבצע הזמנה כאורח.'
-              : 'No account needed! You can checkout as a guest.'}
+            {currentLanguage === 'he' ? 'אין צורך בהרשמה! ניתן לבצע הזמנה כאורח.' :
+             currentLanguage === 'fr' ? 'Pas besoin de compte ! Vous pouvez commander en tant qu\'invité.' :
+             currentLanguage === 'es' ? '¡No necesitas una cuenta! Puedes comprar como invitado.' :
+             currentLanguage === 'ru' ? 'Регистрация не нужна! Можно оформить заказ как гость.' :
+             'No account needed! You can checkout as a guest.'}
           </p>
         </div>
 

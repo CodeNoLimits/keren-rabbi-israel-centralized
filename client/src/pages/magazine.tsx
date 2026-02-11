@@ -1714,7 +1714,8 @@ export default function Magazine() {
   };
 
   // Filter and sort articles
-  const filteredArticles = t.articles
+  const articles = 'articles' in t ? (t as { articles: Article[] }).articles : [];
+  const filteredArticles = articles
     .filter((article: Article) => 
       (selectedCategory === '' || article.category === selectedCategory) &&
       (searchTerm === '' || 

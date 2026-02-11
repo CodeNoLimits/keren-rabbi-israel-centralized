@@ -31,10 +31,10 @@ export async function sendEmail(params: EmailParams): Promise<boolean> {
       to: params.to,
       from: params.from,
       subject: params.subject,
-      text: params.text,
-      html: params.html,
-      templateId: params.templateId,
-      dynamicTemplateData: params.dynamicTemplateData,
+      ...(params.text && { text: params.text }),
+      ...(params.html && { html: params.html }),
+      ...(params.templateId && { templateId: params.templateId }),
+      ...(params.dynamicTemplateData && { dynamicTemplateData: params.dynamicTemplateData }),
     });
     return true;
   } catch (error) {

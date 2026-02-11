@@ -7,7 +7,8 @@ import { fileURLToPath } from "url";
 import Stripe from "stripe";
 import { User } from "@shared/schema";
 import { sendOrderConfirmation } from "./emailService";
-import { chatWithGemini, chatWithGeminiStream, checkGeminiConnection, analyzeUserSentiment, type ChatRequest, type ChatMessage } from "./geminiService";
+import { chatWithGemini, chatWithGeminiStream, checkGeminiConnection, analyzeUserSentiment } from "./geminiService";
+import type { ChatRequest } from "./chatTypes";
 import { chatWithOpenAI, chatWithOpenAIStream, checkOpenAIConnection, analyzeUserSentimentOpenAI } from "./openaiService";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 

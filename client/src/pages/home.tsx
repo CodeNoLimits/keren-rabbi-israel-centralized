@@ -859,7 +859,7 @@ export default function Home() {
           </p>
 
           <div style={{display: 'flex', justifyContent: 'center', gap: '0.75rem', marginBottom: '3.5rem', flexWrap: 'wrap'}}>
-            <input type="email" placeholder={isRTL ? '\u05D4\u05DB\u05E0\u05D9\u05E1\u05D5 \u05DB\u05EA\u05D5\u05D1\u05EA \u05D0\u05D9\u05DE\u05D9\u05D9\u05DC' : 'Enter email address'} style={{padding: '0.9rem 1.25rem', borderRadius: '8px', border: '1.5px solid hsl(210, 20%, 85%)', fontSize: '0.95rem', minWidth: '280px', textAlign: isRTL ? 'right' : 'left', outline: 'none', transition: 'border-color 0.2s ease'}} />
+            <input type="email" placeholder={isRTL ? '\u05D4\u05DB\u05E0\u05D9\u05E1\u05D5 \u05DB\u05EA\u05D5\u05D1\u05EA \u05D0\u05D9\u05DE\u05D9\u05D9\u05DC' : 'Enter email address'} style={{padding: '0.9rem 1.25rem', borderRadius: '8px', border: '1.5px solid hsl(210, 20%, 85%)', fontSize: '0.95rem', minWidth: 'min(280px, calc(100vw - 6rem))', textAlign: isRTL ? 'right' : 'left', outline: 'none', transition: 'border-color 0.2s ease'}} />
             <button style={{background: 'hsl(210, 85%, 45%)', color: 'white', border: 'none', padding: '0.9rem 1.75rem', borderRadius: '8px', cursor: 'pointer', fontSize: '0.95rem', fontWeight: '600', boxShadow: '0 2px 8px hsla(210, 85%, 45%, 0.25)', transition: 'all 0.2s ease'}}>
               {ml(currentLanguage, { he: '\u05D4\u05E6\u05D8\u05E8\u05E4\u05D5 \u05E2\u05DB\u05E9\u05D9\u05D5', en: 'Join Now', fr: 'Rejoignez Maintenant', es: '\u00DAnete Ahora', ru: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C \u0421\u0435\u0439\u0447\u0430\u0441' })}
             </button>

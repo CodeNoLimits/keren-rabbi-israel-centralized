@@ -1,9 +1,8 @@
 User-agent: *
 Allow: /
-Sitemap: https://haesh-sheli.co.il/sitemap.xml
-
-User-agent: Googlebot
-Allow: /
-
 Disallow: /api/
 Disallow: /checkout/
+Disallow: /yaaakov
+Disallow: /subscription/
+
+Sitemap: https://haesh-sheli-new.vercel.app/sitemap.xml

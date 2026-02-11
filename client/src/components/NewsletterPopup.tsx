@@ -138,11 +138,11 @@ export function NewsletterPopup() {
         aria-label="Close"
         style={{
           position: 'absolute',
-          top: '12px',
-          right: isRTL ? 'auto' : '12px',
-          left: isRTL ? '12px' : 'auto',
-          width: '28px',
-          height: '28px',
+          top: '8px',
+          right: isRTL ? 'auto' : '8px',
+          left: isRTL ? '8px' : 'auto',
+          width: '44px',
+          height: '44px',
           borderRadius: '50%',
           border: 'none',
           background: '#f3f4f6',

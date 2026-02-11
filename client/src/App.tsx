@@ -12,7 +12,9 @@ import { InstallPrompt } from "@/components/InstallPrompt";
 import { AmbientMusic } from "@/components/AmbientMusic";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import { ChatWidget } from "@/components/ChatWidget";
 import { NewsletterPopup } from "@/components/NewsletterPopup";
+import { CookieConsent } from "@/components/CookieConsent";
 
 // Lazy load all pages for code splitting
 const Home = lazy(() => import("@/pages/home"));
@@ -32,8 +34,10 @@ const Subscription = lazy(() => import("@/pages/subscription"));
 const SubscriptionManagement = lazy(() => import("@/pages/subscription-management"));
 const YaakovDashboard = lazy(() => import("@/pages/yaaakov"));
 const Chat = lazy(() => import("@/pages/chat"));
+const Blog = lazy(() => import("@/pages/blog"));
 const Favorites = lazy(() => import("@/pages/favorites"));
 const Legal = lazy(() => import("@/pages/legal"));
+const Admin = lazy(() => import("@/pages/admin"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 // Loading fallback component
@@ -322,7 +326,9 @@ function Router() {
         <Route path="/keren-style" component={KerenStyle} />
         <Route path="/haesh-hype" component={HaeshHype} />
         <Route path="/chat" component={Chat} />
+        <Route path="/blog" component={Blog} />
         <Route path="/yaaakov" component={YaakovDashboard} />
+        <Route path="/admin" component={Admin} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
@@ -343,6 +349,7 @@ function App() {
                 <Router />
                 <Footer />
                 <WhatsAppFloat />
+                <ChatWidget />
                 <NewsletterPopup />
               </FavoritesProvider>
             </CartProvider>

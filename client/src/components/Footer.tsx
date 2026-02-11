@@ -10,6 +10,7 @@ const footerTranslations = {
     about: 'אודות',
     contact: 'צור קשר',
     downloads: 'הורדות',
+    blog: 'תורה יומית',
     customerService: 'שירות לקוחות',
     shippingPolicy: 'מדיניות משלוחים',
     returns: 'החזרות והחלפות',
@@ -27,6 +28,7 @@ const footerTranslations = {
     about: 'About',
     contact: 'Contact',
     downloads: 'Downloads',
+    blog: 'Daily Torah',
     customerService: 'Customer Service',
     shippingPolicy: 'Shipping Policy',
     returns: 'Returns & Exchanges',
@@ -44,6 +46,7 @@ const footerTranslations = {
     about: 'A propos',
     contact: 'Contact',
     downloads: 'Telechargements',
+    blog: 'Torah du Jour',
     customerService: 'Service Client',
     shippingPolicy: 'Politique de Livraison',
     returns: 'Retours et Echanges',
@@ -61,6 +64,7 @@ const footerTranslations = {
     about: 'Acerca de',
     contact: 'Contacto',
     downloads: 'Descargas',
+    blog: 'Torah Diaria',
     customerService: 'Servicio al Cliente',
     shippingPolicy: 'Politica de Envio',
     returns: 'Devoluciones y Cambios',
@@ -78,6 +82,7 @@ const footerTranslations = {
     about: 'О нас',
     contact: 'Контакт',
     downloads: 'Загрузки',
+    blog: 'Ежедневная Тора',
     customerService: 'Обслуживание Клиентов',
     shippingPolicy: 'Политика Доставки',
     returns: 'Возвраты и Обмены',
@@ -146,6 +151,7 @@ export function Footer() {
                 { label: t.about, href: '/about' },
                 { label: t.contact, href: '/contact' },
                 { label: t.downloads, href: '/downloads' },
+                { label: t.blog, href: '/blog' },
               ].map((link) => (
                 <li key={link.href}>
                   <a

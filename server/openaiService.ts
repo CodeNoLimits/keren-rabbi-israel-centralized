@@ -2,28 +2,11 @@
 // Via Open Router API - Modèle "openai/gpt-4o-mini" (ChatGPT 4o-mini)
 
 import { createSystemPrompt, searchRelevantContent } from "./ragContext";
+import type { ChatRequest, ChatResponse } from "./chatTypes";
 
 // Open Router configuration
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1";
 const MODEL_NAME = "openai/gpt-4o-mini";
-
-export interface ChatMessage {
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: Date;
-}
-
-export interface ChatRequest {
-  message: string;
-  conversationHistory?: ChatMessage[];
-  useRAG?: boolean;
-}
-
-export interface ChatResponse {
-  response: string;
-  conversationId?: string;
-  error?: string;
-}
 
 /**
  * Chat avec OpenAI ChatGPT 4o-mini utilisant contexte RAG HaEsh Sheli

@@ -31,7 +31,7 @@
 - [ ] **6. [P2/M] Coupon/Promo Code System**
   Build coupon functionality: input field at checkout (`checkout.tsx`), server-side validation, percentage/fixed discounts. Yaakov wants personalized promo codes sent by email. Add `coupons` table to `schema.ts`, API endpoints, and UI in checkout flow.
 
-- [ ] **7. [P2/S] Product Card Price Display Improvement**
+- [x] **7. [P2/S] Product Card Price Display Improvement**
   Currently shows range like "25 NIS - 165 NIS" which is confusing. Show "from X NIS" or show the cheapest variant price prominently with "more options" badge.
 
 - [ ] **8. [P2/S] Add "Sale" / "Bestseller" / "New" Badges on Product Cards**
@@ -93,7 +93,7 @@
 - [x] **24. [P1/M] Product Names in Selected Interface Language**
   Use `getInterfaceDisplayTitle()` from `bookTitleHelper.ts` (already exists but not used in store page) to show product titles in the user's selected language. Currently `store.tsx` always shows `product.name` (Hebrew).
 
-- [ ] **25. [P1/M] Product Descriptions in Selected Language**
+- [x] **25. [P1/M] Product Descriptions in Selected Language**
   Products have `description` (Hebrew) and `descriptionEnglish` fields. Display the correct description based on `currentLanguage`. Add missing translations for French, Spanish, Russian.
 
 - [ ] **26. [P2/M] Multi-Language Product Grouping**
@@ -102,13 +102,13 @@
 - [ ] **27. [P2/S] Language Filter Should Match Product Language Field**
   Store sidebar has language filter but products use Hebrew language names (e.g., "עברית", "אנגלית"). Ensure filter values display in current interface language and match correctly.
 
-- [ ] **28. [P2/S] Category Names Translation**
+- [x] **28. [P2/S] Category Names Translation**
   Categories like "ספרי רבינו" display in Hebrew regardless of language. Add translated category names to the data or a translation lookup.
 
 - [ ] **29. [P2/S] Checkout Page Multi-Language Support**
   `checkout.tsx` is entirely in Hebrew hardcoded. Add language-aware text using `useLanguage()` for all form labels, buttons, error messages.
 
-- [ ] **30. [P2/S] Product Page Multi-Language Support**
+- [x] **30. [P2/S] Product Page Multi-Language Support**
   `product.tsx` has hardcoded Hebrew text: "בחר גודל וכריכה", "מאפיינים מיוחדים", "מוצרים דומים" etc. Translate all static text using the language context.
 
 - [ ] **31. [P3/S] RTL/LTR Auto-Direction Based on Language**
@@ -152,10 +152,10 @@
 - [ ] **41. [P2/M] Implement Favorites Context (FavoritesContext.tsx)**
   Create a new React context similar to `CartContext.tsx` with: `addFavorite`, `removeFavorite`, `isFavorite`, `favorites[]`. Persist to localStorage keyed by user.
 
-- [ ] **42. [P2/S] Heart Icon on Product Cards**
+- [x] **42. [P2/S] Heart Icon on Product Cards**
   Add a heart icon (outline when not favorited, filled when favorited) to each product card in the store grid. Click toggles favorite status. Use `lucide-react` Heart icon.
 
-- [ ] **43. [P2/S] Heart Icon on Product Detail Page**
+- [x] **43. [P2/S] Heart Icon on Product Detail Page**
   Add favorite toggle button next to product title on `product.tsx`.
 
 - [x] **44. [P2/M] Favorites Page (/favorites)**
@@ -233,7 +233,7 @@
 - [x] **64. [P1/S] Remove Console.log Statements in Production**
   `store.tsx` line 132: `console.log('STORE: Loading...')`. Remove all debug console logs or guard with `import.meta.env.DEV`.
 
-- [ ] **65. [P1/M] Optimize Bundle Size**
+- [x] **65. [P1/M] Optimize Bundle Size**
   `package.json` has many heavy dependencies: recharts, framer-motion, embla-carousel, etc. Audit which are actually used. Tree-shake unused components. Current lazy loading in `App.tsx` is good but verify chunk sizes.
 
 - [ ] **66. [P2/S] Image Optimization Pipeline**

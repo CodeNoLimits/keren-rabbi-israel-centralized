@@ -3,6 +3,7 @@
 
 import { GoogleGenAI } from "@google/genai";
 import { createSystemPrompt, searchRelevantContent } from "./ragContext";
+import type { ChatRequest, ChatResponse } from "./chatTypes";
 
 // DON'T DELETE THIS COMMENT
 // Follow these instructions when using this blueprint:
@@ -11,24 +12,6 @@ import { createSystemPrompt, searchRelevantContent } from "./ragContext";
 
 // This API key is from Gemini Developer API Key, not vertex AI API Key
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
-
-export interface ChatMessage {
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: Date;
-}
-
-export interface ChatRequest {
-  message: string;
-  conversationHistory?: ChatMessage[];
-  useRAG?: boolean;
-}
-
-export interface ChatResponse {
-  response: string;
-  conversationId?: string;
-  error?: string;
-}
 
 /**
  * Chat avec Gemini 2.5 Pro utilisant contexte RAG HaEsh Sheli

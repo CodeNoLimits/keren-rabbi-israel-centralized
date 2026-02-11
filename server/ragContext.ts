@@ -171,7 +171,7 @@ export function buildChatContext(): ChatContext {
     pages: product.pages,
     features: product.features,
     tags: product.tags,
-    variants: product.variants.map(variant => ({
+    variants: (product.variants || []).map(variant => ({
       format: variant.format,
       binding: variant.binding,
       size: variant.size,
@@ -215,7 +215,7 @@ ${context.breslovBooks.map(book =>
   - תיאור: ${book.description}
   - עמודים: ${book.pages}
   - תכונות: ${book.features?.join(', ')}
-  - זמין בגדלים וכריכות: ${book.variants?.map(v => `${v.format} ${v.size} (${v.price}₪)`).join(', ')}`
+  - זמין בגדלים וכריכות: ${book.variants?.map((v: { format: string; size: string; price: number }) => `${v.format} ${v.size} (${v.price}₪)`).join(', ')}`
 ).join('\n\n')}
 
 ### תורות ואמרות אותנטיות של רבי נחמן:
@@ -270,7 +270,7 @@ export function searchRelevantContent(query: string): string {
     book.nameEnglish?.toLowerCase().includes(lowerQuery) ||
     book.description?.toLowerCase().includes(lowerQuery) ||
     book.category?.toLowerCase().includes(lowerQuery) ||
-    book.tags?.some(tag => tag.includes(query))
+    book.tags?.some((tag: string) => tag.includes(query))
   );
   
   if (relevantBooks.length > 0) {

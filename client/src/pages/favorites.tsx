@@ -39,7 +39,12 @@ export default function Favorites() {
         productId: product.id,
         variantId: defaultVariant.id || `${product.id}-default`,
         name: product.name,
-        variant: `${defaultVariant.size || ''} ${defaultVariant.format || ''}`.trim(),
+        nameEnglish: product.nameEnglish || product.name,
+        variant: {
+          format: defaultVariant.format || '',
+          binding: defaultVariant.binding || '',
+          size: defaultVariant.size || '',
+        },
         price: defaultVariant.price,
         quantity: 1,
         image: product.images?.[0] || '',

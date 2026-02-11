@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Music, Volume2, VolumeX } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -24,6 +24,7 @@ export function AmbientMusic({ playlist }: AmbientMusicProps) {
     return saved ? JSON.parse(saved) : false;
   });
   const [isLoaded, setIsLoaded] = useState(false);
+  const [apiRequested, setApiRequested] = useState(false);
   const [showPlaylist, setShowPlaylist] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
   const playerRef = useRef<any>(null);
@@ -38,31 +39,15 @@ export function AmbientMusic({ playlist }: AmbientMusicProps) {
     }
   ];
 
-  // Load YouTube IFrame API
-  useEffect(() => {
-    if (!window.YT) {
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
-
-      window.onYouTubeIframeAPIReady = () => {
-        initializePlayer();
-      };
-    } else {
-      initializePlayer();
-    }
-  }, []);
-
-  const initializePlayer = () => {
-    if (!containerRef.current) return;
+  const initializePlayer = useCallback(() => {
+    if (!containerRef.current || playerRef.current) return;
 
     playerRef.current = new window.YT.Player('youtube-player', {
       height: '0',
       width: '0',
       videoId: defaultPlaylist[currentTrack].videoId,
       playerVars: {
-        autoplay: isPlaying ? 1 : 0,
+        autoplay: 1,
         loop: 1,
         playlist: defaultPlaylist[currentTrack].videoId, // For looping
         controls: 0,
@@ -74,9 +59,7 @@ export function AmbientMusic({ playlist }: AmbientMusicProps) {
       events: {
         onReady: (event: any) => {
           setIsLoaded(true);
-          if (isPlaying) {
-            event.target.playVideo();
-          }
+          event.target.playVideo();
         },
         onStateChange: (event: any) => {
           // Handle state changes
@@ -87,7 +70,36 @@ export function AmbientMusic({ playlist }: AmbientMusicProps) {
         }
       }
     });
-  };
+  }, [currentTrack, defaultPlaylist]);
+
+  // Load YouTube IFrame API only when requested (user clicks play or was previously playing)
+  const loadYouTubeApi = useCallback(() => {
+    if (apiRequested) return;
+    setApiRequested(true);
+
+    if (window.YT && window.YT.Player) {
+      initializePlayer();
+    } else {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+
+      window.onYouTubeIframeAPIReady = () => {
+        initializePlayer();
+      };
+    }
+  }, [apiRequested, initializePlayer]);
+
+  // If user had music playing in a previous session, defer loading until after page settles
+  useEffect(() => {
+    if (isPlaying && !apiRequested) {
+      const timeout = setTimeout(() => {
+        loadYouTubeApi();
+      }, 3000); // Defer 3s after mount to not block initial paint
+      return () => clearTimeout(timeout);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Update localStorage when playing state changes
   useEffect(() => {
@@ -106,7 +118,12 @@ export function AmbientMusic({ playlist }: AmbientMusicProps) {
   }, [isPlaying, isLoaded]);
 
   const toggleMusic = () => {
-    setIsPlaying(!isPlaying);
+    const newState = !isPlaying;
+    setIsPlaying(newState);
+    // If turning on and API not yet loaded, load it now
+    if (newState && !apiRequested) {
+      loadYouTubeApi();
+    }
   };
 
   const togglePlaylist = () => {
@@ -126,16 +143,18 @@ export function AmbientMusic({ playlist }: AmbientMusicProps) {
 
   return (
     <>
-      {/* Hidden YouTube Player */}
-      <div 
-        ref={containerRef}
-        style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}
-      >
-        <div id="youtube-player"></div>
-      </div>
+      {/* Hidden YouTube Player - only rendered when API is requested */}
+      {apiRequested && (
+        <div
+          ref={containerRef}
+          style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}
+        >
+          <div id="youtube-player"></div>
+        </div>
+      )}
 
       {/* Floating Music Control */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed right-6 z-50" style={{ bottom: '96px' }}>
         {/* Playlist Options (Future Feature) */}
         {showPlaylist && defaultPlaylist.length > 1 && (
           <div className="absolute bottom-16 right-0 bg-white dark:bg-gray-800 rounded-lg shadow-lg border p-2 min-w-[200px]">
@@ -147,8 +166,8 @@ export function AmbientMusic({ playlist }: AmbientMusicProps) {
                 key={track.id}
                 onClick={() => selectTrack(index)}
                 className={`w-full text-left px-3 py-2 rounded text-sm hover:bg-gray-100 dark:hover:bg-gray-700 ${
-                  currentTrack === index 
-                    ? 'bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400' 
+                  currentTrack === index
+                    ? 'bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400'
                     : 'text-gray-700 dark:text-gray-300'
                 }`}
               >
@@ -179,8 +198,8 @@ export function AmbientMusic({ playlist }: AmbientMusicProps) {
             onClick={toggleMusic}
             size="sm"
             className={`w-12 h-12 rounded-full shadow-lg transition-all ${
-              isPlaying 
-                ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+              isPlaying
+                ? 'bg-blue-600 hover:bg-blue-700 text-white'
                 : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700'
             }`}
             data-testid="button-ambient-music-toggle"

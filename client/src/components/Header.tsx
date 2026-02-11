@@ -31,6 +31,7 @@ const translations = {
     breslovVideos: 'קרן סגנון',
     haeshHype: '🔥 האש הייפ',
     chat: '💬 צ\'אט ברסלבי',
+    blog: 'תורה יומית',
     whatsapp: '💬 דבר איתנו',
     fire: '🔥 האש שלי',
     login: 'כניסה',
@@ -53,6 +54,7 @@ const translations = {
     breslovVideos: 'Keren Style',
     haeshHype: '🔥 HaEsh Hype',
     chat: '💬 Breslov Chat',
+    blog: 'Daily Torah',
     whatsapp: '💬 Talk to Us',
     fire: '🔥 My Fire',
     login: 'Login',
@@ -75,6 +77,7 @@ const translations = {
     breslovVideos: 'Style Keren',
     haeshHype: '🔥 HaEsh Hype',
     chat: '💬 Chat Breslov',
+    blog: 'Torah du Jour',
     whatsapp: '💬 Parlez-nous',
     fire: '🔥 Mon Feu',
     login: 'Connexion',
@@ -97,6 +100,7 @@ const translations = {
     breslovVideos: 'Estilo Keren',
     haeshHype: '🔥 HaEsh Hype',
     chat: '💬 Chat Breslov',
+    blog: 'Torah Diaria',
     whatsapp: '💬 Habla con Nosotros',
     fire: '🔥 Mi Fuego',
     login: 'Iniciar Sesión',
@@ -119,6 +123,7 @@ const translations = {
     breslovVideos: 'Керен Стиль',
     haeshHype: '🔥 ХаЭш Хайп',
     chat: '💬 Брeslов Чат',
+    blog: 'Ежедневная Тора',
     whatsapp: '💬 Поговорить с Нами',
     fire: '🔥 Мой Огонь',
     login: 'Войти',
@@ -235,6 +240,9 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
             </li>
             <li className={location === '/contact' ? 'current-menu-item' : ''}>
               <a href="/contact" data-testid="link-contact" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.contact}</a>
+            </li>
+            <li className={location === '/blog' ? 'current-menu-item' : ''}>
+              <a href="/blog" data-testid="link-blog" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.blog}</a>
             </li>
           </ul>
         </nav>
@@ -434,6 +442,9 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
           </li>
           <li className={location === '/contact' ? 'current-menu-item' : ''}>
             <a href="/contact" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-contact" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.contact}</a>
+          </li>
+          <li className={location === '/blog' ? 'current-menu-item' : ''}>
+            <a href="/blog" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-blog" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.blog}</a>
           </li>
         </ul>
 

@@ -4,6 +4,12 @@ dist
 server/public
 vite.config.ts.*
 *.tar.gz
+
+# Environment variables (NEVER commit secrets)
+.env
+.env.local
+.env.production
+.env.*.local
 # Exclude large files that can't be uploaded to GitHub
 attached_assets/*.zip
 attached_assets/*.pdf

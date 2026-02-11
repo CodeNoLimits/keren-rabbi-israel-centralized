@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useRoute } from 'wouter';
 import { realBreslovProducts } from '../data/realProducts';
 import { useCart } from '../contexts/CartContext';
@@ -183,13 +183,13 @@ export default function Product() {
   }, [product?.id]);
 
   // Get recently viewed products (excluding current)
-  const recentlyViewed = useMemo(() => {
+  const recentlyViewed: Product[] = useMemo(() => {
     const stored: string[] = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
     return stored
       .filter(id => id !== product?.id)
       .slice(0, 5)
       .map(id => realBreslovProducts[id])
-      .filter(Boolean);
+      .filter((p): p is Product => Boolean(p));
   }, [product?.id]);
 
   // Related products: prefer same category, then fill with others, show 4 total
