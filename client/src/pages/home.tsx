@@ -463,18 +463,33 @@ export default function Home() {
                     }}
                   >
                     <Link href={`/product/${product.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                      <div style={{width: '100%', height: '200px', overflow: 'hidden', background: '#FFFFFF'}}>
+                      <div className="relative group" style={{width: '100%', height: '200px', overflow: 'hidden', background: '#FFFFFF'}}>
                         {imgSrc ? (
-                          <img
-                            loading="lazy"
-                            decoding="async"
-                            width="220"
-                            height="200"
-                            src={imgSrc}
-                            alt={descriptiveAlt}
-                            style={{width: '100%', height: '100%', objectFit: 'cover'}}
-                            onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
-                          />
+                          <>
+                            <img
+                              loading="lazy"
+                              decoding="async"
+                              width="220"
+                              height="200"
+                              src={imgSrc}
+                              alt={descriptiveAlt}
+                              className="transition-opacity duration-500 ease-in-out group-hover:opacity-0"
+                              style={{width: '100%', height: '100%', objectFit: 'cover'}}
+                              onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
+                            />
+                            {product.images && product.images.length > 1 && (
+                              <img
+                                loading="lazy"
+                                decoding="async"
+                                width="220"
+                                height="200"
+                                src={convertImagePath(product.images[1])}
+                                alt={descriptiveAlt + " - 2"}
+                                className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
+                                onError={(e) => { e.currentTarget.remove(); }}
+                              />
+                            )}
+                          </>
                         ) : (
                           <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem'}}>
                             &#128214;
