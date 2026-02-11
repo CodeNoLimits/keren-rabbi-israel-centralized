@@ -37,7 +37,7 @@
 /* === MOBILE SAFE-AREA ENFORCEMENT === */
 html, body {
   min-height: 100dvh;
-  background: var(--background-blue);
+  background: #FFFFFF;
 }
 
 #root {
@@ -46,61 +46,68 @@ html, body {
 }
 
 :root {
-  /* === PALETTE BRESLOV HARMONIEUSE 2025 === */
-  /* Analogique: Bleu + Teal + Or | 60-30-10 Rule | Critères 2025 */
-  
-  /* Bleu Breslov Principal (60% - Dominant) */
-  --primary-blue: hsl(210, 85%, 45%);
-  --primary-blue-dark: hsl(210, 90%, 35%);
-  --primary-blue-light: hsl(210, 70%, 60%);
-  
-  /* Teal Breslov Secondaire (30% - Analogique Harmony) */
-  --teal-breslov: hsl(180, 65%, 45%);
-  --teal-breslov-light: hsl(180, 60%, 65%);
-  --teal-breslov-dark: hsl(180, 75%, 35%);
-  
-  /* Or Breslov Accent (10% - Premium Touch) */
+  /* === PALETTE KEREN RABBI ISRAEL === */
+  /* Orange (CTA/Prix) + Navy (Titres/Footer) + White (Fond) */
+
+  /* Orange Keren Principal (CTA, prix, boutons) */
+  --primary-orange: #FF6B00;
+  --primary-orange-hover: #E65A00;
+  --primary-orange-light: #FFF0E5;
+
+  /* Legacy aliases for existing code */
+  --primary-blue: #FF6B00;
+  --primary-blue-dark: #E65A00;
+  --primary-blue-light: #FF8C3A;
+
+  /* Navy Blue (Titres, footer, texte fort) */
+  --secondary-navy: #0F172A;
+  --secondary-navy-light: #334155;
+  --teal-breslov: #334155;
+  --teal-breslov-light: #64748B;
+  --teal-breslov-dark: #0F172A;
+
+  /* Gold Accent (subtle premium touches) */
   --gold-breslov: hsl(45, 90%, 55%);
   --gold-breslov-light: hsl(45, 85%, 70%);
   --gold-breslov-muted: hsl(45, 40%, 85%);
-  
-  /* Backgrounds & Surfaces - Harmonieux */
-  --background: hsl(0, 0%, 100%);
-  --background-teal: hsl(180, 30%, 98%);
-  --background-blue: hsl(210, 30%, 98%);
-  --foreground: hsl(210, 8%, 25%);
-  
+
+  /* Backgrounds & Surfaces - Pure White */
+  --background: #FFFFFF;
+  --background-teal: #F8FAFC;
+  --background-blue: #FFFFFF;
+  --foreground: #334155;
+
   /* Cards & Containers */
-  --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(210, 8%, 25%);
-  --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(210, 8%, 25%);
-  
-  /* Primary Colors - Bleu Breslov */
-  --primary: hsl(210, 85%, 45%);
-  --primary-foreground: hsl(0, 0%, 98%);
-  
-  /* Secondary & Muted - Teal Harmony */
-  --secondary: hsl(180, 30%, 98%);
-  --secondary-foreground: hsl(180, 8%, 25%);
-  --muted: hsl(210, 15%, 95%);
-  --muted-foreground: hsl(210, 12%, 55%);
-  
-  /* Accent & Highlights - Teal + Gold */
-  --accent: hsl(180, 65%, 45%);
-  --accent-foreground: hsl(0, 0%, 98%);
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F172A;
+
+  /* Primary Colors - Orange Keren */
+  --primary: #FF6B00;
+  --primary-foreground: #FFFFFF;
+
+  /* Secondary & Muted */
+  --secondary: #F8FAFC;
+  --secondary-foreground: #0F172A;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+
+  /* Accent - Orange */
+  --accent: #FF6B00;
+  --accent-foreground: #FFFFFF;
   --gold-accent: hsl(45, 90%, 55%);
-  
-  /* Status Colors - Harmonisées */
+
+  /* Status Colors */
   --destructive: hsl(0, 70%, 55%);
-  --destructive-foreground: hsl(0, 0%, 98%);
+  --destructive-foreground: #FFFFFF;
   --success-green: hsl(150, 60%, 45%);
   --warning-amber: hsl(35, 90%, 55%);
-  
-  /* Borders & Inputs - Teal Touch */
-  --border: hsl(180, 15%, 90%);
-  --input: hsl(180, 15%, 90%);
-  --ring: hsl(210, 85%, 45%);
+
+  /* Borders & Inputs */
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #FF6B00;
   
   /* Design System */
   --radius: 0.75rem;
@@ -119,11 +126,17 @@ html, body {
   --body-regular: clamp(1rem, 1.5vw, 1.125rem);
 }
 
+/* Apple Store scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
 @layer base {
   * {
     @apply border-border;
   }
-  
+
   html {
     font-family: var(--font-hebrew);
     scroll-behavior: smooth;

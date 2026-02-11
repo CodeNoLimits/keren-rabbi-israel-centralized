@@ -223,7 +223,7 @@ export default function Home() {
                 fontWeight: '800',
                 marginBottom: '1rem',
                 lineHeight: '1.15',
-                color: 'hsl(210, 25%, 15%)',
+                color: '#0F172A',
                 fontFamily: isRTL ? 'var(--font-hebrew)' : 'var(--font-latin)',
                 letterSpacing: '-0.01em',
               }}>
@@ -270,7 +270,7 @@ export default function Home() {
               <div style={{display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center'}}>
                 <a href="/store" style={{textDecoration: 'none'}}>
                   <button data-testid="button-enter-store" style={{
-                    background: '#FF6B35',
+                    background: '#FF6B00',
                     color: '#FFFFFF',
                     border: 'none',
                     padding: '1rem 2.5rem',
@@ -293,8 +293,8 @@ export default function Home() {
                 <a href="/join" style={{textDecoration: 'none'}}>
                   <button data-testid="button-discover-activities" style={{
                     background: 'transparent',
-                    color: '#FF6B35',
-                    border: '1.5px solid #FF6B35',
+                    color: '#FF6B00',
+                    border: '1.5px solid #FF6B00',
                     padding: '1rem 2.5rem',
                     borderRadius: '10px',
                     cursor: 'pointer',
@@ -356,7 +356,7 @@ export default function Home() {
                 }}>
                   {/* Flame SVG icon */}
                   <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style={{opacity: 0.6}}>
-                    <path d="M12 2C12 2 4 10 4 15C4 19 7.58 22 12 22C16.42 22 20 19 20 15C20 10 12 2 12 2ZM12 20C8.69 20 6 17.54 6 15C6 12.5 9 7.5 12 4.5C15 7.5 18 12.5 18 15C18 17.54 15.31 20 12 20ZM12 18C14.21 18 16 16.21 16 14C16 11.79 12 7 12 7C12 7 8 11.79 8 14C8 16.21 9.79 18 12 18Z" fill="#FF6B35"/>
+                    <path d="M12 2C12 2 4 10 4 15C4 19 7.58 22 12 22C16.42 22 20 19 20 15C20 10 12 2 12 2ZM12 20C8.69 20 6 17.54 6 15C6 12.5 9 7.5 12 4.5C15 7.5 18 12.5 18 15C18 17.54 15.31 20 12 20ZM12 18C14.21 18 16 16.21 16 14C16 11.79 12 7 12 7C12 7 8 11.79 8 14C8 16.21 9.79 18 12 18Z" fill="#FF6B00"/>
                   </svg>
                 </div>
                 {/* Small floating accent circles */}
@@ -427,7 +427,7 @@ export default function Home() {
                 ru: '\u041D\u043E\u0432\u0438\u043D\u043A\u0438',
               })}
             </h2>
-            <div style={{width: '60px', height: '3px', background: '#FF6B35', margin: '1rem auto 0', borderRadius: '2px'}} />
+            <div style={{width: '60px', height: '3px', background: '#FF6B00', margin: '1rem auto 0', borderRadius: '2px'}} />
           </div>
 
           {/* Carousel container */}
@@ -576,7 +576,7 @@ export default function Home() {
                           <p style={{
                             fontSize: '0.9rem',
                             fontWeight: '700',
-                            color: '#FF6B35',
+                            color: '#FF6B00',
                             marginBottom: '0.75rem',
                           }}>
                             {ml(currentLanguage, { he: '\u05D4\u05D7\u05DC \u05DE-', en: 'From ', fr: '\u00C0 partir de ', es: 'Desde ', ru: '\u041E\u0442 ' })}{price}
@@ -595,7 +595,7 @@ export default function Home() {
                           }}
                           style={{
                             width: '100%',
-                            background: '#FF6B35',
+                            background: '#FF6B00',
                             color: '#FFFFFF',
                             border: 'none',
                             padding: '0.6rem',
@@ -656,7 +656,7 @@ export default function Home() {
                 ru: '\u0411\u0435\u0441\u0442\u0441\u0435\u043B\u043B\u0435\u0440\u044B',
               })}
             </h2>
-            <div style={{width: '60px', height: '3px', background: '#FF6B35', margin: '1rem auto 0', borderRadius: '2px'}} />
+            <div style={{width: '60px', height: '3px', background: '#FF6B00', margin: '1rem auto 0', borderRadius: '2px'}} />
           </div>
 
           {/* Products grid: 4 columns desktop, 2 columns mobile */}
@@ -725,7 +725,7 @@ export default function Home() {
                         <p style={{
                           fontSize: '1rem',
                           fontWeight: '700',
-                          color: '#FF6B35',
+                          color: '#FF6B00',
                           marginBottom: '0.75rem',
                         }}>
                           {ml(currentLanguage, { he: '\u05D4\u05D7\u05DC \u05DE-', en: 'From ', fr: '\u00C0 partir de ', es: 'Desde ', ru: '\u041E\u0442 ' })}{price}
