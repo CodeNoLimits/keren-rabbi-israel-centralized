@@ -180,7 +180,7 @@ export function Footer() {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <li>
                 <a
-                  href="/terms"
+                  href="/shipping"
                   style={{ color: '#d1d5db', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#d1d5db')}

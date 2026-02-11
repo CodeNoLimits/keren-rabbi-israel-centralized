@@ -15,6 +15,33 @@ import { convertImagePath } from '../utils/imagePathHelper';
 import { getInterfaceDisplayTitle, getInterfaceCategoryName } from '../utils/bookTitleHelper';
 import type { Product } from '../../../shared/schema';
 
+// Highlight matching search text in a string, returns React nodes
+function highlightSearchMatch(text: string, query: string): React.ReactNode {
+  if (!query || !query.trim()) return text;
+  const trimmed = query.trim();
+  const escapedQuery = trimmed.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(${escapedQuery})`, 'gi');
+  const parts = text.split(regex);
+  if (parts.length <= 1) return text;
+  return parts.map((part, i) =>
+    regex.test(part) ? (
+      <mark key={i} style={{ background: '#fef08a', padding: '0 1px', borderRadius: '2px' }}>{part}</mark>
+    ) : (
+      part
+    )
+  );
+}
+
+// Build descriptive alt text for product images
+function buildProductAlt(product: { name: string; nameEnglish?: string | null; language?: string | null; author?: string | null; category?: string }, currentLanguage: string, suffix?: string): string {
+  const title = getInterfaceDisplayTitle(product, currentLanguage);
+  const author = product.author || (currentLanguage === 'he' ? 'רבי נחמן מברסלב' : 'Rabbi Nachman of Breslov');
+  const lang = product.language || '';
+  const parts = [title, author, lang].filter(Boolean);
+  const base = parts.join(' - ');
+  return suffix ? `${base} ${suffix}` : base;
+}
+
 // Filter interfaces
 interface Filters {
   categories: string[];
@@ -293,13 +320,18 @@ export default function Store() {
         )}
 
         {/* Clean Simple Sidebar */}
-        <div className={`
+        <aside
+          className={`
           ${sidebarVisible ? 'w-80' : 'w-0'}
           transition-all duration-200 overflow-hidden
           max-md:fixed max-md:inset-y-0 max-md:z-50
           ${sidebarVisible ? 'max-md:w-80' : 'max-md:w-0'}
           ${currentLanguage === 'he' ? 'max-md:right-0' : 'max-md:left-0'}
-        `}>
+        `}
+          role="complementary"
+          aria-label={currentLanguage === 'he' ? 'מסנני חיפוש' : 'Search filters'}
+          aria-expanded={sidebarVisible}
+        >
           <div className="h-full bg-white shadow-lg border-r border-gray-200">
             {/* Simple Header */}
             <div className="bg-white p-4 border-b border-gray-200">
@@ -327,7 +359,7 @@ export default function Store() {
                 </Button>
               </div>
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-600" aria-hidden="true" />
                 <Input 
                   placeholder={currentLanguage === 'he' ? 'חיפוש ספרים...' :
                                currentLanguage === 'en' ? 'Search books...' :
@@ -345,10 +377,14 @@ export default function Store() {
             <div className="p-4 space-y-4 max-h-screen overflow-y-auto">
               {/* Price Filter */}
               <div className="bg-white border border-gray-200 rounded p-4">
-                <div 
-                  className="flex items-center justify-between cursor-pointer mb-3"
+                <button
+                  type="button"
+                  className="flex items-center justify-between cursor-pointer mb-3 w-full text-left"
                   onClick={() => toggleSection('price')}
                   data-testid="label-price-range"
+                  aria-expanded={expandedSections.price}
+                  aria-controls="filter-price"
+                  style={{minHeight: '44px', background: 'transparent', border: 'none', padding: '0.5rem 0'}}
                 >
                   <span className="text-sm font-medium text-gray-700">
                     {currentLanguage === 'he' ? 'טווח מחירים' :
@@ -357,10 +393,10 @@ export default function Store() {
                      currentLanguage === 'es' ? 'Rango de Precio' :
                      currentLanguage === 'ru' ? 'Диапазон Цен' : 'טווח מחירים'}
                   </span>
-                  {expandedSections.price ? <ChevronUp className="h-4 w-4 text-gray-500" /> : <ChevronDown className="h-4 w-4 text-gray-500" />}
-                </div>
+                  {expandedSections.price ? <ChevronUp className="h-4 w-4 text-gray-600" aria-hidden="true" /> : <ChevronDown className="h-4 w-4 text-gray-600" aria-hidden="true" />}
+                </button>
                 {expandedSections.price && (
-                  <div className="space-y-3">
+                  <div id="filter-price" className="space-y-3 py-1">
                     <Slider
                       min={filterOptions.priceRange[0]}
                       max={filterOptions.priceRange[1]}
@@ -368,6 +404,7 @@ export default function Store() {
                       onValueChange={(value) => setFilters(prev => ({ ...prev, priceRange: value as [number, number] }))}
                       className="w-full"
                       data-testid="slider-price-range"
+                      aria-label={currentLanguage === 'he' ? 'טווח מחירים' : 'Price range'}
                     />
                     <div className="flex justify-between text-xs text-gray-600">
                       <span data-testid="text-price-min">{filters.priceRange[0]} ₪</span>
@@ -540,10 +577,10 @@ export default function Store() {
               </div>
             </div>
           </div>
-        </div>
+        </aside>
 
         {/* Main Content Area */}
-        <div className="flex-1">
+        <main className="flex-1">
           <div className="p-6">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center space-x-4">
@@ -596,7 +633,7 @@ export default function Store() {
               {paginatedProducts.map((product) => {
                 const liked = isFavorite(product.id);
                 return (
-                  <div
+                  <article
                     key={product.id}
                     className="bg-white rounded-lg overflow-hidden shadow hover:shadow-xl hover:-translate-y-1 transition-all duration-200 border border-gray-200 group relative"
                     data-testid={`card-product-${product.id}`}
@@ -651,7 +688,7 @@ export default function Store() {
                             width="300"
                             height="300"
                             src={convertImagePath(product.images[0])}
-                            alt={getInterfaceDisplayTitle(product, currentLanguage)}
+                            alt={buildProductAlt(product, currentLanguage)}
                             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
                               product.images.length > 1 ? 'group-hover:opacity-0' : 'hover:opacity-90'
                             }`}
@@ -670,7 +707,7 @@ export default function Store() {
                               width="300"
                               height="300"
                               src={convertImagePath(product.images[1])}
-                              alt={`${getInterfaceDisplayTitle(product, currentLanguage)} - 2`}
+                              alt={buildProductAlt(product, currentLanguage, '- 2')}
                               className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
                               data-testid={`img-product-hover-${product.id}`}
                               onError={(e) => {
@@ -740,7 +777,7 @@ export default function Store() {
                           className="font-semibold text-sm mb-1 text-gray-900 line-clamp-1 cursor-pointer hover:text-blue-600 transition-colors"
                           data-testid={`text-title-${product.id}`}
                         >
-                          {getInterfaceDisplayTitle(product, currentLanguage)}
+                          {highlightSearchMatch(getInterfaceDisplayTitle(product, currentLanguage), filters.searchQuery)}
                         </h3>
                       </Link>
 
@@ -799,7 +836,7 @@ export default function Store() {
                         </Button>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 );
               })}
             </div>
@@ -898,7 +935,7 @@ export default function Store() {
               </Link>
             </div>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

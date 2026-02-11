@@ -135,7 +135,7 @@ export default function Home() {
   };
 
   return (
-    <div className="rtl home page-template-default page page-id-13" style={{direction: isRTL ? 'rtl' : 'ltr', background: '#FFFFFF'}}>
+    <main className="rtl home page-template-default page page-id-13" style={{direction: isRTL ? 'rtl' : 'ltr', background: '#FFFFFF'}}>
       {/* TOP BAR */}
       <section style={{background: 'hsl(210, 85%, 45%)', color: 'white', padding: '8px 0'}}>
         <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
@@ -431,8 +431,11 @@ export default function Home() {
                 const imgSrc = product.images?.[0] ? convertImagePath(product.images[0]) : '';
                 const title = getInterfaceDisplayTitle(product as Product, currentLanguage);
                 const price = getLowestPrice(product as Product);
+                const author = product.author || (isRTL ? 'רבי נחמן מברסלב' : 'Rabbi Nachman of Breslov');
+                const lang = product.language || '';
+                const descriptiveAlt = [title, author, lang].filter(Boolean).join(' - ');
                 return (
-                  <div
+                  <article
                     key={product.id}
                     data-carousel-card
                     style={{
@@ -464,7 +467,7 @@ export default function Home() {
                             width="220"
                             height="200"
                             src={imgSrc}
-                            alt={title}
+                            alt={descriptiveAlt}
                             style={{width: '100%', height: '100%', objectFit: 'cover'}}
                             onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
                           />
@@ -531,7 +534,7 @@ export default function Home() {
                         </button>
                       </div>
                     )}
-                  </div>
+                  </article>
                 );
               })}
             </div>
@@ -591,8 +594,11 @@ export default function Home() {
               const imgSrc = product.images?.[0] ? convertImagePath(product.images[0]) : '';
               const title = getInterfaceDisplayTitle(product as Product, currentLanguage);
               const price = getLowestPrice(product as Product);
+              const bsAuthor = product.author || (isRTL ? 'רבי נחמן מברסלב' : 'Rabbi Nachman of Breslov');
+              const bsLang = product.language || '';
+              const bsAlt = [title, bsAuthor, bsLang].filter(Boolean).join(' - ');
               return (
-                <div
+                <article
                   key={product.id}
                   style={{
                     background: '#FFFFFF',
@@ -619,7 +625,7 @@ export default function Home() {
                           width="280"
                           height="240"
                           src={imgSrc}
-                          alt={title}
+                          alt={bsAlt}
                           style={{width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease'}}
                           onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
                         />
@@ -668,7 +674,7 @@ export default function Home() {
                       </span>
                     </div>
                   </Link>
-                </div>
+                </article>
               );
             })}
           </div>
@@ -930,6 +936,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </div>
+    </main>
   );
 }

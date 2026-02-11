@@ -2,7 +2,7 @@ import { Header } from '../components/Header';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Link } from 'wouter';
 
-type LegalPage = 'privacy' | 'terms' | 'returns';
+type LegalPage = 'privacy' | 'terms' | 'returns' | 'shipping';
 
 const content = {
   he: {
@@ -40,6 +40,18 @@ const content = {
         { heading: 'מוצר פגום', body: 'אם קיבלתם מוצר פגום, נחליף אותו מיד ללא עלות. אנא צרו קשר תוך 48 שעות מקבלת המשלוח עם תמונות של הפגם.' },
         { heading: 'החזר כספי', body: 'החזר כספי יבוצע באמצעי התשלום המקורי תוך 14 ימי עסקים. דמי ביטול (5% או 100 ₪, הנמוך מביניהם) ינוכו מסכום ההחזר, למעט במקרה של מוצר פגום.' },
         { heading: 'יצירת קשר', body: 'להחזרות והחלפות: וואטסאפ 058-4921492 | דוא"ל: info@haesh-sheli.co.il | טופס צור קשר באתר' },
+      ],
+    },
+    shipping: {
+      title: 'מדיניות משלוחים',
+      lastUpdated: 'עדכון אחרון: פברואר 2026',
+      sections: [
+        { heading: 'משלוח חינם', body: 'משלוח חינם על כל הזמנה מעל 399 ₪. עבור הזמנות מתחת לסכום זה, דמי משלוח בסך 29 ₪.' },
+        { heading: 'זמני אספקה', body: 'זמן אספקה רגיל: 3-7 ימי עסקים. אזורים מרוחקים (יו"ש, אילת): עד 10 ימי עסקים. ימי שישי ושבת אינם נספרים.' },
+        { heading: 'שיטות משלוח', body: 'משלוח רגיל בדואר שליחים עד הבית. ניתן גם לאסוף מנקודת איסוף לפי בחירה. לסטים מלאים ומשלוחים גדולים - תיאום מראש.' },
+        { heading: 'מעקב משלוח', body: 'לאחר שליחת ההזמנה, תקבלו מספר מעקב בדוא"ל ו/או ב-SMS. ניתן לעקוב אחרי סטטוס המשלוח בכל עת.' },
+        { heading: 'משלוח בינלאומי', body: 'אנו שולחים לחו"ל! זמני אספקה למשלוח בינלאומי: 10-21 ימי עסקים. עלויות משלוח מחושבות לפי משקל ויעד. פנו אלינו לפרטים.' },
+        { heading: 'יצירת קשר', body: 'לשאלות על משלוחים: וואטסאפ 058-4921492 | דוא"ל: info@haesh-sheli.co.il' },
       ],
     },
   },
@@ -80,6 +92,18 @@ const content = {
         { heading: 'Contact', body: 'For returns and exchanges: WhatsApp 058-4921492 | Email: info@haesh-sheli.co.il | Contact form on the site' },
       ],
     },
+    shipping: {
+      title: 'Shipping Policy',
+      lastUpdated: 'Last updated: February 2026',
+      sections: [
+        { heading: 'Free Shipping', body: 'Free shipping on all orders over 399 NIS. For orders below this amount, shipping costs 29 NIS.' },
+        { heading: 'Delivery Times', body: 'Standard delivery: 3-7 business days. Remote areas: up to 10 business days. Fridays and Saturdays are not counted.' },
+        { heading: 'Shipping Methods', body: 'Standard courier delivery to your door. Pickup points also available. For complete sets and large shipments - advance coordination required.' },
+        { heading: 'Tracking', body: 'After your order ships, you will receive a tracking number by email and/or SMS. You can track your shipment status at any time.' },
+        { heading: 'International Shipping', body: 'We ship worldwide! International delivery: 10-21 business days. Shipping costs calculated by weight and destination. Contact us for details.' },
+        { heading: 'Contact', body: 'Shipping questions: WhatsApp 058-4921492 | Email: info@haesh-sheli.co.il' },
+      ],
+    },
   },
   fr: {
     privacy: {
@@ -118,6 +142,18 @@ const content = {
         { heading: 'Contact', body: 'WhatsApp 058-4921492 | Email : info@haesh-sheli.co.il' },
       ],
     },
+    shipping: {
+      title: 'Politique de Livraison',
+      lastUpdated: 'Derniere mise a jour : Fevrier 2026',
+      sections: [
+        { heading: 'Livraison gratuite', body: 'Livraison gratuite pour toute commande superieure a 399 NIS. En dessous : 29 NIS de frais de port.' },
+        { heading: 'Delais', body: 'Livraison standard : 3-7 jours ouvrables. Zones eloignees : jusqu\'a 10 jours. Les vendredis et samedis ne sont pas comptes.' },
+        { heading: 'Methodes', body: 'Livraison par coursier a domicile. Points relais egalement disponibles. Pour les sets complets - coordination prealable.' },
+        { heading: 'Suivi', body: 'Apres expedition, vous recevrez un numero de suivi par email et/ou SMS.' },
+        { heading: 'Livraison internationale', body: 'Nous livrons dans le monde entier ! Delai : 10-21 jours ouvrables. Frais selon poids et destination. Contactez-nous.' },
+        { heading: 'Contact', body: 'WhatsApp 058-4921492 | Email : info@haesh-sheli.co.il' },
+      ],
+    },
   },
 };
 
@@ -128,9 +164,9 @@ export default function Legal({ page = 'privacy' }: { page?: LegalPage }) {
   const pageContent = content[lang][page];
 
   const navLabels = {
-    he: { privacy: 'פרטיות', terms: 'תנאי שימוש', returns: 'החזרות' },
-    en: { privacy: 'Privacy', terms: 'Terms', returns: 'Returns' },
-    fr: { privacy: 'Confidentialite', terms: 'Conditions', returns: 'Retours' },
+    he: { privacy: 'פרטיות', terms: 'תנאי שימוש', returns: 'החזרות', shipping: 'משלוחים' },
+    en: { privacy: 'Privacy', terms: 'Terms', returns: 'Returns', shipping: 'Shipping' },
+    fr: { privacy: 'Confidentialite', terms: 'Conditions', returns: 'Retours', shipping: 'Livraison' },
   };
 
   return (
@@ -140,7 +176,7 @@ export default function Legal({ page = 'privacy' }: { page?: LegalPage }) {
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem 1.5rem' }}>
         {/* Tab navigation */}
         <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
-          {(['privacy', 'terms', 'returns'] as LegalPage[]).map((p) => (
+          {(['privacy', 'terms', 'returns', 'shipping'] as LegalPage[]).map((p) => (
             <Link key={p} href={`/${p}`}>
               <button style={{
                 padding: '0.5rem 1.25rem',

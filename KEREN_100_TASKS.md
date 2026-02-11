@@ -34,10 +34,10 @@
 - [x] **7. [P2/S] Product Card Price Display Improvement**
   Currently shows range like "25 NIS - 165 NIS" which is confusing. Show "from X NIS" or show the cheapest variant price prominently with "more options" badge.
 
-- [ ] **8. [P2/S] Add "Sale" / "Bestseller" / "New" Badges on Product Cards**
+- [x] **8. [P2/S] Add "Sale" / "Bestseller" / "New" Badges on Product Cards** ✓
   Use the `isFeatured` field from schema and `originalPrice` from variants to show promotional badges on cards. Visual distinction for featured/discounted items.
 
-- [ ] **9. [P3/S] Sort Products by Popularity/Price/Name**
+- [x] **9. [P3/S] Sort Products by Popularity/Price/Name** ✓
   Store page has no sorting. Add dropdown: "Sort by: Popular, Price Low-High, Price High-Low, Newest, A-Z". Affects `store.tsx` filtered products.
 
 - [x] **10. [P3/S] Infinite Scroll or Pagination for Store**
@@ -65,7 +65,7 @@
 - [x] **16. [P1/M] Search Autocomplete with Dropdown Suggestions**
   Current search in `store.tsx` is a simple text filter. Implement real autocomplete: as user types "L", show dropdown with "Likutei Moharan", "Likutei Tefilot", "Likutei Halakhot" etc. Inspired by "Mossad HaRav Kook" site. Use `cmdk` library (already in `package.json`).
 
-- [ ] **17. [P2/S] Search Highlights in Results**
+- [x] **17. [P2/S] Search Highlights in Results** ✓
   When user searches, highlight the matching text in product titles and descriptions within the grid. Bold or color the matched substring.
 
 - [x] **18. [P2/S] Search by Hebrew AND English Names**
@@ -105,7 +105,7 @@
 - [x] **28. [P2/S] Category Names Translation**
   Categories like "ספרי רבינו" display in Hebrew regardless of language. Add translated category names to the data or a translation lookup.
 
-- [ ] **29. [P2/S] Checkout Page Multi-Language Support**
+- [x] **29. [P2/S] Checkout Page Multi-Language Support** ✓
   `checkout.tsx` is entirely in Hebrew hardcoded. Add language-aware text using `useLanguage()` for all form labels, buttons, error messages.
 
 - [x] **30. [P2/S] Product Page Multi-Language Support**
@@ -149,7 +149,7 @@
 
 ## E. FAVORITES SYSTEM (Tasks 41-47)
 
-- [ ] **41. [P2/M] Implement Favorites Context (FavoritesContext.tsx)**
+- [x] **41. [P2/M] Implement Favorites Context (FavoritesContext.tsx)** ✓
   Create a new React context similar to `CartContext.tsx` with: `addFavorite`, `removeFavorite`, `isFavorite`, `favorites[]`. Persist to localStorage keyed by user.
 
 - [x] **42. [P2/S] Heart Icon on Product Cards**
@@ -161,7 +161,7 @@
 - [x] **44. [P2/M] Favorites Page (/favorites)**
   Create a new page showing all favorited products in a grid. Add route to `App.tsx`. Include "Move to Cart" and "Remove" actions.
 
-- [ ] **45. [P3/S] Favorites Count Badge in Header**
+- [x] **45. [P3/S] Favorites Count Badge in Header** ✓
   Show a small badge on the heart icon in the header with the count of favorited items.
 
 - [ ] **46. [P3/S] "Share Favorites" Feature**
@@ -211,16 +211,16 @@
 - [x] **58. [P1/S] Generate sitemap.xml**
   No sitemap exists. Create a dynamic sitemap listing all pages and product URLs. Submit to Google Search Console.
 
-- [ ] **59. [P2/S] Add robots.txt**
+- [x] **59. [P2/S] Add robots.txt** ✓
   Create `robots.txt` allowing search engine crawling of public pages, blocking admin/checkout pages.
 
-- [ ] **60. [P2/S] Semantic HTML Improvements**
+- [x] **60. [P2/S] Semantic HTML Improvements** ✓
   Store page uses generic `<div>` everywhere. Use `<main>`, `<article>`, `<section>`, `<aside>`, `<nav>` for better SEO and accessibility.
 
-- [ ] **61. [P2/S] URL Structure for Product Pages**
+- [x] **61. [P2/S] URL Structure for Product Pages** ✓
   Current: `/product/likutei-moharan`. Good slug format. Ensure all product IDs are SEO-friendly slugs (they already are in `realProducts.ts`).
 
-- [ ] **62. [P3/S] Alt Text for All Images**
+- [x] **62. [P3/S] Alt Text for All Images** ✓
   Product images use `product.name` as alt text. Enhance with descriptive alt text including: book title, author, format, language.
 
 - [ ] **63. [P3/M] Hreflang Tags for Multi-Language Pages**
@@ -282,7 +282,7 @@
 - [ ] **79. [P3/S] Bottom Navigation Bar on Mobile**
   Add a fixed bottom navigation bar on mobile with: Home, Store, Cart, Favorites, Menu. Common mobile commerce pattern.
 
-- [ ] **80. [P3/S] Cart Drawer Width on Mobile**
+- [x] **80. [P3/S] Cart Drawer Width on Mobile** ✓
   `CartWidget.tsx` uses `w-96` (384px) which may overflow on small phones (<375px). Use `w-full max-w-96` for responsive width.
 
 ---
@@ -320,10 +320,10 @@
 - [x] **89. [P1/S] Return & Refund Policy Page (/returns)**
   Israeli consumer protection law mandates clear return policy. Currently mentioned briefly in checkout. Create dedicated page with full details.
 
-- [ ] **90. [P2/S] Cookie Consent Banner**
+- [x] **90. [P2/S] Cookie Consent Banner** ✓
   Site uses localStorage (cart, language) and potentially analytics cookies. Add GDPR/Israeli privacy-compliant cookie consent banner.
 
-- [ ] **91. [P2/S] Shipping Policy Page (/shipping)**
+- [x] **91. [P2/S] Shipping Policy Page (/shipping)** ✓
   Consolidate all shipping info: free shipping threshold (399 NIS), delivery time (3-7 days), international shipping options, tracking.
 
 ---
@@ -367,7 +367,7 @@
 
 ---
 
-## PROGRESS: 30+ tasks completed out of 100
+## PROGRESS: 48 tasks completed out of 100
 
 ## SUMMARY BY PRIORITY
 
