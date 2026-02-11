@@ -209,7 +209,7 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
       {/* Search Input */}
       <div className="relative">
         <Search
-          className={`absolute top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/70 pointer-events-none ${isRTL ? 'right-3' : 'left-3'}`}
+          className={`absolute top-1/2 transform -translate-y-1/2 h-5 w-5 text-white/70 pointer-events-none ${isRTL ? 'right-3' : 'left-3'}`}
         />
         <input
           ref={inputRef}
@@ -220,12 +220,16 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
           onKeyDown={handleKeyDown}
           placeholder={t.placeholder}
           className={`
-            w-full h-9 rounded-lg bg-white/15 border border-white/25
+            w-full h-11 rounded-lg bg-white/15 border border-white/25
             text-white placeholder:text-white/60 text-sm
             focus:outline-none focus:ring-2 focus:ring-white/40 focus:bg-white/20
             transition-all duration-200
-            ${isRTL ? 'pr-9 pl-8' : 'pl-9 pr-8'}
+            ${isRTL ? 'pr-10 pl-10' : 'pl-10 pr-10'}
           `}
+          style={{
+            fontSize: '16px', /* Prevents iOS zoom on focus */
+            minHeight: '44px', /* 44px touch target */
+          }}
           autoComplete="off"
           role="combobox"
           aria-expanded={isOpen}
@@ -235,20 +239,26 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
         {query && (
           <button
             onClick={clearSearch}
-            className={`absolute top-1/2 transform -translate-y-1/2 p-1 rounded-full hover:bg-white/20 transition-colors ${isRTL ? 'left-2' : 'right-2'}`}
+            className={`absolute top-1/2 transform -translate-y-1/2 rounded-full hover:bg-white/20 transition-colors ${isRTL ? 'left-1' : 'right-1'}`}
+            style={{minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
           >
-            <X className="h-3.5 w-3.5 text-white/70" />
+            <X className="h-4 w-4 text-white/70" />
           </button>
         )}
       </div>
 
-      {/* Dropdown */}
+      {/* Dropdown - full width on mobile */}
       {isOpen && (
         <div
           ref={dropdownRef}
-          className="absolute top-full mt-2 w-full min-w-[320px] bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-[70]"
+          className="absolute top-full mt-2 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-[70]"
           role="listbox"
-          style={isRTL ? { right: 0 } : { left: 0 }}
+          style={{
+            ...(isRTL ? { right: 0 } : { left: 0 }),
+            width: '100%',
+            minWidth: 'min(320px, calc(100vw - 2rem))',
+            maxWidth: 'calc(100vw - 1rem)',
+          }}
         >
           {suggestions.length > 0 ? (
             <div className="max-h-80 overflow-y-auto py-1">

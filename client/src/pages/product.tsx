@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useRoute } from 'wouter';
 import { realBreslovProducts } from '../data/realProducts';
 import { useCart } from '../contexts/CartContext';
@@ -16,6 +16,9 @@ export default function Product() {
   const [linkCopied, setLinkCopied] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
+  const imageContainerRef = useRef<HTMLDivElement>(null);
   const { addItem } = useCart();
   const { toast } = useToast();
   const { currentLanguage } = useLanguage();
@@ -94,6 +97,31 @@ export default function Product() {
       setTimeout(() => setLinkCopied(false), 2000);
     });
   }, [productUrl]);
+
+  // Image zoom handlers
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!imageContainerRef.current) return;
+    const rect = imageContainerRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomPosition({ x, y });
+  }, []);
+
+  const handleMouseEnter = useCallback(() => {
+    setIsZoomed(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsZoomed(false);
+    setZoomPosition({ x: 50, y: 50 });
+  }, []);
+
+  const handleTouchToggle = useCallback(() => {
+    setIsZoomed(prev => !prev);
+    if (!isZoomed) {
+      setZoomPosition({ x: 50, y: 50 });
+    }
+  }, [isZoomed]);
 
   // Technical details labels
   const detailLabels = {
@@ -239,12 +267,62 @@ export default function Product() {
 
             {/* PRODUCT IMAGES */}
             <div>
-              <div style={{marginBottom: '1rem'}}>
+              <div
+                ref={imageContainerRef}
+                onMouseMove={handleMouseMove}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onClick={handleTouchToggle}
+                style={{
+                  marginBottom: '1rem',
+                  overflow: 'hidden',
+                  borderRadius: '10px',
+                  border: '1px solid #ddd',
+                  cursor: isZoomed ? 'zoom-out' : 'zoom-in',
+                  position: 'relative',
+                }}
+              >
                 <img loading="lazy"
                   src={convertImagePath(product.images && product.images[selectedImage] || '')}
                   alt={displayTitle}
-                  style={{width: '100%', height: '500px', objectFit: 'cover', borderRadius: '10px', border: '1px solid #ddd'}}
+                  draggable={false}
+                  style={{
+                    width: '100%',
+                    height: '500px',
+                    objectFit: 'cover',
+                    transform: isZoomed ? 'scale(2)' : 'scale(1)',
+                    transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
+                    transition: isZoomed ? 'transform-origin 0.05s ease-out, transform 0.3s ease' : 'transform 0.3s ease',
+                    pointerEvents: 'none',
+                  }}
                 />
+                {/* Zoom hint icon - hidden when zoomed */}
+                {!isZoomed && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '12px',
+                      right: '12px',
+                      background: 'rgba(0,0,0,0.5)',
+                      color: 'white',
+                      borderRadius: '50%',
+                      width: '36px',
+                      height: '36px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      pointerEvents: 'none',
+                      transition: 'opacity 0.3s ease',
+                    }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      <line x1="11" y1="8" x2="11" y2="14" />
+                      <line x1="8" y1="11" x2="14" y2="11" />
+                    </svg>
+                  </div>
+                )}
               </div>
 
               {product.images && product.images.length > 1 && (

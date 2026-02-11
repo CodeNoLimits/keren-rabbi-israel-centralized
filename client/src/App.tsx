@@ -12,6 +12,7 @@ import { InstallPrompt } from "@/components/InstallPrompt";
 import { AmbientMusic } from "@/components/AmbientMusic";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import { NewsletterPopup } from "@/components/NewsletterPopup";
 
 // Lazy load all pages for code splitting
 const Home = lazy(() => import("@/pages/home"));
@@ -336,6 +337,7 @@ function App() {
                 <Router />
                 <Footer />
                 <WhatsAppFloat />
+                <NewsletterPopup />
               </FavoritesProvider>
             </CartProvider>
           </CurrencyProvider>

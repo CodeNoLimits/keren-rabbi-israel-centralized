@@ -146,23 +146,23 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
           </a>
         </div>
 
-        {/* SPECIAL NAVIGATION - TOP ROW */}
+        {/* SPECIAL NAVIGATION - TOP ROW (subtle, smaller) */}
         <nav className="header-nav-special" data-testid="nav-special">
-          <ul className="nav-menu-special">
+          <ul className="nav-menu-special" style={{fontSize: '0.78rem', gap: '0.6rem', opacity: 0.85}}>
             <li className={location === '/chat' ? 'current-menu-item' : ''}>
-              <a href="/chat" data-testid="link-chat" style={{color: '#10B981', fontWeight: 'bold'}} className="px-3 py-1 rounded-lg transition-all duration-300 hover:scale-125 hover:text-white hover:bg-green-500 hover:shadow-xl hover:-translate-y-2 inline-block">{t.chat}</a>
+              <a href="/chat" data-testid="link-chat" style={{color: '#10B981', fontWeight: '500', fontSize: '0.78rem'}} className="px-2 py-0.5 rounded transition-all duration-300 hover:scale-110 hover:text-white hover:bg-green-500 hover:shadow-md inline-block">{t.chat}</a>
             </li>
             <li className={location === '/subscription' ? 'current-menu-item' : ''}>
-              <a href="/subscription" data-testid="link-subscription" style={{color: '#FFD700', fontWeight: 'bold'}} className="px-3 py-1 rounded-lg transition-all duration-300 hover:scale-125 hover:text-white hover:bg-yellow-500 hover:shadow-xl hover:-translate-y-2 inline-block">👑 {t.subscription}</a>
+              <a href="/subscription" data-testid="link-subscription" style={{color: '#FFD700', fontWeight: '500', fontSize: '0.78rem'}} className="px-2 py-0.5 rounded transition-all duration-300 hover:scale-110 hover:text-white hover:bg-yellow-500 hover:shadow-md inline-block">{t.subscription}</a>
             </li>
             <li className={location === '/keren-style' ? 'current-menu-item' : ''}>
-              <a href="/keren-style" data-testid="link-keren-style" style={{color: '#FF6B35', fontWeight: 'bold'}} className="px-3 py-1 rounded-lg transition-all duration-300 hover:scale-125 hover:text-white hover:bg-orange-500 hover:shadow-xl hover:-translate-y-2 inline-block">🎥 {t.breslovVideos}</a>
+              <a href="/keren-style" data-testid="link-keren-style" style={{color: '#FF6B35', fontWeight: '500', fontSize: '0.78rem'}} className="px-2 py-0.5 rounded transition-all duration-300 hover:scale-110 hover:text-white hover:bg-orange-500 hover:shadow-md inline-block">{t.breslovVideos}</a>
             </li>
             <li className={location === '/haesh-hype' ? 'current-menu-item' : ''}>
-              <a href="/haesh-hype" data-testid="link-haesh-hype" style={{color: '#EF4444', fontWeight: 'bold'}} className="px-3 py-1 rounded-lg transition-all duration-300 hover:scale-125 hover:text-white hover:bg-red-500 hover:shadow-xl hover:-translate-y-2 inline-block">{t.haeshHype}</a>
+              <a href="/haesh-hype" data-testid="link-haesh-hype" style={{color: '#EF4444', fontWeight: '500', fontSize: '0.78rem'}} className="px-2 py-0.5 rounded transition-all duration-300 hover:scale-110 hover:text-white hover:bg-red-500 hover:shadow-md inline-block">{t.haeshHype}</a>
             </li>
             <li className={location === '/yaaakov' ? 'current-menu-item' : ''}>
-              <a href="/yaaakov" data-testid="link-yaaakov" className="px-3 py-1 rounded-lg transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">
+              <a href="/yaaakov" data-testid="link-yaaakov" style={{fontWeight: '500', fontSize: '0.78rem'}} className="px-2 py-0.5 rounded transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block">
                 {currentLanguage === 'he' ? 'יעקב' : currentLanguage === 'en' ? 'Yaaakov' : currentLanguage === 'fr' ? 'Yaaakov' : currentLanguage === 'es' ? 'Yaaakov' : currentLanguage === 'ru' ? 'Яааков' : 'יעקב'}
               </a>
             </li>
@@ -184,29 +184,20 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
 
       {/* BOTTOM ROW - Basic Navigation + User Actions */}
       <div className="header-container-bottom">
-        {/* BASIC NAVIGATION */}
+        {/* BASIC NAVIGATION - Essential links only, larger and prominent */}
         <nav className="header-nav" data-testid="nav-main">
-          <ul className="nav-menu">
+          <ul className="nav-menu" style={{gap: '2rem'}}>
             <li className={location === '/' ? 'current-menu-item' : ''}>
-              <a href="/" data-testid="link-home" className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.home}</a>
+              <a href="/" data-testid="link-home" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.home}</a>
             </li>
             <li className={location === '/store' ? 'current-menu-item' : ''}>
-              <a href="/store" data-testid="link-store" className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.store}</a>
+              <a href="/store" data-testid="link-store" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.store}</a>
             </li>
             <li className={location === '/about' ? 'current-menu-item' : ''}>
-              <a href="/about" data-testid="link-about" className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.about}</a>
+              <a href="/about" data-testid="link-about" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.about}</a>
             </li>
             <li className={location === '/contact' ? 'current-menu-item' : ''}>
-              <a href="/contact" data-testid="link-contact" className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.contact}</a>
-            </li>
-            <li className={location === '/magazine' ? 'current-menu-item' : ''}>
-              <a href="/magazine" data-testid="link-magazine" className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.magazine}</a>
-            </li>
-            <li className={location === '/join' ? 'current-menu-item' : ''}>
-              <a href="/join" data-testid="link-join" className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.join}</a>
-            </li>
-            <li className={location === '/downloads' ? 'current-menu-item' : ''}>
-              <a href="/downloads" data-testid="link-downloads" className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.downloads}</a>
+              <a href="/contact" data-testid="link-contact" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.contact}</a>
             </li>
           </ul>
         </nav>
@@ -324,58 +315,136 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
         </div>
       </div>
 
-      {/* MOBILE NAVIGATION */}
-      <nav className={`mobile-nav ${mobileMenuOpen ? 'open' : ''}`} data-testid="nav-mobile">
-        <ul className="nav-menu">
+      {/* MOBILE NAVIGATION - RTL-friendly slide panel */}
+      <nav
+        className={`mobile-nav ${mobileMenuOpen ? 'open' : ''}`}
+        data-testid="nav-mobile"
+        dir={currentLanguage === 'he' ? 'rtl' : 'ltr'}
+        style={{
+          transform: mobileMenuOpen ? 'translateX(0)' : (currentLanguage === 'he' ? 'translateX(100%)' : 'translateX(-100%)'),
+          transition: 'transform 0.3s ease-in-out',
+          position: 'fixed',
+          top: 0,
+          bottom: 0,
+          width: '280px',
+          ...(currentLanguage === 'he' ? { right: 0 } : { left: 0 }),
+          background: 'var(--primary-blue)',
+          zIndex: 1000,
+          overflowY: 'auto',
+          display: 'block',
+          paddingTop: '1rem',
+        }}
+      >
+        {/* Close button */}
+        <div style={{padding: '0.5rem 1rem', textAlign: currentLanguage === 'he' ? 'left' : 'right'}}>
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            style={{background: 'transparent', border: 'none', color: 'white', cursor: 'pointer', padding: '0.5rem', minWidth: '44px', minHeight: '44px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center'}}
+            aria-label="Close menu"
+          >
+            <X size={24} />
+          </button>
+        </div>
+
+        {/* Primary nav links - large and prominent */}
+        <ul className="nav-menu" style={{flexDirection: 'column', padding: '0 1rem', gap: '0.25rem', textAlign: currentLanguage === 'he' ? 'right' : 'left'}}>
           <li className={location === '/' ? 'current-menu-item' : ''}>
-            <a href="/" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-home">{t.home}</a>
+            <a href="/" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-home" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.home}</a>
           </li>
           <li className={location === '/store' ? 'current-menu-item' : ''}>
-            <a href="/store" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-store">{t.store}</a>
+            <a href="/store" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-store" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.store}</a>
           </li>
           <li className={location === '/about' ? 'current-menu-item' : ''}>
-            <a href="/about" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-about">{t.about}</a>
+            <a href="/about" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-about" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.about}</a>
           </li>
           <li className={location === '/contact' ? 'current-menu-item' : ''}>
-            <a href="/contact" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-contact">{t.contact}</a>
+            <a href="/contact" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-contact" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.contact}</a>
           </li>
+        </ul>
+
+        {/* Divider */}
+        <div style={{margin: '0.75rem 1rem', borderTop: '1px solid rgba(255,255,255,0.15)'}} />
+
+        {/* Secondary nav links - smaller */}
+        <ul className="nav-menu" style={{flexDirection: 'column', padding: '0 1rem', gap: '0.1rem', textAlign: currentLanguage === 'he' ? 'right' : 'left'}}>
           <li className={location === '/magazine' ? 'current-menu-item' : ''}>
-            <a href="/magazine" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-magazine">{t.magazine}</a>
+            <a href="/magazine" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-magazine" style={{fontSize: '0.9rem', padding: '0.5rem 0.5rem', display: 'block'}}>{t.magazine}</a>
           </li>
           <li className={location === '/join' ? 'current-menu-item' : ''}>
-            <a href="/join" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-join">{t.join}</a>
+            <a href="/join" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-join" style={{fontSize: '0.9rem', padding: '0.5rem 0.5rem', display: 'block'}}>{t.join}</a>
           </li>
           <li className={location === '/downloads' ? 'current-menu-item' : ''}>
-            <a href="/downloads" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-downloads">{t.downloads}</a>
+            <a href="/downloads" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-downloads" style={{fontSize: '0.9rem', padding: '0.5rem 0.5rem', display: 'block'}}>{t.downloads}</a>
           </li>
           <li>
-            <a 
-              href="https://wa.me/972501234567?text=שלום, אני מעוניין לשמוע עוד על הספרים והמנויים שלכם" 
-              target="_blank" 
+            <a
+              href="https://wa.me/972501234567?text=שלום, אני מעוניין לשמוע עוד על הספרים והמנויים שלכם"
+              target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)} 
-              data-testid="mobile-link-whatsapp" 
-              style={{color: '#25D366', fontWeight: 'bold'}}
+              onClick={() => setMobileMenuOpen(false)}
+              data-testid="mobile-link-whatsapp"
+              style={{color: '#25D366', fontWeight: '600', fontSize: '0.9rem', padding: '0.5rem 0.5rem', display: 'block'}}
             >
               {t.whatsapp}
             </a>
           </li>
+        </ul>
+
+        {/* Divider */}
+        <div style={{margin: '0.75rem 1rem', borderTop: '1px solid rgba(255,255,255,0.15)'}} />
+
+        {/* Special links - subtle */}
+        <ul className="nav-menu" style={{flexDirection: 'column', padding: '0 1rem', gap: '0.1rem', textAlign: currentLanguage === 'he' ? 'right' : 'left'}}>
           <li className={location === '/subscription' ? 'current-menu-item' : ''}>
-            <a href="/subscription" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-subscription" style={{color: '#FFD700', fontWeight: 'bold'}}>👑 {t.subscription}</a>
+            <a href="/subscription" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-subscription" style={{color: '#FFD700', fontWeight: '500', fontSize: '0.85rem', padding: '0.4rem 0.5rem', display: 'block'}}>{t.subscription}</a>
           </li>
           <li className={location === '/keren-style' ? 'current-menu-item' : ''}>
-            <a href="/keren-style" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-keren-style" style={{color: '#FF6B35', fontWeight: 'bold'}}>🎥 {t.breslovVideos}</a>
+            <a href="/keren-style" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-keren-style" style={{color: '#FF6B35', fontWeight: '500', fontSize: '0.85rem', padding: '0.4rem 0.5rem', display: 'block'}}>{t.breslovVideos}</a>
           </li>
           <li className={location === '/haesh-hype' ? 'current-menu-item' : ''}>
-            <a href="/haesh-hype" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-haesh-hype" style={{color: '#EF4444', fontWeight: 'bold'}}>{t.haeshHype}</a>
+            <a href="/haesh-hype" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-haesh-hype" style={{color: '#EF4444', fontWeight: '500', fontSize: '0.85rem', padding: '0.4rem 0.5rem', display: 'block'}}>{t.haeshHype}</a>
           </li>
           <li className={location === '/yaaakov' ? 'current-menu-item' : ''}>
-            <a href="/yaaakov" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-yaaakov">
+            <a href="/yaaakov" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-yaaakov" style={{fontWeight: '500', fontSize: '0.85rem', padding: '0.4rem 0.5rem', display: 'block'}}>
               {currentLanguage === 'he' ? 'יעקב' : currentLanguage === 'en' ? 'Yaaakov' : currentLanguage === 'fr' ? 'Yaaakov' : currentLanguage === 'es' ? 'Yaaakov' : currentLanguage === 'ru' ? 'Яааков' : 'יעקב'}
             </a>
           </li>
         </ul>
+
+        {/* Language flags in mobile menu */}
+        <div style={{margin: '1rem', borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '1rem'}}>
+          <div style={{display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center'}}>
+            {Object.entries(languageFlags).map(([lang, flag]) => (
+              <button
+                key={lang}
+                onClick={() => { onLanguageChange?.(lang); setMobileMenuOpen(false); }}
+                className={`language-btn ${currentLanguage === lang ? 'active' : ''}`}
+                style={{minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem'}}
+                data-testid={`mobile-button-language-${lang}`}
+              >
+                <span>{flag}</span>
+                <span>{lang.toUpperCase()}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       </nav>
+
+      {/* Mobile nav overlay */}
+      {mobileMenuOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.5)',
+            zIndex: 999,
+          }}
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
 
       <CartWidget />
     </header>
