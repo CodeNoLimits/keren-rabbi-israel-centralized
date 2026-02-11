@@ -224,41 +224,19 @@ export default function Home() {
                   ru: '\u0412\u0435\u0434\u0443\u0449\u0438\u0439 \u043A\u043D\u0438\u0436\u043D\u044B\u0439 \u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0420\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430 \u0438\u0437 \u0411\u0440\u0435\u0441\u043B\u043E\u0432',
                 })}
               </p>
-              <a href="/store" style={{textDecoration: 'none', display: 'inline-block'}}>
-                <button data-testid="button-enter-store-hero" style={{
-                  background: '#FF6B00',
-                  color: '#FFFFFF',
-                  border: 'none',
-                  padding: '1rem 2.5rem',
-                  borderRadius: '10px',
-                  cursor: 'pointer',
-                  fontSize: '1.1rem',
-                  fontWeight: '700',
-                  boxShadow: '0 4px 14px rgba(255,107,0,0.35)',
-                  transition: 'all 0.2s ease',
-                }}>
-                {ml(currentLanguage, {
-                  he: "''\u05E8\u05E7 \u05EA\u05E0\u05D5 \u05DC\u05D9 \u05D0\u05EA \u05DC\u05D9\u05D1\u05DB\u05DD \u05D5\u05D0\u05D5\u05DC\u05D9\u05DA \u05D0\u05EA\u05DB\u05DD \u05D1\u05D3\u05E8\u05DA \u05D7\u05D3\u05E9\u05D4..'' (\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF)",
-                  en: '"Just give me your hearts and I will lead you on a new path..." (Rabbi Nachman)',
-                  fr: '"Donnez-moi simplement vos c\u0153urs et je vous m\u00E8nerai sur un nouveau chemin..." (Rabbi Nachman)',
-                  es: '"Solo denme sus corazones y los guiar\u00E9 por un camino nuevo..." (Rabino Nachman)',
-                  ru: '"\u041F\u0440\u043E\u0441\u0442\u043E \u0434\u0430\u0439\u0442\u0435 \u043C\u043D\u0435 \u0432\u0430\u0448\u0438 \u0441\u0435\u0440\u0434\u0446\u0430 \u0438 \u044F \u043F\u043E\u0432\u0435\u0434\u0443 \u0432\u0430\u0441 \u043D\u043E\u0432\u044B\u043C \u043F\u0443\u0442\u0435\u043C..." (\u0420\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D)',
-                })}
-              </button>
-              </a>
-              <div style={{display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center'}}>
+              <div style={{display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center'}}>
                 <a href="/store" style={{textDecoration: 'none'}}>
                   <button data-testid="button-enter-store" style={{
                     background: '#FF6B00',
                     color: '#FFFFFF',
                     border: 'none',
-                    padding: '1rem 2.5rem',
-                    borderRadius: '10px',
+                    padding: '1.1rem 3rem',
+                    borderRadius: '12px',
                     cursor: 'pointer',
-                    fontSize: '1.05rem',
+                    fontSize: '1.1rem',
                     fontWeight: '700',
-                    boxShadow: '0 4px 14px rgba(255,107,53,0.35)',
-                    transition: 'all 0.2s ease',
+                    boxShadow: '0 6px 20px rgba(255,107,0,0.3)',
+                    transition: 'all 0.3s ease',
                   }}>
                     {ml(currentLanguage, {
                       he: '\u05DB\u05E0\u05E1 \u05DC\u05D7\u05E0\u05D5\u05EA',
@@ -273,13 +251,13 @@ export default function Home() {
                   <button data-testid="button-discover-activities" style={{
                     background: 'transparent',
                     color: '#FF6B00',
-                    border: '1.5px solid #FF6B00',
-                    padding: '1rem 2.5rem',
-                    borderRadius: '10px',
+                    border: '2px solid #FF6B00',
+                    padding: '1.1rem 3rem',
+                    borderRadius: '12px',
                     cursor: 'pointer',
-                    fontSize: '1.05rem',
-                    fontWeight: '600',
-                    transition: 'all 0.2s ease',
+                    fontSize: '1.1rem',
+                    fontWeight: '700',
+                    transition: 'all 0.3s ease',
                   }}>
                     {ml(currentLanguage, {
                       he: '\u05EA\u05E8\u05D5\u05DE\u05D4 \u05DC\u05E7\u05E8\u05DF',
@@ -471,7 +449,7 @@ export default function Home() {
                     }}
                   >
                     <Link href={`/product/${product.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                      <div style={{width: '100%', height: '200px', overflow: 'hidden', background: 'hsl(210, 30%, 97%)'}}>
+                      <div style={{width: '100%', height: '200px', overflow: 'hidden', background: '#FFFFFF'}}>
                         {imgSrc ? (
                           <img
                             loading="lazy"
@@ -629,7 +607,7 @@ export default function Home() {
                   }}
                 >
                   <Link href={`/product/${product.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                    <div style={{width: '100%', height: '240px', overflow: 'hidden', background: 'hsl(210, 30%, 97%)'}}>
+                    <div style={{width: '100%', height: '240px', overflow: 'hidden', background: '#FFFFFF'}}>
                       {imgSrc ? (
                         <img
                           loading="lazy"
