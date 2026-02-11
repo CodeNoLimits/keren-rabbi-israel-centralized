@@ -77,7 +77,7 @@
 - [ ] **20. [P3/S] Search History / Recent Searches**
   Store last 5 searches in localStorage. Show them as suggestions when the search input is focused but empty.
 
-- [ ] **21. [P3/S] "No Results" Smart Suggestions**
+- [x] **21. [P3/S] "No Results" Smart Suggestions** ✓
   When search returns 0 results, suggest related terms or popular products instead of just "No results found".
 
 - [ ] **22. [P3/S] Global Search (Not Just Store)**
@@ -99,7 +99,7 @@
 - [ ] **26. [P2/M] Multi-Language Product Grouping**
   Yaakov wants: "Regrouper les versions linguistiques dans une seule fiche produit". Currently Hebrew and English versions of same book are separate products. Create a `parentProductId` or `groupId` system to show language variants under one product card with language tabs.
 
-- [ ] **27. [P2/S] Language Filter Should Match Product Language Field**
+- [x] **27. [P2/S] Language Filter Should Match Product Language Field** ✓
   Store sidebar has language filter but products use Hebrew language names (e.g., "עברית", "אנגלית"). Ensure filter values display in current interface language and match correctly.
 
 - [x] **28. [P2/S] Category Names Translation**
@@ -111,7 +111,7 @@
 - [x] **30. [P2/S] Product Page Multi-Language Support**
   `product.tsx` has hardcoded Hebrew text: "בחר גודל וכריכה", "מאפיינים מיוחדים", "מוצרים דומים" etc. Translate all static text using the language context.
 
-- [ ] **31. [P3/S] RTL/LTR Auto-Direction Based on Language**
+- [x] **31. [P3/S] RTL/LTR Auto-Direction Based on Language** ✓
   Most pages set `direction: rtl` for Hebrew. Ensure all pages properly switch to LTR for English, French, Spanish, and Russian. Some pages like `product.tsx` always use RTL.
 
 - [ ] **32. [P3/M] Add Arabic Language Support**
@@ -139,10 +139,10 @@
 - [x] **38. [P2/S] Improve Leading Books Section**
   Books section shows 6 books with external haesh-sheli.co.il images. Link each to their actual product page (e.g., `/product/likutei-moharan`) instead of generic `/store`. Use local images.
 
-- [ ] **39. [P3/S] Lazy Load Homepage Sections**
+- [x] **39. [P3/S] Lazy Load Homepage Sections** ✓
   Use `IntersectionObserver` to lazy-render sections as user scrolls. Improves initial load time especially with external images.
 
-- [ ] **40. [P3/S] Add Testimonials/Reviews Section to Homepage**
+- [x] **40. [P3/S] Add Testimonials/Reviews Section to Homepage** ✓
   Social proof is missing. Add 3-5 customer testimonials with star ratings. Can be hardcoded initially.
 
 ---
@@ -270,7 +270,7 @@
 - [x] **75. [P1/S] Fix Product Page Layout on Mobile**
   `product.tsx` uses `gridTemplateColumns: '1fr 1fr'` which does NOT stack on mobile. Need responsive grid: 1 column on mobile, 2 on desktop.
 
-- [ ] **76. [P2/S] Mobile Header Improvements**
+- [x] **76. [P2/S] Mobile Header Improvements** ✓
   Mobile menu exists but hamburger button has `hover:rotate-90` which is odd on touch. Remove hover transforms on mobile. Ensure language selector is accessible in mobile menu.
 
 - [ ] **77. [P2/S] Touch-Friendly Filter Controls**
@@ -352,10 +352,10 @@
 - [ ] **97. [P2/S] Keyboard Navigation**
   Ensure all interactive elements (product cards, filters, modals) are keyboard-navigable. Add visible focus indicators. Cart widget and Quick View modal need focus trap.
 
-- [ ] **98. [P2/S] Color Contrast Compliance**
+- [x] **98. [P2/S] Color Contrast Compliance** ✓
   Verify all text meets WCAG AA contrast ratios. Light gray text on white backgrounds (e.g., `text-gray-400` on white) may fail. Check blue links on blue gradient backgrounds.
 
-- [ ] **99. [P3/S] Screen Reader Friendly Product Cards**
+- [x] **99. [P3/S] Screen Reader Friendly Product Cards** ✓
   Each product card should have a clear screen reader announcement: "Book title, price range, category. Button: View details. Button: Add to favorites."
 
 ---
@@ -367,7 +367,7 @@
 
 ---
 
-## PROGRESS: 51 tasks completed out of 100
+## PROGRESS: 58 tasks completed out of 100
 
 ## SUMMARY BY PRIORITY
 

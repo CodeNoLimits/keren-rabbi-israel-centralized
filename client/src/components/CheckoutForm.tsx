@@ -547,7 +547,7 @@ export function CheckoutForm() {
                         {item.variant.format} - {item.variant.size}
                       </p>
                     )}
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-gray-500">
                       {t('quantity')}: {item.quantity} x {t('shekel')}
                       {item.price}
                     </p>

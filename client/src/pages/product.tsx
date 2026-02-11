@@ -279,12 +279,12 @@ export default function Product() {
       {/* BREADCRUMBS */}
       <section style={{background: '#f8f9fa', padding: '1rem 0', borderBottom: '1px solid #ddd'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
-          <nav style={{fontSize: '0.9rem', color: '#666'}}>
+          <nav aria-label={isRTL ? 'שביל ניווט' : 'Breadcrumb'} style={{fontSize: '0.9rem', color: '#666'}}>
             <a href="/" style={{color: '#dc3545', textDecoration: 'none'}}>{navLabels.home}</a>
             <span style={{margin: '0 0.5rem'}}>{isRTL ? '\u2190' : '\u2192'}</span>
             <a href="/store" style={{color: '#dc3545', textDecoration: 'none'}}>{navLabels.store}</a>
             <span style={{margin: '0 0.5rem'}}>{isRTL ? '\u2190' : '\u2192'}</span>
-            <span style={{color: '#999'}}>{displayTitle}</span>
+            <span style={{color: '#6b7280'}}>{displayTitle}</span>
           </nav>
         </div>
       </section>
@@ -526,7 +526,7 @@ export default function Product() {
                   {currentVariant.price} ₪
                 </span>
                 {currentVariant.originalPrice && (
-                  <span style={{textDecoration: 'line-through', color: '#999', fontSize: '1.5rem', marginRight: '1rem', display: 'inline-block', verticalAlign: 'middle'}}>
+                  <span style={{textDecoration: 'line-through', color: '#6b7280', fontSize: '1.5rem', marginRight: '1rem', display: 'inline-block', verticalAlign: 'middle'}}>
                     {currentVariant.originalPrice} ₪
                   </span>
                 )}
@@ -589,7 +589,7 @@ export default function Product() {
                         <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap'}}>
                           <span>{variant.price}{'\u20AA'}</span>
                           {variant.originalPrice && (
-                            <span style={{textDecoration: 'line-through', color: '#999', fontSize: '0.9rem'}}>
+                            <span style={{textDecoration: 'line-through', color: '#6b7280', fontSize: '0.9rem'}}>
                               {variant.originalPrice}{'\u20AA'}
                             </span>
                           )}
@@ -825,7 +825,7 @@ export default function Product() {
                   </div>
                 </div>
 
-                <div style={{textAlign: 'center', padding: '2rem', border: '2px dashed #ddd', borderRadius: '10px', color: '#999'}}>
+                <div style={{textAlign: 'center', padding: '2rem', border: '2px dashed #ddd', borderRadius: '10px', color: '#6b7280'}}>
                   <p style={{fontSize: '1rem', marginBottom: '1rem'}}>{detailLabels.noReviewsYet}</p>
                   <button
                     style={{
@@ -874,7 +874,7 @@ export default function Product() {
                     <h3 style={{fontSize: '1.05rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#333', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
                       {getInterfaceDisplayTitle(relatedProduct, currentLanguage)}
                     </h3>
-                    <div style={{fontSize: '0.8rem', color: '#999', marginBottom: '0.5rem'}}>
+                    <div style={{fontSize: '0.8rem', color: '#6b7280', marginBottom: '0.5rem'}}>
                       {getInterfaceCategoryName(relatedProduct.category, currentLanguage)}
                     </div>
                     <div style={{fontSize: '1.1rem', fontWeight: 'bold', color: '#dc3545', marginBottom: '1rem'}}>

@@ -342,7 +342,7 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
             <div className="py-8 text-center">
               <Search className="h-8 w-8 text-gray-300 mx-auto mb-2" />
               <p className="text-sm text-gray-500 font-medium">{t.noResults}</p>
-              <p className="text-xs text-gray-400 mt-1">{t.tryDifferent}</p>
+              <p className="text-xs text-gray-500 mt-1">{t.tryDifferent}</p>
             </div>
           ) : null}
         </div>

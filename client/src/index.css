@@ -36,6 +36,32 @@
   }
 }
 
+/* === DISABLE HOVER TRANSFORMS ON TOUCH DEVICES === */
+@media (hover: none) {
+  .hover\:rotate-2:hover,
+  .hover\:rotate-3:hover,
+  .hover\:rotate-12:hover,
+  .hover\:rotate-1:hover,
+  .hover\:-rotate-1:hover {
+    transform: none !important;
+    rotate: none !important;
+  }
+  .hover\:scale-110:hover,
+  .hover\:scale-125:hover {
+    transform: none !important;
+  }
+  .hover\:-translate-y-1:hover,
+  .hover\:-translate-y-2:hover,
+  .hover\:-translate-y-3:hover {
+    transform: none !important;
+  }
+  .animate-hover-rotate:hover,
+  .animate-card-hover:hover {
+    transform: none !important;
+    rotate: none !important;
+  }
+}
+
 /* === MOBILE SAFE-AREA ENFORCEMENT === */
 html, body {
   min-height: 100dvh;

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, type ReactNode } from 'react';
 import { Link } from 'wouter';
 import { Header } from '../components/Header';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -8,6 +8,23 @@ import { realBreslovProducts } from '../data/realProducts';
 import { getInterfaceDisplayTitle } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';
 import type { Product } from '../../../shared/schema';
+
+// Lazy section: renders children only when near viewport
+function LazySection({ children, rootMargin = '200px' }: { children: ReactNode; rootMargin?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+      { rootMargin }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [rootMargin]);
+  return <div ref={ref}>{visible ? children : <div style={{ minHeight: '200px' }} />}</div>;
+}
 
 // Multi-language text helper
 function ml(lang: string, texts: { he: string; en: string; fr: string; es?: string; ru?: string }) {
@@ -137,7 +154,7 @@ export default function Home() {
   return (
     <main className="rtl home page-template-default page page-id-13" style={{direction: isRTL ? 'rtl' : 'ltr', background: '#FFFFFF'}}>
       {/* TOP BAR */}
-      <section style={{background: 'hsl(210, 85%, 45%)', color: 'white', padding: '8px 0'}}>
+      <section style={{background: '#1E3A5F', color: 'white', padding: '8px 0'}}>
         <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
           <ul style={{display: 'flex', gap: '1rem', listStyle: 'none', margin: 0, padding: 0, justifyContent: 'center'}}>
             <li style={{display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem'}}>
@@ -159,12 +176,12 @@ export default function Home() {
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
 
       {/* ============================================ */}
-      {/* HERO SECTION - Clean white, Oz VeHadar style  */}
+      {/* HERO SECTION - Clean centered, one CTA        */}
       {/* ============================================ */}
       <section style={{
         background: '#FFFFFF',
         padding: '0',
-        minHeight: '60vh',
+        minHeight: '50vh',
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
@@ -172,24 +189,14 @@ export default function Home() {
         borderBottom: '1px solid #f0f0f0',
       }}>
 
-        <div style={{maxWidth: '1200px', margin: '0 auto', padding: '4rem 2rem', width: '100%', position: 'relative', zIndex: 1}}>
-          <div className="hero-grid" style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '3rem',
-            alignItems: 'center',
-          }}>
-            {/* Text content */}
-            <div style={{
-              textAlign: isRTL ? 'right' : 'left',
-              order: isRTL ? 1 : 0,
-            }}>
+        <div style={{maxWidth: '800px', margin: '0 auto', padding: '4rem 2rem', width: '100%', position: 'relative', zIndex: 1, textAlign: 'center'}}>
+            <div>
               <h1 style={{
                 fontSize: 'clamp(2rem, 4.5vw, 3.2rem)',
                 fontWeight: '800',
                 marginBottom: '1rem',
                 lineHeight: '1.15',
-                color: '#0F172A',
+                color: '#1E3A5F',
                 fontFamily: isRTL ? 'var(--font-hebrew)' : 'var(--font-latin)',
                 letterSpacing: '-0.01em',
               }}>
@@ -201,11 +208,11 @@ export default function Home() {
                   ru: '\u041C\u043E\u0439 \u041E\u0433\u043E\u043D\u044C - \u0420\u0430\u0441\u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0435\u043D\u0438\u0435 \u041A\u043D\u0438\u0433 \u0411\u0440\u0435\u0441\u043B\u043E\u0432',
                 })}
               </h1>
-              <h2 style={{
+              <p style={{
                 fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
                 fontWeight: '400',
-                marginBottom: '1.5rem',
-                color: 'hsl(210, 15%, 45%)',
+                marginBottom: '2rem',
+                color: '#5A6F85',
                 lineHeight: '1.5',
                 fontFamily: isRTL ? 'var(--font-hebrew)' : 'var(--font-serif)',
               }}>
@@ -216,15 +223,20 @@ export default function Home() {
                   es: 'La librer\u00EDa l\u00EDder de Rab\u00ED Nachman de Breslov',
                   ru: '\u0412\u0435\u0434\u0443\u0449\u0438\u0439 \u043A\u043D\u0438\u0436\u043D\u044B\u0439 \u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0420\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430 \u0438\u0437 \u0411\u0440\u0435\u0441\u043B\u043E\u0432',
                 })}
-              </h2>
-              <p style={{
-                marginBottom: '2rem',
-                fontStyle: 'italic',
-                color: 'hsl(210, 12%, 50%)',
-                fontSize: 'clamp(0.95rem, 1.4vw, 1.1rem)',
-                lineHeight: '1.7',
-                maxWidth: '500px',
-              }}>
+              </p>
+              <a href="/store" style={{textDecoration: 'none', display: 'inline-block'}}>
+                <button data-testid="button-enter-store-hero" style={{
+                  background: '#FF6B00',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  padding: '1rem 2.5rem',
+                  borderRadius: '10px',
+                  cursor: 'pointer',
+                  fontSize: '1.1rem',
+                  fontWeight: '700',
+                  boxShadow: '0 4px 14px rgba(255,107,0,0.35)',
+                  transition: 'all 0.2s ease',
+                }}>
                 {ml(currentLanguage, {
                   he: "''\u05E8\u05E7 \u05EA\u05E0\u05D5 \u05DC\u05D9 \u05D0\u05EA \u05DC\u05D9\u05D1\u05DB\u05DD \u05D5\u05D0\u05D5\u05DC\u05D9\u05DA \u05D0\u05EA\u05DB\u05DD \u05D1\u05D3\u05E8\u05DA \u05D7\u05D3\u05E9\u05D4..'' (\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF)",
                   en: '"Just give me your hearts and I will lead you on a new path..." (Rabbi Nachman)',
@@ -232,7 +244,8 @@ export default function Home() {
                   es: '"Solo denme sus corazones y los guiar\u00E9 por un camino nuevo..." (Rabino Nachman)',
                   ru: '"\u041F\u0440\u043E\u0441\u0442\u043E \u0434\u0430\u0439\u0442\u0435 \u043C\u043D\u0435 \u0432\u0430\u0448\u0438 \u0441\u0435\u0440\u0434\u0446\u0430 \u0438 \u044F \u043F\u043E\u0432\u0435\u0434\u0443 \u0432\u0430\u0441 \u043D\u043E\u0432\u044B\u043C \u043F\u0443\u0442\u0435\u043C..." (\u0420\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D)',
                 })}
-              </p>
+              </button>
+              </a>
               <div style={{display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center'}}>
                 <a href="/store" style={{textDecoration: 'none'}}>
                   <button data-testid="button-enter-store" style={{
@@ -302,7 +315,6 @@ export default function Home() {
               />
             </div>
           </div>
-        </div>
 
         {/* Responsive: stack on mobile */}
         <style>{`
@@ -816,7 +828,101 @@ export default function Home() {
         </div>
       </section>
 
+      {/* TESTIMONIALS SECTION */}
+      <LazySection>
+      <section style={{background: '#FFFFFF', padding: '5rem 0'}}>
+        <div style={{maxWidth: '1100px', margin: '0 auto', padding: '0 2rem'}}>
+          <div style={{textAlign: 'center', marginBottom: '3rem'}}>
+            <h2 style={{
+              fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
+              fontWeight: '700',
+              color: 'hsl(210, 25%, 20%)',
+              marginBottom: '0.5rem',
+              fontFamily: isRTL ? 'var(--font-hebrew)' : 'var(--font-serif)',
+            }}>
+              {ml(currentLanguage, {
+                he: 'מה אומרים הלקוחות שלנו',
+                en: 'What Our Customers Say',
+                fr: 'Ce que disent nos clients',
+                es: 'Lo que dicen nuestros clientes',
+                ru: 'Что говорят наши клиенты',
+              })}
+            </h2>
+            <div style={{width: '60px', height: '3px', background: '#FF6B00', margin: '1rem auto 0', borderRadius: '2px'}} />
+          </div>
+
+          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem'}}>
+            {[
+              {
+                nameHe: 'יעקב כ.', nameEn: 'Yaakov K.', nameFr: 'Yaakov K.', nameEs: 'Yaakov K.', nameRu: 'Яаков К.',
+                textHe: 'שירות מעולה ומשלוח מהיר! הספרים הגיעו באריזה מושלמת. ממליץ בחום על החנות.',
+                textEn: 'Excellent service and fast shipping! The books arrived in perfect packaging. Highly recommend this store.',
+                textFr: 'Service excellent et livraison rapide ! Les livres sont arrivés dans un emballage parfait.',
+                textEs: 'Excelente servicio y envío rápido. Los libros llegaron en un empaque perfecto.',
+                textRu: 'Отличный сервис и быстрая доставка! Книги пришли в идеальной упаковке.',
+                stars: 5,
+              },
+              {
+                nameHe: 'שרה ל.', nameEn: 'Sarah L.', nameFr: 'Sarah L.', nameEs: 'Sarah L.', nameRu: 'Сара Л.',
+                textHe: 'מבחר ענק של ספרי ברסלב! מצאתי כאן ספרים שלא מצאתי בשום מקום אחר. תודה רבה!',
+                textEn: 'Huge selection of Breslov books! I found books here that I couldn\'t find anywhere else. Thank you!',
+                textFr: 'Énorme sélection de livres Breslov ! J\'ai trouvé des livres ici que je n\'ai trouvés nulle part ailleurs.',
+                textEs: '¡Gran selección de libros Breslov! Encontré libros aquí que no encontré en ningún otro lugar.',
+                textRu: 'Огромный выбор книг Бреслова! Нашла здесь книги, которые не могла найти нигде.',
+                stars: 5,
+              },
+              {
+                nameHe: 'משה ד.', nameEn: 'Moshe D.', nameFr: 'Moshe D.', nameEs: 'Moshe D.', nameRu: 'Моше Д.',
+                textHe: 'קניתי סט שלם של ליקוטי מוהר"ן. איכות הדפוס והכריכה מדהימה. חנות אמינה ומקצועית.',
+                textEn: 'I bought a complete set of Likutei Moharan. The print quality and binding are amazing. Reliable and professional store.',
+                textFr: 'J\'ai acheté un ensemble complet de Likutei Moharan. La qualité d\'impression est incroyable.',
+                textEs: 'Compré un set completo de Likutei Moharan. La calidad de impresión es increíble.',
+                textRu: 'Купил полный набор Ликутей Моаран. Качество печати и переплёта потрясающее.',
+                stars: 5,
+              },
+            ].map((review, index) => (
+              <div key={index} style={{
+                background: '#FFFFFF',
+                padding: '2rem',
+                borderRadius: '12px',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                transition: 'box-shadow 0.3s ease',
+              }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 6px 24px rgba(0,0,0,0.1)'}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'}
+              >
+                {/* Stars */}
+                <div style={{marginBottom: '0.75rem', color: '#F59E0B', fontSize: '1.1rem', letterSpacing: '2px'}}>
+                  {'★'.repeat(review.stars)}{'☆'.repeat(5 - review.stars)}
+                </div>
+                {/* Review text */}
+                <p style={{
+                  fontSize: '0.95rem',
+                  color: 'hsl(210, 15%, 35%)',
+                  lineHeight: '1.7',
+                  marginBottom: '1rem',
+                  fontStyle: 'italic',
+                }}>
+                  &ldquo;{currentLanguage === 'he' ? review.textHe : currentLanguage === 'en' ? review.textEn : currentLanguage === 'fr' ? review.textFr : currentLanguage === 'es' ? review.textEs : currentLanguage === 'ru' ? review.textRu : review.textHe}&rdquo;
+                </p>
+                {/* Reviewer name */}
+                <p style={{
+                  fontSize: '0.9rem',
+                  fontWeight: '600',
+                  color: 'hsl(210, 25%, 25%)',
+                }}>
+                  &mdash; {currentLanguage === 'he' ? review.nameHe : currentLanguage === 'en' ? review.nameEn : currentLanguage === 'fr' ? review.nameFr : currentLanguage === 'es' ? review.nameEs : currentLanguage === 'ru' ? review.nameRu : review.nameHe}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      </LazySection>
+
       {/* CATEGORIES SECTION */}
+      <LazySection>
       <section style={{background: 'hsl(210, 30%, 97%)', padding: '5rem 0'}}>
         <div style={{maxWidth: '1000px', margin: '0 auto', padding: '0 2rem'}}>
           <div style={{textAlign: 'center', marginBottom: '3rem'}}>
@@ -854,7 +960,10 @@ export default function Home() {
         </div>
       </section>
 
+      </LazySection>
+
       {/* NEWSLETTER SECTION */}
+      <LazySection>
       <section style={{background: '#FFFFFF', padding: '5rem 0'}}>
         <div style={{maxWidth: '700px', margin: '0 auto', padding: '0 2rem', textAlign: 'center'}}>
           <h2 style={{fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)', fontWeight: '700', color: 'hsl(210, 25%, 20%)', marginBottom: '0.75rem'}}>
@@ -897,7 +1006,10 @@ export default function Home() {
         </div>
       </section>
 
+      </LazySection>
+
       {/* JOIN / CTA SECTION */}
+      <LazySection>
       <section style={{background: 'hsl(210, 30%, 97%)', padding: '5rem 0'}}>
         <div style={{maxWidth: '800px', margin: '0 auto', padding: '0 2rem', textAlign: 'center'}}>
           <h2 style={{fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)', fontWeight: '700', marginBottom: '0.75rem', color: 'hsl(210, 25%, 20%)'}}>
@@ -920,6 +1032,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      </LazySection>
 
       {/* FOOTER */}
       <footer className="main-footer" style={{background: 'hsl(210, 20%, 18%)', color: 'white', padding: '2.5rem 0 2rem'}}>

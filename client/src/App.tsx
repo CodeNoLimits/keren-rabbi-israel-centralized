@@ -15,6 +15,7 @@ import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { ChatWidget } from "@/components/ChatWidget";
 import { NewsletterPopup } from "@/components/NewsletterPopup";
 import { CookieConsent } from "@/components/CookieConsent";
+import { BottomNav } from "@/components/BottomNav";
 
 // Lazy load all pages for code splitting
 const Home = lazy(() => import("@/pages/home"));
@@ -354,6 +355,7 @@ function App() {
                 <ChatWidget />
                 <NewsletterPopup />
                 <CookieConsent />
+                <BottomNav />
               </FavoritesProvider>
             </CartProvider>
           </CurrencyProvider>

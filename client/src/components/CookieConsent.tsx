@@ -77,7 +77,7 @@ export function CookieConsent() {
           </button>
           <button
             onClick={handleAccept}
-            className="text-gray-400 hover:text-gray-600 p-1"
+            className="text-gray-500 hover:text-gray-700 p-1"
             aria-label="Close"
           >
             <X className="h-4 w-4" />

@@ -284,7 +284,7 @@ export default function Chat() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 dark:from-gray-900 dark:to-gray-800" dir={currentLanguage === 'he' ? 'rtl' : 'ltr'}>
       <Header />
       
       <div className="container mx-auto px-4 py-6 max-w-4xl">
