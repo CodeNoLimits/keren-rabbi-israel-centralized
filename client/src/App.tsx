@@ -16,6 +16,10 @@ import { ChatWidget } from "@/components/ChatWidget";
 import { NewsletterPopup } from "@/components/NewsletterPopup";
 import { CookieConsent } from "@/components/CookieConsent";
 import { BottomNav } from "@/components/BottomNav";
+import { initAnalytics } from "@/utils/analytics";
+
+// Task 92: Initialize analytics on load
+initAnalytics();
 
 // Lazy load all pages for code splitting
 const Home = lazy(() => import("@/pages/home"));

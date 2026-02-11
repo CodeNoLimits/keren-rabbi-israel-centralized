@@ -251,7 +251,7 @@
 - [ ] **70. [P3/S] Code-Split Product Data**
   `realProducts.ts` is 2797 lines loaded as a single chunk. Consider splitting into category-based chunks or loading on demand.
 
-- [ ] **71. [P3/S] Reduce CSS Bundle - Remove Unused Tailwind Classes**
+- [x] **71. [P3/S] Reduce CSS Bundle - Remove Unused Tailwind Classes** ✓
   Many UI components from shadcn/ui are imported but not all are used. Enable Tailwind purge/content scanning to eliminate dead CSS.
 
 - [ ] **72. [P3/S] Database Query Optimization**
@@ -276,7 +276,7 @@
 - [x] **77. [P2/S] Touch-Friendly Filter Controls** ✓
   Checkboxes and sliders in sidebar are small for touch targets. Increase touch area to minimum 44x44px per WCAG guidelines.
 
-- [ ] **78. [P2/S] Swipeable Product Image Gallery**
+- [x] **78. [P2/S] Swipeable Product Image Gallery** ✓
   Product page image thumbnails need touch swipe support. Use `embla-carousel` (already in dependencies) for mobile image gallery.
 
 - [x] **79. [P3/S] Bottom Navigation Bar on Mobile** ✓
@@ -330,7 +330,7 @@
 
 ## L. ANALYTICS & TRACKING (Tasks 92-95)
 
-- [ ] **92. [P2/M] Google Analytics 4 Integration**
+- [x] **92. [P2/M] Google Analytics 4 Integration** ✓
   No analytics detected in the codebase. Add GA4 with enhanced e-commerce tracking: page views, product views, add-to-cart events, purchases.
 
 - [ ] **93. [P2/S] Facebook Pixel Integration**
@@ -339,7 +339,7 @@
 - [ ] **94. [P3/S] Hotjar or Microsoft Clarity for Heatmaps**
   Add session recording and heatmap tool to understand user behavior, especially on store and checkout pages.
 
-- [ ] **95. [P3/S] Custom Event Tracking**
+- [x] **95. [P3/S] Custom Event Tracking** ✓
   Track: language changes, search queries, filter usage, coupon attempts, favorite actions. Store in analytics for business insights.
 
 ---
@@ -367,7 +367,7 @@
 
 ---
 
-## PROGRESS: 71 tasks completed out of 100
+## PROGRESS: 75 tasks completed out of 100
 
 ## SUMMARY BY PRIORITY
 

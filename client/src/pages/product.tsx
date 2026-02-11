@@ -21,6 +21,7 @@ export default function Product() {
   const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const imageContainerRef = useRef<HTMLDivElement>(null);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
   const { toggleFavorite, isFavorite } = useFavorites();
   const { addItem } = useCart();
   const { toast } = useToast();
@@ -302,6 +303,17 @@ export default function Product() {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onClick={handleTouchToggle}
+                onTouchStart={(e) => { touchStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }}
+                onTouchEnd={(e) => {
+                  if (!touchStartRef.current) return;
+                  const dx = e.changedTouches[0].clientX - touchStartRef.current.x;
+                  const dy = e.changedTouches[0].clientY - touchStartRef.current.y;
+                  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) && product.images && product.images.length > 1) {
+                    if (dx < 0) setSelectedImage(i => i < product.images!.length - 1 ? i + 1 : 0);
+                    else setSelectedImage(i => i > 0 ? i - 1 : product.images!.length - 1);
+                  }
+                  touchStartRef.current = null;
+                }}
                 style={{
                   marginBottom: '1rem',
                   overflow: 'hidden',
