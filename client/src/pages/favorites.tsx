@@ -7,7 +7,7 @@ import { useCart } from '../contexts/CartContext';
 import { realBreslovProducts } from '../data/products';
 import { getInterfaceDisplayTitle, getInterfaceCategoryName } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';
-import { Heart, ShoppingCart, Trash2, ArrowRight, Share2, GitCompareArrows, X } from 'lucide-react';
+import { Heart, ShoppingCart, Trash2, ArrowRight, Share2, GitCompareArrows, X, Mail } from 'lucide-react';
 
 export default function Favorites() {
   const { favorites, toggleFavorite } = useFavorites();
@@ -46,6 +46,8 @@ export default function Favorites() {
     viewProduct: isRTL ? 'צפה במוצר' : currentLanguage === 'fr' ? 'Voir le produit' : 'View Product',
     itemCount: (n: number) => isRTL ? `${n} מוצרים` : `${n} items`,
     share: isRTL ? 'שתף מועדפים' : currentLanguage === 'fr' ? 'Partager les favoris' : 'Share Favorites',
+    shareWhatsApp: isRTL ? 'שתף ב-WhatsApp' : currentLanguage === 'fr' ? 'Partager sur WhatsApp' : 'Share on WhatsApp',
+    shareEmail: isRTL ? 'שתף באימייל' : currentLanguage === 'fr' ? 'Partager par email' : 'Share via Email',
     compare: isRTL ? 'השווה' : currentLanguage === 'fr' ? 'Comparer' : 'Compare',
     compareSelected: isRTL ? 'השווה נבחרים' : currentLanguage === 'fr' ? 'Comparer la sélection' : 'Compare Selected',
     selectToCompare: isRTL ? 'בחר עד 3 מוצרים להשוואה' : currentLanguage === 'fr' ? 'Sélectionnez jusqu\'à 3 produits' : 'Select up to 3 products to compare',
@@ -69,6 +71,21 @@ export default function Favorites() {
     const text = `${header}\n\n${lines.join('\n\n')}`;
     const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
     window.open(waUrl, '_blank');
+  };
+
+  // Task 46: Share favorites via Email
+  const handleEmailShare = () => {
+    const lines = favoriteProducts.map(p => {
+      const title = getInterfaceDisplayTitle(p, currentLanguage);
+      const price = p.variants?.[0]?.price ? `${p.variants[0].price}₪` : '';
+      const url = `https://haesh-sheli-new.vercel.app/product/${p.id}`;
+      return `${title} - ${price}\n${url}`;
+    });
+    const subject = isRTL ? 'המלצת ספרים מהאש שלי' : 'Book recommendations from HaEsh Sheli';
+    const header = isRTL ? '❤️ הספרים המועדפים שלי:' : '❤️ My favorite books:';
+    const body = `${header}\n\n${lines.join('\n\n')}\n\n---\nהאש שלי - ספרי ברסלב\nhttps://haesh-sheli-new.vercel.app`;
+    const mailto = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
   };
 
   const handleAddToCart = (product: any) => {
@@ -106,10 +123,16 @@ export default function Favorites() {
               <span style={{ fontSize: '0.9rem', color: '#999', marginTop: '0.25rem' }}>
                 ({t.itemCount(favoriteProducts.length)})
               </span>
-              <button onClick={handleShareFavorites} style={{ marginInlineStart: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem', background: '#25D366', color: 'white', border: 'none', borderRadius: '8px', padding: '0.5rem 1rem', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '600' }} aria-label={t.share}>
-                <Share2 size={16} />
-                {t.share}
-              </button>
+              <div style={{ marginInlineStart: 'auto', display: 'flex', gap: '0.5rem' }}>
+                <button onClick={handleShareFavorites} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: '#25D366', color: 'white', border: 'none', borderRadius: '8px', padding: '0.5rem 1rem', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '600' }} aria-label={t.shareWhatsApp} title={t.shareWhatsApp}>
+                  <Share2 size={16} />
+                  WhatsApp
+                </button>
+                <button onClick={handleEmailShare} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: '#3b82f6', color: 'white', border: 'none', borderRadius: '8px', padding: '0.5rem 1rem', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '600' }} aria-label={t.shareEmail} title={t.shareEmail}>
+                  <Mail size={16} />
+                  Email
+                </button>
+              </div>
               {favoriteProducts.length >= 2 && (
                 <button
                   onClick={() => setShowCompare(!showCompare)}

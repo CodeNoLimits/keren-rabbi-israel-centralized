@@ -142,25 +142,6 @@ const quickAddLabels: Record<string, string> = {
 // Task 68: Module-level constant - realBreslovProducts is static, no need to recompute
 const allProducts = Object.values(realBreslovProducts);
 
-// Task 19: Simple fuzzy matching for typo tolerance
-function fuzzyMatch(text: string, query: string, maxDist = 2): boolean {
-  if (text.includes(query)) return true;
-  if (query.length <= 2) return false;
-  const words = text.split(/\s+/);
-  for (const word of words) {
-    if (word.length < 2) continue;
-    const len = Math.min(word.length, query.length);
-    let dist = 0;
-    for (let i = 0; i < len; i++) {
-      if (word[i] !== query[i]) dist++;
-      if (dist > maxDist) break;
-    }
-    dist += Math.abs(word.length - query.length);
-    if (dist <= maxDist) return true;
-  }
-  return false;
-}
-
 export default function Store() {
   const { currentLanguage, setLanguage } = useLanguage();
   const { toggleFavorite, isFavorite } = useFavorites();
