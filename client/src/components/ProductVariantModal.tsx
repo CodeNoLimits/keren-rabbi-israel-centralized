@@ -293,6 +293,35 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
           </div>
         </div>
 
+        {/* Quick View Content - Description and Features */}
+        <div className="px-4 py-3 bg-gray-50/50 border-b border-gray-100">
+          <p className="text-sm text-gray-600 line-clamp-3 mb-2 italic">
+            {currentLanguage === 'en' ? product.descriptionEnglish :
+             currentLanguage === 'fr' ? product.descriptionFrench :
+             currentLanguage === 'es' ? product.descriptionSpanish :
+             currentLanguage === 'ru' ? product.descriptionRussian : product.description}
+          </p>
+          {product.features && product.features.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              {product.features.slice(0, 3).map((f, i) => (
+                <span key={i} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[10px] font-medium border border-blue-100">
+                  <Check className="w-2.5 h-2.5" />
+                  {f}
+                </span>
+              ))}
+            </div>
+          )}
+          <div className="mt-3">
+            <a 
+              href={`/product/${product.id}`}
+              className="text-xs font-semibold text-blue-600 hover:text-blue-800 underline transition-colors"
+              onClick={onClose}
+            >
+              {currentLanguage === 'he' ? 'צפייה בפרטים המלאים' : 'View full details'}
+            </a>
+          </div>
+        </div>
+
         {/* Size Selection - Temu-style chips */}
         {sizes.length > 1 && (
           <div className="px-4 pt-4 pb-2">
