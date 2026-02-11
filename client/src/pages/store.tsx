@@ -114,6 +114,25 @@ const quickAddLabels: Record<string, string> = {
 // Task 68: Module-level constant - realBreslovProducts is static, no need to recompute
 const allProducts = Object.values(realBreslovProducts);
 
+// Task 19: Simple fuzzy matching for typo tolerance
+function fuzzyMatch(text: string, query: string, maxDist = 2): boolean {
+  if (text.includes(query)) return true;
+  if (query.length <= 2) return false;
+  const words = text.split(/\s+/);
+  for (const word of words) {
+    if (word.length < 2) continue;
+    const len = Math.min(word.length, query.length);
+    let dist = 0;
+    for (let i = 0; i < len; i++) {
+      if (word[i] !== query[i]) dist++;
+      if (dist > maxDist) break;
+    }
+    dist += Math.abs(word.length - query.length);
+    if (dist <= maxDist) return true;
+  }
+  return false;
+}
+
 export default function Store() {
   const { currentLanguage, setLanguage } = useLanguage();
   const { toggleFavorite, isFavorite } = useFavorites();
@@ -159,7 +178,10 @@ export default function Store() {
         const nameMatch = product.name.toLowerCase().includes(q) || translatedName.includes(q) || (product.nameEnglish || '').toLowerCase().includes(q) || (product.nameFrench || '').toLowerCase().includes(q) || ((product as any).nameSpanish || '').toLowerCase().includes(q) || ((product as any).nameRussian || '').toLowerCase().includes(q);
         const descMatch = (product.description || '').toLowerCase().includes(q) || (product.descriptionEnglish || '').toLowerCase().includes(q);
         const catMatch = product.category.toLowerCase().includes(q);
-        if (!nameMatch && !descMatch && !catMatch) return false;
+        // Task 19: Fuzzy fallback for typo tolerance
+        const fuzzyFallback = q.length >= 3 && !nameMatch && !descMatch && !catMatch &&
+          (fuzzyMatch(product.name.toLowerCase(), q) || fuzzyMatch(translatedName, q) || fuzzyMatch((product.nameEnglish || '').toLowerCase(), q));
+        if (!nameMatch && !descMatch && !catMatch && !fuzzyFallback) return false;
       }
       if (filters.categories.length > 0 && !filters.categories.includes(product.category)) return false;
       if (filters.languages.length > 0 && !filters.languages.includes(product.language || '')) return false;

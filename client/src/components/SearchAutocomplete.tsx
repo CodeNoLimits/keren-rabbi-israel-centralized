@@ -78,6 +78,26 @@ const searchTranslations = {
   },
 };
 
+// Task 19: Simple fuzzy matching - Levenshtein distance for typo tolerance
+function fuzzyMatch(text: string, query: string, maxDistance = 2): boolean {
+  if (text.includes(query)) return true;
+  if (query.length <= 2) return false;
+  // Check each word in text against query
+  const words = text.split(/\s+/);
+  for (const word of words) {
+    if (word.length < 2) continue;
+    const len = Math.min(word.length, query.length);
+    let dist = 0;
+    for (let i = 0; i < len; i++) {
+      if (word[i] !== query[i]) dist++;
+      if (dist > maxDistance) break;
+    }
+    dist += Math.abs(word.length - query.length);
+    if (dist <= maxDistance) return true;
+  }
+  return false;
+}
+
 export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -131,6 +151,16 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
 
         // Description match (lower priority)
         if (desc.includes(lowerQuery)) score += 10;
+
+        // Task 19: Fuzzy matching for typo tolerance (lowest priority)
+        if (score === 0 && lowerQuery.length >= 3) {
+          if (fuzzyMatch(name, lowerQuery)) score += 8;
+          else if (fuzzyMatch(nameEn, lowerQuery)) score += 7;
+          else if (fuzzyMatch(nameFr, lowerQuery)) score += 6;
+          else if (fuzzyMatch(nameEs, lowerQuery)) score += 6;
+          else if (fuzzyMatch(nameRu, lowerQuery)) score += 6;
+          else if (fuzzyMatch(category, lowerQuery)) score += 4;
+        }
 
         return { product, score };
       })

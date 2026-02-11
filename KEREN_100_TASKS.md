@@ -71,7 +71,7 @@
 - [x] **18. [P2/S] Search by Hebrew AND English Names**
   Current search only matches `product.name` (Hebrew) and `description`. Also search `nameEnglish`, `nameFrench`, `nameSpanish`, `nameRussian` fields for multi-language support.
 
-- [ ] **19. [P2/S] Fuzzy Search / Typo Tolerance**
+- [x] **19. [P2/S] Fuzzy Search / Typo Tolerance** ✓
   Hebrew keyboard users often make typos. Implement basic fuzzy matching (Levenshtein distance or similar) so "ליקוטי מהורן" still finds "ליקוטי מוהר"ן".
 
 - [x] **20. [P3/S] Search History / Recent Searches** ✓
@@ -223,7 +223,7 @@
 - [x] **62. [P3/S] Alt Text for All Images** ✓
   Product images use `product.name` as alt text. Enhance with descriptive alt text including: book title, author, format, language.
 
-- [ ] **63. [P3/M] Hreflang Tags for Multi-Language Pages**
+- [x] **63. [P3/M] Hreflang Tags for Multi-Language Pages** ✓
   When language selector works, add `<link rel="alternate" hreflang="x">` tags for each language version of each page. Critical for international SEO.
 
 ---
@@ -273,7 +273,7 @@
 - [x] **76. [P2/S] Mobile Header Improvements** ✓
   Mobile menu exists but hamburger button has `hover:rotate-90` which is odd on touch. Remove hover transforms on mobile. Ensure language selector is accessible in mobile menu.
 
-- [ ] **77. [P2/S] Touch-Friendly Filter Controls**
+- [x] **77. [P2/S] Touch-Friendly Filter Controls** ✓
   Checkboxes and sliders in sidebar are small for touch targets. Increase touch area to minimum 44x44px per WCAG guidelines.
 
 - [ ] **78. [P2/S] Swipeable Product Image Gallery**
@@ -362,12 +362,12 @@
 
 ## N. BRANDING & FINAL POLISH (Task 100)
 
-- [ ] **100. [P2/M] Branding Consistency: Orange, Blue, White**
+- [x] **100. [P2/M] Branding Consistency: Orange, Blue, White** ✓
   Yaakov specifies: "Concept: Orange, Bleu, Blanc". Current palette is Blue+Teal+Gold. Audit and adjust to Orange (accent/CTA), Blue (primary), White (background). Update CSS variables in `index.css`. LED-style glow effect behind book displays. Conservative but modern feel. Must NOT look AI-generated.
 
 ---
 
-## PROGRESS: 58 tasks completed out of 100
+## PROGRESS: 68 tasks completed out of 100
 
 ## SUMMARY BY PRIORITY
 
