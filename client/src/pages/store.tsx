@@ -67,6 +67,34 @@ function highlightSearchMatch(text: string, query: string): React.ReactNode {
   );
 }
 
+// Task 19: Fuzzy matching for Hebrew typo tolerance (Levenshtein distance)
+function fuzzyMatch(text: string, query: string, maxDistance = 2): boolean {
+  if (text.includes(query)) return true;
+  if (query.length <= 2) return false;
+
+  // Check each word in text against query
+  const words = text.split(/\s+/);
+  for (const word of words) {
+    if (word.length < 2) continue;
+    const len = Math.min(word.length, query.length);
+    let dist = 0;
+
+    // Calculate character distance
+    for (let i = 0; i < len; i++) {
+      if (word[i] !== query[i]) dist++;
+      if (dist > maxDistance) break;
+    }
+
+    // Add length difference to distance
+    dist += Math.abs(word.length - query.length);
+
+    // If within threshold, it's a match
+    if (dist <= maxDistance) return true;
+  }
+
+  return false;
+}
+
 // Build descriptive alt text for product images
 function buildProductAlt(product: { name: string; nameEnglish?: string | null; language?: string | null; author?: string | null; category?: string }, currentLanguage: string, suffix?: string): string {
   const title = getInterfaceDisplayTitle(product, currentLanguage);
