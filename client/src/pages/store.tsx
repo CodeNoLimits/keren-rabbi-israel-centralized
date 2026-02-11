@@ -2,12 +2,14 @@ import { useState, useMemo, useEffect } from 'react';
 import { Link } from 'wouter';
 import { realBreslovProducts } from '../data/realProducts';
 import { Header } from '../components/Header';
+import { ProductVariantModal } from '../components/ProductVariantModal';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useFavorites } from '../contexts/FavoritesContext';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, X, Filter, ChevronDown, ChevronUp } from 'lucide-react';
+import { Search, X, Filter, ChevronDown, ChevronUp, Heart, ShoppingCart } from 'lucide-react';
 import { convertImagePath } from '../utils/imagePathHelper';
 import type { Product } from '../../../shared/schema';
 
@@ -23,8 +25,12 @@ interface Filters {
 
 export default function Store() {
   const { currentLanguage, setLanguage } = useLanguage();
+  const { toggleFavorite, isFavorite } = useFavorites();
   const allProducts = Object.values(realBreslovProducts);
-  
+
+  // Variant modal state
+  const [variantModalProduct, setVariantModalProduct] = useState<Product | null>(null);
+
   // Filter states
   const [filters, setFilters] = useState<Filters>({
     categories: [],
@@ -452,79 +458,131 @@ export default function Store() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredProducts.map((product) => (
-                <div 
-                  key={product.id} 
-                  className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-200"
-                  data-testid={`card-product-${product.id}`}
-                >
-                  
-                  {/* Image */}
-                  <Link href={`/product/${product.id}`}>
-                    {product.images && product.images.length > 0 ? (
-                      <img 
-                        src={convertImagePath(product.images[0])}
-                        alt={product.name}
-                        className="w-full h-48 object-cover cursor-pointer hover:opacity-90 transition-opacity"
-                        data-testid={`img-product-${product.id}`}
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
+              {filteredProducts.map((product) => {
+                const liked = isFavorite(product.id);
+                return (
+                  <div
+                    key={product.id}
+                    className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-200 group relative"
+                    data-testid={`card-product-${product.id}`}
+                  >
+
+                    {/* Favorite Heart Button - top-right corner overlay */}
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        toggleFavorite(product.id);
+                      }}
+                      className={`
+                        absolute top-3 z-10 p-2 rounded-full shadow-md
+                        transition-all duration-200 hover:scale-110 active:scale-90
+                        ${currentLanguage === 'he' ? 'left-3' : 'right-3'}
+                        ${liked
+                          ? 'bg-red-500 text-white hover:bg-red-600'
+                          : 'bg-white/90 text-gray-400 hover:text-red-500 hover:bg-white'}
+                      `}
+                      data-testid={`button-favorite-${product.id}`}
+                      aria-label={liked ? 'Remove from favorites' : 'Add to favorites'}
+                    >
+                      <Heart
+                        className="h-4 w-4"
+                        fill={liked ? 'currentColor' : 'none'}
+                        strokeWidth={liked ? 0 : 2}
                       />
-                    ) : (
-                      <div 
-                        className="w-full h-48 bg-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"
-                        data-testid={`placeholder-product-${product.id}`}
+                    </button>
+
+                    {/* Image */}
+                    <Link href={`/product/${product.id}`}>
+                      {product.images && product.images.length > 0 ? (
+                        <img loading="lazy"
+                          src={convertImagePath(product.images[0])}
+                          alt={product.name}
+                          className="w-full h-48 object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                          data-testid={`img-product-${product.id}`}
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
+                      ) : (
+                        <div
+                          className="w-full h-48 bg-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"
+                          data-testid={`placeholder-product-${product.id}`}
+                        >
+                          <span className="text-2xl">&#128214;</span>
+                        </div>
+                      )}
+                    </Link>
+
+                    {/* Content */}
+                    <div className="p-4">
+                      <Link href={`/product/${product.id}`}>
+                        <h3
+                          className="font-semibold text-lg mb-2 text-gray-900 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
+                          data-testid={`text-title-${product.id}`}
+                        >
+                          {product.name}
+                        </h3>
+                      </Link>
+
+                      <div
+                        className="text-lg font-bold text-blue-600 mb-2"
+                        data-testid={`text-price-${product.id}`}
                       >
-                        <span className="text-2xl">📖</span>
+                        {product.variants && product.variants.length > 0 ?
+                          `${Math.min(...product.variants.map(v => v.price))} \u20AA \u2013 ${Math.max(...product.variants.map(v => v.price))} \u20AA` :
+                          currentLanguage === 'he' ? '\u05DE\u05D7\u05D9\u05E8 \u05DC\u05D0 \u05D6\u05DE\u05D9\u05DF' : 'Price unavailable'
+                        }
                       </div>
-                    )}
-                  </Link>
-                  
-                  {/* Content */}
-                  <div className="p-4">
-                    <Link href={`/product/${product.id}`}>
-                      <h3 
-                        className="font-semibold text-lg mb-2 text-gray-900 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
-                        data-testid={`text-title-${product.id}`}
+
+                      <div
+                        className="text-sm text-gray-600 mb-4"
+                        data-testid={`text-category-${product.id}`}
                       >
-                        {product.name}
-                      </h3>
-                    </Link>
-                    
-                    <div 
-                      className="text-lg font-bold text-blue-600 mb-2"
-                      data-testid={`text-price-${product.id}`}
-                    >
-                      {product.variants && product.variants.length > 0 ? 
-                        `${Math.min(...product.variants.map(v => v.price))} ₪ – ${Math.max(...product.variants.map(v => v.price))} ₪` : 
-                        'מחיר לא זמין'
-                      }
+                        {product.category}
+                      </div>
+
+                      {/* Two buttons: View Details + Add to Cart */}
+                      <div className="flex gap-2">
+                        <Link href={`/product/${product.id}`} className="flex-1">
+                          <Button
+                            className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm"
+                            data-testid={`button-view-details-${product.id}`}
+                          >
+                            {currentLanguage === 'he' ? '\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05E4\u05E8\u05D8\u05D9\u05DD' :
+                             currentLanguage === 'en' ? 'View Details' :
+                             currentLanguage === 'fr' ? 'Voir' :
+                             currentLanguage === 'es' ? 'Ver' :
+                             currentLanguage === 'ru' ? '\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435' : '\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05E4\u05E8\u05D8\u05D9\u05DD'}
+                          </Button>
+                        </Link>
+                        <Button
+                          className="bg-red-600 hover:bg-red-700 text-white px-3"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setVariantModalProduct(product as Product);
+                          }}
+                          data-testid={`button-add-to-cart-${product.id}`}
+                          aria-label={currentLanguage === 'he' ? '\u05D4\u05D5\u05E1\u05E3 \u05DC\u05E1\u05DC' : 'Add to cart'}
+                        >
+                          <ShoppingCart className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
-                    
-                    <div 
-                      className="text-sm text-gray-600 mb-4"
-                      data-testid={`text-category-${product.id}`}
-                    >
-                      {product.category}
-                    </div>
-                    
-                    <Link href={`/product/${product.id}`}>
-                      <Button 
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                        data-testid={`button-view-details-${product.id}`}
-                      >
-                        {currentLanguage === 'he' ? 'צפייה בפרטים' :
-                         currentLanguage === 'en' ? 'View Details' :
-                         currentLanguage === 'fr' ? 'Voir Détails' :
-                         currentLanguage === 'es' ? 'Ver Detalles' :
-                         currentLanguage === 'ru' ? 'Посмотреть Детали' : 'צפייה בפרטים'}
-                      </Button>
-                    </Link>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
+
+            {/* Product Variant Selection Modal */}
+            {variantModalProduct && (
+              <ProductVariantModal
+                product={variantModalProduct}
+                isOpen={!!variantModalProduct}
+                onClose={() => setVariantModalProduct(null)}
+              />
+            )}
             
             {filteredProducts.length === 0 && (
               <div className="text-center py-12" data-testid="text-no-results">

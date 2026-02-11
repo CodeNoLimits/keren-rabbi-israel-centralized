@@ -1,19 +1,44 @@
 import { Switch, Route } from "wouter";
+import { lazy, Suspense } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { CartProvider } from "@/contexts/CartContext";
+import { FavoritesProvider } from "@/contexts/FavoritesContext";
 import { InstallPrompt } from "@/components/InstallPrompt";
 import { AmbientMusic } from "@/components/AmbientMusic";
-import Home from "@/pages/home";
-import Store from "@/pages/store";
-import About from "@/pages/about";
-import Magazine from "@/pages/magazine";
-import Join from "@/pages/join";
-import Contact from "@/pages/contact";
-import Checkout from "@/pages/checkout";
+
+// Lazy load all pages for code splitting
+const Home = lazy(() => import("@/pages/home"));
+const Store = lazy(() => import("@/pages/store"));
+const About = lazy(() => import("@/pages/about"));
+const Magazine = lazy(() => import("@/pages/magazine"));
+const Join = lazy(() => import("@/pages/join"));
+const Contact = lazy(() => import("@/pages/contact"));
+const Checkout = lazy(() => import("@/pages/checkout"));
+const Downloads = lazy(() => import("@/pages/downloads"));
+const Product = lazy(() => import("@/pages/product"));
+const BreslovWisdom = lazy(() => import("@/pages/breslovWisdom"));
+const BreslovVideos = lazy(() => import("@/pages/breslov-videos"));
+const KerenStyle = lazy(() => import("@/pages/keren-style"));
+const HaeshHype = lazy(() => import("@/pages/haesh-hype"));
+const Subscription = lazy(() => import("@/pages/subscription"));
+const SubscriptionManagement = lazy(() => import("@/pages/subscription-management"));
+const YaakovDashboard = lazy(() => import("@/pages/yaaakov"));
+const Chat = lazy(() => import("@/pages/chat"));
+const NotFound = lazy(() => import("@/pages/not-found"));
+
+// Loading fallback component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-amber-50 to-orange-100 dark:from-gray-900 dark:to-gray-800">
+    <div className="text-center">
+      <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-orange-600 border-t-transparent"></div>
+      <p className="mt-4 text-gray-600 dark:text-gray-300">טוען...</p>
+    </div>
+  </div>
+);
 
 // Simple checkout success component
 const CheckoutSuccess = () => {
@@ -39,40 +64,31 @@ const CheckoutSuccess = () => {
     </div>
   );
 };
-import Downloads from "@/pages/downloads";
-import Product from "@/pages/product";
-import BreslovWisdom from "@/pages/breslovWisdom";
-import BreslovVideos from "@/pages/breslov-videos";
-import KerenStyle from "@/pages/keren-style";
-import HaeshHype from "@/pages/haesh-hype";
-import Subscription from "@/pages/subscription";
-import SubscriptionManagement from "@/pages/subscription-management";
-import YaakovDashboard from "@/pages/yaaakov";
-import Chat from "@/pages/chat";
-import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/store" component={Store} />
-      <Route path="/about" component={About} />
-      <Route path="/magazine" component={Magazine} />
-      <Route path="/join" component={Join} />
-      <Route path="/contact" component={Contact} />
-      <Route path="/checkout" component={Checkout} />
-      <Route path="/checkout/success" component={() => <CheckoutSuccess />} />
-      <Route path="/downloads" component={Downloads} />
-      <Route path="/subscription" component={Subscription} />
-      <Route path="/subscription/manage" component={SubscriptionManagement} />
-      <Route path="/product/:id" component={Product} />
-      <Route path="/breslov-wisdom" component={BreslovWisdom} />
-      <Route path="/keren-style" component={KerenStyle} />
-      <Route path="/haesh-hype" component={HaeshHype} />
-      <Route path="/chat" component={Chat} />
-      <Route path="/yaaakov" component={YaakovDashboard} />
-      <Route component={NotFound} />
-    </Switch>
+    <Suspense fallback={<PageLoader />}>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/store" component={Store} />
+        <Route path="/about" component={About} />
+        <Route path="/magazine" component={Magazine} />
+        <Route path="/join" component={Join} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/checkout" component={Checkout} />
+        <Route path="/checkout/success" component={() => <CheckoutSuccess />} />
+        <Route path="/downloads" component={Downloads} />
+        <Route path="/subscription" component={Subscription} />
+        <Route path="/subscription/manage" component={SubscriptionManagement} />
+        <Route path="/product/:id" component={Product} />
+        <Route path="/breslov-wisdom" component={BreslovWisdom} />
+        <Route path="/keren-style" component={KerenStyle} />
+        <Route path="/haesh-hype" component={HaeshHype} />
+        <Route path="/chat" component={Chat} />
+        <Route path="/yaaakov" component={YaakovDashboard} />
+        <Route component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 }
 
@@ -82,10 +98,12 @@ function App() {
       <TooltipProvider>
         <LanguageProvider>
           <CartProvider>
-            <Toaster />
-            <InstallPrompt />
-            <AmbientMusic />
-            <Router />
+            <FavoritesProvider>
+              <Toaster />
+              <InstallPrompt />
+              <AmbientMusic />
+              <Router />
+            </FavoritesProvider>
           </CartProvider>
         </LanguageProvider>
       </TooltipProvider>
