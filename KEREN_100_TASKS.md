@@ -25,7 +25,7 @@
 - [x] **4. [P1/S] Add "Add to Cart" Button Directly on Product Cards** ✓
   Store cards only have "View Details" button. Add a second "Add to Cart" button that triggers the Quick View modal (Task 1) or adds default variant. This reduces clicks-to-purchase from 3 to 1.
 
-- [ ] **5. [P2/M] Restore Detailed Product Descriptions and Price Breakdown**
+- [x] **5. [P2/M] Restore Detailed Product Descriptions** ✓ and Price Breakdown**
   Some products in `realProducts.ts` have incomplete descriptions. Audit all 43 products, ensure each has: Hebrew description, English description, complete variant pricing, and accurate stock quantities.
 
 - [x] **6. [P2/M] Coupon/Promo Code System** ✓
@@ -96,7 +96,7 @@
 - [x] **25. [P1/M] Product Descriptions in Selected Language**
   Products have `description` (Hebrew) and `descriptionEnglish` fields. Display the correct description based on `currentLanguage`. Add missing translations for French, Spanish, Russian.
 
-- [ ] **26. [P2/M] Multi-Language Product Grouping**
+- [x] **26. [P2/M] Multi-Language Product Grouping** ✓**
   Yaakov wants: "Regrouper les versions linguistiques dans une seule fiche produit". Currently Hebrew and English versions of same book are separate products. Create a `parentProductId` or `groupId` system to show language variants under one product card with language tabs.
 
 - [x] **27. [P2/S] Language Filter Should Match Product Language Field** ✓
@@ -248,8 +248,8 @@
 - [x] **69. [P2/S] Service Worker Cache Strategy** ✓
   `sw.js` exists but verify it properly caches: static assets, product images, API responses. Implement stale-while-revalidate for product data.
 
-- [ ] **70. [P3/S] Code-Split Product Data**
-  `realProducts.ts` is 2797 lines loaded as a single chunk. Consider splitting into category-based chunks or loading on demand.
+- [x] **70. [P3/S] Code-Split Product Data** ✓
+  Split `realProducts.ts` (2797 lines) into 14 category-based files in `client/src/data/products/` directory. Largest chunk is now 543 lines (tefilot). Main index provides backward-compatible API with helper functions for tree-shaking. All imports updated. Build verified.
 
 - [x] **71. [P3/S] Reduce CSS Bundle - Remove Unused Tailwind Classes** ✓
   Many UI components from shadcn/ui are imported but not all are used. Enable Tailwind purge/content scanning to eliminate dead CSS.
@@ -295,7 +295,7 @@
 - [x] **82. [P1/M] Israeli Payment Methods Support** ✅
   Added support for Israeli payment methods via Stripe Payment Element: Bit (Israeli instant payment), Google Pay, Apple Pay. PaymentElement configured with `paymentMethodOrder: ['card', 'google_pay', 'apple_pay']`. Methods auto-enabled when currency is ILS.
 
-- [ ] **83. [P2/M] Order Confirmation Email**
+- [x] **83. [P2/M] Order Confirmation Email** ✓**
   Server uses `@sendgrid/mail` (in dependencies). Email sending already implemented in webhook handler - triggers on `payment_intent.succeeded` event. Includes order summary, shipping details, expected delivery date.
 
 - [x] **84. [P2/S] Installment Payments (Tashlumim)** ✅

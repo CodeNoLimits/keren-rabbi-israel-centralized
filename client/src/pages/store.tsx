@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'wouter';
-import { realBreslovProducts } from '../data/realProducts';
+import { realBreslovProducts } from '../data/products';
 import { Header } from '../components/Header';
 import { ProductVariantModal } from '../components/ProductVariantModal';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -157,6 +157,8 @@ export default function Store() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sidebarVisible, setSidebarVisible] = useState(() => { if (typeof window !== 'undefined') return window.innerWidth >= 768; return true; });
   const [expandedSections, setExpandedSections] = useState({ categories: true, languages: true, sizes: true, formats: true, price: true });
+  // Task 26: Track selected language for each product card
+  const [productLanguages, setProductLanguages] = useState<Record<string, string>>({});
 
   const filterOptions = useMemo(() => {
     const categories = new Set<string>(); const formats = new Set<string>(); const sizes = new Set<string>(); const languages = new Set<string>();
@@ -287,7 +289,9 @@ export default function Store() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" role="list" aria-label={currentLanguage === 'he' ? '\u05E8\u05E9\u05D9\u05DE\u05EA \u05DE\u05D5\u05E6\u05E8\u05D9\u05DD' : 'Product list'}>
               {paginatedProducts.map((product) => {
                 const liked = isFavorite(product.id);
-                const productTitle = getInterfaceDisplayTitle(product, currentLanguage);
+                // Task 26: Get selected language for this product card (default to interface language)
+                const selectedLang = productLanguages[product.id] || currentLanguage;
+                const productTitle = getInterfaceDisplayTitle(product, selectedLang);
                 const productCategory = getInterfaceCategoryName(product.category, currentLanguage);
                 const productPrice = product.variants && product.variants.length > 0 ? `${Math.min(...product.variants.map(v => v.price))} \u20AA` : '';
                 return (
@@ -314,6 +318,69 @@ export default function Store() {
                     </Link>
 
                     <div className="p-3">
+                      {/* Task 26: Language selector tabs for products with multiple language versions */}
+                      {product.languageGroupId && (product.nameEnglish || product.nameFrench || product.nameSpanish || product.nameRussian) && (
+                        <div className="flex gap-1 mb-2 flex-wrap" data-testid={`language-tabs-${product.id}`}>
+                          <button
+                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setProductLanguages(prev => ({ ...prev, [product.id]: 'he' })); }}
+                            className={`px-2 py-0.5 text-[10px] font-medium rounded transition-colors ${selectedLang === 'he' ? 'bg-blue-100 text-blue-700 border border-blue-300' : 'bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300'}`}
+                            data-testid={`lang-tab-he-${product.id}`}
+                            aria-label="Hebrew"
+                            title="עברית"
+                            aria-pressed={selectedLang === 'he'}
+                          >
+                            עב
+                          </button>
+                          {product.nameEnglish && (
+                            <button
+                              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setProductLanguages(prev => ({ ...prev, [product.id]: 'en' })); }}
+                              className={`px-2 py-0.5 text-[10px] font-medium rounded transition-colors ${selectedLang === 'en' ? 'bg-blue-100 text-blue-700 border border-blue-300' : 'bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300'}`}
+                              data-testid={`lang-tab-en-${product.id}`}
+                              aria-label="English"
+                              title="English"
+                              aria-pressed={selectedLang === 'en'}
+                            >
+                              EN
+                            </button>
+                          )}
+                          {product.nameFrench && (
+                            <button
+                              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setProductLanguages(prev => ({ ...prev, [product.id]: 'fr' })); }}
+                              className={`px-2 py-0.5 text-[10px] font-medium rounded transition-colors ${selectedLang === 'fr' ? 'bg-blue-100 text-blue-700 border border-blue-300' : 'bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300'}`}
+                              data-testid={`lang-tab-fr-${product.id}`}
+                              aria-label="French"
+                              title="Français"
+                              aria-pressed={selectedLang === 'fr'}
+                            >
+                              FR
+                            </button>
+                          )}
+                          {product.nameSpanish && (
+                            <button
+                              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setProductLanguages(prev => ({ ...prev, [product.id]: 'es' })); }}
+                              className={`px-2 py-0.5 text-[10px] font-medium rounded transition-colors ${selectedLang === 'es' ? 'bg-blue-100 text-blue-700 border border-blue-300' : 'bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300'}`}
+                              data-testid={`lang-tab-es-${product.id}`}
+                              aria-label="Spanish"
+                              title="Español"
+                              aria-pressed={selectedLang === 'es'}
+                            >
+                              ES
+                            </button>
+                          )}
+                          {product.nameRussian && (
+                            <button
+                              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setProductLanguages(prev => ({ ...prev, [product.id]: 'ru' })); }}
+                              className={`px-2 py-0.5 text-[10px] font-medium rounded transition-colors ${selectedLang === 'ru' ? 'bg-blue-100 text-blue-700 border border-blue-300' : 'bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-300'}`}
+                              data-testid={`lang-tab-ru-${product.id}`}
+                              aria-label="Russian"
+                              title="Русский"
+                              aria-pressed={selectedLang === 'ru'}
+                            >
+                              РУ
+                            </button>
+                          )}
+                        </div>
+                      )}
                       <Link href={`/product/${product.id}`}><h3 className="font-semibold text-sm mb-1 text-gray-900 line-clamp-1 cursor-pointer hover:text-blue-600 transition-colors" data-testid={`text-title-${product.id}`}>{highlightSearchMatch(getInterfaceDisplayTitle(product, currentLanguage), filters.searchQuery)}</h3></Link>
                       <div className="text-sm font-bold text-blue-600 mb-1" data-testid={`text-price-${product.id}`}>{product.variants && product.variants.length > 0 ? (() => { const minPrice = Math.min(...product.variants.map(v => v.price)); const maxPrice = Math.max(...product.variants.map(v => v.price)); const fromLabel = currentLanguage === 'he' ? '\u05D4\u05D7\u05DC \u05DE-' : currentLanguage === 'fr' ? '\u00C0 partir de ' : currentLanguage === 'es' ? 'Desde ' : currentLanguage === 'ru' ? '\u041E\u0442 ' : 'From '; if (minPrice === maxPrice) return `${minPrice} \u20AA`; return <>{fromLabel}<span className="text-lg">{minPrice} {'\u20AA'}</span></>; })() : currentLanguage === 'he' ? '\u05DE\u05D7\u05D9\u05E8 \u05DC\u05D0 \u05D6\u05DE\u05D9\u05DF' : 'Price unavailable'}</div>
                       <div className="flex items-center justify-between text-xs text-gray-600 mb-2" data-testid={`text-category-${product.id}`}><span>{getInterfaceCategoryName(product.category, currentLanguage)}</span>{product.variants && product.variants.length > 1 && (<span className="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded text-[10px] font-medium">{product.variants.length} {currentLanguage === 'he' ? '\u05D0\u05E4\u05E9\u05E8\u05D5\u05D9\u05D5\u05EA' : 'options'}</span>)}</div>

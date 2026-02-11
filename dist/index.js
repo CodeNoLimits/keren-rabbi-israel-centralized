@@ -1392,6 +1392,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "kitzur-likutei-moharan-group",
     pages: 416,
     isbn: "978-965-7023-02-8",
     images: [
@@ -1449,6 +1450,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "likutei-tefilot-group",
     pages: 1152,
     isbn: "978-965-7023-12-7",
     images: [
@@ -1594,6 +1596,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "alim-letrufah-group",
     pages: 1088,
     isbn: "978-965-7023-13-4",
     images: [
@@ -1673,6 +1676,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "siporei-masiyot-group",
     pages: 448,
     isbn: "978-965-7023-14-1",
     images: [
@@ -1784,6 +1788,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "sefer-hamidot-group",
     pages: 320,
     isbn: "978-965-7023-15-8",
     images: [
@@ -1852,6 +1857,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "hishtapchut-hanefesh-group",
     pages: 242,
     isbn: "978-965-7023-16-5",
     images: [
@@ -1920,6 +1926,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "likutei-halakhot-group",
     pages: 2800,
     isbn: "978-965-7023-17-2",
     images: [
@@ -1998,6 +2005,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "likutei-etzot-group",
     pages: 576,
     isbn: "978-965-7023-18-9",
     images: [
@@ -2088,6 +2096,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E9\u05DE\u05E9\u05D5\u05DF \u05D1\u05D0\u05E8\u05E1\u05E7\u05D9",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "etzot-hamevuarot-group",
     pages: 384,
     isbn: "978-965-7023-19-6",
     images: [
@@ -2133,6 +2142,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "sichos-haran-group",
     pages: 446,
     isbn: "978-965-7023-20-2",
     images: [
@@ -2210,6 +2220,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "chayei-moharan-group",
     pages: 640,
     isbn: "978-965-7023-21-9",
     images: [
@@ -2277,6 +2288,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "yimei-maharanat-group",
     pages: 512,
     isbn: "978-965-7023-22-6",
     images: [
@@ -2344,6 +2356,7 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05D0\u05D1\u05E8\u05D4\u05DD \u05D7\u05D6\u05DF",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "kochvei-ohr-group",
     pages: 480,
     isbn: "978-965-7023-23-3",
     images: [
@@ -2422,6 +2435,7 @@ var realBreslovProducts = {
     author: "\u05D3\u05D5\u05D3 \u05D4\u05DE\u05DC\u05DA",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "tehilim-group",
     pages: 350,
     isbn: "978-965-7023-24-0",
     images: [

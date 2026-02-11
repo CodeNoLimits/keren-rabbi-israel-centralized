@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 /** All supported language codes */
-export type SupportedLanguage = 'he' | 'en' | 'fr' | 'es' | 'ru';
+export type SupportedLanguage = 'he' | 'en' | 'fr' | 'es' | 'ru' | 'ar';
 
 /** All valid translation keys (derived from the Hebrew translations object) */
 export type TranslationKey = keyof typeof translations['he'];

@@ -4,7 +4,7 @@ import { Header } from '../components/Header';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../hooks/useCurrency';
 import { useCart } from '../contexts/CartContext';
-import { realBreslovProducts } from '../data/realProducts';
+import { realBreslovProducts } from '../data/products';
 import { getInterfaceDisplayTitle } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';
 import type { Product } from '../../../shared/schema';

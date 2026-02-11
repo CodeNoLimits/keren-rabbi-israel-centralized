@@ -4,7 +4,7 @@ import { Header } from '../components/Header';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCart } from '../contexts/CartContext';
-import { realBreslovProducts } from '../data/realProducts';
+import { realBreslovProducts } from '../data/products';
 import { getInterfaceDisplayTitle, getInterfaceCategoryName } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';
 import { Heart, ShoppingCart, Trash2, ArrowRight, Share2, GitCompareArrows, X } from 'lucide-react';

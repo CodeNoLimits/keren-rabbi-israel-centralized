@@ -164,6 +164,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי נחמן מברסלב',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'kitzur-likutei-moharan-group',
     pages: 416,
     isbn: '978-965-7023-02-8',
     images: [
@@ -222,6 +223,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי נתן מברסלב',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'likutei-tefilot-group',
     pages: 1152,
     isbn: '978-965-7023-12-7',
     images: [
@@ -368,6 +370,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי נתן מברסלב',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'alim-letrufah-group',
     pages: 1088,
     isbn: '978-965-7023-13-4',
     images: [
@@ -448,6 +451,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי נחמן מברסלב',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'siporei-masiyot-group',
     pages: 448,
     isbn: '978-965-7023-14-1',
     images: [
@@ -560,6 +564,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי נחמן מברסלב',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'sefer-hamidot-group',
     pages: 320,
     isbn: '978-965-7023-15-8',
     images: [
@@ -629,6 +634,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי נחמן מברסלב',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'hishtapchut-hanefesh-group',
     pages: 242,
     isbn: '978-965-7023-16-5',
     images: [
@@ -698,6 +704,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי נתן מברסלב',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'likutei-halakhot-group',
     pages: 2800,
     isbn: '978-965-7023-17-2',
     images: [
@@ -777,6 +784,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי נתן מברסלב',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'likutei-etzot-group',
     pages: 576,
     isbn: '978-965-7023-18-9',
     images: [
@@ -868,6 +876,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי שמשון בארסקי',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'etzot-hamevuarot-group',
     pages: 384,
     isbn: '978-965-7023-19-6',
     images: [
@@ -914,6 +923,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי נחמן מברסלב',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'sichos-haran-group',
     pages: 446,
     isbn: '978-965-7023-20-2',
     images: [
@@ -992,6 +1002,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי נתן מברסלב',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'chayei-moharan-group',
     pages: 640,
     isbn: '978-965-7023-21-9',
     images: [
@@ -1060,6 +1071,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי נתן מברסלב',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'yimei-maharanat-group',
     pages: 512,
     isbn: '978-965-7023-22-6',
     images: [
@@ -1128,6 +1140,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'רבי אברהם חזן',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'kochvei-ohr-group',
     pages: 480,
     isbn: '978-965-7023-23-3',
     images: [
@@ -1207,6 +1220,7 @@ export const realBreslovProducts: Record<string, Product> = {
     author: 'דוד המלך',
     publisher: 'קרן רבי ישראל',
     language: 'עברית',
+    languageGroupId: 'tehilim-group',
     pages: 350,
     isbn: '978-965-7023-24-0',
     images: [

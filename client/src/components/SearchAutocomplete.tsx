@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { Search, X, BookOpen } from 'lucide-react';
-import { realBreslovProducts } from '../data/realProducts';
+import { realBreslovProducts } from '../data/products';
 import { useLanguage } from '../contexts/LanguageContext';
 import { getBookDisplayTitle, getInterfaceDisplayTitle } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';

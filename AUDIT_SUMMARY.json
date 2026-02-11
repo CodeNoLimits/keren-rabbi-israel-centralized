@@ -1,0 +1,104 @@
+{
+  "audit_date": "2026-02-11",
+  "total_products": 43,
+  "data_quality_score": "92/100",
+  "summary": {
+    "hebrew_descriptions": {
+      "complete": 43,
+      "missing": 0,
+      "percentage": 100
+    },
+    "english_descriptions": {
+      "complete": 43,
+      "missing": 0,
+      "percentage": 100
+    },
+    "translations": {
+      "complete_all_languages": 2,
+      "missing_translations": 41,
+      "percentage_complete": 4.7,
+      "languages_affected": ["French", "Spanish", "Russian"]
+    },
+    "variants": {
+      "all_have_pricing": true,
+      "all_have_stock": true,
+      "out_of_stock_count": 1
+    }
+  },
+  "critical_findings": [
+    "✅ All 43 products have complete Hebrew descriptions",
+    "✅ All 43 products have complete English descriptions",
+    "✅ All variants have pricing and stock data",
+    "⚠️  41/43 products (95.3%) missing French/Spanish/Russian name translations",
+    "⚠️  1 variant out of stock: chayei-moharan small-laminated-soft"
+  ],
+  "products_with_complete_translations": [
+    {
+      "id": "likutei-moharan",
+      "name": "ליקוטי מוהר\"ן",
+      "english": "Likutei Moharan",
+      "french": "Likouté Moharan",
+      "spanish": "Likutei Moharan",
+      "russian": "Ликутей Моаран"
+    },
+    {
+      "id": "likutei-tefilot",
+      "name": "ליקוטי תפילות",
+      "english": "Likutei Tefilot",
+      "french": "Likouté Téfilot",
+      "spanish": "Likutei Tefilot",
+      "russian": "Ликутей Тфилот"
+    }
+  ],
+  "priority_actions": [
+    {
+      "priority": 1,
+      "action": "Add French/Spanish/Russian translations for 41 products",
+      "impact": "HIGH - Affects international customers",
+      "effort": "HIGH - 41 products × 3 languages = 123 translations",
+      "cost_estimate": "$246-615 USD"
+    },
+    {
+      "priority": 2,
+      "action": "Restock 'chayei-moharan' small-laminated-soft variant",
+      "impact": "MEDIUM",
+      "effort": "LOW"
+    },
+    {
+      "priority": 3,
+      "action": "Replenish 8 low-stock variants (<10 units)",
+      "impact": "MEDIUM",
+      "effort": "MEDIUM"
+    }
+  ],
+  "translation_tiers": {
+    "tier_1_featured_bestsellers": [
+      "likutei-moharan",
+      "likutei-tefilot",
+      "siporei-masiyot",
+      "tikkun-haklali",
+      "kol-bo-leyeshuot"
+    ],
+    "tier_2_popular": [
+      "sefer-hamidot",
+      "likutei-etzot",
+      "sichos-haran",
+      "tehilim",
+      "avi-hanachal"
+    ]
+  },
+  "strengths": [
+    "Complete Hebrew and English descriptions",
+    "All variants have pricing and stock data",
+    "Well-structured product data",
+    "Good stock management (only 1 out of stock)"
+  ],
+  "weaknesses": [
+    "95.3% of products missing French/Spanish/Russian translations"
+  ],
+  "recommendation": "Focus translation budget on Tier 1 products first (5 products × 3 languages = 15 translations), then expand to full catalog. This will cover the most popular items for international customers while keeping costs manageable.",
+  "reports": {
+    "detailed_report": "PRODUCT_AUDIT_REPORT.md",
+    "summary": "AUDIT_SUMMARY.json"
+  }
+}

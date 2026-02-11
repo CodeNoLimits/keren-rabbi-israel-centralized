@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { realBreslovProducts } from '../data/realProducts';
+import { realBreslovProducts } from '../data/products';
 import { getInterfaceDisplayTitle } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';
 import type { Product } from '../../../shared/schema';

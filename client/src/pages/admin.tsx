@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Header } from '@/components/Header';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { realBreslovProducts } from '@/data/realProducts';
+import { realBreslovProducts } from '@/data/products';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
