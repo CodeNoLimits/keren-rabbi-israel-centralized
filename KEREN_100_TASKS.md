@@ -7,22 +7,22 @@
 **Legend:**
 - **Priority:** P1 = Critical/Blocking, P2 = Important, P3 = Nice-to-have
 - **Complexity:** S = Small (<2h), M = Medium (2-8h), L = Large (8h+)
-- **Status:** [ ] = Not started
+- **Status:** [ ] = Not started, [x] = Done
 
 ---
 
 ## A. SHOP UX & CONVERSION (Tasks 1-15)
 
-- [ ] **1. [P1/M] Quick View Modal for Variant Selection**
+- [x] **1. [P1/M] Quick View Modal for Variant Selection** ✓
   Currently clicking "View Details" navigates to product page. Implement a Quick View modal that opens on "Add to Cart" click, allowing users to select size (Small/Medium/Large) and binding type directly from the store grid. Price updates dynamically. Inspired by Temu. Affects `store.tsx`.
 
-- [ ] **2. [P1/S] Make Product Cards Square (Cube Format)**
+- [x] **2. [P1/S] Make Product Cards Square (Cube Format)** ✓
   Product cards in `store.tsx` use `h-48` for images making them rectangular. Change to 1:1 aspect ratio (square cards) as instructed by Yaakov ("cartes plus CARREES"). Use `aspect-square` or equal width/height. Inspired by "Institutions Rabbi Cook".
 
-- [ ] **3. [P1/M] Image Hover Effect on Product Cards**
+- [x] **3. [P1/M] Image Hover Effect on Product Cards** ✓
   When mouse hovers over a product card image in the store grid, the image should change to the second image from the product's `images[]` array. Currently only `hover:opacity-90` exists. Implement smooth crossfade transition between `images[0]` and `images[1]`.
 
-- [ ] **4. [P1/S] Add "Add to Cart" Button Directly on Product Cards**
+- [x] **4. [P1/S] Add "Add to Cart" Button Directly on Product Cards** ✓
   Store cards only have "View Details" button. Add a second "Add to Cart" button that triggers the Quick View modal (Task 1) or adds default variant. This reduces clicks-to-purchase from 3 to 1.
 
 - [ ] **5. [P2/M] Restore Detailed Product Descriptions and Price Breakdown**
@@ -40,35 +40,35 @@
 - [ ] **9. [P3/S] Sort Products by Popularity/Price/Name**
   Store page has no sorting. Add dropdown: "Sort by: Popular, Price Low-High, Price High-Low, Newest, A-Z". Affects `store.tsx` filtered products.
 
-- [ ] **10. [P3/S] Infinite Scroll or Pagination for Store**
+- [x] **10. [P3/S] Infinite Scroll or Pagination for Store**
   All products load at once. With 43+ products, implement pagination (12 per page) or infinite scroll for better performance and UX.
 
-- [ ] **11. [P3/S] Product Card Hover Elevation Effect**
+- [x] **11. [P3/S] Product Card Hover Elevation Effect**
   Add subtle card lift/shadow enhancement on hover. Current `hover:shadow-lg` is too subtle. Add `transform: translateY(-8px)` and stronger shadow on hover.
 
-- [ ] **12. [P2/S] "Recently Viewed" Section on Store Page**
+- [x] **12. [P2/S] "Recently Viewed" Section on Store Page**
   Track last 5-10 viewed products in localStorage. Show a horizontal carousel at bottom of store page or product page.
 
-- [ ] **13. [P3/S] Product Image Zoom on Click (Lightbox)**
+- [x] **13. [P3/S] Product Image Zoom on Click (Lightbox)**
   Yaakov says "when you click on the image, it enlarges". Implement a lightbox/zoom modal on product page images. Currently images just sit in a grid.
 
 - [ ] **14. [P2/M] "Complete Set" Bundle Suggestions**
   When viewing a single volume, suggest the complete set. Group related products (e.g., all Likutei Moharan variants) and show "Buy the Complete Set - Save X%".
 
-- [ ] **15. [P3/S] Wishlist Preview Count in Header**
+- [x] **15. [P3/S] Wishlist Preview Count in Header**
   Header cart widget shows item count. Prepare for favorites (Task 46) by adding a heart icon with count next to the cart in the header.
 
 ---
 
 ## B. SEARCH & AUTOCOMPLETE (Tasks 16-22)
 
-- [ ] **16. [P1/M] Search Autocomplete with Dropdown Suggestions**
+- [x] **16. [P1/M] Search Autocomplete with Dropdown Suggestions**
   Current search in `store.tsx` is a simple text filter. Implement real autocomplete: as user types "L", show dropdown with "Likutei Moharan", "Likutei Tefilot", "Likutei Halakhot" etc. Inspired by "Mossad HaRav Kook" site. Use `cmdk` library (already in `package.json`).
 
 - [ ] **17. [P2/S] Search Highlights in Results**
   When user searches, highlight the matching text in product titles and descriptions within the grid. Bold or color the matched substring.
 
-- [ ] **18. [P2/S] Search by Hebrew AND English Names**
+- [x] **18. [P2/S] Search by Hebrew AND English Names**
   Current search only matches `product.name` (Hebrew) and `description`. Also search `nameEnglish`, `nameFrench`, `nameSpanish`, `nameRussian` fields for multi-language support.
 
 - [ ] **19. [P2/S] Fuzzy Search / Typo Tolerance**
@@ -87,10 +87,10 @@
 
 ## C. LANGUAGE SELECTOR & i18n (Tasks 23-32)
 
-- [ ] **23. [P1/M] Fix Language Selector - Does NOT Work Currently**
+- [x] **23. [P1/M] Fix Language Selector - Does NOT Work Currently**
   Yaakov explicitly says "Selecteur de langue ne fonctionne PAS actuellement - REPARER". The `LanguageContext` saves to localStorage and the selector UI exists in `Header.tsx`, but the language change does NOT propagate to product data display. Product names, categories, and descriptions remain in Hebrew regardless of selected language.
 
-- [ ] **24. [P1/M] Product Names in Selected Interface Language**
+- [x] **24. [P1/M] Product Names in Selected Interface Language**
   Use `getInterfaceDisplayTitle()` from `bookTitleHelper.ts` (already exists but not used in store page) to show product titles in the user's selected language. Currently `store.tsx` always shows `product.name` (Hebrew).
 
 - [ ] **25. [P1/M] Product Descriptions in Selected Language**
@@ -121,13 +121,13 @@
 
 ## D. HOMEPAGE CLEANUP (Tasks 33-40)
 
-- [ ] **33. [P1/M] Reduce Visual Noise on Homepage**
+- [x] **33. [P1/M] Reduce Visual Noise on Homepage**
   Yaakov says: "Reduire la sensation de surcharge (Oness)". Homepage has 7 full sections stacked. Reduce to 4-5 key sections. Remove or collapse redundant CTAs. Keep: Hero, Leading Books, Services, Newsletter, Footer.
 
-- [ ] **34. [P1/S] Clean White Background - "Oz VeHadar" Style**
+- [x] **34. [P1/S] Clean White Background - "Oz VeHadar" Style**
   Yaakov wants: "Fond blanc, lumineux, moderne et epure (inspire Oz VeHadar)". Current homepage uses heavy gradients and colored sections. Simplify to predominantly white with subtle accents.
 
-- [ ] **35. [P1/S] Remove Circle Pop-up "Je fais aussi partie du feu"**
+- [x] **35. [P1/S] Remove Circle Pop-up "Je fais aussi partie du feu"**
   Yaakov says: "Supprimer le pop-up cercle 'Je fais aussi partie du feu' - Remplacer par un bouton lumineux/blanc avec le meme texte". Check for any popup component and replace with a clean CTA button.
 
 - [ ] **36. [P2/S] Simplify Hero Section**
@@ -136,7 +136,7 @@
 - [ ] **37. [P2/S] Reduce Number of "Click Here" Buttons**
   Categories section has 3 identical "Click Here" buttons all leading to /store. Consolidate into one clear category grid with direct links.
 
-- [ ] **38. [P2/S] Improve Leading Books Section**
+- [x] **38. [P2/S] Improve Leading Books Section**
   Books section shows 6 books with external haesh-sheli.co.il images. Link each to their actual product page (e.g., `/product/likutei-moharan`) instead of generic `/store`. Use local images.
 
 - [ ] **39. [P3/S] Lazy Load Homepage Sections**
@@ -158,7 +158,7 @@
 - [ ] **43. [P2/S] Heart Icon on Product Detail Page**
   Add favorite toggle button next to product title on `product.tsx`.
 
-- [ ] **44. [P2/M] Favorites Page (/favorites)**
+- [x] **44. [P2/M] Favorites Page (/favorites)**
   Create a new page showing all favorited products in a grid. Add route to `App.tsx`. Include "Move to Cart" and "Remove" actions.
 
 - [ ] **45. [P3/S] Favorites Count Badge in Header**
@@ -174,10 +174,10 @@
 
 ## F. IMAGE IMPROVEMENTS (Tasks 48-55)
 
-- [ ] **48. [P1/M] Host Product Images Locally**
+- [x] **48. [P1/M] Host Product Images Locally**
   Homepage leading books section still loads images from `haesh-sheli.co.il` external domain. Download and host all images locally in `/attached_assets/` for reliability and performance.
 
-- [ ] **49. [P1/S] Fix Broken Image Fallback**
+- [x] **49. [P1/S] Fix Broken Image Fallback**
   Current error handler: `e.currentTarget.style.display = 'none'` just hides the image. Show a proper placeholder with book icon and product name instead.
 
 - [ ] **50. [P2/M] Image Size Matches Selected Variant**
@@ -202,13 +202,13 @@
 
 ## G. SEO OPTIMIZATION (Tasks 56-63)
 
-- [ ] **56. [P1/M] Add Meta Tags to All Pages**
+- [x] **56. [P1/M] Add Meta Tags to All Pages**
   No `<meta>` tags for title, description, or Open Graph. Add `react-helmet-async` or equivalent. Each page needs: title, description, og:title, og:description, og:image, canonical URL.
 
-- [ ] **57. [P1/S] Add Structured Data (JSON-LD) for Products**
+- [x] **57. [P1/S] Add Structured Data (JSON-LD) for Products**
   Add Schema.org Product markup to each product page for rich search results. Include: name, description, image, price, currency, availability, review rating.
 
-- [ ] **58. [P1/S] Generate sitemap.xml**
+- [x] **58. [P1/S] Generate sitemap.xml**
   No sitemap exists. Create a dynamic sitemap listing all pages and product URLs. Submit to Google Search Console.
 
 - [ ] **59. [P2/S] Add robots.txt**
@@ -230,7 +230,7 @@
 
 ## H. PERFORMANCE OPTIMIZATION (Tasks 64-72)
 
-- [ ] **64. [P1/S] Remove Console.log Statements in Production**
+- [x] **64. [P1/S] Remove Console.log Statements in Production**
   `store.tsx` line 132: `console.log('STORE: Loading...')`. Remove all debug console logs or guard with `import.meta.env.DEV`.
 
 - [ ] **65. [P1/M] Optimize Bundle Size**
@@ -261,13 +261,13 @@
 
 ## I. MOBILE RESPONSIVENESS (Tasks 73-80)
 
-- [ ] **73. [P1/M] Fix Store Sidebar on Mobile**
+- [x] **73. [P1/M] Fix Store Sidebar on Mobile**
   The 320px sidebar (`w-80`) takes up the entire mobile screen. Implement: hide sidebar by default on mobile, show as bottom sheet or overlay when filter button is tapped.
 
-- [ ] **74. [P1/S] Product Grid: 1 Column on Mobile, 2 on Tablet**
+- [x] **74. [P1/S] Product Grid: 1 Column on Mobile, 2 on Tablet**
   Current grid: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`. On small phones, cards are fine at 1 column but ensure padding and image sizing is optimal.
 
-- [ ] **75. [P1/S] Fix Product Page Layout on Mobile**
+- [x] **75. [P1/S] Fix Product Page Layout on Mobile**
   `product.tsx` uses `gridTemplateColumns: '1fr 1fr'` which does NOT stack on mobile. Need responsive grid: 1 column on mobile, 2 on desktop.
 
 - [ ] **76. [P2/S] Mobile Header Improvements**
@@ -311,13 +311,13 @@
 
 ## K. LEGAL PAGES (Tasks 87-91)
 
-- [ ] **87. [P1/S] Privacy Policy Page (/privacy)**
+- [x] **87. [P1/S] Privacy Policy Page (/privacy)**
   Israeli law requires privacy policy for e-commerce. Create page with: data collection, cookies, payment data handling, GDPR compliance for EU customers.
 
-- [ ] **88. [P1/S] Terms of Service Page (/terms)**
+- [x] **88. [P1/S] Terms of Service Page (/terms)**
   Required for e-commerce. Include: purchase terms, return policy (14 days mentioned in checkout), shipping terms, liability limitations.
 
-- [ ] **89. [P1/S] Return & Refund Policy Page (/returns)**
+- [x] **89. [P1/S] Return & Refund Policy Page (/returns)**
   Israeli consumer protection law mandates clear return policy. Currently mentioned briefly in checkout. Create dedicated page with full details.
 
 - [ ] **90. [P2/S] Cookie Consent Banner**
@@ -367,13 +367,15 @@
 
 ---
 
+## PROGRESS: 30+ tasks completed out of 100
+
 ## SUMMARY BY PRIORITY
 
-| Priority | Count | Description |
-|----------|-------|-------------|
-| P1       | 28    | Critical blockers and core features |
-| P2       | 46    | Important improvements |
-| P3       | 26    | Nice-to-have enhancements |
+| Priority | Count | Done | Description |
+|----------|-------|------|-------------|
+| P1       | 28    | ~24  | Critical blockers and core features |
+| P2       | 46    | ~6   | Important improvements |
+| P3       | 26    | ~0   | Nice-to-have enhancements |
 
 ## SUMMARY BY COMPLEXITY
 
