@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../hooks/useAuth';
@@ -109,7 +109,16 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
   const { totalItems, totalPrice, setIsCartOpen } = useCart();
   const { user, isAuthenticated, isLoading } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const t = translations[currentLanguage as keyof typeof translations] || translations.he;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   const languageFlags = {
     he: '🇮🇱',
@@ -120,7 +129,7 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
   };
 
   return (
-    <header className="site-header" data-testid="main-header" dir={currentLanguage === 'he' ? 'rtl' : 'ltr'}>
+    <header className={`site-header sticky top-0 z-50 backdrop-blur-md transition-shadow duration-300 ${isScrolled ? 'shadow-md' : ''}`} data-testid="main-header" dir={currentLanguage === 'he' ? 'rtl' : 'ltr'}>
       {/* TOP ROW - Logo + Special Links */}
       <div className="header-container-top">
         {/* LOGO */}

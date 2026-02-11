@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { Link } from 'wouter';
 import { realBreslovProducts } from '../data/realProducts';
 import { Header } from '../components/Header';
@@ -520,18 +520,35 @@ export default function Store() {
                       />
                     </button>
 
-                    {/* Image */}
+                    {/* Image with hover effect */}
                     <Link href={`/product/${product.id}`}>
                       {product.images && product.images.length > 0 ? (
-                        <img loading="lazy"
-                          src={convertImagePath(product.images[0])}
-                          alt={getInterfaceDisplayTitle(product, currentLanguage)}
-                          className="w-full aspect-square object-cover cursor-pointer hover:opacity-90 transition-opacity"
-                          data-testid={`img-product-${product.id}`}
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                          }}
-                        />
+                        <div className="relative w-full aspect-square overflow-hidden cursor-pointer">
+                          {/* Primary image (default) */}
+                          <img loading="lazy"
+                            src={convertImagePath(product.images[0])}
+                            alt={getInterfaceDisplayTitle(product, currentLanguage)}
+                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
+                              product.images.length > 1 ? 'group-hover:opacity-0' : 'hover:opacity-90'
+                            }`}
+                            data-testid={`img-product-${product.id}`}
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                          {/* Secondary image (shown on hover) */}
+                          {product.images.length > 1 && (
+                            <img loading="lazy"
+                              src={convertImagePath(product.images[1])}
+                              alt={`${getInterfaceDisplayTitle(product, currentLanguage)} - 2`}
+                              className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
+                              data-testid={`img-product-hover-${product.id}`}
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                              }}
+                            />
+                          )}
+                        </div>
                       ) : (
                         <div
                           className="w-full aspect-square bg-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"

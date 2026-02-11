@@ -512,7 +512,7 @@ html, body {
 .site-header {
   background: var(--primary-blue);
   width: 100%;
-  position: relative;
+  /* position handled by Tailwind sticky class */
 }
 
 /* TOP ROW - Logo + Special Links */
