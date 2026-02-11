@@ -249,7 +249,7 @@ export default function BreslovVideos() {
                 data-testid={`video-card-${video.id}`}
               >
                 <div className="relative overflow-hidden">
-                  <img 
+                  <img loading="lazy" 
                     src={video.thumbnail} 
                     alt={getTitle(video)}
                     className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"

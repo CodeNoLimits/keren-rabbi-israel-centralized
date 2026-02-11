@@ -174,7 +174,7 @@ export default function Home() {
                   onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
                   onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
                   <div style={{height: '250px', overflow: 'hidden'}}>
-                    <img 
+                    <img loading="lazy" 
                       src={book.image} 
                       alt={book.title} 
                       style={{width: '100%', height: '100%', objectFit: 'cover'}}

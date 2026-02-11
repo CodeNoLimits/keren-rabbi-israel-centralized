@@ -1851,7 +1851,7 @@ export default function Magazine() {
                     data-testid={`featured-article-${index}`}
                   >
                     <div className="relative overflow-hidden">
-                      <img 
+                      <img loading="lazy" 
                         src={article.image} 
                         alt={article.title}
                         className="w-full h-48 object-cover group-hover:scale-110 group-hover:brightness-110 group-hover:contrast-110 transition-all duration-500"
@@ -1938,7 +1938,7 @@ export default function Magazine() {
                   data-testid={`latest-article-${index}`}
                 >
                   <div className="relative overflow-hidden">
-                    <img 
+                    <img loading="lazy" 
                       src={article.image} 
                       alt={article.title}
                       className="w-full h-40 object-cover group-hover:scale-110 group-hover:brightness-110 group-hover:contrast-110 transition-all duration-500"
@@ -2150,7 +2150,7 @@ export default function Magazine() {
                   data-testid={`testimonial-${index}`}
                 >
                   <div className="flex items-center mb-6">
-                    <img 
+                    <img loading="lazy" 
                       src={testimonial.image} 
                       alt={testimonial.name}
                       className="w-16 h-16 rounded-full object-cover mr-4"
@@ -2201,7 +2201,7 @@ export default function Magazine() {
                   data-testid={`event-${index}`}
                 >
                   {event.image && (
-                    <img 
+                    <img loading="lazy" 
                       src={event.image} 
                       alt={event.title}
                       className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-300"
@@ -2262,7 +2262,7 @@ export default function Magazine() {
                   data-testid={`video-${index}`}
                 >
                   <div className="relative">
-                    <img 
+                    <img loading="lazy" 
                       src={video.thumbnail} 
                       alt={video.title}
                       className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
@@ -2321,7 +2321,7 @@ export default function Magazine() {
                   className="card-premium overflow-hidden group hover:shadow-xl transition-all duration-300"
                   data-testid={`world-news-${index}`}
                 >
-                  <img 
+                  <img loading="lazy" 
                     src={news.image} 
                     alt={news.title}
                     className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"

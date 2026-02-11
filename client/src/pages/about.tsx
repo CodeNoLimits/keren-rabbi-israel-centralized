@@ -831,7 +831,7 @@ export default function About() {
         <div className="hero-overlay absolute inset-0"></div>
         {/* Background Image */}
         <div className="absolute inset-0 opacity-10">
-          <img 
+          <img loading="lazy" 
             src={heroBooks} 
             alt="Breslov Books Collection" 
             className="w-full h-full object-cover"
@@ -881,7 +881,7 @@ export default function About() {
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
               {/* Background Books Image */}
               <div className="absolute top-0 right-0 w-1/3 h-1/3 opacity-5 lg:opacity-10">
-                <img 
+                <img loading="lazy" 
                   src={heroBooks} 
                   alt="Books Background" 
                   className="w-full h-full object-contain"

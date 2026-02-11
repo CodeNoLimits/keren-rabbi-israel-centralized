@@ -876,7 +876,7 @@ export default function Join() {
         <div className="hero-overlay absolute inset-0"></div>
         {/* Background Books Composition */}
         <div className="absolute inset-0 opacity-15">
-          <img 
+          <img loading="lazy" 
             src="/images/hero-books-composition.png" 
             alt="Breslov Books Collection - Sacred Mission" 
             className="w-full h-full object-cover object-center"
@@ -902,12 +902,12 @@ export default function Join() {
         {/* Background with multiple book images */}
         <div className="absolute inset-0 opacity-5">
           <div className="grid grid-cols-6 gap-4 h-full">
-            <img src="/images/ליקוטי מוהרן 1_1757275910545.jpg" alt="" className="w-full h-full object-cover" />
-            <img src="/images/ספר המידות 1_1757275910546.jpg" alt="" className="w-full h-full object-cover" />
-            <img src="/images/חיי מוהרן 1_1757275910544.jpg" alt="" className="w-full h-full object-cover" />
-            <img src="/images/ליקוטי תפילות 1_1757275910545.jpg" alt="" className="w-full h-full object-cover" />
-            <img src="/images/סיפורי מעשיות 1_1757275910546.jpg" alt="" className="w-full h-full object-cover" />
-            <img src="/images/ליקוטי עצות 1_1757275910545.jpg" alt="" className="w-full h-full object-cover" />
+            <img loading="lazy" src="/images/ליקוטי מוהרן 1_1757275910545.jpg" alt="" className="w-full h-full object-cover" />
+            <img loading="lazy" src="/images/ספר המידות 1_1757275910546.jpg" alt="" className="w-full h-full object-cover" />
+            <img loading="lazy" src="/images/חיי מוהרן 1_1757275910544.jpg" alt="" className="w-full h-full object-cover" />
+            <img loading="lazy" src="/images/ליקוטי תפילות 1_1757275910545.jpg" alt="" className="w-full h-full object-cover" />
+            <img loading="lazy" src="/images/סיפורי מעשיות 1_1757275910546.jpg" alt="" className="w-full h-full object-cover" />
+            <img loading="lazy" src="/images/ליקוטי עצות 1_1757275910545.jpg" alt="" className="w-full h-full object-cover" />
           </div>
         </div>
         <div className="container mx-auto px-4 relative z-10">
@@ -968,7 +968,7 @@ export default function Join() {
                 >
                   {/* Book image per activity */}
                   <div className="absolute top-4 right-4 opacity-10 pointer-events-none">
-                    <img 
+                    <img loading="lazy" 
                       src={`/images/${
                         index === 0 ? "כתבי רבי נחמן מברסלב 2_1757275758578.jpg" :
                         index === 1 ? "רבינו הקדוש 1_1757281260204.jpg" :
@@ -1004,13 +1004,13 @@ export default function Join() {
         {/* Background accent images */}
         <div className="absolute inset-0 opacity-8">
           <div className="absolute top-10 left-10">
-            <img src="/images/השתפכות הנפש 1_1757281125907.jpg" alt="" className="w-32 h-40 object-cover rounded-lg transform -rotate-12" />
+            <img loading="lazy" src="/images/השתפכות הנפש 1_1757281125907.jpg" alt="" className="w-32 h-40 object-cover rounded-lg transform -rotate-12" />
           </div>
           <div className="absolute top-20 right-10">
-            <img src="/images/מכתבי ר נתן 1_1757281125910.jpg" alt="" className="w-28 h-36 object-cover rounded-lg transform rotate-6" />
+            <img loading="lazy" src="/images/מכתבי ר נתן 1_1757281125910.jpg" alt="" className="w-28 h-36 object-cover rounded-lg transform rotate-6" />
           </div>
           <div className="absolute bottom-20 left-1/4">
-            <img src="/images/עצות המבוארות 1_1757275910546.jpg" alt="" className="w-24 h-30 object-cover rounded-lg transform rotate-12" />
+            <img loading="lazy" src="/images/עצות המבוארות 1_1757275910546.jpg" alt="" className="w-24 h-30 object-cover rounded-lg transform rotate-12" />
           </div>
         </div>
         <div className="container mx-auto px-4 relative z-10">

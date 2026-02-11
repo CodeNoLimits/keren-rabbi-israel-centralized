@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, X, Filter, ChevronDown, ChevronUp, Heart, ShoppingCart } from 'lucide-react';
 import { convertImagePath } from '../utils/imagePathHelper';
+import { getInterfaceDisplayTitle, getInterfaceCategoryName } from '../utils/bookTitleHelper';
 import type { Product } from '../../../shared/schema';
 
 // Filter interfaces
@@ -42,7 +43,13 @@ export default function Store() {
   });
   
   // Sidebar visibility and collapsible sections
-  const [sidebarVisible, setSidebarVisible] = useState(true);
+  // Default to hidden on mobile (< 768px)
+  const [sidebarVisible, setSidebarVisible] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth >= 768;
+    }
+    return true;
+  });
   const [expandedSections, setExpandedSections] = useState({
     categories: true,
     languages: true,
@@ -96,10 +103,17 @@ export default function Store() {
   // Filtered products
   const filteredProducts = useMemo(() => {
     return allProducts.filter(product => {
-      // Search query filter
-      if (filters.searchQuery && !product.name.toLowerCase().includes(filters.searchQuery.toLowerCase()) 
-          && !product.description?.toLowerCase().includes(filters.searchQuery.toLowerCase())) {
-        return false;
+      // Search query filter - search across all language variants of name and description
+      if (filters.searchQuery) {
+        const q = filters.searchQuery.toLowerCase();
+        const translatedName = getInterfaceDisplayTitle(product, currentLanguage).toLowerCase();
+        const nameMatch = product.name.toLowerCase().includes(q) ||
+          translatedName.includes(q) ||
+          (product.nameEnglish || '').toLowerCase().includes(q) ||
+          (product.nameFrench || '').toLowerCase().includes(q);
+        const descMatch = (product.description || '').toLowerCase().includes(q) ||
+          (product.descriptionEnglish || '').toLowerCase().includes(q);
+        if (!nameMatch && !descMatch) return false;
       }
       
       // Category filter
@@ -133,7 +147,7 @@ export default function Store() {
       
       return true;
     });
-  }, [allProducts, filters]);
+  }, [allProducts, filters, currentLanguage]);
   
   console.log('✅ STORE: Loading', allProducts.length, 'books, filtered to', filteredProducts.length);
   
@@ -176,8 +190,22 @@ export default function Store() {
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
 
       <div className="flex min-h-screen bg-gray-50">
+        {/* Mobile overlay backdrop */}
+        {sidebarVisible && (
+          <div
+            className="fixed inset-0 bg-black/40 z-40 md:hidden"
+            onClick={() => setSidebarVisible(false)}
+          />
+        )}
+
         {/* Clean Simple Sidebar */}
-        <div className={`${sidebarVisible ? 'w-80' : 'w-0'} transition-all duration-200 overflow-hidden`}>
+        <div className={`
+          ${sidebarVisible ? 'w-80' : 'w-0'}
+          transition-all duration-200 overflow-hidden
+          max-md:fixed max-md:inset-y-0 max-md:z-50
+          ${sidebarVisible ? 'max-md:w-80' : 'max-md:w-0'}
+          ${currentLanguage === 'he' ? 'max-md:right-0' : 'max-md:left-0'}
+        `}>
           <div className="h-full bg-white shadow-lg border-r border-gray-200">
             {/* Simple Header */}
             <div className="bg-white p-4 border-b border-gray-200">
@@ -321,12 +349,12 @@ export default function Store() {
                           onCheckedChange={() => toggleFilter('categories', category)}
                           data-testid={`checkbox-category-${category}`}
                         />
-                        <label 
-                          htmlFor={`category-${category}`} 
+                        <label
+                          htmlFor={`category-${category}`}
                           className="text-xs cursor-pointer text-gray-700"
                           data-testid={`text-category-${category}`}
                         >
-                          {category}
+                          {getInterfaceCategoryName(category, currentLanguage)}
                         </label>
                       </div>
                     ))}
@@ -497,8 +525,8 @@ export default function Store() {
                       {product.images && product.images.length > 0 ? (
                         <img loading="lazy"
                           src={convertImagePath(product.images[0])}
-                          alt={product.name}
-                          className="w-full h-48 object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                          alt={getInterfaceDisplayTitle(product, currentLanguage)}
+                          className="w-full aspect-square object-cover cursor-pointer hover:opacity-90 transition-opacity"
                           data-testid={`img-product-${product.id}`}
                           onError={(e) => {
                             e.currentTarget.style.display = 'none';
@@ -506,7 +534,7 @@ export default function Store() {
                         />
                       ) : (
                         <div
-                          className="w-full h-48 bg-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"
+                          className="w-full aspect-square bg-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"
                           data-testid={`placeholder-product-${product.id}`}
                         >
                           <span className="text-2xl">&#128214;</span>
@@ -515,18 +543,18 @@ export default function Store() {
                     </Link>
 
                     {/* Content */}
-                    <div className="p-4">
+                    <div className="p-3">
                       <Link href={`/product/${product.id}`}>
                         <h3
-                          className="font-semibold text-lg mb-2 text-gray-900 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
+                          className="font-semibold text-sm mb-1 text-gray-900 line-clamp-1 cursor-pointer hover:text-blue-600 transition-colors"
                           data-testid={`text-title-${product.id}`}
                         >
-                          {product.name}
+                          {getInterfaceDisplayTitle(product, currentLanguage)}
                         </h3>
                       </Link>
 
                       <div
-                        className="text-lg font-bold text-blue-600 mb-2"
+                        className="text-sm font-bold text-blue-600 mb-1"
                         data-testid={`text-price-${product.id}`}
                       >
                         {product.variants && product.variants.length > 0 ?
@@ -536,10 +564,10 @@ export default function Store() {
                       </div>
 
                       <div
-                        className="text-sm text-gray-600 mb-4"
+                        className="text-xs text-gray-600 mb-2"
                         data-testid={`text-category-${product.id}`}
                       >
-                        {product.category}
+                        {getInterfaceCategoryName(product.category, currentLanguage)}
                       </div>
 
                       {/* Two buttons: View Details + Add to Cart */}
