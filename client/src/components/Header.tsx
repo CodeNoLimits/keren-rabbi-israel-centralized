@@ -6,6 +6,7 @@ import { CartWidget } from './CartWidget';
 import { SearchAutocomplete } from './SearchAutocomplete';
 import { Menu, X, LogIn, LogOut, User, Heart } from 'lucide-react';
 import { useFavorites } from '../contexts/FavoritesContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency, type CurrencyCode } from '../hooks/useCurrency';
 
 interface HeaderProps {
@@ -126,7 +127,9 @@ const translations = {
   }
 };
 
-export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps) {
+export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnChange }: HeaderProps) {
+  // Always use context directly - fixes language selector on ALL pages
+  const { currentLanguage, setLanguage } = useLanguage();
   const [location] = useLocation();
   const { totalItems, totalPrice, setIsCartOpen } = useCart();
   const { favorites } = useFavorites();
@@ -366,7 +369,7 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
             {Object.entries(languageFlags).map(([lang, flag]) => (
               <button
                 key={lang}
-                onClick={() => onLanguageChange?.(lang)}
+                onClick={() => setLanguage(lang)}
                 className={`language-btn ${currentLanguage === lang ? 'active' : ''} transition-all duration-300 hover:scale-125 hover:bg-white hover:text-blue-600 hover:shadow-xl hover:-translate-y-1 hover:rotate-3`}
                 data-testid={`button-language-${lang}`}
               >
@@ -489,7 +492,7 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
             {Object.entries(languageFlags).map(([lang, flag]) => (
               <button
                 key={lang}
-                onClick={() => { onLanguageChange?.(lang); setMobileMenuOpen(false); }}
+                onClick={() => { setLanguage(lang); setMobileMenuOpen(false); }}
                 className={`language-btn ${currentLanguage === lang ? 'active' : ''}`}
                 style={{minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem'}}
                 data-testid={`mobile-button-language-${lang}`}

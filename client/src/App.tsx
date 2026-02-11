@@ -25,7 +25,7 @@ const Checkout = lazy(() => import("@/pages/checkout"));
 const Downloads = lazy(() => import("@/pages/downloads"));
 const Product = lazy(() => import("@/pages/product"));
 const BreslovWisdom = lazy(() => import("@/pages/breslovWisdom"));
-const BreslovVideos = lazy(() => import("@/pages/breslov-videos"));
+
 const KerenStyle = lazy(() => import("@/pages/keren-style"));
 const HaeshHype = lazy(() => import("@/pages/haesh-hype"));
 const Subscription = lazy(() => import("@/pages/subscription"));
@@ -33,6 +33,7 @@ const SubscriptionManagement = lazy(() => import("@/pages/subscription-managemen
 const YaakovDashboard = lazy(() => import("@/pages/yaaakov"));
 const Chat = lazy(() => import("@/pages/chat"));
 const Favorites = lazy(() => import("@/pages/favorites"));
+const Legal = lazy(() => import("@/pages/legal"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 // Loading fallback component
@@ -313,6 +314,9 @@ function Router() {
         <Route path="/subscription" component={Subscription} />
         <Route path="/subscription/manage" component={SubscriptionManagement} />
         <Route path="/favorites" component={Favorites} />
+        <Route path="/privacy" component={() => <Legal page="privacy" />} />
+        <Route path="/terms" component={() => <Legal page="terms" />} />
+        <Route path="/returns" component={() => <Legal page="returns" />} />
         <Route path="/product/:id" component={Product} />
         <Route path="/breslov-wisdom" component={BreslovWisdom} />
         <Route path="/keren-style" component={KerenStyle} />

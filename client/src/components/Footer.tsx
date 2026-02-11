@@ -174,7 +174,7 @@ export function Footer() {
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <li>
                 <a
-                  href="/about"
+                  href="/terms"
                   style={{ color: '#d1d5db', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#d1d5db')}
@@ -184,7 +184,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="/about"
+                  href="/returns"
                   style={{ color: '#d1d5db', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = '#d1d5db')}
@@ -331,9 +331,20 @@ export function Footer() {
             textAlign: 'center',
           }}
         >
-          <p style={{ fontSize: '0.8rem', color: '#6b7280' }}>
+          <p style={{ fontSize: '0.8rem', color: '#6b7280', marginBottom: '0.5rem' }}>
             {t.copyright}
           </p>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', fontSize: '0.75rem' }}>
+            <a href="/privacy" style={{ color: '#6b7280', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#6b7280')}>
+              {currentLanguage === 'he' ? 'מדיניות פרטיות' : currentLanguage === 'fr' ? 'Confidentialite' : 'Privacy Policy'}
+            </a>
+            <a href="/terms" style={{ color: '#6b7280', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#6b7280')}>
+              {currentLanguage === 'he' ? 'תנאי שימוש' : currentLanguage === 'fr' ? 'Conditions' : 'Terms'}
+            </a>
+            <a href="/returns" style={{ color: '#6b7280', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#6b7280')}>
+              {currentLanguage === 'he' ? 'החזרות' : currentLanguage === 'fr' ? 'Retours' : 'Returns'}
+            </a>
+          </div>
         </div>
       </div>
     </footer>
