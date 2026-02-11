@@ -116,7 +116,7 @@ type CheckoutFormValues = z.infer<ReturnType<typeof createCheckoutSchema>>;
 
 // ----- Component -----
 
-export function CheckoutForm() {
+export function CheckoutForm({ onSuccess }: { onSuccess?: (clientSecret: string, orderSummary: any) => void }) {
   const { items, totalPrice, subtotalPrice, discount, isSubscriber } = useCart();
   const { currentLanguage, t } = useLanguage();
   const { toast } = useToast();
@@ -232,10 +232,16 @@ export function CheckoutForm() {
         throw new Error(error.message || t('error'));
       }
 
+      const dataRes = await res.json();
+      
       toast({
         title: t('success'),
         description: t('securePaymentDesc'),
       });
+
+      if (onSuccess && dataRes.clientSecret) {
+        onSuccess(dataRes.clientSecret, dataRes.orderSummary);
+      }
     } catch (error: any) {
       toast({
         title: t('error'),

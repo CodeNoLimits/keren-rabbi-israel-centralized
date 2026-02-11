@@ -30,6 +30,11 @@ const text: Record<string, { message: string; accept: string; learnMore: string 
     accept: 'Принять',
     learnMore: 'Политика конфиденциальности',
   },
+  ar: {
+    message: 'يستخدم هذا الموقع ملفات تعريف الارتباط (cookies) لتحسين تجربة التصفح وحفظ تفضيلاتك.',
+    accept: 'موافق',
+    learnMore: 'سياسة الخصوصية',
+  },
 };
 
 export function CookieConsent() {
@@ -54,7 +59,7 @@ export function CookieConsent() {
 
   const lang = (currentLanguage in text) ? currentLanguage : 'en';
   const t = text[lang];
-  const isRTL = currentLanguage === 'he';
+  const isRTL = currentLanguage === 'he' || currentLanguage === 'ar';
 
   return (
     <div

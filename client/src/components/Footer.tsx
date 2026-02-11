@@ -18,6 +18,8 @@ const footerTranslations = {
     whatsappSupport: 'תמיכה בוואטסאפ',
     followUs: 'עקבו אחרינו',
     copyright: '\u00A9 2026 קרן רבי ישראל - האש שלי. כל הזכויות שמורות.',
+    privacy: 'מדיניות פרטיות',
+    terms: 'תנאי שימוש',
   },
   en: {
     mission: 'Spreading the Torah of Rabbi Nachman of Breslov',
@@ -36,6 +38,8 @@ const footerTranslations = {
     whatsappSupport: 'WhatsApp Support',
     followUs: 'Follow Us',
     copyright: '\u00A9 2026 Keren Rabbi Israel - HaEsh Sheli. All rights reserved.',
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Service',
   },
   fr: {
     mission: 'Diffusion de la Torah de Rabbi Nahman de Breslev',
@@ -54,6 +58,8 @@ const footerTranslations = {
     whatsappSupport: 'Support WhatsApp',
     followUs: 'Suivez-nous',
     copyright: '\u00A9 2026 Keren Rabbi Israel - HaEsh Sheli. Tous droits reserves.',
+    privacy: 'Confidentialite',
+    terms: 'Conditions',
   },
   es: {
     mission: 'Difusion de la Tora de Rabi Najman de Breslov',
@@ -72,6 +78,8 @@ const footerTranslations = {
     whatsappSupport: 'Soporte WhatsApp',
     followUs: 'Siguenos',
     copyright: '\u00A9 2026 Keren Rabbi Israel - HaEsh Sheli. Todos los derechos reservados.',
+    privacy: 'Privacidad',
+    terms: 'Terminos',
   },
   ru: {
     mission: 'Распространение Торы Рабби Нахмана из Бреслова',
@@ -90,13 +98,35 @@ const footerTranslations = {
     whatsappSupport: 'Поддержка WhatsApp',
     followUs: 'Подписывайтесь',
     copyright: '\u00A9 2026 Керен Рабби Исраэль - ХаЭш Шели. Все права защищены.',
+    privacy: 'Конфиденциальность',
+    terms: 'Условия',
+  },
+  ar: {
+    mission: 'نشر تعاليم الحاخام ناحمان من بريسلوف',
+    missionDesc: 'مؤسسة الحاخام إسرائيل - هاآش شيلي تعمل على نشر كتب الحاخام ناحمان من بريسلوف بالعبرية والإنجليزية والفرنسية والإسبانية والروسية.',
+    quickLinks: 'روابط سريعة',
+    home: 'الرئيسية',
+    store: 'المتجر',
+    about: 'من نحن',
+    contact: 'اتصل بنا',
+    downloads: 'التنزيلات',
+    blog: 'التوراة اليومية',
+    customerService: 'خدمة العملاء',
+    shippingPolicy: 'سياسة الشحن',
+    returns: 'الإرجاع والاستبدال',
+    faq: 'الأسئلة الشائعة',
+    whatsappSupport: 'دعم واتساب',
+    followUs: 'تابعونا',
+    copyright: '\u00A9 2026 مؤسسة الحاخام إسرائيل - هاآش شيلي. جميع الحقوق محفوظة.',
+    privacy: 'الخصوصية',
+    terms: 'الشروط',
   },
 };
 
 export function Footer() {
   const { currentLanguage } = useLanguage();
   const t = footerTranslations[currentLanguage as keyof typeof footerTranslations] || footerTranslations.he;
-  const isRTL = currentLanguage === 'he';
+  const isRTL = currentLanguage === 'he' || currentLanguage === 'ar';
 
   return (
     <footer
@@ -342,15 +372,18 @@ export function Footer() {
           <p style={{ fontSize: '0.8rem', color: '#9ca3af', marginBottom: '0.5rem' }}>
             {t.copyright}
           </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', fontSize: '0.75rem' }}>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', fontSize: '0.75rem', flexWrap: 'wrap' }}>
             <a href="/privacy" style={{ color: '#9ca3af', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#9ca3af')}>
-              {currentLanguage === 'he' ? 'מדיניות פרטיות' : currentLanguage === 'fr' ? 'Confidentialite' : 'Privacy Policy'}
+              {t.privacy || (currentLanguage === 'he' ? 'מדיניות פרטיות' : currentLanguage === 'fr' ? 'Confidentialite' : currentLanguage === 'es' ? 'Privacidad' : 'Privacy Policy')}
             </a>
             <a href="/terms" style={{ color: '#9ca3af', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#9ca3af')}>
-              {currentLanguage === 'he' ? 'תנאי שימוש' : currentLanguage === 'fr' ? 'Conditions' : 'Terms'}
+              {t.terms || (currentLanguage === 'he' ? 'תנאי שימוש' : currentLanguage === 'fr' ? 'Conditions' : currentLanguage === 'es' ? 'Terminos' : 'Terms')}
             </a>
             <a href="/returns" style={{ color: '#9ca3af', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#9ca3af')}>
-              {currentLanguage === 'he' ? 'החזרות' : currentLanguage === 'fr' ? 'Retours' : 'Returns'}
+              {t.returns}
+            </a>
+            <a href="/shipping" style={{ color: '#9ca3af', textDecoration: 'none' }} onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B35')} onMouseLeave={(e) => (e.currentTarget.style.color = '#9ca3af')}>
+              {t.shippingPolicy}
             </a>
           </div>
         </div>

@@ -250,7 +250,11 @@ export default function Checkout() {
           </h1>
 
           {!clientSecret ? (
-            <CheckoutForm />
+            <CheckoutForm onSuccess={(secret, summary) => {
+              setClientSecret(secret);
+              setOrderSummary(summary);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }} />
           ) : (
             <div className="max-w-2xl mx-auto">
               <Card>

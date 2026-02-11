@@ -155,18 +155,171 @@ const content = {
       ],
     },
   },
+  es: {
+    privacy: {
+      title: 'Politica de Privacidad',
+      lastUpdated: 'Ultima actualizacion: Febrero 2026',
+      sections: [
+        { heading: 'Recopilacion de Informacion', body: 'Recopilamos informacion personal que usted proporciona al realizar un pedido: nombre, correo electronico, telefono, direccion de envio y detalles de pago. Utilizamos localStorage para guardar preferencias de idioma y contenido del carrito.' },
+        { heading: 'Uso de la Informacion', body: 'La informacion se utiliza para: procesar pedidos, servicio al cliente, mejorar el sitio y enviar actualizaciones (solo con su consentimiento). No vendemos sus datos a terceros.' },
+        { heading: 'Seguridad', body: 'Los pagos se procesan a traves de Stripe, conforme a los estandares PCI DSS. No almacenamos numeros completos de tarjetas de credito.' },
+        { heading: 'Sus Derechos (GDPR)', body: 'Tiene derecho a solicitar: acceso, rectificacion, eliminacion o portabilidad de sus datos personales. Contactenos por email para ejercer estos derechos.' },
+        { heading: 'Cookies', body: 'El sitio usa localStorage para preferencias de idioma, moneda y carrito. Estos datos permanecen en su dispositivo.' },
+        { heading: 'Contacto', body: 'Preguntas de privacidad: WhatsApp 058-4921492 | Email: info@haesh-sheli.co.il' },
+      ],
+    },
+    terms: {
+      title: 'Terminos de Servicio',
+      lastUpdated: 'Ultima actualizacion: Febrero 2026',
+      sections: [
+        { heading: 'General', body: 'El uso del sitio esta sujeto a estos terminos. Al usar el sitio, acepta estos terminos.' },
+        { heading: 'Productos y Precios', body: 'Nos esforzamos por mostrar informacion precisa. Los precios incluyen IVA a menos que se indique lo contrario.' },
+        { heading: 'Pedidos y Pago', body: 'Pago con tarjeta via Stripe. Envio gratis en pedidos superiores a 399 NIS. Plazo: 3-7 dias habiles.' },
+        { heading: 'Cancelacion', body: 'Cancelacion posible dentro de 14 dias. Tarifa de cancelacion: 5% o 100 NIS (el mas bajo).' },
+        { heading: 'Propiedad Intelectual', body: 'Todo el contenido del sitio pertenece a la Fundacion Rabbi Israel. El contenido de Torah se comparte en el espiritu de difundir las ensenanzas de Rabbi Nachman.' },
+        { heading: 'Limitacion de Responsabilidad', body: 'El sitio se proporciona "tal cual". Nuestra responsabilidad esta limitada al valor del producto comprado.' },
+      ],
+    },
+    returns: {
+      title: 'Politica de Devoluciones',
+      lastUpdated: 'Ultima actualizacion: Febrero 2026',
+      sections: [
+        { heading: 'Derecho de Cancelacion', body: 'Devolucion posible dentro de 14 dias despues de la recepcion. Notifiquenos por WhatsApp, email o formulario de contacto.' },
+        { heading: 'Condiciones', body: 'El producto debe estar nuevo, sin danos y en su embalaje original. Los libros leidos o danados no son retornables.' },
+        { heading: 'Intercambio', body: 'Intercambio posible dentro de 14 dias segun disponibilidad. Gastos de envio a nuestro cargo.' },
+        { heading: 'Producto Defectuoso', body: 'Reemplazo inmediato gratuito. Contactenos dentro de 48h con fotos del defecto.' },
+        { heading: 'Reembolso', body: 'Dentro de 14 dias habiles via el metodo de pago original. Tarifas de cancelacion deducidas excepto productos defectuosos.' },
+        { heading: 'Contacto', body: 'WhatsApp 058-4921492 | Email: info@haesh-sheli.co.il' },
+      ],
+    },
+    shipping: {
+      title: 'Politica de Envios',
+      lastUpdated: 'Ultima actualizacion: Febrero 2026',
+      sections: [
+        { heading: 'Envio Gratuito', body: 'Envio gratis en todos los pedidos superiores a 399 NIS. Por debajo: 29 NIS de gastos de envio.' },
+        { heading: 'Plazos', body: 'Entrega estandar: 3-7 dias habiles. Zonas remotas: hasta 10 dias. Los viernes y sabados no se cuentan.' },
+        { heading: 'Metodos', body: 'Entrega por mensajeria a domicilio. Puntos de recogida tambien disponibles. Para sets completos - coordinacion previa.' },
+        { heading: 'Seguimiento', body: 'Despues del envio, recibira un numero de seguimiento por email y/o SMS.' },
+        { heading: 'Envio Internacional', body: 'Enviamos a todo el mundo! Plazo: 10-21 dias habiles. Costos segun peso y destino. Contactenos.' },
+        { heading: 'Contacto', body: 'WhatsApp 058-4921492 | Email: info@haesh-sheli.co.il' },
+      ],
+    },
+  },
+  ru: {
+    privacy: {
+      title: 'Политика Конфиденциальности',
+      lastUpdated: 'Последнее обновление: Февраль 2026',
+      sections: [
+        { heading: 'Сбор Информации', body: 'Мы собираем личную информацию при оформлении заказа: имя, email, телефон, адрес доставки и платежные данные. Мы используем localStorage для сохранения языковых предпочтений и содержимого корзины.' },
+        { heading: 'Использование Данных', body: 'Информация используется для: обработки заказов, обслуживания клиентов, улучшения сайта и отправки обновлений (только с вашего согласия). Мы не продаем ваши данные третьим лицам.' },
+        { heading: 'Безопасность', body: 'Платежи обрабатываются через Stripe, соответствующий стандартам PCI DSS. Мы не храним полные номера кредитных карт.' },
+        { heading: 'Ваши Права (GDPR)', body: 'Вы имеете право запросить: доступ, исправление, удаление или перенос ваших личных данных. Свяжитесь с нами по email для реализации этих прав.' },
+        { heading: 'Cookies', body: 'Сайт использует localStorage для предпочтений языка, валюты и корзины. Эти данные остаются на вашем устройстве.' },
+        { heading: 'Контакт', body: 'Вопросы конфиденциальности: WhatsApp 058-4921492 | Email: info@haesh-sheli.co.il' },
+      ],
+    },
+    terms: {
+      title: 'Условия Обслуживания',
+      lastUpdated: 'Последнее обновление: Февраль 2026',
+      sections: [
+        { heading: 'Общее', body: 'Использование сайта регулируется этими условиями. Используя сайт, вы принимаете эти условия.' },
+        { heading: 'Товары и Цены', body: 'Мы стремимся отображать точную информацию. Цены включают НДС, если не указано иное.' },
+        { heading: 'Заказы и Оплата', body: 'Оплата картой через Stripe. Бесплатная доставка при заказе от 399 NIS. Срок: 3-7 рабочих дней.' },
+        { heading: 'Отмена', body: 'Отмена возможна в течение 14 дней. Комиссия за отмену: 5% или 100 NIS (меньшее).' },
+        { heading: 'Интеллектуальная Собственность', body: 'Весь контент сайта принадлежит Фонду Рабби Израиль. Содержание Торы распространяется в духе учений Рабби Нахмана.' },
+        { heading: 'Ограничение Ответственности', body: 'Сайт предоставляется "как есть". Наша ответственность ограничена стоимостью приобретенного товара.' },
+      ],
+    },
+    returns: {
+      title: 'Политика Возвратов',
+      lastUpdated: 'Последнее обновление: Февраль 2026',
+      sections: [
+        { heading: 'Право на Отмену', body: 'Возврат возможен в течение 14 дней после получения. Уведомите нас через WhatsApp, email или контактную форму.' },
+        { heading: 'Условия', body: 'Товар должен быть новым, без повреждений и в оригинальной упаковке. Прочитанные или поврежденные книги не подлежат возврату.' },
+        { heading: 'Обмен', body: 'Обмен возможен в течение 14 дней при наличии. Расходы на доставку за наш счет.' },
+        { heading: 'Дефектный Товар', body: 'Немедленная бесплатная замена. Свяжитесь с нами в течение 48 часов с фотографиями дефекта.' },
+        { heading: 'Возврат Средств', body: 'В течение 14 рабочих дней через исходный способ оплаты. Комиссия за отмену вычитается, кроме дефектных товаров.' },
+        { heading: 'Контакт', body: 'WhatsApp 058-4921492 | Email: info@haesh-sheli.co.il' },
+      ],
+    },
+    shipping: {
+      title: 'Политика Доставки',
+      lastUpdated: 'Последнее обновление: Февраль 2026',
+      sections: [
+        { heading: 'Бесплатная Доставка', body: 'Бесплатная доставка при заказе от 399 NIS. Ниже этой суммы: 29 NIS стоимость доставки.' },
+        { heading: 'Сроки', body: 'Стандартная доставка: 3-7 рабочих дней. Отдаленные районы: до 10 дней. Пятница и суббота не учитываются.' },
+        { heading: 'Методы', body: 'Курьерская доставка до двери. Также доступны пункты выдачи. Для полных наборов - предварительная координация.' },
+        { heading: 'Отслеживание', body: 'После отправки вы получите номер отслеживания по email и/или SMS.' },
+        { heading: 'Международная Доставка', body: 'Мы доставляем по всему миру! Срок: 10-21 рабочий день. Стоимость по весу и направлению. Свяжитесь с нами.' },
+        { heading: 'Контакт', body: 'WhatsApp 058-4921492 | Email: info@haesh-sheli.co.il' },
+      ],
+    },
+  },
+  ar: {
+    privacy: {
+      title: 'سياسة الخصوصية',
+      lastUpdated: 'آخر تحديث: فبراير 2026',
+      sections: [
+        { heading: 'جمع المعلومات', body: 'نقوم بجمع المعلومات الشخصية عند تقديم طلب: الاسم، البريد الإلكتروني، الهاتف، عنوان الشحن وتفاصيل الدفع. نستخدم localStorage لحفظ تفضيلات اللغة ومحتويات السلة.' },
+        { heading: 'استخدام البيانات', body: 'تُستخدم المعلومات لـ: معالجة الطلبات، خدمة العملاء، تحسين الموقع وإرسال التحديثات (بموافقتك فقط). لا نبيع بياناتك لأطراف ثالثة.' },
+        { heading: 'الأمان', body: 'تتم معالجة المدفوعات عبر Stripe المتوافق مع معايير PCI DSS. لا نقوم بتخزين أرقام بطاقات الائتمان الكاملة.' },
+        { heading: 'حقوقك (GDPR)', body: 'لديك الحق في طلب: الوصول، التصحيح، الحذف أو نقل بياناتك الشخصية. اتصل بنا عبر البريد الإلكتروني لممارسة هذه الحقوق.' },
+        { heading: 'Cookies', body: 'يستخدم الموقع localStorage لتفضيلات اللغة والعملة والسلة. تبقى هذه البيانات على جهازك.' },
+        { heading: 'اتصل بنا', body: 'أسئلة الخصوصية: WhatsApp 058-4921492 | Email: info@haesh-sheli.co.il' },
+      ],
+    },
+    terms: {
+      title: 'شروط الخدمة',
+      lastUpdated: 'آخر تحديث: فبراير 2026',
+      sections: [
+        { heading: 'عام', body: 'استخدام الموقع يخضع لهذه الشروط. باستخدام الموقع، فإنك تقبل هذه الشروط.' },
+        { heading: 'المنتجات والأسعار', body: 'نسعى لعرض معلومات دقيقة. الأسعار تشمل ضريبة القيمة المضافة ما لم يُذكر خلاف ذلك.' },
+        { heading: 'الطلبات والدفع', body: 'الدفع بالبطاقة عبر Stripe. شحن مجاني للطلبات فوق 399 شيكل. المدة: 3-7 أيام عمل.' },
+        { heading: 'الإلغاء', body: 'الإلغاء ممكن خلال 14 يوماً. رسوم الإلغاء: 5% أو 100 شيكل (الأقل).' },
+        { heading: 'الملكية الفكرية', body: 'جميع محتويات الموقع ملك لمؤسسة الحاخام إسرائيل. يتم مشاركة محتوى التوراة بروح تعاليم الحاخام ناحمان.' },
+        { heading: 'حدود المسؤولية', body: 'يتم توفير الموقع "كما هو". مسؤوليتنا محدودة بقيمة المنتج المشترى.' },
+      ],
+    },
+    returns: {
+      title: 'سياسة الإرجاع',
+      lastUpdated: 'آخر تحديث: فبراير 2026',
+      sections: [
+        { heading: 'حق الإلغاء', body: 'الإرجاع ممكن خلال 14 يوماً بعد الاستلام. أخبرنا عبر WhatsApp أو البريد الإلكتروني أو نموذج الاتصال.' },
+        { heading: 'الشروط', body: 'يجب أن يكون المنتج جديداً، بدون تلف وفي عبوته الأصلية. الكتب المقروءة أو التالفة غير قابلة للإرجاع.' },
+        { heading: 'التبديل', body: 'التبديل ممكن خلال 14 يوماً حسب التوفر. تكاليف الشحن علينا.' },
+        { heading: 'منتج معيب', body: 'استبدال فوري مجاني. اتصل بنا خلال 48 ساعة مع صور للعيب.' },
+        { heading: 'استرداد الأموال', body: 'خلال 14 يوم عمل عبر طريقة الدفع الأصلية. يتم خصم رسوم الإلغاء عدا المنتجات المعيبة.' },
+        { heading: 'اتصل بنا', body: 'WhatsApp 058-4921492 | Email: info@haesh-sheli.co.il' },
+      ],
+    },
+    shipping: {
+      title: 'سياسة الشحن',
+      lastUpdated: 'آخر تحديث: فبراير 2026',
+      sections: [
+        { heading: 'شحن مجاني', body: 'شحن مجاني على جميع الطلبات فوق 399 شيكل. تحته: 29 شيكل تكلفة شحن.' },
+        { heading: 'المدة', body: 'التسليم القياسي: 3-7 أيام عمل. المناطق النائية: حتى 10 أيام. الجمعة والسبت لا يُحسبان.' },
+        { heading: 'الطرق', body: 'التوصيل بالبريد السريع للمنزل. نقاط الاستلام متاحة أيضاً. للمجموعات الكاملة - تنسيق مسبق.' },
+        { heading: 'التتبع', body: 'بعد الشحن، ستتلقى رقم تتبع عبر البريد الإلكتروني و/أو SMS.' },
+        { heading: 'الشحن الدولي', body: 'نشحن في جميع أنحاء العالم! المدة: 10-21 يوم عمل. التكاليف حسب الوزن والوجهة. اتصل بنا.' },
+        { heading: 'اتصل بنا', body: 'WhatsApp 058-4921492 | Email: info@haesh-sheli.co.il' },
+      ],
+    },
+  },
 };
 
 export default function Legal({ page = 'privacy' }: { page?: LegalPage }) {
   const { currentLanguage } = useLanguage();
-  const isRTL = currentLanguage === 'he';
-  const lang = (currentLanguage === 'he' || currentLanguage === 'en' || currentLanguage === 'fr') ? currentLanguage : 'en';
-  const pageContent = content[lang][page];
+  const isRTL = currentLanguage === 'he' || currentLanguage === 'ar';
+  const lang = (['he', 'en', 'fr', 'es', 'ru', 'ar'].includes(currentLanguage)) ? currentLanguage : 'en';
+  const pageContent = content[lang as keyof typeof content][page];
 
   const navLabels = {
     he: { privacy: 'פרטיות', terms: 'תנאי שימוש', returns: 'החזרות', shipping: 'משלוחים' },
     en: { privacy: 'Privacy', terms: 'Terms', returns: 'Returns', shipping: 'Shipping' },
     fr: { privacy: 'Confidentialite', terms: 'Conditions', returns: 'Retours', shipping: 'Livraison' },
+    es: { privacy: 'Privacidad', terms: 'Terminos', returns: 'Devoluciones', shipping: 'Envios' },
+    ru: { privacy: 'Конфиденциальность', terms: 'Условия', returns: 'Возвраты', shipping: 'Доставка' },
+    ar: { privacy: 'الخصوصية', terms: 'الشروط', returns: 'الإرجاع', shipping: 'الشحن' },
   };
 
   return (
@@ -188,7 +341,7 @@ export default function Legal({ page = 'privacy' }: { page?: LegalPage }) {
                 fontSize: '0.9rem',
                 cursor: 'pointer',
               }}>
-                {navLabels[lang][p]}
+                {navLabels[lang as keyof typeof navLabels][p]}
               </button>
             </Link>
           ))}
