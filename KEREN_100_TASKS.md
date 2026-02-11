@@ -189,7 +189,7 @@
 - [ ] **52. [P2/M] AI-Enhanced Book Images - Model B (Genspark Style)**
   Model B: cleaner, less "kitsch", more professional look. Generate alternate product images with consistent white/neutral backgrounds.
 
-- [ ] **53. [P2/S] Jerusalem/Kotel Background Elements**
+- [x] **53. [P2/S] Jerusalem/Kotel Background Elements** ✓
   Yaakov mentions: "Elements de maisons pres du Kotel a Jerusalem". Add subtle Jerusalem skyline or Kotel stone texture as background element for hero section or product pages.
 
 - [ ] **54. [P3/M] High-Resolution Image Upscaling**

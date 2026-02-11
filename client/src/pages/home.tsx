@@ -177,6 +177,7 @@ export default function Home() {
 
       {/* ============================================ */}
       {/* HERO SECTION - Minimalist & Powerful         */}
+      {/* Task 53: Jerusalem/Kotel Background Elements */}
       {/* ============================================ */}
       <section style={{
         background: '#FFFFFF',
@@ -187,7 +188,38 @@ export default function Home() {
         position: 'relative',
         overflow: 'hidden',
       }}>
-        <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', width: '100%'}}>
+        {/* Subtle Jerusalem skyline background - respectful and minimal */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: '100%',
+          backgroundImage: 'url(/images/jerusalem-skyline.svg)',
+          backgroundPosition: 'bottom center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'contain',
+          opacity: 0.4,
+          pointerEvents: 'none',
+          zIndex: 0,
+        }} aria-hidden="true" />
+
+        {/* Optional: Very subtle Kotel stone texture overlay */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: 'url(/images/kotel-texture.svg)',
+          backgroundSize: '200px 160px',
+          backgroundRepeat: 'repeat',
+          opacity: 0.03,
+          pointerEvents: 'none',
+          zIndex: 0,
+        }} aria-hidden="true" />
+
+        <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', width: '100%', position: 'relative', zIndex: 1}}>
           <div className="hero-grid" style={{
             display: 'grid',
             gridTemplateColumns: isRTL ? '1fr 1.2fr' : '1.2fr 1fr',
