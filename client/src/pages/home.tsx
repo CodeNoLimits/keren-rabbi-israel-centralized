@@ -154,7 +154,7 @@ export default function Home() {
   return (
     <main className="rtl home page-template-default page page-id-13" style={{direction: isRTL ? 'rtl' : 'ltr', background: '#FFFFFF'}}>
       {/* TOP BAR */}
-      <section style={{background: '#1E3A5F', color: 'white', padding: '8px 0'}}>
+      <section style={{background: '#FF6B00', color: 'white', padding: '8px 0'}}>
         <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
           <ul style={{display: 'flex', gap: '1rem', listStyle: 'none', margin: 0, padding: 0, justifyContent: 'center'}}>
             <li style={{display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem'}}>
@@ -567,7 +567,7 @@ export default function Home() {
       {/* ============================================ */}
       {/* BEST-SELLERS SECTION                         */}
       {/* ============================================ */}
-      <section style={{background: 'hsl(30, 40%, 98%)', padding: '5rem 0'}}>
+      <section style={{background: '#FFFFFF', padding: '5rem 0'}}>
         <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
           {/* Section title */}
           <div style={{textAlign: 'center', marginBottom: '3rem'}}>
@@ -755,7 +755,7 @@ export default function Home() {
       </section>
 
       {/* RABBI NATHAN QUOTE SECTION */}
-      <section style={{background: 'hsl(210, 30%, 97%)', padding: '5rem 0'}}>
+      <section style={{background: '#FFF7ED', padding: '5rem 0'}}>
         <div style={{maxWidth: '700px', margin: '0 auto', padding: '0 2rem', textAlign: 'center'}}>
           <div style={{
             background: '#FFFFFF',

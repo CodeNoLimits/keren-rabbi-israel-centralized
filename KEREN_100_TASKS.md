@@ -52,7 +52,7 @@
 - [x] **13. [P3/S] Product Image Zoom on Click (Lightbox)**
   Yaakov says "when you click on the image, it enlarges". Implement a lightbox/zoom modal on product page images. Currently images just sit in a grid.
 
-- [ ] **14. [P2/M] "Complete Set" Bundle Suggestions**
+- [x] **14. [P2/M] "Complete Set" Bundle Suggestions** ✅**
   When viewing a single volume, suggest the complete set. Group related products (e.g., all Likutei Moharan variants) and show "Buy the Complete Set - Save X%".
 
 - [x] **15. [P3/S] Wishlist Preview Count in Header**

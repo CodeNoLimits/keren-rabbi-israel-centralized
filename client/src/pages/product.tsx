@@ -720,6 +720,117 @@ export default function Product() {
                 </div>
               </div>
 
+              {/* BUNDLE SUGGESTION - Task 14 */}
+              {currentVariant.volumes === 1 && (() => {
+                // Find bundle variant (volumes > 1) for this product
+                const bundleVariant = variants.find(v => v.volumes > 1 && v.inStock);
+
+                if (!bundleVariant) return null;
+
+                // Calculate savings: (single price × volumes) - bundle price
+                const singleTotal = currentVariant.price * bundleVariant.volumes;
+                const bundlePrice = bundleVariant.price;
+                const savings = singleTotal - bundlePrice;
+                const savingsPercent = Math.round((savings / singleTotal) * 100);
+
+                if (savings <= 0) return null; // No savings, don't show
+
+                return (
+                  <div style={{
+                    background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+                    border: '2px solid #f59e0b',
+                    borderRadius: '12px',
+                    padding: '1.5rem',
+                    marginBottom: '2rem',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                  }}>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem'}}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2">
+                        <path d="M3 3h18v18H3z"/><path d="M8 12h8M12 8v8"/>
+                      </svg>
+                      <h4 style={{fontSize: '1.1rem', fontWeight: 'bold', color: '#92400e', margin: 0}}>
+                        {isRTL ? '💰 חסוך עם הסט המלא!' :
+                         currentLanguage === 'en' ? '💰 Save with Complete Set!' :
+                         currentLanguage === 'fr' ? '💰 Économisez avec le Set Complet !' :
+                         currentLanguage === 'es' ? '💰 ¡Ahorra con el Set Completo!' :
+                         currentLanguage === 'ru' ? '💰 Экономь с полным набором!' :
+                         '💰 Save with Complete Set!'}
+                      </h4>
+                    </div>
+
+                    <p style={{fontSize: '0.95rem', color: '#78350f', marginBottom: '1rem', lineHeight: '1.5'}}>
+                      {isRTL ?
+                        `קנה ${bundleVariant.volumes} כרכים ביחד וחסוך ${savingsPercent}% (${savings.toFixed(0)} ₪)` :
+                       currentLanguage === 'en' ?
+                        `Buy ${bundleVariant.volumes} volumes together and save ${savingsPercent}% (${savings.toFixed(0)} ₪)` :
+                       currentLanguage === 'fr' ?
+                        `Achetez ${bundleVariant.volumes} volumes ensemble et économisez ${savingsPercent}% (${savings.toFixed(0)} ₪)` :
+                       currentLanguage === 'es' ?
+                        `Compra ${bundleVariant.volumes} volúmenes juntos y ahorra ${savingsPercent}% (${savings.toFixed(0)} ₪)` :
+                       currentLanguage === 'ru' ?
+                        `Купи ${bundleVariant.volumes} тома вместе и сэкономь ${savingsPercent}% (${savings.toFixed(0)} ₪)` :
+                        `Buy ${bundleVariant.volumes} volumes together and save ${savingsPercent}% (${savings.toFixed(0)} ₪)`}
+                    </p>
+
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      background: 'white',
+                      padding: '1rem',
+                      borderRadius: '8px',
+                      marginBottom: '1rem'
+                    }}>
+                      <div>
+                        <div style={{fontSize: '0.85rem', color: '#6b7280', marginBottom: '0.25rem'}}>
+                          {bundleVariant.format} {bundleVariant.binding}
+                        </div>
+                        <div style={{fontSize: '0.9rem', fontWeight: 'bold', color: '#333'}}>
+                          {bundleVariant.volumes} {isRTL ? 'כרכים' : currentLanguage === 'ru' ? 'томов' : 'volumes'}
+                        </div>
+                      </div>
+                      <div style={{textAlign: 'right'}}>
+                        <div style={{fontSize: '0.75rem', color: '#9ca3af', textDecoration: 'line-through'}}>
+                          {singleTotal.toFixed(0)} ₪
+                        </div>
+                        <div style={{fontSize: '1.3rem', fontWeight: 'bold', color: '#dc3545'}}>
+                          {bundlePrice} ₪
+                        </div>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        setSelectedVariant(bundleVariant.id);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      style={{
+                        width: '100%',
+                        padding: '0.75rem 1.5rem',
+                        background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '1rem',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                        transition: 'transform 0.2s',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                      }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}
+                    >
+                      {isRTL ? '🔥 בחר את הסט המלא' :
+                       currentLanguage === 'en' ? '🔥 Select Complete Set' :
+                       currentLanguage === 'fr' ? '🔥 Choisir le Set Complet' :
+                       currentLanguage === 'es' ? '🔥 Seleccionar Set Completo' :
+                       currentLanguage === 'ru' ? '🔥 Выбрать полный набор' :
+                       '🔥 Select Complete Set'}
+                    </button>
+                  </div>
+                );
+              })()}
+
               {/* QUANTITY AND ADD TO CART */}
               <div style={{marginBottom: '2rem'}}>
                 <div style={{display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem'}}>
