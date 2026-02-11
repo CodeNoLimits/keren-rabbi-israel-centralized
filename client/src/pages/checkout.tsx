@@ -64,7 +64,6 @@ const StripePaymentForm = ({ clientSecret, orderSummary }: {
         queryClient.invalidateQueries({ queryKey: ['/api/user/subscription'] });
       }
     } catch (error: any) {
-      console.error('Checkout error:', error);
       toast({
         title: t('error'),
         description: t('error'),

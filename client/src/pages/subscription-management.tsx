@@ -69,7 +69,6 @@ export default function SubscriptionManagement() {
     try {
       await cancelSubscriptionMutation.mutateAsync();
     } catch (error) {
-      console.error('Cancel subscription error:', error);
     } finally {
       setIsLoading(false);
     }

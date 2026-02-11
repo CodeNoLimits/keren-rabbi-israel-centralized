@@ -5,6 +5,7 @@ import { useAuth } from '../hooks/useAuth';
 import { CartWidget } from './CartWidget';
 import { SearchAutocomplete } from './SearchAutocomplete';
 import { Menu, X, LogIn, LogOut, User } from 'lucide-react';
+import { useCurrency, type CurrencyCode } from '../hooks/useCurrency';
 
 interface HeaderProps {
   currentLanguage?: string;
@@ -108,6 +109,7 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
   const [location] = useLocation();
   const { totalItems, totalPrice, setIsCartOpen } = useCart();
   const { user, isAuthenticated, isLoading } = useAuth();
+  const { currency, setCurrency, formatPrice } = useCurrency();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const t = translations[currentLanguage as keyof typeof translations] || translations.he;
@@ -279,7 +281,7 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
               )}
             </div>
             <span className="cart-total" data-testid="cart-total">
-              ₪{totalPrice.toFixed(2)}
+              {formatPrice(totalPrice)}
             </span>
           </div>
           
@@ -287,6 +289,23 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
           <h2 className="fire-logo transition-all duration-500 hover:scale-125 hover:text-orange-400 hover:drop-shadow-lg hover:-translate-y-1 hover:rotate-12" data-testid="text-fire-logo">
             {t.fire}
           </h2>
+
+          {/* CURRENCY SELECTOR */}
+          <div className="language-selector" data-testid="currency-selector" style={{marginRight: currentLanguage === 'he' ? '8px' : '0', marginLeft: currentLanguage !== 'he' ? '8px' : '0'}}>
+            {(['NIS', 'USD', 'EUR'] as CurrencyCode[]).map((cur) => {
+              const labels: Record<CurrencyCode, string> = { NIS: '₪ NIS', USD: '$ USD', EUR: '€ EUR' };
+              return (
+                <button
+                  key={cur}
+                  onClick={() => setCurrency(cur)}
+                  className={`language-btn ${currency === cur ? 'active' : ''} transition-all duration-300 hover:scale-125 hover:bg-white hover:text-blue-600 hover:shadow-xl hover:-translate-y-1 hover:rotate-3`}
+                  data-testid={`button-currency-${cur.toLowerCase()}`}
+                >
+                  <span className="transition-all duration-300">{labels[cur]}</span>
+                </button>
+              );
+            })}
+          </div>
 
           {/* LANGUAGE SELECTOR */}
           <div className="language-selector" data-testid="language-selector">

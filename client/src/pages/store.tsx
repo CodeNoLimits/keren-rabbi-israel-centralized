@@ -1,15 +1,16 @@
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'wouter';
 import { realBreslovProducts } from '../data/realProducts';
 import { Header } from '../components/Header';
 import { ProductVariantModal } from '../components/ProductVariantModal';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useFavorites } from '../contexts/FavoritesContext';
+import { useCart } from '../contexts/CartContext';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, X, Filter, ChevronDown, ChevronUp, Heart, ShoppingCart } from 'lucide-react';
+import { Search, X, Filter, ChevronDown, ChevronUp, Heart, ShoppingCart, Plus } from 'lucide-react';
 import { convertImagePath } from '../utils/imagePathHelper';
 import { getInterfaceDisplayTitle, getInterfaceCategoryName } from '../utils/bookTitleHelper';
 import type { Product } from '../../../shared/schema';
@@ -24,13 +25,61 @@ interface Filters {
   languages: string[];
 }
 
+// Quick add labels per language
+const quickAddLabels: Record<string, string> = {
+  he: '\u05D4\u05D5\u05E1\u05E3 \u05DE\u05D4\u05D9\u05E8',
+  en: 'Quick Add',
+  fr: 'Ajout rapide',
+  es: 'A\u00F1adir r\u00E1pido',
+  ru: '\u0411\u044B\u0441\u0442\u0440\u043E \u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C',
+};
+
 export default function Store() {
   const { currentLanguage, setLanguage } = useLanguage();
   const { toggleFavorite, isFavorite } = useFavorites();
+  const { addItem, setIsCartOpen } = useCart();
   const allProducts = Object.values(realBreslovProducts);
+  const quickAddTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Variant modal state
   const [variantModalProduct, setVariantModalProduct] = useState<Product | null>(null);
+
+  // Quick add handler: adds default (first) variant, qty 1, opens cart briefly
+  const handleQuickAdd = useCallback((product: Product) => {
+    const defaultVariant = product.variants?.[0];
+    if (!defaultVariant) return;
+
+    addItem({
+      productId: product.id,
+      variantId: defaultVariant.id,
+      name: product.name,
+      nameEnglish: product.nameEnglish || product.name,
+      image: product.images?.[0] || '',
+      price: defaultVariant.price,
+      quantity: 1,
+      variant: {
+        format: defaultVariant.format || '',
+        binding: defaultVariant.binding || '',
+        size: defaultVariant.size || '',
+      },
+    });
+
+    // Open the cart
+    setIsCartOpen(true);
+
+    // Auto-close after 2 seconds
+    if (quickAddTimerRef.current) clearTimeout(quickAddTimerRef.current);
+    quickAddTimerRef.current = setTimeout(() => {
+      setIsCartOpen(false);
+    }, 2000);
+  }, [addItem, setIsCartOpen]);
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (quickAddTimerRef.current) clearTimeout(quickAddTimerRef.current);
+    };
+  }, []);
 
   // Filter states
   const [filters, setFilters] = useState<Filters>({
@@ -148,8 +197,6 @@ export default function Store() {
       return true;
     });
   }, [allProducts, filters, currentLanguage]);
-  
-  console.log('✅ STORE: Loading', allProducts.length, 'books, filtered to', filteredProducts.length);
   
   const toggleFilter = <T,>(key: keyof Filters, value: T) => {
     setFilters(prev => {
@@ -548,13 +595,57 @@ export default function Store() {
                               }}
                             />
                           )}
+                          {/* Quick Add Button - fades in on card hover */}
+                          {product.variants && product.variants.length > 0 && (
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleQuickAdd(product as Product);
+                              }}
+                              className="absolute bottom-2 left-2 right-2 z-20
+                                opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
+                                transition-all duration-300 ease-out
+                                bg-orange-500 hover:bg-orange-600 active:bg-orange-700
+                                text-white font-semibold text-sm
+                                py-2 px-3 rounded-lg shadow-lg
+                                flex items-center justify-center gap-1.5"
+                              data-testid={`button-quick-add-${product.id}`}
+                              aria-label={quickAddLabels[currentLanguage] || quickAddLabels.he}
+                            >
+                              <Plus size={16} strokeWidth={3} />
+                              <span>{quickAddLabels[currentLanguage] || quickAddLabels.he}</span>
+                            </button>
+                          )}
                         </div>
                       ) : (
                         <div
-                          className="w-full aspect-square bg-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"
+                          className="w-full aspect-square bg-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors relative"
                           data-testid={`placeholder-product-${product.id}`}
                         >
                           <span className="text-2xl">&#128214;</span>
+                          {/* Quick Add Button for placeholder images */}
+                          {product.variants && product.variants.length > 0 && (
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                handleQuickAdd(product as Product);
+                              }}
+                              className="absolute bottom-2 left-2 right-2 z-20
+                                opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0
+                                transition-all duration-300 ease-out
+                                bg-orange-500 hover:bg-orange-600 active:bg-orange-700
+                                text-white font-semibold text-sm
+                                py-2 px-3 rounded-lg shadow-lg
+                                flex items-center justify-center gap-1.5"
+                              data-testid={`button-quick-add-placeholder-${product.id}`}
+                              aria-label={quickAddLabels[currentLanguage] || quickAddLabels.he}
+                            >
+                              <Plus size={16} strokeWidth={3} />
+                              <span>{quickAddLabels[currentLanguage] || quickAddLabels.he}</span>
+                            </button>
+                          )}
                         </div>
                       )}
                     </Link>

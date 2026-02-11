@@ -188,7 +188,6 @@ export function CheckoutForm() {
         description: t('securePaymentDesc'),
       });
     } catch (error: any) {
-      console.error('Checkout error:', error);
       toast({
         title: t('error'),
         description: error.message || t('error'),

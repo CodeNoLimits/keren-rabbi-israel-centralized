@@ -1007,12 +1007,6 @@ html, body {
   z-index: 1000;
 }
 
-/* Logo styles */
-.logo {
-  max-height: 80px;
-  width: auto;
-}
-
 /* Navigation styles */
 .elementor-nav-menu {
   display: flex;
@@ -1039,15 +1033,6 @@ html, body {
   color: var(--primary-blue);
 }
 
-/* Cart styles */
-.woocommerce-Price-amount {
-  font-weight: bold;
-}
-
-.woocommerce-Price-currencySymbol {
-  margin-left: 4px;
-}
-
 /* Hero section styles */
 .hero-section {
   background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
@@ -1061,41 +1046,6 @@ html, body {
 .hero-content {
   position: relative;
   z-index: 2;
-}
-
-/* Button styles */
-.btn-primary {
-  background: var(--primary-blue);
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.3s ease;
-  margin: 5px;
-}
-
-.btn-primary:hover {
-  background: var(--primary-blue-dark);
-}
-
-.btn-secondary {
-  background: #f0ad4e;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.3s ease;
-  margin: 5px;
-}
-
-.btn-secondary:hover {
-  background: #ec971f;
 }
 
 /* Book grid styles */

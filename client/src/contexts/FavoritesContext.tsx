@@ -25,7 +25,7 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
         }
       }
     } catch (error) {
-      console.error('Error loading favorites:', error);
+      // silently handle error
     }
   }, []);
 
@@ -34,7 +34,7 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
     try {
       localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(Array.from(favorites)));
     } catch (error) {
-      console.error('Error saving favorites:', error);
+      // silently handle error
     }
   }, [favorites]);
 

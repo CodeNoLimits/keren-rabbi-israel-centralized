@@ -73,7 +73,6 @@ const SubscriptionForm = ({ plan, clientSecret }: { plan: SubscriptionPlan; clie
         queryClient.invalidateQueries({ queryKey: ['/api/user/subscription'] });
       }
     } catch (error: any) {
-      console.error('Subscription error:', error);
       toast({
         title: "שגיאה",
         description: "אירעה שגיאה בעיבוד התשלום",
@@ -151,8 +150,6 @@ const SubscriptionPlanCard = ({ plan, isCurrentPlan }: { plan: SubscriptionPlan;
       }
     },
     onError: (error: any) => {
-      console.error('Subscription creation error:', error);
-      
       // Show appropriate error message
       let errorMessage = "נכשלנו בעיבוד הבקשה. אנא נסה שוב";
       let errorTitle = "אופס!";

@@ -129,7 +129,6 @@ export default function Chat() {
       setIsLoading(false);
     },
     onError: (error: any) => {
-      console.error('Chat error:', error);
       setIsLoading(false);
       
       const errorMessage: ChatMessage = {
@@ -224,8 +223,6 @@ export default function Chat() {
       }
       
     } catch (error) {
-      console.error('Streaming error:', error);
-      
       // הצגת שגיאה
       if (streamingMessageId) {
         setMessages(prev => prev.map(msg => 
