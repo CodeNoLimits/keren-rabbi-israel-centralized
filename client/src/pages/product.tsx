@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { useRoute } from 'wouter';
-import { realBreslovProducts } from '../data/products';
+import { useRoute, Link } from 'wouter';
+import { Header } from '../components/Header';
 import { useCart } from '../contexts/CartContext';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -8,8 +8,9 @@ import { useToast } from '@/hooks/use-toast';
 import { getInterfaceDisplayTitle, getInterfaceDisplayDescription, getInterfaceCategoryName } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Truck, Shield, RotateCcw, Star, Heart } from 'lucide-react';
+import { Truck, Shield, RotateCcw, Star, Heart, ChevronLeft, ChevronRight, Share2, ShoppingCart, Minus, Plus, Check } from 'lucide-react';
 import type { Product } from '../../../shared/schema';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Product() {
   const [match, params] = useRoute('/product/:id');
@@ -25,7 +26,7 @@ export default function Product() {
   const { toggleFavorite, isFavorite } = useFavorites();
   const { addItem } = useCart();
   const { toast } = useToast();
-  const { currentLanguage } = useLanguage();
+  const { currentLanguage, setLanguage } = useLanguage();
 
   if (!match || !params?.id) {
     return <div>{currentLanguage === 'he' ? 'מוצר לא נמצא' : 'Product not found'}</div>;
@@ -283,117 +284,45 @@ export default function Product() {
       {/* pb-[80px] reserves space for sticky mobile bar */}
 
       {/* TOP BAR */}
-      <section className="elementor-section elementor-top-section elementor-element elementor-element-ba655d5 elementor-section-full_width elementor-hidden-tablet elementor-hidden-mobile elementor-section-height-default" style={{background: '#333', color: 'white', padding: '8px 0'}}>
-        <div className="elementor-container elementor-column-gap-default">
-          <div className="elementor-column elementor-col-33 elementor-top-column">
-            <div className="elementor-widget-wrap elementor-element-populated">
-              <div className="elementor-element elementor-icon-list--layout-inline elementor-align-left elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list">
-                <div className="elementor-widget-container">
-                  <ul className="elementor-icon-list-items elementor-inline-items" style={{display: 'flex', gap: '1rem', listStyle: 'none', margin: 0, padding: 0}}>
-                    <li className="elementor-icon-list-item elementor-inline-item" style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                      <span className="elementor-icon-list-text">{navLabels.freeShipping}</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+      <section style={{background: '#FF6B00', color: 'white', padding: '8px 0'}}>
+        <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', textAlign: 'center'}}>
+          <span style={{fontSize: '0.9rem', fontWeight: '500'}}>{navLabels.freeShipping}</span>
         </div>
       </section>
 
-      {/* HEADER */}
-      <section className="elementor-section elementor-top-section elementor-element elementor-element-ba655d5 elementor-section-full_width elementor-hidden-tablet elementor-hidden-mobile" style={{background: '#dc3545', padding: '1rem 0'}}>
-        <div className="elementor-container elementor-column-gap-default" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <div className="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-8cf799f">
-            <div className="elementor-widget-wrap elementor-element-populated">
-              <div className="elementor-element elementor-widget elementor-widget-theme-site-logo elementor-widget-image">
-                <div className="elementor-widget-container">
-                  <a href="/">
-                    <img loading="lazy"
-                      decoding="async"
-                      width="185"
-                      height="300"
-                      src="/images/logo.webp"
-                      className="attachment-full size-full wp-image-27"
-                      alt="האש שלי תוקף עד ביאת המשיח"
-                      style={{height: '80px', width: 'auto'}}
-                    />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="elementor-column elementor-col-33 elementor-top-column">
-            <nav aria-label={isRTL ? 'תפריט' : 'Navigation'} style={{textAlign: 'center'}}>
-              <ul style={{display: 'flex', gap: '1.5rem', listStyle: 'none', margin: 0, padding: 0, flexWrap: 'wrap'}}>
-                <li><a href="/" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem'}}>{navLabels.home}</a></li>
-                <li><a href="/store" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 'bold'}}>{navLabels.store}</a></li>
-                <li><a href="/about" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem'}}>{navLabels.about}</a></li>
-                <li><a href="/downloads" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem'}}>{navLabels.downloads}</a></li>
-                <li><a href="/contact" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem'}}>{navLabels.contact}</a></li>
-              </ul>
-            </nav>
-          </div>
-
-          <div className="elementor-column elementor-col-16" style={{maxWidth: '120px'}}>
-            <div style={{textAlign: 'left'}}>
-              <a href="#" style={{background: 'white', color: '#dc3545', padding: '0.3rem 0.6rem', borderRadius: '4px', textDecoration: 'none', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.3rem'}}>
-                <span>0.00 ₪</span>
-                <span>0</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style={{width: '14px', height: '14px', fill: 'currentColor'}}>
-                  <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
 
       {/* BREADCRUMBS */}
-      <section style={{background: '#f8f9fa', padding: '1rem 0', borderBottom: '1px solid #ddd'}}>
+      <section style={{background: '#FFFFFF', padding: '1.5rem 0', borderBottom: '1px solid #f1f5f9'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
-          <nav aria-label={isRTL ? 'שביל ניווט' : 'Breadcrumb'} style={{fontSize: '0.9rem', color: '#666'}}>
-            <a href="/" style={{color: '#dc3545', textDecoration: 'none'}}>{navLabels.home}</a>
-            <span style={{margin: '0 0.5rem'}}>{isRTL ? '\u2190' : '\u2192'}</span>
-            <a href="/store" style={{color: '#dc3545', textDecoration: 'none'}}>{navLabels.store}</a>
-            <span style={{margin: '0 0.5rem'}}>{isRTL ? '\u2190' : '\u2192'}</span>
-            <span style={{color: '#6b7280'}}>{displayTitle}</span>
+          <nav aria-label={isRTL ? 'שביל ניווט' : 'Breadcrumb'} style={{fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#64748b'}}>
+            <Link href="/" className="hover:text-[#FF6B00] transition-colors">{navLabels.home}</Link>
+            <ChevronRight className={`w-3 h-3 ${isRTL ? 'rotate-180' : ''}`} />
+            <Link href="/store" className="hover:text-[#FF6B00] transition-colors">{navLabels.store}</Link>
+            <ChevronRight className={`w-3 h-3 ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="font-medium text-slate-900 truncate max-w-[200px]">{displayTitle}</span>
           </nav>
         </div>
       </section>
 
       {/* MAIN PRODUCT CONTENT */}
-      <section style={{background: 'white', padding: '3rem 0'}}>
-        <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
-          <div className="grid grid-cols-1 md:grid-cols-2" style={{gap: '4rem', alignItems: 'start'}}>
+      <section style={{background: 'white', padding: '2rem 0'}}>
+        <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem'}}>
+          <div className="grid grid-cols-1 md:grid-cols-2" style={{gap: '3rem', alignItems: 'start'}}>
 
             {/* PRODUCT IMAGES */}
-            <div>
+            <div className="w-full">
               <div
                 ref={imageContainerRef}
                 onMouseMove={handleMouseMove}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onClick={handleTouchToggle}
-                onTouchStart={(e) => { touchStartRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }}
-                onTouchEnd={(e) => {
-                  if (!touchStartRef.current) return;
-                  const dx = e.changedTouches[0].clientX - touchStartRef.current.x;
-                  const dy = e.changedTouches[0].clientY - touchStartRef.current.y;
-                  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) && product.images && product.images.length > 1) {
-                    if (dx < 0) setSelectedImage(i => i < product.images!.length - 1 ? i + 1 : 0);
-                    else setSelectedImage(i => i > 0 ? i - 1 : product.images!.length - 1);
-                  }
-                  touchStartRef.current = null;
-                }}
+                className="relative overflow-hidden bg-slate-50 rounded-2xl border border-slate-100 shadow-inner"
                 style={{
                   marginBottom: '1rem',
-                  overflow: 'hidden',
-                  borderRadius: '10px',
-                  border: '1px solid #ddd',
+                  aspectRatio: '1/1',
                   cursor: isZoomed ? 'zoom-out' : 'zoom-in',
-                  position: 'relative',
                 }}
               >
                 <img loading="lazy"
@@ -401,10 +330,8 @@ export default function Product() {
                   src={convertImagePath(product.images && product.images[selectedImage] || '')}
                   alt={descriptiveAlt}
                   draggable={false}
+                  className="w-full h-full object-contain p-4"
                   style={{
-                    width: '100%',
-                    height: '500px',
-                    objectFit: 'contain',
                     transform: isZoomed ? 'scale(2)' : `scale(${imageScale})`,
                     transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
                     transition: isZoomed ? 'transform-origin 0.05s ease-out, transform 0.3s ease' : 'transform 0.3s ease-in-out',
@@ -414,54 +341,26 @@ export default function Product() {
                 {/* Fullscreen button */}
                 <button
                   onClick={(e) => { e.stopPropagation(); setLightboxOpen(true); }}
-                  style={{
-                    position: 'absolute',
-                    bottom: '12px',
-                    right: '12px',
-                    background: 'rgba(0,0,0,0.5)',
-                    color: 'white',
-                    borderRadius: '50%',
-                    width: '36px',
-                    height: '36px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'background 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(0,0,0,0.8)'; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(0,0,0,0.5)'; }}
+                  className="absolute bottom-4 right-4 bg-white/90 text-slate-700 p-3 rounded-full shadow-lg border border-slate-200 hover:bg-white transition-all hover:scale-110 active:scale-95"
                   aria-label="View fullscreen"
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="15 3 21 3 21 9" /><polyline points="9 21 3 21 3 15" />
-                    <line x1="21" y1="3" x2="14" y2="10" /><line x1="3" y1="21" x2="10" y2="14" />
-                  </svg>
+                  <Plus className="w-5 h-5" />
                 </button>
               </div>
 
               {product.images && product.images.length > 1 && (
-                <div style={{display: 'flex', gap: '0.5rem', justifyContent: 'center'}}>
+                <div style={{display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap'}}>
                   {product.images.map((image, index) => (
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}
-                      style={{
-                        border: selectedImage === index ? '2px solid #dc3545' : '1px solid #ddd',
-                        borderRadius: '5px',
-                        padding: '2px',
-                        background: 'white',
-                        cursor: 'pointer'
-                      }}
+                      className={`w-16 h-16 rounded-xl overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-[#FF6B00] ring-2 ring-orange-100 shadow-md' : 'border-slate-200 opacity-70 hover:opacity-100'}`}
                     >
                       <img loading="lazy"
                         decoding="async"
-                        width="60"
-                        height="60"
                         src={convertImagePath(image)}
                         alt={`${descriptiveAlt} - ${isRTL ? 'תמונה' : 'image'} ${index + 1}`}
-                        style={{width: '60px', height: '60px', objectFit: 'cover', borderRadius: '3px'}}
+                        className="w-full h-full object-cover"
                       />
                     </button>
                   ))}
@@ -470,233 +369,75 @@ export default function Product() {
             </div>
 
             {/* PRODUCT INFO */}
-            <div>
-              <div style={{marginBottom: '1rem'}}>
-                <span style={{background: '#dc3545', color: 'white', padding: '0.3rem 0.8rem', borderRadius: '15px', fontSize: '0.8rem', fontWeight: 'bold'}}>
+            <div className="space-y-6">
+              <div>
+                <span className="bg-orange-100 text-[#FF6B00] px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">
                   {displayCategory}
                 </span>
               </div>
 
-              <div style={{display: 'flex', alignItems: 'flex-start', gap: '0.75rem', marginBottom: '1rem'}}>
-                <h1 style={{fontSize: '2.5rem', fontWeight: 'bold', color: '#333', flex: 1}}>
+              <div className="flex items-start justify-between gap-4">
+                <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
                   {displayTitle}
                 </h1>
                 <button
                   onClick={() => toggleFavorite(product.id)}
-                  style={{
-                    padding: '0.5rem',
-                    borderRadius: '50%',
-                    border: '1px solid #e5e7eb',
-                    background: isFavorite(product.id) ? '#fef2f2' : 'white',
-                    cursor: 'pointer',
-                    flexShrink: 0,
-                    marginTop: '0.5rem',
-                    transition: 'all 0.2s'
-                  }}
+                  className={`p-3 rounded-full border transition-all ${isFavorite(product.id) ? 'bg-red-50 border-red-100 text-red-500 shadow-md' : 'bg-white border-slate-200 text-slate-400 hover:text-red-500'}`}
                   aria-label={isRTL ? 'הוסף למועדפים' : 'Add to favorites'}
                 >
-                  <Heart
-                    size={24}
-                    fill={isFavorite(product.id) ? '#ef4444' : 'none'}
-                    stroke={isFavorite(product.id) ? '#ef4444' : '#9ca3af'}
-                  />
+                  <Heart size={24} fill={isFavorite(product.id) ? 'currentColor' : 'none'} />
                 </button>
               </div>
 
               {/* LANGUAGE SELECTOR - Task 26 */}
               {availableLanguages.length > 1 && (
-                <div style={{marginBottom: '1.5rem'}}>
-                  <div style={{
-                    display: 'inline-flex',
-                    gap: '0.5rem',
-                    padding: '0.5rem',
-                    background: '#f8f9fa',
-                    borderRadius: '8px',
-                    border: '1px solid #e5e7eb'
-                  }}>
-                    {availableLanguages.map((lang) => (
-                      <a
-                        key={lang.id}
-                        href={`/product/${lang.id}`}
-                        style={{
-                          padding: '0.5rem 1rem',
-                          borderRadius: '6px',
-                          background: lang.id === product.id ? '#dc3545' : 'transparent',
-                          color: lang.id === product.id ? 'white' : '#666',
-                          textDecoration: 'none',
-                          fontSize: '0.9rem',
-                          fontWeight: lang.id === product.id ? 'bold' : 'normal',
-                          transition: 'all 0.2s',
-                          cursor: 'pointer'
-                        }}
-                        onMouseEnter={(e) => {
-                          if (lang.id !== product.id) {
-                            e.currentTarget.style.background = '#e5e7eb';
-                          }
-                        }}
-                        onMouseLeave={(e) => {
-                          if (lang.id !== product.id) {
-                            e.currentTarget.style.background = 'transparent';
-                          }
-                        }}
-                      >
-                        {languageLabels[lang.code] || lang.code}
-                      </a>
-                    ))}
-                  </div>
-                  <p style={{fontSize: '0.85rem', color: '#666', marginTop: '0.5rem', marginLeft: '0.5rem'}}>
-                    {isRTL ? 'גרסאות שפה זמינות' :
-                     currentLanguage === 'en' ? 'Available language versions' :
-                     currentLanguage === 'fr' ? 'Versions linguistiques disponibles' :
-                     currentLanguage === 'es' ? 'Versiones de idioma disponibles' :
-                     currentLanguage === 'ru' ? 'Доступные языковые версии' :
-                     'Available language versions'}
-                  </p>
+                <div className="bg-slate-50 p-1.5 rounded-xl border border-slate-200 inline-flex flex-wrap gap-1">
+                  {availableLanguages.map((lang) => (
+                    <Link
+                      key={lang.id}
+                      href={`/product/${lang.id}`}
+                      className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${lang.id === product.id ? 'bg-white text-[#FF6B00] shadow-sm' : 'text-slate-500 hover:text-slate-700 hover:bg-white/50'}`}
+                    >
+                      {languageLabels[lang.code] || lang.code}
+                    </Link>
+                  ))}
                 </div>
               )}
 
-              <div style={{display: 'flex', alignItems: 'center', marginBottom: '1rem'}}>
-                <div style={{color: '#ffc107', fontSize: '1.2rem', marginLeft: '0.5rem'}}>
-                  {'\u2605\u2605\u2605\u2605\u2605'}
+              <div className="flex items-center gap-3">
+                <div className="flex text-amber-400">
+                  {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
                 </div>
-                <span style={{color: '#666', fontSize: '0.9rem'}}>
-                  {isRTL ? 'דורג 5.00 מתוך 5 (23 ביקורות)' :
-                   currentLanguage === 'en' ? 'Rated 5.00 out of 5 (23 reviews)' :
-                   currentLanguage === 'fr' ? 'Note 5.00 sur 5 (23 avis)' :
-                   currentLanguage === 'es' ? 'Calificado 5.00 de 5 (23 resenas)' :
-                   currentLanguage === 'ru' ? 'Оценка 5.00 из 5 (23 отзыва)' : 'Rated 5.00 out of 5 (23 reviews)'}
+                <span className="text-slate-500 text-sm font-medium">
+                  {isRTL ? '5.00 (23 ביקורות)' : '5.00 (23 reviews)'}
                 </span>
               </div>
 
-              {/* SOCIAL SHARE BUTTONS */}
-              <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
-                {/* WhatsApp Share */}
-                <a
-                  href={`https://wa.me/?text=${encodeURIComponent(shareText + ' ' + productUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.35rem',
-                    background: '#25D366',
-                    color: 'white',
-                    padding: '0.4rem 0.75rem',
-                    borderRadius: '6px',
-                    textDecoration: 'none',
-                    fontSize: '0.8rem',
-                    fontWeight: '500',
-                    transition: 'opacity 0.2s',
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
-                  onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                  </svg>
-                  {shareLabels.shareWhatsApp}
-                </a>
-
-                {/* Facebook Share */}
-                <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.35rem',
-                    background: '#1877F2',
-                    color: 'white',
-                    padding: '0.4rem 0.75rem',
-                    borderRadius: '6px',
-                    textDecoration: 'none',
-                    fontSize: '0.8rem',
-                    fontWeight: '500',
-                    transition: 'opacity 0.2s',
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
-                  onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
-                  {shareLabels.shareFacebook}
-                </a>
-
-                {/* Copy Link */}
-                <button
-                  onClick={handleCopyLink}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.35rem',
-                    background: linkCopied ? '#10B981' : '#6b7280',
-                    color: 'white',
-                    padding: '0.4rem 0.75rem',
-                    borderRadius: '6px',
-                    border: 'none',
-                    cursor: 'pointer',
-                    fontSize: '0.8rem',
-                    fontWeight: '500',
-                    transition: 'background 0.2s, opacity 0.2s',
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.85')}
-                  onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    {linkCopied ? (
-                      <polyline points="20 6 9 17 4 12" />
-                    ) : (
-                      <>
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                      </>
-                    )}
-                  </svg>
-                  {linkCopied ? shareLabels.linkCopied : shareLabels.copyLink}
-                </button>
-              </div>
-
-              <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#dc3545', marginBottom: '2rem', maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
-                <span style={{display: 'inline-block', verticalAlign: 'middle'}}>
-                  {currentVariant.price} ₪
+              <div className="flex items-baseline gap-3">
+                <span className="text-4xl font-black text-[#FF6B00]">
+                  {currentVariant.price} {'\u20AA'}
                 </span>
                 {currentVariant.originalPrice && (
-                  <span style={{textDecoration: 'line-through', color: '#6b7280', fontSize: '1.5rem', marginRight: '1rem', display: 'inline-block', verticalAlign: 'middle'}}>
-                    {currentVariant.originalPrice} ₪
+                  <span className="text-xl text-slate-400 line-through">
+                    {currentVariant.originalPrice} {'\u20AA'}
                   </span>
                 )}
               </div>
 
-              <p style={{fontSize: '1.1rem', color: '#666', lineHeight: '1.6', marginBottom: '2rem'}}>
+              <p className="text-lg text-slate-600 leading-relaxed max-w-xl">
                 {displayDescription}
               </p>
 
               {/* VARIANT SELECTION */}
-              <div style={{marginBottom: '2rem'}}>
-                <h3 style={{fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#333'}}>
-                  {isRTL ? 'בחר גודל וכריכה:' :
-                   currentLanguage === 'en' ? 'Choose size and binding:' :
-                   currentLanguage === 'fr' ? 'Choisir taille et reliure :' :
-                   currentLanguage === 'es' ? 'Elegir tamano y encuadernacion:' :
-                   currentLanguage === 'ru' ? 'Выберите размер и переплет:' : 'Choose size and binding:'}
+              <div className="space-y-4">
+                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-widest">
+                  {isRTL ? 'בחר גודל וכריכה:' : 'Select Size & Binding:'}
                 </h3>
-                <div style={{display: 'grid', gap: '0.8rem'}}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {variants.map((variant) => (
                     <label
                       key={variant.id}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '1rem',
-                        padding: '1rem',
-                        border: selectedVariant === variant.id ? '2px solid #dc3545' : '1px solid #ddd',
-                        borderRadius: '8px',
-                        cursor: variant.inStock ? 'pointer' : 'not-allowed',
-                        opacity: variant.inStock ? 1 : 0.6,
-                        background: selectedVariant === variant.id ? '#fef2f2' : 'white'
-                      }}
+                      className={`relative flex items-center p-4 rounded-2xl border-2 transition-all cursor-pointer ${selectedVariant === variant.id ? 'border-[#FF6B00] bg-orange-50/30' : 'border-slate-100 bg-white hover:border-slate-200'}`}
                     >
                       <input
                         type="radio"
@@ -705,37 +446,185 @@ export default function Product() {
                         checked={selectedVariant === variant.id}
                         onChange={(e) => setSelectedVariant(e.target.value)}
                         disabled={!variant.inStock}
-                        style={{margin: 0}}
+                        className="sr-only"
                       />
-                      <div style={{flex: 1}}>
-                        <div style={{fontWeight: 'bold', fontSize: '1rem'}}>
-                          {variant.format} {variant.binding} - {variant.size}
-                        </div>
-                        <div style={{fontSize: '0.9rem', color: '#666'}}>
-                          {variant.dimensions} {'\u2022'} {variant.volumes === 1
-                            ? (isRTL ? 'חלק אחד' : currentLanguage === 'en' ? '1 volume' : currentLanguage === 'fr' ? '1 volume' : currentLanguage === 'es' ? '1 volumen' : currentLanguage === 'ru' ? '1 том' : '1 volume')
-                            : (isRTL ? `${variant.volumes} כרכים` : `${variant.volumes} ${currentLanguage === 'ru' ? 'томов' : 'volumes'}`)}
-                        </div>
-                        <div style={{fontSize: '0.8rem', color: variant.inStock ? '#28a745' : '#dc3545'}}>
-                          {variant.inStock
-                            ? (isRTL ? 'במלאי' : currentLanguage === 'en' ? 'In stock' : currentLanguage === 'fr' ? 'En stock' : currentLanguage === 'es' ? 'En stock' : currentLanguage === 'ru' ? 'В наличии' : 'In stock')
-                            : (isRTL ? 'אזל מהמלאי' : currentLanguage === 'en' ? 'Out of stock' : currentLanguage === 'fr' ? 'Rupture de stock' : currentLanguage === 'es' ? 'Agotado' : currentLanguage === 'ru' ? 'Нет в наличии' : 'Out of stock')}
-                        </div>
+                      <div className="flex-1">
+                        <div className="font-bold text-slate-900">{variant.format} {variant.binding}</div>
+                        <div className="text-xs text-slate-500 font-medium">{variant.size} • {variant.dimensions}</div>
                       </div>
-                      <div style={{fontSize: '1.2rem', fontWeight: 'bold', color: '#dc3545', minWidth: '80px', textAlign: 'left', flexShrink: 0}}>
-                        <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap'}}>
-                          <span>{variant.price}{'\u20AA'}</span>
-                          {variant.originalPrice && (
-                            <span style={{textDecoration: 'line-through', color: '#6b7280', fontSize: '0.9rem'}}>
-                              {variant.originalPrice}{'\u20AA'}
-                            </span>
-                          )}
-                        </div>
+                      <div className="text-right">
+                        <div className="font-black text-[#FF6B00]">{variant.price}{'\u20AA'}</div>
+                        {!variant.inStock && <div className="text-[10px] text-red-500 font-bold uppercase">{isRTL ? 'אזל' : 'Out'}</div>}
                       </div>
+                      {selectedVariant === variant.id && (
+                        <div className="absolute -top-2 -right-2 bg-[#FF6B00] text-white rounded-full p-1 shadow-lg">
+                          <Check size={12} strokeWidth={4} />
+                        </div>
+                      )}
                     </label>
                   ))}
                 </div>
               </div>
+
+              {/* ACTION BUTTONS (Desktop) */}
+              <div className="hidden md:flex gap-4 pt-4">
+                <div className="flex items-center border-2 border-slate-200 rounded-xl px-2">
+                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-2 hover:text-[#FF6B00] transition-colors"><Minus size={18} /></button>
+                  <input type="number" value={quantity} readOnly className="w-12 text-center font-bold text-slate-900 border-none bg-transparent" />
+                  <button onClick={() => setQuantity(quantity + 1)} className="p-2 hover:text-[#FF6B00] transition-colors"><Plus size={18} /></button>
+                </div>
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!currentVariant.inStock}
+                  className={`flex-1 py-4 rounded-xl font-black text-lg shadow-xl transition-all active:scale-95 ${currentVariant.inStock ? 'bg-[#FF6B00] text-white hover:bg-orange-600 shadow-orange-200' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}`}
+                >
+                  {currentVariant.inStock ? addToCartLabel : reassuranceLabels.fastShipping}
+                </button>
+              </div>
+
+              {/* SOCIAL SHARE BUTTONS */}
+              <div className="flex flex-wrap gap-2 pt-4">
+                <button onClick={handleCopyLink} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold border transition-all ${linkCopied ? 'bg-green-50 border-green-200 text-green-600' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+                  {linkCopied ? <Check size={16} /> : <Share2 size={16} />}
+                  {linkCopied ? shareLabels.linkCopied : shareLabels.copyLink}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TABS SECTION: Description / Technical Details / Reviews */}
+      <section className="bg-slate-50 py-12 border-y border-slate-100">
+        <div className="container max-w-4xl mx-auto px-6">
+          <Tabs defaultValue="description" className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+            <TabsList className="w-full flex border-b border-slate-100 bg-slate-50/50 p-0 h-auto">
+              <TabsTrigger value="description" className="flex-1 py-4 text-sm font-bold data-[state=active]:bg-white data-[state=active]:text-[#FF6B00] rounded-none border-r border-slate-100">{tabLabels.description}</TabsTrigger>
+              <TabsTrigger value="technical" className="flex-1 py-4 text-sm font-bold data-[state=active]:bg-white data-[state=active]:text-[#FF6B00] rounded-none border-r border-slate-100">{tabLabels.technicalDetails}</TabsTrigger>
+              <TabsTrigger value="reviews" className="flex-1 py-4 text-sm font-bold data-[state=active]:bg-white data-[state=active]:text-[#FF6B00] rounded-none">{tabLabels.reviews}</TabsTrigger>
+            </TabsList>
+
+            <div className="p-8">
+              <TabsContent value="description" className="mt-0 space-y-6">
+                <div className="prose prose-slate max-w-none">
+                  <p className="text-slate-600 leading-relaxed text-lg">{displayDescription}</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
+                    {(product.features || []).map((feature, i) => (
+                      <div key={i} className="flex items-center gap-3 bg-orange-50/50 p-4 rounded-2xl border border-orange-100/50">
+                        <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0"><Check size={14} className="text-[#FF6B00]" /></div>
+                        <span className="text-sm font-semibold text-slate-700">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="technical" className="mt-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    { label: detailLabels.language, value: product.language },
+                    { label: detailLabels.publisher, value: product.publisher },
+                    { label: detailLabels.pages, value: product.pages },
+                    { label: 'ISBN', value: product.isbn },
+                    { label: detailLabels.format, value: currentVariant.format },
+                    { label: detailLabels.binding, value: currentVariant.binding },
+                    { label: detailLabels.size, value: currentVariant.size },
+                    { label: detailLabels.dimensions, value: `${currentVariant.dimensions} cm` }
+                  ].map((item, i) => item.value && (
+                    <div key={i} className="flex justify-between items-center p-4 bg-slate-50 rounded-xl border border-slate-100">
+                      <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">{item.label}</span>
+                      <span className="text-sm font-black text-slate-900">{item.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="reviews" className="mt-0 text-center py-12">
+                <div className="mb-6"><Star size={48} className="mx-auto text-slate-200" /></div>
+                <p className="text-slate-500 font-medium mb-6">{detailLabels.noReviewsYet}</p>
+                <button className="bg-[#FF6B00] text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg transition-all">{detailLabels.writeReview}</button>
+              </TabsContent>
+            </div>
+          </Tabs>
+        </div>
+      </section>
+
+      {/* REASSURANCE SECTION */}
+      <section className="py-12 bg-white">
+        <div className="container max-w-4xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-col items-center text-center space-y-3 p-6 rounded-3xl bg-slate-50 border border-slate-100">
+            <div className="w-12 h-12 rounded-2xl bg-orange-100 flex items-center justify-center text-[#FF6B00]"><Truck /></div>
+            <h4 className="font-bold text-slate-900">{reassuranceLabels.fastShipping}</h4>
+            <p className="text-xs text-slate-500">Livraison express dans tout Israël</p>
+          </div>
+          <div className="flex flex-col items-center text-center space-y-3 p-6 rounded-3xl bg-slate-50 border border-slate-100">
+            <div className="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600"><Shield /></div>
+            <h4 className="font-bold text-slate-900">{reassuranceLabels.securePayment}</h4>
+            <p className="text-xs text-slate-500">Paiement 100% sécurisé via SSL</p>
+          </div>
+          <div className="flex flex-col items-center text-center space-y-3 p-6 rounded-3xl bg-slate-50 border border-slate-100">
+            <div className="w-12 h-12 rounded-2xl bg-green-100 flex items-center justify-center text-green-600"><RotateCcw /></div>
+            <h4 className="font-bold text-slate-900">{reassuranceLabels.returnPolicy}</h4>
+            <p className="text-xs text-slate-500">Garantie satisfait ou remboursé</p>
+          </div>
+        </div>
+      </section>
+
+      {/* RELATED PRODUCTS */}
+      <section className="py-20 bg-slate-50">
+        <div className="container max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl font-black text-slate-900 mb-12 text-center uppercase tracking-tighter">
+            {isRTL ? 'מוצרים דומים' : 'You Might Also Like'}
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {relatedProducts.map((p) => (
+              <Link key={p.id} href={`/product/${p.id}`} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all hover:-translate-y-1 border border-slate-100 group">
+                <div className="aspect-square overflow-hidden bg-slate-50">
+                  <img src={convertImagePath(p.images?.[0] || '')} alt={p.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-bold text-slate-900 line-clamp-1 group-hover:text-[#FF6B00] transition-colors">{getInterfaceDisplayTitle(p, currentLanguage)}</h3>
+                  <div className="text-lg font-black text-[#FF6B00] mt-2">{p.variants?.[0]?.price} {'\u20AA'}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* STICKY ADD TO CART - MOBILE ONLY */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 bg-white/80 backdrop-blur-md border-t border-slate-200 p-4 z-50 shadow-2xl flex items-center gap-4">
+        <div className="flex-shrink-0">
+          <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-0.5">{isRTL ? 'מחיר' : 'Price'}</div>
+          <div className="text-xl font-black text-slate-900">{(currentVariant.price * quantity).toFixed(0)} {'\u20AA'}</div>
+        </div>
+        <button
+          onClick={handleAddToCart}
+          disabled={!currentVariant.inStock}
+          className={`flex-1 py-4 rounded-2xl font-black text-sm uppercase tracking-wider transition-all active:scale-95 ${currentVariant.inStock ? 'bg-[#FF6B00] text-white shadow-lg shadow-orange-200' : 'bg-slate-200 text-slate-400'}`}
+        >
+          {addToCartLabel}
+        </button>
+      </div>
+    </div>
+
+    {/* Lightbox */}
+    <AnimatePresence>
+      {lightboxOpen && (
+        <motion.div
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-12 cursor-zoom-out"
+          onClick={() => setLightboxOpen(false)}
+        >
+          <button className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors"><Plus size={40} className="rotate-45" /></button>
+          <img src={convertImagePath(product.images?.[selectedImage] || '')} className="max-w-full max-h-full object-contain rounded-lg shadow-2xl" alt={displayTitle} />
+        </motion.div>
+      )}
+    </AnimatePresence>
+    </>
+  );
+}
+
 
               {/* BUNDLE SUGGESTION - Task 14 */}
               {currentVariant.volumes === 1 && (() => {
