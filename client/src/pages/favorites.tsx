@@ -7,7 +7,7 @@ import { useCart } from '../contexts/CartContext';
 import { realBreslovProducts } from '../data/realProducts';
 import { getInterfaceDisplayTitle, getInterfaceCategoryName } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';
-import { Heart, ShoppingCart, Trash2, ArrowRight } from 'lucide-react';
+import { Heart, ShoppingCart, Trash2, ArrowRight, Share2 } from 'lucide-react';
 
 export default function Favorites() {
   const { favorites, toggleFavorite } = useFavorites();
@@ -30,6 +30,21 @@ export default function Favorites() {
     remove: isRTL ? 'הסר' : currentLanguage === 'fr' ? 'Supprimer' : 'Remove',
     viewProduct: isRTL ? 'צפה במוצר' : currentLanguage === 'fr' ? 'Voir le produit' : 'View Product',
     itemCount: (n: number) => isRTL ? `${n} מוצרים` : `${n} items`,
+    share: isRTL ? 'שתף מועדפים' : currentLanguage === 'fr' ? 'Partager les favoris' : 'Share Favorites',
+  };
+
+  // Task 46: Share favorites via WhatsApp
+  const handleShareFavorites = () => {
+    const lines = favoriteProducts.map(p => {
+      const title = getInterfaceDisplayTitle(p, currentLanguage);
+      const price = p.variants?.[0]?.price ? `${p.variants[0].price}₪` : '';
+      const url = `https://haesh-sheli-new.vercel.app/product/${p.id}`;
+      return `${title} ${price}\n${url}`;
+    });
+    const header = isRTL ? '❤️ הספרים המועדפים שלי מהאש שלי:' : '❤️ My favorite books from HaEsh Sheli:';
+    const text = `${header}\n\n${lines.join('\n\n')}`;
+    const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, '_blank');
   };
 
   const handleAddToCart = (product: any) => {
@@ -63,9 +78,15 @@ export default function Favorites() {
           <Heart size={28} fill="#ef4444" stroke="#ef4444" />
           <h1 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#333' }}>{t.title}</h1>
           {favoriteProducts.length > 0 && (
-            <span style={{ fontSize: '0.9rem', color: '#999', marginTop: '0.25rem' }}>
-              ({t.itemCount(favoriteProducts.length)})
-            </span>
+            <>
+              <span style={{ fontSize: '0.9rem', color: '#999', marginTop: '0.25rem' }}>
+                ({t.itemCount(favoriteProducts.length)})
+              </span>
+              <button onClick={handleShareFavorites} style={{ marginInlineStart: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem', background: '#25D366', color: 'white', border: 'none', borderRadius: '8px', padding: '0.5rem 1rem', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '600' }} aria-label={t.share}>
+                <Share2 size={16} />
+                {t.share}
+              </button>
+            </>
           )}
         </div>
 

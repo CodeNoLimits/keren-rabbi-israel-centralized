@@ -80,7 +80,7 @@
 - [x] **21. [P3/S] "No Results" Smart Suggestions** ✓
   When search returns 0 results, suggest related terms or popular products instead of just "No results found".
 
-- [ ] **22. [P3/S] Global Search (Not Just Store)**
+- [x] **22. [P3/S] Global Search (Not Just Store)** ✓
   Add a search bar in the header that searches across store products, downloads, and pages. Currently search only exists on the store page sidebar.
 
 ---
@@ -164,7 +164,7 @@
 - [x] **45. [P3/S] Favorites Count Badge in Header** ✓
   Show a small badge on the heart icon in the header with the count of favorited items.
 
-- [ ] **46. [P3/S] "Share Favorites" Feature**
+- [x] **46. [P3/S] "Share Favorites" Feature** ✓
   Generate a shareable link or WhatsApp message with the user's favorite books list. Good for gift recommendations.
 
 - [ ] **47. [P3/S] "Compare Products" from Favorites**
@@ -245,7 +245,7 @@
 - [x] **68. [P2/S] Memoize Expensive Computations** ✓
   `filterOptions` in `store.tsx` recalculates on every render. Already uses `useMemo` but ensure dependency arrays are correct. Product data is static so consider moving to module-level constants.
 
-- [ ] **69. [P2/S] Service Worker Cache Strategy**
+- [x] **69. [P2/S] Service Worker Cache Strategy** ✓
   `sw.js` exists but verify it properly caches: static assets, product images, API responses. Implement stale-while-revalidate for product data.
 
 - [ ] **70. [P3/S] Code-Split Product Data**
@@ -367,7 +367,7 @@
 
 ---
 
-## PROGRESS: 68 tasks completed out of 100
+## PROGRESS: 71 tasks completed out of 100
 
 ## SUMMARY BY PRIORITY
 
