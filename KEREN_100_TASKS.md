@@ -28,7 +28,7 @@
 - [ ] **5. [P2/M] Restore Detailed Product Descriptions and Price Breakdown**
   Some products in `realProducts.ts` have incomplete descriptions. Audit all 43 products, ensure each has: Hebrew description, English description, complete variant pricing, and accurate stock quantities.
 
-- [ ] **6. [P2/M] Coupon/Promo Code System**
+- [x] **6. [P2/M] Coupon/Promo Code System** ✓
   Build coupon functionality: input field at checkout (`checkout.tsx`), server-side validation, percentage/fixed discounts. Yaakov wants personalized promo codes sent by email. Add `coupons` table to `schema.ts`, API endpoints, and UI in checkout flow.
 
 - [x] **7. [P2/S] Product Card Price Display Improvement**
@@ -167,7 +167,7 @@
 - [x] **46. [P3/S] "Share Favorites" Feature** ✓
   Generate a shareable link or WhatsApp message with the user's favorite books list. Good for gift recommendations.
 
-- [ ] **47. [P3/S] "Compare Products" from Favorites**
+- [x] **47. [P3/S] "Compare Products" from Favorites** ✓
   Allow selecting 2-3 favorites and showing a side-by-side comparison table of variants, prices, sizes.
 
 ---
@@ -333,10 +333,10 @@
 - [x] **92. [P2/M] Google Analytics 4 Integration** ✓
   No analytics detected in the codebase. Add GA4 with enhanced e-commerce tracking: page views, product views, add-to-cart events, purchases.
 
-- [ ] **93. [P2/S] Facebook Pixel Integration**
+- [x] **93. [P2/S] Facebook Pixel Integration** ✓
   For remarketing and ad optimization. Track: PageView, ViewContent, AddToCart, Purchase events.
 
-- [ ] **94. [P3/S] Hotjar or Microsoft Clarity for Heatmaps**
+- [x] **94. [P3/S] Hotjar or Microsoft Clarity for Heatmaps** ✓
   Add session recording and heatmap tool to understand user behavior, especially on store and checkout pages.
 
 - [x] **95. [P3/S] Custom Event Tracking** ✓
@@ -367,7 +367,7 @@
 
 ---
 
-## PROGRESS: 75 tasks completed out of 100
+## PROGRESS: 78 tasks completed out of 100
 
 ## SUMMARY BY PRIORITY
 

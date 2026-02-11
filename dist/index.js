@@ -13,7 +13,9 @@ import { createServer } from "http";
 // shared/schema.ts
 var schema_exports = {};
 __export(schema_exports, {
+  coupons: () => coupons,
   downloads: () => downloads,
+  insertCouponSchema: () => insertCouponSchema,
   insertDownloadSchema: () => insertDownloadSchema,
   insertOrderItemSchema: () => insertOrderItemSchema,
   insertOrderSchema: () => insertOrderSchema,
@@ -114,6 +116,8 @@ var products = pgTable("products", {
   author: text("author").default("\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1"),
   publisher: text("publisher").default("\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC"),
   language: text("language").default("\u05E2\u05D1\u05E8\u05D9\u05EA"),
+  languageGroupId: text("language_group_id"),
+  // Groups same book in different languages
   pages: integer("pages"),
   isbn: text("isbn"),
   images: json("images").$type(),
@@ -248,6 +252,27 @@ var shippingRates = pgTable("shipping_rates", {
   updatedAt: timestamp("updated_at").defaultNow()
 });
 var insertShippingRateSchema = createInsertSchema(shippingRates);
+var coupons = pgTable("coupons", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  code: text("code").notNull().unique(),
+  // Coupon code (e.g., BRESLEV10, SUMMER20)
+  discountType: text("discount_type").$type().notNull(),
+  // percentage or fixed amount
+  discountValue: integer("discount_value").notNull(),
+  // 10 for 10%, or 1000 for 10 ILS fixed discount (in agorot)
+  minOrderValue: integer("min_order_value"),
+  // Minimum order value to apply coupon (in agorot)
+  maxUses: integer("max_uses"),
+  // Maximum number of times this coupon can be used (null = unlimited)
+  usedCount: integer("used_count").default(0),
+  // Track how many times it's been used
+  expiresAt: timestamp("expires_at"),
+  // Expiration date (null = never expires)
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow()
+});
+var insertCouponSchema = createInsertSchema(coupons);
 
 // server/storage.ts
 import { randomUUID } from "crypto";
@@ -257,13 +282,16 @@ import { Pool, neonConfig } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-serverless";
 import ws from "ws";
 neonConfig.webSocketConstructor = ws;
+var _pool = null;
+var _db = null;
 if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?"
-  );
+  console.warn("\u26A0\uFE0F  DATABASE_URL not set - User authentication features will be disabled");
+  console.warn("\u26A0\uFE0F  Product browsing and store features will work normally");
+} else {
+  _pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  _db = drizzle({ client: _pool, schema: schema_exports });
 }
-var pool = new Pool({ connectionString: process.env.DATABASE_URL });
-var db = drizzle({ client: pool, schema: schema_exports });
+var db = _db;
 
 // server/storage.ts
 import { eq } from "drizzle-orm";
@@ -669,6 +697,10 @@ var DatabaseStorage = class {
   }
   // User methods - Database implementation for Replit Auth
   async getUser(id) {
+    if (!db) {
+      console.warn("Database not available - user features disabled");
+      return void 0;
+    }
     try {
       const result = await db.select().from(users).where(eq(users.id, id));
       return result[0] || void 0;
@@ -678,6 +710,10 @@ var DatabaseStorage = class {
     }
   }
   async getUserByUsername(username) {
+    if (!db) {
+      console.warn("Database not available - user features disabled");
+      return void 0;
+    }
     try {
       const result = await db.select().from(users).where(eq(users.username, username));
       return result[0] || void 0;
@@ -687,6 +723,10 @@ var DatabaseStorage = class {
     }
   }
   async getUserByEmail(email) {
+    if (!db) {
+      console.warn("Database not available - user features disabled");
+      return void 0;
+    }
     try {
       const result = await db.select().from(users).where(eq(users.email, email));
       return result[0] || void 0;
@@ -696,6 +736,9 @@ var DatabaseStorage = class {
     }
   }
   async createUser(insertUser) {
+    if (!db) {
+      throw new Error("Database not available - user features disabled");
+    }
     try {
       const result = await db.insert(users).values({
         ...insertUser,
@@ -710,6 +753,9 @@ var DatabaseStorage = class {
     }
   }
   async updateUser(id, updates) {
+    if (!db) {
+      throw new Error("Database not available - user features disabled");
+    }
     try {
       const result = await db.update(users).set({ ...updates, updatedAt: /* @__PURE__ */ new Date() }).where(eq(users.id, id)).returning();
       if (result.length === 0) {
@@ -723,6 +769,9 @@ var DatabaseStorage = class {
   }
   // REQUIRED for Replit Auth - upsertUser method
   async upsertUser(userData) {
+    if (!db) {
+      throw new Error("Database not available - user features disabled");
+    }
     try {
       const result = await db.insert(users).values(userData).onConflictDoUpdate({
         target: users.id,
@@ -936,6 +985,34 @@ var DatabaseStorage = class {
     }
     return null;
   }
+  // ====================
+  // Coupon methods
+  // ====================
+  async getCouponByCode(code) {
+    const result = await db.select().from(coupons).where(eq(coupons.code, code.toUpperCase())).limit(1);
+    return result[0];
+  }
+  async getAllCoupons() {
+    return await db.select().from(coupons);
+  }
+  async createCoupon(coupon) {
+    const result = await db.insert(coupons).values({
+      ...coupon,
+      code: coupon.code.toUpperCase()
+    }).returning();
+    return result[0];
+  }
+  async incrementCouponUsage(id) {
+    const coupon = await db.select().from(coupons).where(eq(coupons.id, id)).limit(1);
+    if (!coupon[0]) {
+      throw new Error("Coupon not found");
+    }
+    const result = await db.update(coupons).set({
+      usedCount: (coupon[0].usedCount || 0) + 1,
+      updatedAt: /* @__PURE__ */ new Date()
+    }).where(eq(coupons.id, id)).returning();
+    return result[0];
+  }
 };
 var storage = new DatabaseStorage();
 
@@ -963,10 +1040,10 @@ async function sendEmail(params) {
       to: params.to,
       from: params.from,
       subject: params.subject,
-      text: params.text,
-      html: params.html,
-      templateId: params.templateId,
-      dynamicTemplateData: params.dynamicTemplateData
+      ...params.text && { text: params.text },
+      ...params.html && { html: params.html },
+      ...params.templateId && { templateId: params.templateId },
+      ...params.dynamicTemplateData && { dynamicTemplateData: params.dynamicTemplateData }
     });
     return true;
   } catch (error) {
@@ -1158,9 +1235,9 @@ var realBreslovProducts = {
     id: "likutei-moharan",
     name: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF',
     nameEnglish: "Likutei Moharan",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
+    nameFrench: "Likout\xE9 Moharan",
+    nameSpanish: "Likutei Moharan",
+    nameRussian: "\u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u041C\u043E\u0430\u0440\u0430\u043D",
     description: '\u05D7\u05D9\u05D1\u05D5\u05E8\u05D5 \u05D4\u05D2\u05D3\u05D5\u05DC, \u05D4\u05E7\u05D3\u05D5\u05E9 \u05D5\u05D4\u05E0\u05D5\u05E8\u05D0, \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1. \u05DE\u05DB\u05D9\u05DC \u05DE\u05D0\u05D5\u05EA "\u05EA\u05D5\u05E8\u05D5\u05EA" - \u05DE\u05D0\u05DE\u05E8\u05D9 \u05E7\u05D5\u05D3\u05E9 \u05E9\u05E0\u05D0\u05DE\u05E8\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D1\u05E9\u05D1\u05EA\u05D5\u05EA, \u05D1\u05D7\u05D2\u05D9\u05DD \u05D5\u05D1\u05DE\u05D5\u05E2\u05D3\u05D9\u05DD \u05E9\u05D5\u05E0\u05D9\u05DD. \u05D7\u05DC\u05E7\u05DD \u05E0\u05DB\u05EA\u05D1 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E2\u05E6\u05DE\u05D5, \u05D5\u05D7\u05DC\u05E7\u05DD \u05D4\u05D2\u05D3\u05D5\u05DC \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E1\u05D5\u05E4\u05E8\u05D5 \u05D5\u05EA\u05DC\u05DE\u05D9\u05D3\u05D5 \u05D4\u05E0\u05D0\u05DE\u05DF \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF.',
     descriptionEnglish: 'The great, holy and awesome work of our teacher Rabbi Nachman of Breslov. Contains hundreds of "teachings" - holy discourses given by Rabbenu on Sabbaths, holidays and various occasions.',
     category: "\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
@@ -1168,6 +1245,8 @@ var realBreslovProducts = {
     author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "likutei-moharan-group",
+    // Groups all language versions together
     pages: 960,
     isbn: "978-965-7023-01-1",
     images: [
@@ -1360,9 +1439,9 @@ var realBreslovProducts = {
     id: "likutei-tefilot",
     name: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA",
     nameEnglish: "Likutei Tefilot",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
+    nameFrench: "Likout\xE9 T\xE9filot",
+    nameSpanish: "Likutei Tefilot",
+    nameRussian: "\u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u0422\u0444\u0438\u043B\u043E\u0442",
     description: '\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA\u05D9\u05D5 \u05D4\u05E0\u05E4\u05DC\u05D0\u05D5\u05EA \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05E9\u05D7\u05D5\u05D1\u05E8\u05D5 \u05E2\u05DC \u05D1\u05E1\u05D9\u05E1 \u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF. \u05E2\u05DC\u05D9\u05D4\u05DD \u05D0\u05DE\u05E8 \u05E8\u05D1\u05D9\u05E0\u05D5: "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05D4\u05E0\u05E2\u05E9\u05D5\u05EA \u05DE\u05D4\u05EA\u05D5\u05E8\u05D5\u05EA - \u05DE\u05E2\u05DC\u05D5\u05EA \u05E9\u05E2\u05E9\u05D5\u05E2\u05D9\u05DD \u05DC\u05DE\u05E2\u05DC\u05D4 \u05E9\u05DE\u05E2\u05D5\u05DC\u05DD \u05DC\u05D0 \u05E2\u05DC\u05D5!"',
     descriptionEnglish: `The wonderful prayers of Rabbi Nathan, composed based on Rabbi Nachman's teachings from Likutei Moharan. About them Rabbenu said: "Prayers made from the teachings - cause delights above that never existed before!"`,
     category: "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA",
@@ -4594,7 +4673,7 @@ function buildChatContext() {
     pages: product.pages,
     features: product.features,
     tags: product.tags,
-    variants: product.variants.map((variant) => ({
+    variants: (product.variants || []).map((variant) => ({
       format: variant.format,
       binding: variant.binding,
       size: variant.size,
@@ -5167,9 +5246,7 @@ import passport from "passport";
 import session from "express-session";
 import memoize from "memoizee";
 import connectPg from "connect-pg-simple";
-if (!process.env.REPLIT_DOMAINS) {
-  throw new Error("Environment variable REPLIT_DOMAINS not provided");
-}
+var hasReplitDomains = !!process.env.REPLIT_DOMAINS;
 var getOidcConfig = memoize(
   async () => {
     return await client.discovery(
@@ -5216,6 +5293,10 @@ async function upsertUser(claims) {
   });
 }
 async function setupAuth(app2) {
+  if (!hasReplitDomains) {
+    console.warn("\u26A0\uFE0F  REPLIT_DOMAINS not set - Auth disabled (local mode)");
+    return;
+  }
   app2.set("trust proxy", 1);
   app2.use(getSession());
   app2.use(passport.initialize());
@@ -5265,6 +5346,9 @@ async function setupAuth(app2) {
   });
 }
 var isAuthenticated = async (req, res, next) => {
+  if (!hasReplitDomains) {
+    return next();
+  }
   const user = req.user;
   if (!req.isAuthenticated() || !user.expires_at) {
     return res.status(401).json({ message: "Unauthorized" });
@@ -5365,7 +5449,8 @@ async function registerRoutes(app2) {
         shippingAddress,
         billingAddress,
         shippingMethod = "standard",
-        email
+        email,
+        couponCode
       } = req.body;
       if (!cart || !Array.isArray(cart) || cart.length === 0) {
         return res.status(400).json({ message: "Cart is required and cannot be empty" });
@@ -5426,9 +5511,24 @@ async function registerRoutes(app2) {
       const user = req.isAuthenticated() ? req.user : null;
       const isSubscriber = user?.isSubscriber || false;
       const subscriberDiscount = isSubscriber ? Math.round(subtotal * 0.05) : 0;
+      let couponDiscount = 0;
+      let appliedCoupon = null;
+      if (couponCode && typeof couponCode === "string") {
+        const coupon = await storage.getCouponByCode(couponCode.toUpperCase());
+        if (coupon && coupon.isActive && (!coupon.expiresAt || new Date(coupon.expiresAt) >= /* @__PURE__ */ new Date()) && (!coupon.maxUses || coupon.usedCount < coupon.maxUses) && (!coupon.minOrderValue || subtotal >= coupon.minOrderValue)) {
+          if (coupon.discountType === "percentage") {
+            couponDiscount = Math.round(subtotal * coupon.discountValue / 100);
+          } else {
+            couponDiscount = coupon.discountValue;
+          }
+          appliedCoupon = coupon;
+          await storage.incrementCouponUsage(coupon.id);
+        }
+      }
       const shippingResult = await storage.calculateShipping(subtotal, "IL");
       const shippingAmount = shippingResult?.cost || 3e3;
-      const subtotalAfterDiscount = subtotal - subscriberDiscount;
+      const totalDiscount = subscriberDiscount + couponDiscount;
+      const subtotalAfterDiscount = subtotal - totalDiscount;
       const vatRate = 0.17;
       const vatAmount = Math.round(subtotalAfterDiscount * vatRate);
       const totalAmount = subtotalAfterDiscount + vatAmount + shippingAmount;
@@ -5460,7 +5560,7 @@ async function registerRoutes(app2) {
         subtotal,
         vatAmount,
         shippingAmount,
-        discountAmount: subscriberDiscount,
+        discountAmount: totalDiscount,
         totalAmount,
         shippingMethod,
         shippingAddress,
@@ -5495,10 +5595,15 @@ async function registerRoutes(app2) {
         amount: totalAmount,
         // Already in agorot (Israeli cents)
         currency: "ils",
+        // Task 81: ILS currency verified
+        // Task 82: Payment methods enabled via PaymentElement
+        // Supported: card, bit (Israeli instant payment), google_pay, apple_pay
         metadata: {
           orderId: order.id,
           isSubscriber: isSubscriber.toString(),
-          subscriberDiscount: subscriberDiscount.toString()
+          subscriberDiscount: subscriberDiscount.toString(),
+          couponCode: appliedCoupon?.code || "",
+          couponDiscount: couponDiscount.toString()
         },
         description: `Order ${order.id} - Breslov Books`,
         receipt_email: email
@@ -5543,16 +5648,79 @@ async function registerRoutes(app2) {
         orderId: order.id,
         orderSummary: {
           subtotal,
-          discount: subscriberDiscount,
+          subscriberDiscount,
+          couponDiscount,
+          discount: totalDiscount,
           vatAmount,
           shippingAmount,
           totalAmount,
-          currency: "ILS"
+          currency: "ILS",
+          appliedCoupon: appliedCoupon ? {
+            code: appliedCoupon.code,
+            discountType: appliedCoupon.discountType,
+            discountValue: appliedCoupon.discountValue
+          } : null
         }
       });
     } catch (error) {
       console.error("Payment intent creation error:", error);
       res.status(500).json({ message: "Error creating payment intent: " + error.message });
+    }
+  });
+  app2.post("/api/coupons/validate", async (req, res) => {
+    try {
+      const { code, subtotal } = req.body;
+      if (!code || typeof code !== "string") {
+        return res.status(400).json({ message: "Coupon code is required" });
+      }
+      const coupon = await storage.getCouponByCode(code.toUpperCase());
+      if (!coupon) {
+        return res.status(404).json({ message: "\u05E7\u05D5\u05D3 \u05E7\u05D5\u05E4\u05D5\u05DF \u05DC\u05D0 \u05EA\u05E7\u05D9\u05DF", messageEn: "Invalid coupon code" });
+      }
+      if (!coupon.isActive) {
+        return res.status(400).json({ message: "\u05D4\u05E7\u05D5\u05E4\u05D5\u05DF \u05D0\u05D9\u05E0\u05D5 \u05E4\u05E2\u05D9\u05DC", messageEn: "Coupon is inactive" });
+      }
+      if (coupon.expiresAt && new Date(coupon.expiresAt) < /* @__PURE__ */ new Date()) {
+        return res.status(400).json({ message: "\u05D4\u05E7\u05D5\u05E4\u05D5\u05DF \u05E4\u05D2 \u05EA\u05D5\u05E7\u05E3", messageEn: "Coupon has expired" });
+      }
+      if (coupon.maxUses && coupon.usedCount >= coupon.maxUses) {
+        return res.status(400).json({ message: "\u05D4\u05E7\u05D5\u05E4\u05D5\u05DF \u05E0\u05D5\u05E6\u05DC \u05D1\u05DE\u05DC\u05D5\u05D0\u05D5", messageEn: "Coupon has reached maximum uses" });
+      }
+      if (coupon.minOrderValue && subtotal < coupon.minOrderValue) {
+        const minOrderDisplay = (coupon.minOrderValue / 100).toFixed(2);
+        return res.status(400).json({
+          message: `\u05D4\u05D6\u05DE\u05E0\u05D4 \u05DE\u05D9\u05E0\u05D9\u05DE\u05DC\u05D9\u05EA: \u20AA${minOrderDisplay}`,
+          messageEn: `Minimum order: \u20AA${minOrderDisplay}`
+        });
+      }
+      let discountAmount = 0;
+      if (coupon.discountType === "percentage") {
+        discountAmount = Math.round(subtotal * coupon.discountValue / 100);
+      } else {
+        discountAmount = coupon.discountValue;
+      }
+      res.json({
+        valid: true,
+        coupon: {
+          code: coupon.code,
+          discountType: coupon.discountType,
+          discountValue: coupon.discountValue,
+          discountAmount
+        },
+        message: "\u05E7\u05D5\u05D3 \u05E7\u05D5\u05E4\u05D5\u05DF \u05EA\u05E7\u05D9\u05DF!",
+        messageEn: "Coupon code valid!"
+      });
+    } catch (error) {
+      console.error("Coupon validation error:", error);
+      res.status(500).json({ message: "Error validating coupon: " + error.message });
+    }
+  });
+  app2.get("/api/coupons", async (req, res) => {
+    try {
+      const coupons2 = await storage.getAllCoupons();
+      res.json(coupons2);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching coupons: " + error.message });
     }
   });
   app2.get("/api/shipping-rates", async (req, res) => {
@@ -6122,6 +6290,14 @@ async function registerRoutes(app2) {
       });
     }
   });
+  app2.post("/api/webhooks/stripe", express.raw({ type: "application/json" }), async (req, res) => {
+    return app2._router.handle(
+      Object.assign(req, { url: "/api/stripe-webhook", originalUrl: "/api/webhooks/stripe" }),
+      res,
+      () => {
+      }
+    );
+  });
   const httpServer = createServer(app2);
   return httpServer;
 }
@@ -6137,6 +6313,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path2 from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import compression from "vite-plugin-compression";
 var vite_config_default = defineConfig({
   plugins: [
     react(),
@@ -6145,6 +6322,19 @@ var vite_config_default = defineConfig({
       await import("@replit/vite-plugin-cartographer").then(
         (m) => m.cartographer()
       )
+    ] : [],
+    // Gzip compression for production
+    ...process.env.NODE_ENV === "production" ? [
+      compression({
+        algorithm: "gzip",
+        ext: ".gz",
+        threshold: 1024
+      }),
+      compression({
+        algorithm: "brotliCompress",
+        ext: ".br",
+        threshold: 1024
+      })
     ] : []
   ],
   resolve: {
@@ -6157,7 +6347,72 @@ var vite_config_default = defineConfig({
   root: path2.resolve(import.meta.dirname, "client"),
   build: {
     outDir: path2.resolve(import.meta.dirname, "dist/public"),
-    emptyOutDir: true
+    emptyOutDir: true,
+    // Optimizations for Lighthouse
+    minify: "terser",
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        passes: 2
+      }
+    },
+    cssMinify: true,
+    cssCodeSplit: true,
+    sourcemap: false,
+    reportCompressedSize: false,
+    // Increase chunk size warning limit
+    chunkSizeWarningLimit: 1e3,
+    rollupOptions: {
+      output: {
+        // Manual chunks for better code splitting
+        manualChunks: {
+          // React vendor chunk
+          "react-vendor": ["react", "react-dom", "react-hook-form"],
+          // Radix UI chunks - grouped by functionality
+          "radix-ui-overlay": [
+            "@radix-ui/react-dialog",
+            "@radix-ui/react-alert-dialog",
+            "@radix-ui/react-popover",
+            "@radix-ui/react-tooltip",
+            "@radix-ui/react-hover-card"
+          ],
+          "radix-ui-forms": [
+            "@radix-ui/react-select",
+            "@radix-ui/react-checkbox",
+            "@radix-ui/react-radio-group",
+            "@radix-ui/react-slider",
+            "@radix-ui/react-switch",
+            "@radix-ui/react-label"
+          ],
+          "radix-ui-navigation": [
+            "@radix-ui/react-navigation-menu",
+            "@radix-ui/react-dropdown-menu",
+            "@radix-ui/react-menubar",
+            "@radix-ui/react-context-menu",
+            "@radix-ui/react-tabs"
+          ],
+          "radix-ui-misc": [
+            "@radix-ui/react-accordion",
+            "@radix-ui/react-avatar",
+            "@radix-ui/react-progress",
+            "@radix-ui/react-scroll-area",
+            "@radix-ui/react-separator",
+            "@radix-ui/react-toast"
+          ],
+          // Other heavy vendors
+          "query-vendor": ["@tanstack/react-query"],
+          "router-vendor": ["wouter"],
+          "ui-vendor": ["lucide-react", "framer-motion"],
+          "stripe-vendor": ["@stripe/stripe-js", "@stripe/react-stripe-js"],
+          "chart-vendor": ["recharts"]
+        },
+        // Optimize chunk file names
+        chunkFileNames: "assets/[name]-[hash].js",
+        entryFileNames: "assets/[name]-[hash].js",
+        assetFileNames: "assets/[name]-[hash].[ext]"
+      }
+    }
   },
   server: {
     fs: {

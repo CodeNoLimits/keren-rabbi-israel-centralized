@@ -110,6 +110,16 @@ export default function Favorites() {
                 <Share2 size={16} />
                 {t.share}
               </button>
+              {favoriteProducts.length >= 2 && (
+                <button
+                  onClick={() => setShowCompare(!showCompare)}
+                  style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: showCompare ? '#3b82f6' : 'white', color: showCompare ? 'white' : '#3b82f6', border: '2px solid #3b82f6', borderRadius: '8px', padding: '0.5rem 1rem', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '600', transition: 'all 0.2s' }}
+                >
+                  <GitCompareArrows size={16} />
+                  {t.compare}
+                  {compareIds.size > 0 && ` (${compareIds.size})`}
+                </button>
+              )}
             </>
           )}
         </div>
@@ -145,21 +155,49 @@ export default function Favorites() {
             </Link>
           </div>
         ) : (
-          /* Favorites grid */
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-            gap: '1.5rem',
-          }}>
-            {favoriteProducts.map((product) => (
-              <div key={product.id} style={{
-                background: 'white',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                border: '1px solid #e5e7eb',
-                transition: 'all 0.2s ease',
-              }}>
+          <>
+            {showCompare && (
+              <div style={{ background: '#eff6ff', border: '2px solid #3b82f6', borderRadius: '8px', padding: '1rem', marginBottom: '1.5rem', textAlign: 'center' }}>
+                <p style={{ color: '#1e40af', fontSize: '0.95rem', marginBottom: '0.5rem' }}>{t.selectToCompare}</p>
+                {compareIds.size >= 2 && (
+                  <button
+                    onClick={() => { if (compareProducts.length >= 2) { /* modal will be added */ } }}
+                    style={{ background: '#3b82f6', color: 'white', border: 'none', borderRadius: '8px', padding: '0.6rem 1.5rem', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '600', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+                  >
+                    <GitCompareArrows size={16} />
+                    {t.compareSelected} ({compareIds.size})
+                  </button>
+                )}
+              </div>
+            )}
+            {/* Favorites grid */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+              gap: '1.5rem',
+            }}>
+              {favoriteProducts.map((product) => (
+                <div key={product.id} style={{
+                  background: 'white',
+                  borderRadius: '12px',
+                  overflow: 'hidden',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+                  border: compareIds.has(product.id) ? '3px solid #3b82f6' : '1px solid #e5e7eb',
+                  transition: 'all 0.2s ease',
+                  position: 'relative',
+                }}>
+                {showCompare && (
+                  <div style={{ position: 'absolute', top: '0.5rem', insetInlineStart: '0.5rem', zIndex: 10 }}>
+                    <input
+                      type="checkbox"
+                      checked={compareIds.has(product.id)}
+                      onChange={() => toggleCompare(product.id)}
+                      disabled={!compareIds.has(product.id) && compareIds.size >= 3}
+                      style={{ width: '24px', height: '24px', cursor: 'pointer', accentColor: '#3b82f6' }}
+                      aria-label={`${t.compare} ${getInterfaceDisplayTitle(product, currentLanguage)}`}
+                    />
+                  </div>
+                )}
                 <Link href={`/product/${product.id}`}>
                   <div style={{ position: 'relative', aspectRatio: '1', overflow: 'hidden', cursor: 'pointer' }}>
                     <img
@@ -220,6 +258,100 @@ export default function Favorites() {
                 </div>
               </div>
             ))}
+            </div>
+          </>
+        )}
+
+        {/* Task 47: Comparison Modal */}
+        {compareProducts.length >= 2 && (
+          <div
+            style={{
+              position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', zIndex: 50,
+              display: compareProducts.length >= 2 && compareIds.size >= 2 ? 'flex' : 'none',
+              alignItems: 'center', justifyContent: 'center', padding: '1rem',
+            }}
+            onClick={(e) => { if (e.target === e.currentTarget) setCompareIds(new Set()); }}
+          >
+            <div style={{
+              background: 'white', borderRadius: '16px', maxWidth: '1000px', width: '100%',
+              maxHeight: '90vh', overflow: 'auto', padding: '2rem', direction: isRTL ? 'rtl' : 'ltr',
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#333' }}>{t.compare}</h2>
+                <button onClick={() => setCompareIds(new Set())} style={{ background: '#f3f4f6', border: 'none', borderRadius: '8px', padding: '0.5rem', cursor: 'pointer' }}>
+                  <X size={20} />
+                </button>
+              </div>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
+                      <th style={{ padding: '1rem', textAlign: isRTL ? 'right' : 'left', fontWeight: '600', color: '#6b7280' }}></th>
+                      {compareProducts.map(p => (
+                        <th key={p.id} style={{ padding: '1rem', textAlign: 'center', minWidth: '200px' }}>
+                          <img src={convertImagePath(p.images?.[0] || '')} alt={getInterfaceDisplayTitle(p, currentLanguage)} style={{ width: '120px', height: '120px', objectFit: 'cover', borderRadius: '8px', marginBottom: '0.5rem' }} />
+                          <div style={{ fontWeight: 'bold', color: '#333', fontSize: '0.95rem' }}>{getInterfaceDisplayTitle(p, currentLanguage)}</div>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style={{ borderBottom: '1px solid #f3f4f6' }}>
+                      <td style={{ padding: '1rem', fontWeight: '600', color: '#6b7280' }}>{t.price}</td>
+                      {compareProducts.map(p => (
+                        <td key={p.id} style={{ padding: '1rem', textAlign: 'center', color: '#2563eb', fontWeight: 'bold' }}>
+                          {p.variants?.[0]?.price ? `${p.variants[0].price} ₪` : '-'}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid #f3f4f6' }}>
+                      <td style={{ padding: '1rem', fontWeight: '600', color: '#6b7280' }}>{t.category}</td>
+                      {compareProducts.map(p => (
+                        <td key={p.id} style={{ padding: '1rem', textAlign: 'center', color: '#333' }}>
+                          {getInterfaceCategoryName(p.category, currentLanguage)}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid #f3f4f6' }}>
+                      <td style={{ padding: '1rem', fontWeight: '600', color: '#6b7280' }}>{t.variants}</td>
+                      {compareProducts.map(p => (
+                        <td key={p.id} style={{ padding: '1rem', textAlign: 'center', color: '#333' }}>
+                          {p.variants?.length || 0} {isRTL ? 'אפשרויות' : 'options'}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid #f3f4f6' }}>
+                      <td style={{ padding: '1rem', fontWeight: '600', color: '#6b7280' }}>{t.pages}</td>
+                      {compareProducts.map(p => (
+                        <td key={p.id} style={{ padding: '1rem', textAlign: 'center', color: '#333' }}>
+                          {p.pages || '-'}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr style={{ borderBottom: '1px solid #f3f4f6' }}>
+                      <td style={{ padding: '1rem', fontWeight: '600', color: '#6b7280' }}>{t.language}</td>
+                      {compareProducts.map(p => (
+                        <td key={p.id} style={{ padding: '1rem', textAlign: 'center', color: '#333' }}>
+                          {p.language}
+                        </td>
+                      ))}
+                    </tr>
+                    <tr>
+                      <td style={{ padding: '1rem', fontWeight: '600', color: '#6b7280' }}></td>
+                      {compareProducts.map(p => (
+                        <td key={p.id} style={{ padding: '1rem', textAlign: 'center' }}>
+                          <Link href={`/product/${p.id}`}>
+                            <button style={{ background: '#3b82f6', color: 'white', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: '600', width: '100%' }}>
+                              {t.viewProduct}
+                            </button>
+                          </Link>
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         )}
       </div>
