@@ -6,6 +6,8 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
 import { getInterfaceDisplayTitle, getInterfaceDisplayDescription, getInterfaceCategoryName } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Truck, Shield, RotateCcw, Star } from 'lucide-react';
 import type { Product } from '../../../shared/schema';
 
 export default function Product() {
@@ -49,8 +51,77 @@ export default function Product() {
     freeShipping: isRTL ? 'משלוחים חינם החל מ- 399 ש"ח' : currentLanguage === 'en' ? 'Free shipping from 399 NIS' : currentLanguage === 'fr' ? 'Livraison gratuite a partir de 399 NIS' : currentLanguage === 'es' ? 'Envio gratis desde 399 NIS' : currentLanguage === 'ru' ? 'Бесплатная доставка от 399 шек.' : 'Free shipping from 399 NIS',
   };
 
+  // Tab labels
+  const tabLabels = {
+    description: isRTL ? 'תיאור' : currentLanguage === 'fr' ? 'Description' : currentLanguage === 'es' ? 'Descripcion' : currentLanguage === 'ru' ? 'Описание' : 'Description',
+    technicalDetails: isRTL ? 'פרטים טכניים' : currentLanguage === 'fr' ? 'Details techniques' : currentLanguage === 'es' ? 'Detalles tecnicos' : currentLanguage === 'ru' ? 'Технические детали' : 'Technical Details',
+    reviews: isRTL ? 'ביקורות' : currentLanguage === 'fr' ? 'Avis' : currentLanguage === 'es' ? 'Resenas' : currentLanguage === 'ru' ? 'Отзывы' : 'Reviews',
+  };
+
+  // Reassurance labels
+  const reassuranceLabels = {
+    fastShipping: isRTL ? 'משלוח מהיר' : currentLanguage === 'fr' ? 'Livraison rapide' : currentLanguage === 'es' ? 'Envio rapido' : currentLanguage === 'ru' ? 'Быстрая доставка' : 'Fast shipping',
+    securePayment: isRTL ? 'תשלום מאובטח' : currentLanguage === 'fr' ? 'Paiement securise' : currentLanguage === 'es' ? 'Pago seguro' : currentLanguage === 'ru' ? 'Безопасная оплата' : 'Secure payment',
+    returnPolicy: isRTL ? 'החזרה 14 ימים' : currentLanguage === 'fr' ? 'Retour 14 jours' : currentLanguage === 'es' ? 'Devolucion 14 dias' : currentLanguage === 'ru' ? 'Возврат 14 дней' : '14-day returns',
+  };
+
+  // Technical details labels
+  const detailLabels = {
+    language: isRTL ? 'שפה' : currentLanguage === 'fr' ? 'Langue' : currentLanguage === 'es' ? 'Idioma' : currentLanguage === 'ru' ? 'Язык' : 'Language',
+    publisher: isRTL ? 'הוצאה' : currentLanguage === 'fr' ? 'Editeur' : currentLanguage === 'es' ? 'Editorial' : currentLanguage === 'ru' ? 'Издатель' : 'Publisher',
+    pages: isRTL ? 'עמודים' : currentLanguage === 'fr' ? 'Pages' : currentLanguage === 'es' ? 'Paginas' : currentLanguage === 'ru' ? 'Страниц' : 'Pages',
+    volumes: isRTL ? 'כרכים' : currentLanguage === 'fr' ? 'Volumes' : currentLanguage === 'es' ? 'Volumenes' : currentLanguage === 'ru' ? 'Томов' : 'Volumes',
+    dimensions: isRTL ? 'מידות' : currentLanguage === 'fr' ? 'Dimensions' : currentLanguage === 'es' ? 'Dimensiones' : currentLanguage === 'ru' ? 'Размеры' : 'Dimensions',
+    binding: isRTL ? 'כריכה' : currentLanguage === 'fr' ? 'Reliure' : currentLanguage === 'es' ? 'Encuadernacion' : currentLanguage === 'ru' ? 'Переплет' : 'Binding',
+    format: isRTL ? 'פורמט' : currentLanguage === 'fr' ? 'Format' : currentLanguage === 'es' ? 'Formato' : currentLanguage === 'ru' ? 'Формат' : 'Format',
+    size: isRTL ? 'גודל' : currentLanguage === 'fr' ? 'Taille' : currentLanguage === 'es' ? 'Tamano' : currentLanguage === 'ru' ? 'Размер' : 'Size',
+    noReviewsYet: isRTL ? 'אין עדיין ביקורות. היה הראשון לכתוב ביקורת!' : currentLanguage === 'fr' ? 'Pas encore d\'avis. Soyez le premier a donner votre avis !' : currentLanguage === 'es' ? 'Sin resenas aun. Sea el primero en opinar!' : currentLanguage === 'ru' ? 'Пока нет отзывов. Будьте первым!' : 'No reviews yet. Be the first to write a review!',
+    writeReview: isRTL ? 'כתוב ביקורת' : currentLanguage === 'fr' ? 'Ecrire un avis' : currentLanguage === 'es' ? 'Escribir una resena' : currentLanguage === 'ru' ? 'Написать отзыв' : 'Write a review',
+  };
+
+  // Add to cart handler (shared between desktop and mobile sticky)
+  const handleAddToCart = () => {
+    if (currentVariant.inStock) {
+      addItem({
+        productId: product.id,
+        variantId: currentVariant.id,
+        name: displayTitle,
+        nameEnglish: product.nameEnglish || product.name,
+        image: product.images?.[0] || '',
+        price: currentVariant.price,
+        quantity: quantity,
+        variant: {
+          format: currentVariant.format,
+          binding: currentVariant.binding,
+          size: currentVariant.size
+        }
+      });
+      toast({
+        title: isRTL ? 'נוסף לסל הקניות!' : currentLanguage === 'en' ? 'Added to cart!' : currentLanguage === 'fr' ? 'Ajoute au panier !' : currentLanguage === 'es' ? 'Agregado al carrito!' : currentLanguage === 'ru' ? 'Добавлено в корзину!' : 'Added to cart!',
+        description: isRTL ? `${displayTitle} נוסף בהצלחה לסל` : `${displayTitle} added successfully`,
+      });
+    }
+  };
+
+  const addToCartLabel = currentVariant.inStock
+    ? (isRTL ? `הוספה לסל - ${(currentVariant.price * quantity).toFixed(2)} ₪` :
+       currentLanguage === 'en' ? `Add to cart - ${(currentVariant.price * quantity).toFixed(2)} ₪` :
+       currentLanguage === 'fr' ? `Ajouter au panier - ${(currentVariant.price * quantity).toFixed(2)} ₪` :
+       currentLanguage === 'es' ? `Agregar al carrito - ${(currentVariant.price * quantity).toFixed(2)} ₪` :
+       currentLanguage === 'ru' ? `В корзину - ${(currentVariant.price * quantity).toFixed(2)} ₪` :
+       `Add to cart - ${(currentVariant.price * quantity).toFixed(2)} ₪`)
+    : (isRTL ? 'אזל מהמלאי' : currentLanguage === 'en' ? 'Out of stock' : currentLanguage === 'fr' ? 'Rupture de stock' : currentLanguage === 'es' ? 'Agotado' : currentLanguage === 'ru' ? 'Нет в наличии' : 'Out of stock');
+
+  // Related products: prefer same category, then fill with others, show 4 total
+  const allProducts = Object.values(realBreslovProducts).filter(p => p.id !== product.id);
+  const sameCategoryProducts = allProducts.filter(p => p.category === product.category);
+  const otherProducts = allProducts.filter(p => p.category !== product.category);
+  const relatedProducts = [...sameCategoryProducts, ...otherProducts].slice(0, 4);
+
   return (
-    <div className={isRTL ? 'rtl' : 'ltr'} style={{direction: isRTL ? 'rtl' : 'ltr'}}>
+    <div className={isRTL ? 'rtl' : 'ltr'} style={{direction: isRTL ? 'rtl' : 'ltr', paddingBottom: '80px'}}>
+      {/* pb-[80px] reserves space for sticky mobile bar */}
+
       {/* TOP BAR */}
       <section className="elementor-section elementor-top-section elementor-element elementor-element-ba655d5 elementor-section-full_width elementor-hidden-tablet elementor-hidden-mobile elementor-section-height-default" style={{background: '#333', color: 'white', padding: '8px 0'}}>
         <div className="elementor-container elementor-column-gap-default">
@@ -305,28 +376,7 @@ export default function Product() {
                 </div>
 
                 <button
-                  onClick={() => {
-                    if (currentVariant.inStock) {
-                      addItem({
-                        productId: product.id,
-                        variantId: currentVariant.id,
-                        name: displayTitle,
-                        nameEnglish: product.nameEnglish || product.name,
-                        image: product.images?.[0] || '',
-                        price: currentVariant.price,
-                        quantity: quantity,
-                        variant: {
-                          format: currentVariant.format,
-                          binding: currentVariant.binding,
-                          size: currentVariant.size
-                        }
-                      });
-                      toast({
-                        title: isRTL ? 'נוסף לסל הקניות!' : currentLanguage === 'en' ? 'Added to cart!' : currentLanguage === 'fr' ? 'Ajoute au panier !' : currentLanguage === 'es' ? 'Agregado al carrito!' : currentLanguage === 'ru' ? 'Добавлено в корзину!' : 'Added to cart!',
-                        description: isRTL ? `${displayTitle} נוסף בהצלחה לסל` : `${displayTitle} added successfully`,
-                      });
-                    }
-                  }}
+                  onClick={handleAddToCart}
                   style={{
                     background: currentVariant.inStock ? '#dc3545' : '#999',
                     color: 'white',
@@ -340,19 +390,35 @@ export default function Product() {
                   }}
                   disabled={!currentVariant.inStock}
                 >
-                  {currentVariant.inStock
-                    ? (isRTL ? `הוספה לסל - ${(currentVariant.price * quantity).toFixed(2)} ₪` :
-                       currentLanguage === 'en' ? `Add to cart - ${(currentVariant.price * quantity).toFixed(2)} ₪` :
-                       currentLanguage === 'fr' ? `Ajouter au panier - ${(currentVariant.price * quantity).toFixed(2)} ₪` :
-                       currentLanguage === 'es' ? `Agregar al carrito - ${(currentVariant.price * quantity).toFixed(2)} ₪` :
-                       currentLanguage === 'ru' ? `В корзину - ${(currentVariant.price * quantity).toFixed(2)} ₪` :
-                       `Add to cart - ${(currentVariant.price * quantity).toFixed(2)} ₪`)
-                    : (isRTL ? 'אזל מהמלאי' : currentLanguage === 'en' ? 'Out of stock' : currentLanguage === 'fr' ? 'Rupture de stock' : currentLanguage === 'es' ? 'Agotado' : currentLanguage === 'ru' ? 'Нет в наличии' : 'Out of stock')
-                  }
+                  {addToCartLabel}
                 </button>
               </div>
 
-              {/* PRODUCT FEATURES */}
+              {/* REASSURANCE ICONS */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '1rem',
+                padding: '1.5rem',
+                background: '#f8f9fa',
+                borderRadius: '10px',
+                marginBottom: '2rem'
+              }}>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '0.5rem'}}>
+                  <Truck size={28} color="#dc3545" strokeWidth={1.5} />
+                  <span style={{fontSize: '0.85rem', fontWeight: '600', color: '#333'}}>{reassuranceLabels.fastShipping}</span>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '0.5rem'}}>
+                  <Shield size={28} color="#dc3545" strokeWidth={1.5} />
+                  <span style={{fontSize: '0.85rem', fontWeight: '600', color: '#333'}}>{reassuranceLabels.securePayment}</span>
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '0.5rem'}}>
+                  <RotateCcw size={28} color="#dc3545" strokeWidth={1.5} />
+                  <span style={{fontSize: '0.85rem', fontWeight: '600', color: '#333'}}>{reassuranceLabels.returnPolicy}</span>
+                </div>
+              </div>
+
+              {/* PRODUCT FEATURES (kept inline for quick glance) */}
               {(product.features || []).length > 0 && (
                 <div style={{marginBottom: '2rem'}}>
                   <h3 style={{fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#333'}}>
@@ -372,29 +438,163 @@ export default function Product() {
                   </ul>
                 </div>
               )}
-
-              {/* PRODUCT DETAILS */}
-              <div style={{background: '#f8f9fa', padding: '1.5rem', borderRadius: '8px'}}>
-                <h3 style={{fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '1rem', color: '#333'}}>
-                  {isRTL ? 'פרטי המוצר:' :
-                   currentLanguage === 'en' ? 'Product Details:' :
-                   currentLanguage === 'fr' ? 'Details du produit :' :
-                   currentLanguage === 'es' ? 'Detalles del producto:' :
-                   currentLanguage === 'ru' ? 'Детали продукта:' : 'Product Details:'}
-                </h3>
-                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem', fontSize: '0.9rem'}}>
-                  <div><strong>{isRTL ? 'שפה:' : currentLanguage === 'en' ? 'Language:' : currentLanguage === 'fr' ? 'Langue :' : currentLanguage === 'es' ? 'Idioma:' : currentLanguage === 'ru' ? 'Язык:' : 'Language:'}</strong> {product.language}</div>
-                  <div><strong>{isRTL ? 'הוצאה:' : currentLanguage === 'en' ? 'Publisher:' : currentLanguage === 'fr' ? 'Editeur :' : currentLanguage === 'es' ? 'Editorial:' : currentLanguage === 'ru' ? 'Издатель:' : 'Publisher:'}</strong> {product.publisher}</div>
-                  {product.pages && <div><strong>{isRTL ? 'עמודים:' : currentLanguage === 'en' ? 'Pages:' : currentLanguage === 'fr' ? 'Pages :' : currentLanguage === 'es' ? 'Paginas:' : currentLanguage === 'ru' ? 'Страниц:' : 'Pages:'}</strong> {product.pages}</div>}
-                  {product.isbn && <div><strong>ISBN:</strong> {product.isbn}</div>}
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* RELATED PRODUCTS */}
+      {/* TABS SECTION: Description / Technical Details / Reviews */}
+      <section style={{background: 'white', padding: '0 0 3rem 0'}}>
+        <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
+          <Tabs defaultValue="description" dir={isRTL ? 'rtl' : 'ltr'}>
+            <TabsList
+              className="w-full justify-start rounded-none border-b bg-transparent p-0"
+              style={{height: 'auto', gap: '0'}}
+            >
+              <TabsTrigger
+                value="description"
+                className="rounded-none border-b-2 border-transparent px-6 py-3 text-base font-semibold data-[state=active]:border-[#dc3545] data-[state=active]:text-[#dc3545] data-[state=active]:shadow-none"
+              >
+                {tabLabels.description}
+              </TabsTrigger>
+              <TabsTrigger
+                value="technical"
+                className="rounded-none border-b-2 border-transparent px-6 py-3 text-base font-semibold data-[state=active]:border-[#dc3545] data-[state=active]:text-[#dc3545] data-[state=active]:shadow-none"
+              >
+                {tabLabels.technicalDetails}
+              </TabsTrigger>
+              <TabsTrigger
+                value="reviews"
+                className="rounded-none border-b-2 border-transparent px-6 py-3 text-base font-semibold data-[state=active]:border-[#dc3545] data-[state=active]:text-[#dc3545] data-[state=active]:shadow-none"
+              >
+                {tabLabels.reviews}
+              </TabsTrigger>
+            </TabsList>
+
+            {/* Tab: Description */}
+            <TabsContent value="description" style={{padding: '2rem 0'}}>
+              <div style={{fontSize: '1.05rem', color: '#555', lineHeight: '1.8', maxWidth: '800px'}}>
+                <p>{displayDescription}</p>
+                {(product.features || []).length > 0 && (
+                  <ul style={{marginTop: '1.5rem', paddingLeft: isRTL ? '0' : '1.5rem', paddingRight: isRTL ? '1.5rem' : '0', listStyle: 'disc'}}>
+                    {(product.features || []).map((feature, index) => (
+                      <li key={index} style={{marginBottom: '0.5rem'}}>{feature}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </TabsContent>
+
+            {/* Tab: Technical Details */}
+            <TabsContent value="technical" style={{padding: '2rem 0'}}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '1rem',
+                maxWidth: '800px'
+              }}>
+                {/* General product info */}
+                {product.language && (
+                  <div style={{display: 'flex', justifyContent: 'space-between', padding: '0.75rem 1rem', background: '#f8f9fa', borderRadius: '6px'}}>
+                    <span style={{fontWeight: '600', color: '#555'}}>{detailLabels.language}</span>
+                    <span style={{color: '#333'}}>{product.language}</span>
+                  </div>
+                )}
+                {product.publisher && (
+                  <div style={{display: 'flex', justifyContent: 'space-between', padding: '0.75rem 1rem', background: '#f8f9fa', borderRadius: '6px'}}>
+                    <span style={{fontWeight: '600', color: '#555'}}>{detailLabels.publisher}</span>
+                    <span style={{color: '#333'}}>{product.publisher}</span>
+                  </div>
+                )}
+                {product.pages && (
+                  <div style={{display: 'flex', justifyContent: 'space-between', padding: '0.75rem 1rem', background: '#f8f9fa', borderRadius: '6px'}}>
+                    <span style={{fontWeight: '600', color: '#555'}}>{detailLabels.pages}</span>
+                    <span style={{color: '#333'}}>{product.pages}</span>
+                  </div>
+                )}
+                {product.isbn && (
+                  <div style={{display: 'flex', justifyContent: 'space-between', padding: '0.75rem 1rem', background: '#f8f9fa', borderRadius: '6px'}}>
+                    <span style={{fontWeight: '600', color: '#555'}}>ISBN</span>
+                    <span style={{color: '#333'}}>{product.isbn}</span>
+                  </div>
+                )}
+                {/* Current variant details */}
+                {currentVariant && (
+                  <>
+                    <div style={{display: 'flex', justifyContent: 'space-between', padding: '0.75rem 1rem', background: '#f8f9fa', borderRadius: '6px'}}>
+                      <span style={{fontWeight: '600', color: '#555'}}>{detailLabels.format}</span>
+                      <span style={{color: '#333'}}>{currentVariant.format}</span>
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'space-between', padding: '0.75rem 1rem', background: '#f8f9fa', borderRadius: '6px'}}>
+                      <span style={{fontWeight: '600', color: '#555'}}>{detailLabels.binding}</span>
+                      <span style={{color: '#333'}}>{currentVariant.binding}</span>
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'space-between', padding: '0.75rem 1rem', background: '#f8f9fa', borderRadius: '6px'}}>
+                      <span style={{fontWeight: '600', color: '#555'}}>{detailLabels.size}</span>
+                      <span style={{color: '#333'}}>{currentVariant.size}</span>
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'space-between', padding: '0.75rem 1rem', background: '#f8f9fa', borderRadius: '6px'}}>
+                      <span style={{fontWeight: '600', color: '#555'}}>{detailLabels.dimensions}</span>
+                      <span style={{color: '#333'}}>{currentVariant.dimensions} cm</span>
+                    </div>
+                    <div style={{display: 'flex', justifyContent: 'space-between', padding: '0.75rem 1rem', background: '#f8f9fa', borderRadius: '6px'}}>
+                      <span style={{fontWeight: '600', color: '#555'}}>{detailLabels.volumes}</span>
+                      <span style={{color: '#333'}}>{currentVariant.volumes}</span>
+                    </div>
+                  </>
+                )}
+              </div>
+            </TabsContent>
+
+            {/* Tab: Reviews (placeholder) */}
+            <TabsContent value="reviews" style={{padding: '2rem 0'}}>
+              <div style={{maxWidth: '800px'}}>
+                {/* Placeholder review summary */}
+                <div style={{display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem', padding: '1.5rem', background: '#f8f9fa', borderRadius: '10px'}}>
+                  <div style={{textAlign: 'center'}}>
+                    <div style={{fontSize: '3rem', fontWeight: 'bold', color: '#333'}}>5.0</div>
+                    <div style={{color: '#ffc107', fontSize: '1.2rem'}}>{'\u2605\u2605\u2605\u2605\u2605'}</div>
+                    <div style={{fontSize: '0.85rem', color: '#666', marginTop: '0.25rem'}}>
+                      {isRTL ? '23 ביקורות' : currentLanguage === 'fr' ? '23 avis' : '23 reviews'}
+                    </div>
+                  </div>
+                  <div style={{flex: 1, display: 'flex', flexDirection: 'column', gap: '0.3rem'}}>
+                    {[5, 4, 3, 2, 1].map((stars) => (
+                      <div key={stars} style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                        <span style={{fontSize: '0.8rem', width: '20px', textAlign: 'center', color: '#666'}}>{stars}</span>
+                        <Star size={14} fill="#ffc107" color="#ffc107" />
+                        <div style={{flex: 1, height: '8px', background: '#e9ecef', borderRadius: '4px', overflow: 'hidden'}}>
+                          <div style={{height: '100%', background: '#ffc107', borderRadius: '4px', width: stars === 5 ? '100%' : '0%'}} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div style={{textAlign: 'center', padding: '2rem', border: '2px dashed #ddd', borderRadius: '10px', color: '#999'}}>
+                  <p style={{fontSize: '1rem', marginBottom: '1rem'}}>{detailLabels.noReviewsYet}</p>
+                  <button
+                    style={{
+                      background: '#dc3545',
+                      color: 'white',
+                      border: 'none',
+                      padding: '0.75rem 2rem',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      fontWeight: 'bold',
+                      fontSize: '1rem'
+                    }}
+                  >
+                    {detailLabels.writeReview}
+                  </button>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </section>
+
+      {/* RELATED PRODUCTS - same category first, 4 items */}
       <section style={{background: '#f8f9fa', padding: '3rem 0'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
           <h2 style={{fontSize: '2rem', fontWeight: 'bold', color: '#333', marginBottom: '2rem', textAlign: 'center'}}>
@@ -404,36 +604,92 @@ export default function Product() {
              currentLanguage === 'es' ? 'Productos Similares' :
              currentLanguage === 'ru' ? 'Похожие Товары' : 'Related Products'}
           </h2>
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem'}}>
-            {Object.values(realBreslovProducts).filter(p => p.id !== product.id).slice(0, 3).map((relatedProduct) => (
-              <div key={relatedProduct.id} style={{background: 'white', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.1)'}}>
-                <img loading="lazy"
-                  src={(relatedProduct.images && relatedProduct.images[0] || '').replace('@assets/', '/attached_assets/')}
-                  alt={getInterfaceDisplayTitle(relatedProduct, currentLanguage)}
-                  style={{width: '100%', height: '200px', objectFit: 'cover'}}
-                />
-                <div style={{padding: '1.5rem'}}>
-                  <h3 style={{fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#333'}}>
-                    {getInterfaceDisplayTitle(relatedProduct, currentLanguage)}
-                  </h3>
-                  <div style={{fontSize: '1.1rem', fontWeight: 'bold', color: '#dc3545', marginBottom: '1rem'}}>
-                    {(relatedProduct.variants && relatedProduct.variants[0] || {price: 0}).price} ₪
-                  </div>
-                  <a href={`/product/${relatedProduct.id}`} style={{textDecoration: 'none'}}>
-                    <button style={{background: '#dc3545', color: 'white', border: 'none', padding: '0.8rem 1rem', borderRadius: '5px', cursor: 'pointer', width: '100%', fontWeight: 'bold'}}>
+          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem'}}>
+            {relatedProducts.map((relatedProduct) => (
+              <div key={relatedProduct.id} style={{background: 'white', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.1)', transition: 'transform 0.2s ease'}}>
+                <a href={`/product/${relatedProduct.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
+                  <img loading="lazy"
+                    src={convertImagePath(relatedProduct.images && relatedProduct.images[0] || '')}
+                    alt={getInterfaceDisplayTitle(relatedProduct, currentLanguage)}
+                    style={{width: '100%', height: '200px', objectFit: 'cover'}}
+                  />
+                  <div style={{padding: '1.25rem'}}>
+                    <h3 style={{fontSize: '1.05rem', fontWeight: 'bold', marginBottom: '0.5rem', color: '#333', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+                      {getInterfaceDisplayTitle(relatedProduct, currentLanguage)}
+                    </h3>
+                    <div style={{fontSize: '0.8rem', color: '#999', marginBottom: '0.5rem'}}>
+                      {getInterfaceCategoryName(relatedProduct.category, currentLanguage)}
+                    </div>
+                    <div style={{fontSize: '1.1rem', fontWeight: 'bold', color: '#dc3545', marginBottom: '1rem'}}>
+                      {(relatedProduct.variants && relatedProduct.variants[0] || {price: 0}).price} ₪
+                    </div>
+                    <button style={{background: '#dc3545', color: 'white', border: 'none', padding: '0.7rem 1rem', borderRadius: '5px', cursor: 'pointer', width: '100%', fontWeight: 'bold', fontSize: '0.9rem'}}>
                       {isRTL ? 'צפה במוצר' :
                        currentLanguage === 'en' ? 'View Product' :
                        currentLanguage === 'fr' ? 'Voir le Produit' :
                        currentLanguage === 'es' ? 'Ver Producto' :
                        currentLanguage === 'ru' ? 'Посмотреть' : 'View Product'}
                     </button>
-                  </a>
-                </div>
+                  </div>
+                </a>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* STICKY ADD TO CART - MOBILE ONLY */}
+      <div
+        className="md:hidden"
+        style={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          background: 'white',
+          borderTop: '1px solid #ddd',
+          padding: '0.75rem 1rem',
+          zIndex: 50,
+          boxShadow: '0 -4px 12px rgba(0,0,0,0.1)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.75rem'
+        }}
+      >
+        <div style={{flex: '0 0 auto'}}>
+          <span style={{fontSize: '1.25rem', fontWeight: 'bold', color: '#dc3545'}}>
+            {(currentVariant.price * quantity).toFixed(0)} ₪
+          </span>
+        </div>
+        <button
+          onClick={handleAddToCart}
+          disabled={!currentVariant.inStock}
+          style={{
+            flex: 1,
+            background: currentVariant.inStock ? '#dc3545' : '#999',
+            color: 'white',
+            border: 'none',
+            padding: '0.85rem 1rem',
+            borderRadius: '8px',
+            cursor: currentVariant.inStock ? 'pointer' : 'not-allowed',
+            fontSize: '1rem',
+            fontWeight: 'bold'
+          }}
+        >
+          {currentVariant.inStock
+            ? (isRTL ? 'הוספה לסל' :
+               currentLanguage === 'fr' ? 'Ajouter au panier' :
+               currentLanguage === 'es' ? 'Agregar al carrito' :
+               currentLanguage === 'ru' ? 'В корзину' :
+               'Add to cart')
+            : (isRTL ? 'אזל מהמלאי' :
+               currentLanguage === 'fr' ? 'Rupture de stock' :
+               currentLanguage === 'es' ? 'Agotado' :
+               currentLanguage === 'ru' ? 'Нет в наличии' :
+               'Out of stock')
+          }
+        </button>
+      </div>
     </div>
   );
 }
