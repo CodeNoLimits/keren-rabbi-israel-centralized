@@ -243,16 +243,36 @@ export default function Store() {
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
 
       <div className="flex min-h-screen bg-gray-50 pb-16 md:pb-0">
-        {sidebarVisible && (<div className="fixed inset-0 bg-black/40 z-40 md:hidden" onClick={() => setSidebarVisible(false)} />)}
+        {/* Overlay for mobile sidebar */}
+        <AnimatePresence>
+          {sidebarVisible && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden" 
+              onClick={() => setSidebarVisible(false)} 
+            />
+          )}
+        </AnimatePresence>
 
-        <aside className={`${sidebarVisible ? 'w-80' : 'w-0'} transition-all duration-200 overflow-hidden max-md:fixed max-md:inset-y-0 max-md:z-50 ${sidebarVisible ? 'max-md:w-80' : 'max-md:w-0'} ${currentLanguage === 'he' ? 'max-md:right-0' : 'max-md:left-0'}`}>
-          <div className="h-full bg-white shadow-lg border-r border-gray-200">
-            <div className="bg-white p-4 border-b border-gray-200">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-gray-800" data-testid="sidebar-title">{currentLanguage === 'he' ? '\u05DE\u05E1\u05E0\u05E0\u05D9 \u05D7\u05D9\u05E4\u05D5\u05E9' : currentLanguage === 'en' ? 'Search Filters' : currentLanguage === 'fr' ? 'Filtres de Recherche' : currentLanguage === 'es' ? 'Filtros de B\u00FAsqueda' : currentLanguage === 'ru' ? '\u0424\u0438\u043B\u044C\u0442\u0440\u044B \u041F\u043E\u0438\u0441\u043A\u0430' : '\u05DE\u05E1\u05E0\u05E0\u05D9 \u05D7\u05D9\u05E4\u05D5\u05E9'}</h2>
-                <Button variant="outline" size="sm" onClick={clearAllFilters} className="text-sm focus-visible:ring-2 focus-visible:ring-orange-500" data-testid="button-clear-filters"><X className="h-4 w-4 mr-1" />{currentLanguage === 'he' ? '\u05E0\u05E7\u05D4 \u05D4\u05DB\u05DC' : currentLanguage === 'en' ? 'Clear All' : currentLanguage === 'fr' ? 'Tout Effacer' : currentLanguage === 'es' ? 'Borrar Todo' : currentLanguage === 'ru' ? '\u041E\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0412\u0441\u0435' : '\u05E0\u05E7\u05D4 \u05D4\u05DB\u05DC'}</Button>
-              </div>
-              <div className="relative"><Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" /><Input placeholder={currentLanguage === 'he' ? '\u05D7\u05D9\u05E4\u05D5\u05E9 \u05E1\u05E4\u05E8\u05D9\u05DD...' : currentLanguage === 'en' ? 'Search books...' : currentLanguage === 'fr' ? 'Rechercher des livres...' : currentLanguage === 'es' ? 'Buscar libros...' : currentLanguage === 'ru' ? '\u041F\u043E\u0438\u0441\u043A \u043A\u043D\u0438\u0433...' : '\u05D7\u05D9\u05E4\u05D5\u05E9 \u05E1\u05E4\u05E8\u05D9\u05DD...'} value={filters.searchQuery} onChange={(e) => setFilters(prev => ({ ...prev, searchQuery: e.target.value }))} className="pl-10 text-sm focus-visible:ring-2 focus-visible:ring-orange-500" data-testid="input-search" /></div>
+        <aside className={`
+          ${sidebarVisible ? 'w-80' : 'w-0'} 
+          transition-all duration-300 ease-in-out overflow-hidden 
+          max-md:fixed max-md:inset-y-0 max-md:z-50 max-md:shadow-2xl
+          ${sidebarVisible ? 'max-md:w-[280px]' : 'max-md:w-0'} 
+          ${currentLanguage === 'he' ? 'max-md:right-0' : 'max-md:left-0'}
+          bg-white
+        `}>
+          <div className="h-full flex flex-col border-r border-gray-200">
+            <div className="p-4 border-b border-gray-200 flex items-center justify-between bg-white sticky top-0 z-10">
+              <h2 className="text-lg font-bold text-gray-900">{currentLanguage === 'he' ? '\u05DE\u05E1\u05E0\u05E0\u05D9 \u05D7\u05D9\u05E4\u05D5\u05E9' : 'Filters'}</h2>
+              <button 
+                onClick={() => setSidebarVisible(false)}
+                className="md:hidden p-2 rounded-full hover:bg-gray-100"
+              >
+                <X className="h-5 w-5 text-gray-500" />
+              </button>
             </div>
             <div className="p-4 space-y-4 max-h-screen overflow-y-auto">
               {/* Price Filter */}
