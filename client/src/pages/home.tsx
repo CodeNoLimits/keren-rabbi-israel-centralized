@@ -643,6 +643,7 @@ export default function Home() {
               return (
                 <article
                   key={product.id}
+                  className="group"
                   style={{
                     background: '#FFFFFF',
                     borderRadius: '14px',
@@ -660,18 +661,33 @@ export default function Home() {
                   }}
                 >
                   <Link href={`/product/${product.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                    <div style={{width: '100%', height: '240px', overflow: 'hidden', background: '#FFFFFF'}}>
+                    <div className="relative overflow-hidden" style={{width: '100%', height: '240px', background: '#FFFFFF'}}>
                       {imgSrc ? (
-                        <img
-                          loading="lazy"
-                          decoding="async"
-                          width="280"
-                          height="240"
-                          src={imgSrc}
-                          alt={bsAlt}
-                          style={{width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s ease'}}
-                          onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
-                        />
+                        <>
+                          <img
+                            loading="lazy"
+                            decoding="async"
+                            width="280"
+                            height="240"
+                            src={imgSrc}
+                            alt={bsAlt}
+                            className="transition-opacity duration-500 ease-in-out group-hover:opacity-0"
+                            style={{width: '100%', height: '100%', objectFit: 'cover'}}
+                            onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
+                          />
+                          {product.images && product.images.length > 1 && (
+                            <img
+                              loading="lazy"
+                              decoding="async"
+                              width="280"
+                              height="240"
+                              src={convertImagePath(product.images[1])}
+                              alt={bsAlt + " - 2"}
+                              className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
+                              onError={(e) => { e.currentTarget.remove(); }}
+                            />
+                          )}
+                        </>
                       ) : (
                         <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.5rem'}}>
                           &#128214;
