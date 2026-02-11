@@ -180,7 +180,12 @@ var orders = pgTable("orders", {
   adminNotes: text("admin_notes"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow()
-});
+}, (table) => [
+  index("idx_orders_user_id").on(table.userId),
+  index("idx_orders_status").on(table.status),
+  index("idx_orders_created_at").on(table.createdAt),
+  index("idx_orders_email").on(table.email)
+]);
 var insertOrderSchema = createInsertSchema(orders);
 var orderItems = pgTable("order_items", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),

@@ -1227,6 +1227,192 @@ export default function Product() {
         </div>
       </section>
 
+      {/* BUNDLE / COMPLETE SET - Task 14/17 */}
+      {relatedVolumes.length > 0 && (
+        <section style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '3rem 0', color: 'white'}}>
+          <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
+            <div style={{textAlign: 'center', marginBottom: '2rem'}}>
+              <h2 style={{fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '0.5rem', textShadow: '2px 2px 4px rgba(0,0,0,0.2)'}}>
+                {isRTL ? '📚 סט שלם - חסוך 15%!' :
+                 currentLanguage === 'en' ? '📚 Complete Set - Save 15%!' :
+                 currentLanguage === 'fr' ? '📚 Collection Complete - 15% de Remise!' :
+                 currentLanguage === 'es' ? '📚 Colección Completa - ¡Ahorra 15%!' :
+                 currentLanguage === 'ru' ? '📚 Полный Комплект - Скидка 15%!' :
+                 '📚 Complete Set - Save 15%!'}
+              </h2>
+              <p style={{fontSize: '1.1rem', opacity: 0.95}}>
+                {isRTL ? `קנה את כל ${bundleProducts.length} הכרכים בחבילה אחת` :
+                 currentLanguage === 'en' ? `Get all ${bundleProducts.length} volumes in one bundle` :
+                 currentLanguage === 'fr' ? `Obtenez les ${bundleProducts.length} volumes en un seul pack` :
+                 currentLanguage === 'es' ? `Consigue los ${bundleProducts.length} volúmenes en un pack` :
+                 currentLanguage === 'ru' ? `Получите все ${bundleProducts.length} томов в одном наборе` :
+                 `Get all ${bundleProducts.length} volumes in one bundle`}
+              </p>
+            </div>
+
+            {/* Bundle card */}
+            <div style={{background: 'white', borderRadius: '20px', padding: '2.5rem', maxWidth: '900px', margin: '0 auto', boxShadow: '0 20px 60px rgba(0,0,0,0.3)', color: '#333'}}>
+              {/* Products in bundle */}
+              <div style={{marginBottom: '2rem'}}>
+                <h3 style={{fontSize: '1.4rem', fontWeight: 'bold', marginBottom: '1rem', color: '#667eea', direction: isRTL ? 'rtl' : 'ltr'}}>
+                  {isRTL ? 'הכלול בסט:' :
+                   currentLanguage === 'en' ? 'Included in Set:' :
+                   currentLanguage === 'fr' ? 'Inclus dans le Pack:' :
+                   currentLanguage === 'es' ? 'Incluido en el Pack:' :
+                   currentLanguage === 'ru' ? 'Включено в набор:' :
+                   'Included in Set:'}
+                </h3>
+                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem'}}>
+                  {bundleProducts.map((bp, index) => (
+                    <div key={bp.id} style={{display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem', background: '#f8f9fa', borderRadius: '10px', border: '2px solid #e9ecef'}}>
+                      <div style={{background: '#667eea', color: 'white', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '0.9rem', flexShrink: 0}}>
+                        {index + 1}
+                      </div>
+                      <div style={{flex: 1, minWidth: 0}}>
+                        <div style={{fontSize: '0.9rem', fontWeight: '600', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', direction: isRTL ? 'rtl' : 'ltr'}}>
+                          {getInterfaceDisplayTitle(bp, currentLanguage)}
+                        </div>
+                        <div style={{fontSize: '0.8rem', color: '#6b7280'}}>
+                          {(bp.variants?.[0]?.price || 0)} ₪
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Pricing */}
+              <div style={{borderTop: '2px dashed #dee2e6', paddingTop: '1.5rem', marginBottom: '1.5rem'}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', fontSize: '1.1rem', direction: isRTL ? 'rtl' : 'ltr'}}>
+                  <span style={{color: '#6b7280'}}>
+                    {isRTL ? 'מחיר רגיל:' :
+                     currentLanguage === 'en' ? 'Regular Price:' :
+                     currentLanguage === 'fr' ? 'Prix Normal:' :
+                     currentLanguage === 'es' ? 'Precio Normal:' :
+                     currentLanguage === 'ru' ? 'Обычная цена:' :
+                     'Regular Price:'}
+                  </span>
+                  <span style={{textDecoration: 'line-through', color: '#999'}}>
+                    {bundleSubtotal} ₪
+                  </span>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', fontSize: '1.1rem', color: '#10b981', fontWeight: '600', direction: isRTL ? 'rtl' : 'ltr'}}>
+                  <span>
+                    {isRTL ? 'חיסכון:' :
+                     currentLanguage === 'en' ? 'You Save:' :
+                     currentLanguage === 'fr' ? 'Économie:' :
+                     currentLanguage === 'es' ? 'Ahorro:' :
+                     currentLanguage === 'ru' ? 'Экономия:' :
+                     'You Save:'}
+                  </span>
+                  <span>
+                    -{bundleSavings} ₪ (15%)
+                  </span>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.8rem', fontWeight: 'bold', color: '#667eea', direction: isRTL ? 'rtl' : 'ltr'}}>
+                  <span>
+                    {isRTL ? 'מחיר הסט:' :
+                     currentLanguage === 'en' ? 'Bundle Price:' :
+                     currentLanguage === 'fr' ? 'Prix du Pack:' :
+                     currentLanguage === 'es' ? 'Precio del Pack:' :
+                     currentLanguage === 'ru' ? 'Цена набора:' :
+                     'Bundle Price:'}
+                  </span>
+                  <span>
+                    {bundlePrice} ₪
+                  </span>
+                </div>
+              </div>
+
+              {/* Add to cart button */}
+              <button
+                onClick={() => {
+                  // Add all bundle products to cart
+                  bundleProducts.forEach(bp => {
+                    const variant = bp.variants?.[0];
+                    if (variant && variant.inStock) {
+                      addItem({
+                        productId: bp.id,
+                        variantId: variant.id,
+                        name: getInterfaceDisplayTitle(bp, currentLanguage),
+                        nameEnglish: bp.nameEnglish || bp.name,
+                        image: bp.images?.[0] || '',
+                        price: variant.price,
+                        quantity: 1,
+                        variant: {
+                          format: variant.format,
+                          size: variant.size,
+                          binding: variant.binding,
+                          volumes: variant.volumes || 1,
+                        },
+                      });
+                    }
+                  });
+                  toast({
+                    title: isRTL ? '✅ הסט השלם נוסף לסל!' :
+                           currentLanguage === 'en' ? '✅ Complete set added to cart!' :
+                           currentLanguage === 'fr' ? '✅ Pack complet ajouté au panier!' :
+                           currentLanguage === 'es' ? '✅ ¡Pack completo agregado!' :
+                           currentLanguage === 'ru' ? '✅ Набор добавлен в корзину!' :
+                           '✅ Complete set added to cart!',
+                    description: isRTL ? `${bundleProducts.length} ספרים נוספו בהנחה של 15%` :
+                                 currentLanguage === 'en' ? `${bundleProducts.length} books added with 15% discount` :
+                                 currentLanguage === 'fr' ? `${bundleProducts.length} livres ajoutés avec 15% de réduction` :
+                                 currentLanguage === 'es' ? `${bundleProducts.length} libros agregados con 15% de descuento` :
+                                 currentLanguage === 'ru' ? `${bundleProducts.length} книг добавлено со скидкой 15%` :
+                                 `${bundleProducts.length} books added with 15% discount`,
+                  });
+                }}
+                style={{
+                  width: '100%',
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  color: 'white',
+                  border: 'none',
+                  padding: '1.2rem 2rem',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  fontSize: '1.3rem',
+                  fontWeight: 'bold',
+                  boxShadow: '0 8px 20px rgba(102,126,234,0.4)',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 12px 30px rgba(102,126,234,0.6)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(102,126,234,0.4)';
+                }}
+              >
+                {isRTL ? '🛒 הוסף סט שלם לסל' :
+                 currentLanguage === 'en' ? '🛒 Add Complete Set to Cart' :
+                 currentLanguage === 'fr' ? '🛒 Ajouter le Pack au Panier' :
+                 currentLanguage === 'es' ? '🛒 Agregar Pack al Carrito' :
+                 currentLanguage === 'ru' ? '🛒 Добавить набор в корзину' :
+                 '🛒 Add Complete Set to Cart'}
+              </button>
+
+              {/* Trust badges */}
+              <div style={{display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '1.5rem', flexWrap: 'wrap'}}>
+                <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#6b7280', fontSize: '0.9rem'}}>
+                  <Truck style={{width: '1.2rem', height: '1.2rem'}} />
+                  <span>{reassuranceLabels.fastShipping}</span>
+                </div>
+                <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#6b7280', fontSize: '0.9rem'}}>
+                  <Shield style={{width: '1.2rem', height: '1.2rem'}} />
+                  <span>{reassuranceLabels.securePayment}</span>
+                </div>
+                <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#6b7280', fontSize: '0.9rem'}}>
+                  <RotateCcw style={{width: '1.2rem', height: '1.2rem'}} />
+                  <span>{reassuranceLabels.returnPolicy}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* RELATED PRODUCTS - same category first, 4 items */}
       <section style={{background: '#f8f9fa', padding: '3rem 0'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
