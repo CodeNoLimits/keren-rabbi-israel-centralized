@@ -837,7 +837,7 @@ export default function Home() {
                 </h3>
                 <a href="/store" style={{textDecoration: 'none'}}>
                   <button style={{background: 'hsl(210, 85%, 45%)', color: 'white', border: 'none', padding: '0.8rem 2rem', borderRadius: '8px', cursor: 'pointer', fontSize: '1rem', fontWeight: '600', boxShadow: '0 2px 8px hsla(210, 85%, 45%, 0.25)', transition: 'all 0.2s ease'}}>
-                    {ml(currentLanguage, { he: '\u05DC\u05D7\u05E6\u05D5 \u05DB\u05D0\u05DF', en: 'Click Here', fr: 'Cliquez Ici', es: 'Haga Clic Aqu\u00ED', ru: '\u041D\u0430\u0436\u043C\u0438\u0442\u0435 \u0417\u0434\u0435\u0441\u044C' })}
+                    {ml(currentLanguage, { he: 'לחנות', en: 'Browse', fr: 'Parcourir', es: 'Explorar', ru: 'Перейти' })}
                   </button>
                 </a>
               </div>

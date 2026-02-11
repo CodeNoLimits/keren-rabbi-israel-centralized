@@ -130,10 +130,10 @@
 - [x] **35. [P1/S] Remove Circle Pop-up "Je fais aussi partie du feu"**
   Yaakov says: "Supprimer le pop-up cercle 'Je fais aussi partie du feu' - Remplacer par un bouton lumineux/blanc avec le meme texte". Check for any popup component and replace with a clean CTA button.
 
-- [ ] **36. [P2/S] Simplify Hero Section**
+- [x] **36. [P2/S] Simplify Hero Section** ✓
   Hero has background image, glass card, oversized heading, quote, and 2 CTAs. Simplify: one clear heading, one subtitle, one CTA button. Remove parallax `backgroundAttachment: 'fixed'` which is janky on mobile.
 
-- [ ] **37. [P2/S] Reduce Number of "Click Here" Buttons**
+- [x] **37. [P2/S] Reduce Number of "Click Here" Buttons** ✓
   Categories section has 3 identical "Click Here" buttons all leading to /store. Consolidate into one clear category grid with direct links.
 
 - [x] **38. [P2/S] Improve Leading Books Section**
@@ -239,7 +239,7 @@
 - [ ] **66. [P2/S] Image Optimization Pipeline**
   Convert all product images to WebP format with appropriate sizes (thumbnail 200px, card 400px, full 800px). Use `<picture>` element with srcset.
 
-- [ ] **67. [P2/S] Preload Critical Assets**
+- [x] **67. [P2/S] Preload Critical Assets** ✓
   Add `<link rel="preload">` for the Google Fonts CSS, logo image, and hero background image to improve LCP.
 
 - [ ] **68. [P2/S] Memoize Expensive Computations**
@@ -367,7 +367,7 @@
 
 ---
 
-## PROGRESS: 48 tasks completed out of 100
+## PROGRESS: 51 tasks completed out of 100
 
 ## SUMMARY BY PRIORITY
 
