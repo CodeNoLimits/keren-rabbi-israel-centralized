@@ -94,6 +94,10 @@ export default function Store() {
   // Sort state
   const [sortBy, setSortBy] = useState<string>('default');
 
+  // Pagination state
+  const PRODUCTS_PER_PAGE = 12;
+  const [currentPage, setCurrentPage] = useState(1);
+
   // Sidebar visibility and collapsible sections
   // Default to hidden on mobile (< 768px)
   const [sidebarVisible, setSidebarVisible] = useState(() => {
@@ -162,10 +166,13 @@ export default function Store() {
         const nameMatch = product.name.toLowerCase().includes(q) ||
           translatedName.includes(q) ||
           (product.nameEnglish || '').toLowerCase().includes(q) ||
-          (product.nameFrench || '').toLowerCase().includes(q);
+          (product.nameFrench || '').toLowerCase().includes(q) ||
+          ((product as any).nameSpanish || '').toLowerCase().includes(q) ||
+          ((product as any).nameRussian || '').toLowerCase().includes(q);
         const descMatch = (product.description || '').toLowerCase().includes(q) ||
           (product.descriptionEnglish || '').toLowerCase().includes(q);
-        if (!nameMatch && !descMatch) return false;
+        const catMatch = product.category.toLowerCase().includes(q);
+        if (!nameMatch && !descMatch && !catMatch) return false;
       }
       
       // Category filter
@@ -225,6 +232,18 @@ export default function Store() {
         return products;
     }
   }, [filteredProducts, sortBy]);
+
+  // Reset page when filters/sort change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters, sortBy]);
+
+  // Paginated products
+  const totalPages = Math.ceil(sortedProducts.length / PRODUCTS_PER_PAGE);
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * PRODUCTS_PER_PAGE;
+    return sortedProducts.slice(start, start + PRODUCTS_PER_PAGE);
+  }, [sortedProducts, currentPage]);
 
   const toggleFilter = <T,>(key: keyof Filters, value: T) => {
     setFilters(prev => {
@@ -574,12 +593,12 @@ export default function Store() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {sortedProducts.map((product) => {
+              {paginatedProducts.map((product) => {
                 const liked = isFavorite(product.id);
                 return (
                   <div
                     key={product.id}
-                    className="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-200 group relative"
+                    className="bg-white rounded-lg overflow-hidden shadow hover:shadow-xl hover:-translate-y-1 transition-all duration-200 border border-gray-200 group relative"
                     data-testid={`card-product-${product.id}`}
                   >
 
@@ -624,7 +643,10 @@ export default function Store() {
                             }`}
                             data-testid={`img-product-${product.id}`}
                             onError={(e) => {
-                              e.currentTarget.style.display = 'none';
+                              const parent = e.currentTarget.parentElement;
+                              if (parent) {
+                                parent.innerHTML = `<div class="w-full h-full bg-gray-100 flex flex-col items-center justify-center gap-2 text-gray-400"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><span class="text-xs text-gray-500 px-2 text-center line-clamp-2">${e.currentTarget.alt}</span></div>`;
+                              }
                             }}
                           />
                           {/* Secondary image (shown on hover) */}
@@ -638,7 +660,7 @@ export default function Store() {
                               className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
                               data-testid={`img-product-hover-${product.id}`}
                               onError={(e) => {
-                                e.currentTarget.style.display = 'none';
+                                e.currentTarget.remove();
                               }}
                             />
                           )}
@@ -766,6 +788,45 @@ export default function Store() {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-8 mb-4">
+                <button
+                  onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  disabled={currentPage === 1}
+                  className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+                >
+                  {currentLanguage === 'he' ? '← הקודם' : '← Prev'}
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                  <button
+                    key={page}
+                    onClick={() => { setCurrentPage(page); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    className={`w-9 h-9 rounded-lg text-sm font-medium transition-colors ${
+                      page === currentPage
+                        ? 'bg-blue-600 text-white'
+                        : 'border border-gray-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+                <button
+                  onClick={() => { setCurrentPage(p => Math.min(totalPages, p + 1)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  disabled={currentPage === totalPages}
+                  className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors"
+                >
+                  {currentLanguage === 'he' ? 'הבא →' : 'Next →'}
+                </button>
+              </div>
+            )}
+            <div className="text-center text-sm text-gray-500 mb-6">
+              {currentLanguage === 'he'
+                ? `מציג ${(currentPage - 1) * PRODUCTS_PER_PAGE + 1}-${Math.min(currentPage * PRODUCTS_PER_PAGE, sortedProducts.length)} מתוך ${sortedProducts.length} מוצרים`
+                : `Showing ${(currentPage - 1) * PRODUCTS_PER_PAGE + 1}-${Math.min(currentPage * PRODUCTS_PER_PAGE, sortedProducts.length)} of ${sortedProducts.length} products`
+              }
             </div>
 
             {/* Product Variant Selection Modal */}

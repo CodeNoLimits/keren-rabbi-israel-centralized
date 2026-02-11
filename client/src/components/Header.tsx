@@ -4,7 +4,8 @@ import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../hooks/useAuth';
 import { CartWidget } from './CartWidget';
 import { SearchAutocomplete } from './SearchAutocomplete';
-import { Menu, X, LogIn, LogOut, User } from 'lucide-react';
+import { Menu, X, LogIn, LogOut, User, Heart } from 'lucide-react';
+import { useFavorites } from '../contexts/FavoritesContext';
 import { useCurrency, type CurrencyCode } from '../hooks/useCurrency';
 
 interface HeaderProps {
@@ -16,6 +17,10 @@ const translations = {
   he: {
     home: 'דף הבית',
     store: 'חנות',
+    books: 'ספרים',
+    judaica: 'יודאיקה',
+    newArrivals: 'חדשים',
+    promotions: 'מבצעים',
     about: 'אודות',
     contact: 'צור קשר',
     magazine: 'המגזין',
@@ -33,7 +38,11 @@ const translations = {
   },
   en: {
     home: 'Home',
-    store: 'Store', 
+    store: 'Store',
+    books: 'Books',
+    judaica: 'Judaica',
+    newArrivals: 'New Arrivals',
+    promotions: 'Promotions',
     about: 'About',
     contact: 'Contact',
     magazine: 'Magazine',
@@ -52,6 +61,10 @@ const translations = {
   fr: {
     home: 'Accueil',
     store: 'Boutique',
+    books: 'Livres',
+    judaica: 'Judaica',
+    newArrivals: 'Nouveautés',
+    promotions: 'Promotions',
     about: 'À propos',
     contact: 'Contact',
     magazine: 'Magazine',
@@ -70,8 +83,12 @@ const translations = {
   es: {
     home: 'Inicio',
     store: 'Tienda',
+    books: 'Libros',
+    judaica: 'Judaica',
+    newArrivals: 'Novedades',
+    promotions: 'Promociones',
     about: 'Acerca de',
-    contact: 'Contacto', 
+    contact: 'Contacto',
     magazine: 'Revista',
     join: 'Unirse',
     downloads: 'Descargas',
@@ -88,6 +105,10 @@ const translations = {
   ru: {
     home: 'Главная',
     store: 'Магазин',
+    books: 'Книги',
+    judaica: 'Иудаика',
+    newArrivals: 'Новинки',
+    promotions: 'Акции',
     about: 'О нас',
     contact: 'Контакт',
     magazine: 'Журнал',
@@ -108,6 +129,7 @@ const translations = {
 export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps) {
   const [location] = useLocation();
   const { totalItems, totalPrice, setIsCartOpen } = useCart();
+  const { favorites } = useFavorites();
   const { user, isAuthenticated, isLoading } = useAuth();
   const { currency, setCurrency, formatPrice } = useCurrency();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -141,7 +163,7 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
               decoding="async"
               width="185"
               height="300"
-              src="https://www.haesh-sheli.co.il/wp-content/uploads/2021/12/cropped-%D7%A7%D7%A8%D7%95-%D7%A8%D7%91%D7%99-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%A8-%D7%90%D7%95%D7%93%D7%A1%D7%A8.d110a0.webp"
+              src="/images/logo.webp"
               alt="האש שלי תוקף עד ביאת המשיח"
               data-testid="img-logo"
               className="transition-all duration-500 hover:brightness-110 hover:contrast-110"
@@ -187,14 +209,23 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
 
       {/* BOTTOM ROW - Basic Navigation + User Actions */}
       <div className="header-container-bottom">
-        {/* BASIC NAVIGATION - Essential links only, larger and prominent */}
+        {/* BASIC NAVIGATION - Simple clean categories */}
         <nav className="header-nav" data-testid="nav-main">
-          <ul className="nav-menu" style={{gap: '2rem'}}>
+          <ul className="nav-menu" style={{gap: '1.5rem'}}>
             <li className={location === '/' ? 'current-menu-item' : ''}>
               <a href="/" data-testid="link-home" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.home}</a>
             </li>
             <li className={location === '/store' ? 'current-menu-item' : ''}>
-              <a href="/store" data-testid="link-store" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.store}</a>
+              <a href="/store" data-testid="link-books" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.books}</a>
+            </li>
+            <li className={location === '/store?category=judaica' ? 'current-menu-item' : ''}>
+              <a href="/store?category=judaica" data-testid="link-judaica" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.judaica}</a>
+            </li>
+            <li className={location === '/store?sort=new' ? 'current-menu-item' : ''}>
+              <a href="/store?sort=new" data-testid="link-new-arrivals" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.newArrivals}</a>
+            </li>
+            <li className={location === '/store?promotions=true' ? 'current-menu-item' : ''}>
+              <a href="/store?promotions=true" data-testid="link-promotions" style={{fontSize: '1.05rem', fontWeight: '600', color: '#FFD700'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-200 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.promotions}</a>
             </li>
             <li className={location === '/about' ? 'current-menu-item' : ''}>
               <a href="/about" data-testid="link-about" style={{fontSize: '1.05rem', fontWeight: '600'}} className="transition-all duration-300 hover:scale-110 hover:text-yellow-300 hover:drop-shadow-lg inline-block hover:-translate-y-1">{t.about}</a>
@@ -269,6 +300,21 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
               <circle cx="12" cy="8" r="4" />
               <path d="M20 21a8 8 0 0 0-16 0" />
             </svg>
+          </a>
+
+          {/* Favorites Heart */}
+          <a
+            href="/favorites"
+            className="relative p-2 rounded-full transition-all duration-200 hover:scale-110 hover:bg-white/20"
+            data-testid="button-favorites"
+            aria-label="Favorites"
+          >
+            <Heart size={22} className="text-white" fill={favorites.length > 0 ? 'currentColor' : 'none'} />
+            {favorites.length > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                {favorites.length}
+              </span>
+            )}
           </a>
 
           {/* Cart Widget */}
@@ -363,13 +409,22 @@ export function Header({ currentLanguage = 'he', onLanguageChange }: HeaderProps
           </button>
         </div>
 
-        {/* Primary nav links - large and prominent */}
+        {/* Primary nav links - simple clean categories */}
         <ul className="nav-menu" style={{flexDirection: 'column', padding: '0 1rem', gap: '0.25rem', textAlign: currentLanguage === 'he' ? 'right' : 'left'}}>
           <li className={location === '/' ? 'current-menu-item' : ''}>
             <a href="/" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-home" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.home}</a>
           </li>
           <li className={location === '/store' ? 'current-menu-item' : ''}>
-            <a href="/store" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-store" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.store}</a>
+            <a href="/store" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-books" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.books}</a>
+          </li>
+          <li>
+            <a href="/store?category=judaica" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-judaica" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.judaica}</a>
+          </li>
+          <li>
+            <a href="/store?sort=new" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-new-arrivals" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.newArrivals}</a>
+          </li>
+          <li>
+            <a href="/store?promotions=true" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-promotions" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block', color: '#FFD700'}}>{t.promotions}</a>
           </li>
           <li className={location === '/about' ? 'current-menu-item' : ''}>
             <a href="/about" onClick={() => setMobileMenuOpen(false)} data-testid="mobile-link-about" style={{fontSize: '1.1rem', fontWeight: '600', padding: '0.75rem 0.5rem', display: 'block'}}>{t.about}</a>
