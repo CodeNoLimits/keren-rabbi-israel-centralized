@@ -250,9 +250,9 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
           </ul>
         </nav>
 
-        {/* SEARCH AUTOCOMPLETE */}
+        {/* SEARCH AUTOCOMPLETE - Task #3: Added onNavigate for SPA navigation */}
         <div className="header-search" data-testid="header-search" style={{flex: '0 1 340px', margin: '0 12px'}}>
-          <SearchAutocomplete />
+          <SearchAutocomplete onNavigate={(productId) => setLocation(`/product/${productId}`)} />
         </div>
 
         {/* USER ACTIONS */}
