@@ -692,7 +692,8 @@ export default function Home() {
                           ru: '\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435',
                         })}
                       </span>
-                    </Link>
+                    </div>
+                  </Link>
                     {/* Quick Add button - Task 1.1 */}
                     {product.variants && product.variants.length > 0 && (
                       <div style={{padding: '0 1.25rem 1.25rem'}}>
