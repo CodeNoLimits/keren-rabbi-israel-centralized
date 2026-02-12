@@ -1,0 +1,60 @@
+# robots.txt for haesh-sheli-new.vercel.app
+# Keren Rabbi Yisrael - Breslov Books E-commerce
+# Generated: 2026-02-12 by Claude Sonnet 4.5
+
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow admin, checkout, and user-specific pages
+Disallow: /admin
+Disallow: /admin/
+Disallow: /checkout
+Disallow: /checkout/
+Disallow: /orders
+Disallow: /orders/
+Disallow: /api/
+Disallow: /cart
+Disallow: /*.json$
+Disallow: /*?*session=
+Disallow: /*?*token=
+
+# Allow specific public pages
+Allow: /
+Allow: /store
+Allow: /product/
+Allow: /privacy
+Allow: /terms
+Allow: /returns
+Allow: /shipping
+Allow: /about
+Allow: /contact
+
+# Sitemaps (to be generated)
+# Sitemap: https://haesh-sheli-new.vercel.app/sitemap.xml
+
+# Crawl delay (polite crawling)
+Crawl-delay: 1
+
+# Specific bot rules
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
