@@ -213,8 +213,9 @@ const StripePaymentForm = ({ clientSecret, orderSummary }: {
 };
 
 export default function Checkout() {
-  const { items } = useCart();
+  const { items, clearCart } = useCart();
   const { currentLanguage, t } = useLanguage();
+  const { toast } = useToast();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [orderSummary, setOrderSummary] = useState<any>(null);
 
