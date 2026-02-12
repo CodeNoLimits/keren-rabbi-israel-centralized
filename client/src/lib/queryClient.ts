@@ -29,12 +29,22 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey.join("/") as string, {
+    const url = queryKey.join("/") as string;
+    const res = await fetch(url, {
       credentials: "include",
     });
 
     if (unauthorizedBehavior === "returnNull" && res.status === 401) {
       return null;
+    }
+
+    // On static hosting (Vercel), API routes return index.html (not JSON).
+    // Detect this and return null instead of crashing on JSON parse.
+    const contentType = res.headers.get("content-type") || "";
+    if (!contentType.includes("application/json")) {
+      if (url.startsWith("/api/")) {
+        return null;
+      }
     }
 
     await throwIfResNotOk(res);

@@ -17,8 +17,16 @@ export default function Product() {
   const [linkCopied, setLinkCopied] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const { currentLanguage } = useLanguage();
+  const { addItem } = useCart();
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const { toast } = useToast();
 
-  const product = realBreslovProducts[params.id];
+  const productId = params?.id || '';
+  const product = realBreslovProducts[productId];
 
   if (!product) {
     return <div>{currentLanguage === 'he' ? 'מוצר לא נמצא' : 'Product not found'}</div>;
