@@ -314,37 +314,129 @@ const CheckoutSuccess = () => {
 
 function Router() {
   return (
-    <Suspense fallback={<PageLoader />}>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/store" component={Store} />
-        <Route path="/about" component={About} />
-        <Route path="/magazine" component={Magazine} />
-        <Route path="/join" component={Join} />
-        <Route path="/contact" component={Contact} />
-        <Route path="/checkout" component={Checkout} />
-        <Route path="/checkout/success" component={() => <CheckoutSuccess />} />
-        <Route path="/downloads" component={Downloads} />
-        <Route path="/subscription" component={Subscription} />
-        <Route path="/subscription/manage" component={SubscriptionManagement} />
-        <Route path="/favorites" component={Favorites} />
-        <Route path="/privacy" component={() => <Legal page="privacy" />} />
-        <Route path="/terms" component={() => <Legal page="terms" />} />
-        <Route path="/returns" component={() => <Legal page="returns" />} />
-        <Route path="/shipping" component={Shipping} />
-        <Route path="/product/:id" component={Product} />
-        <Route path="/breslov-wisdom" component={BreslovWisdom} />
-        <Route path="/keren-style" component={KerenStyle} />
-        <Route path="/haesh-hype" component={HaeshHype} />
-        <Route path="/chat" component={Chat} />
-        <Route path="/blog" component={Blog} />
-        <Route path="/yaaakov" component={YaakovDashboard} />
-        <Route path="/admin" component={Admin} />
-        <Route path="/orders/:id" component={OrderTracking} />
-        <Route path="/orders" component={OrderTracking} />
-        <Route component={NotFound} />
-      </Switch>
-    </Suspense>
+    <Switch>
+      <Route path="/" component={Home} />
+      <Route path="/store" component={Store} />
+      <Route path="/product/:id" component={Product} />
+      
+      {/* Task 75: Use inline Suspense for lazy routes only */}
+      <Route path="/about">
+        <Suspense fallback={<PageLoader />}>
+          <About />
+        </Suspense>
+      </Route>
+      <Route path="/magazine">
+        <Suspense fallback={<PageLoader />}>
+          <Magazine />
+        </Suspense>
+      </Route>
+      <Route path="/join">
+        <Suspense fallback={<PageLoader />}>
+          <Join />
+        </Suspense>
+      </Route>
+      <Route path="/contact">
+        <Suspense fallback={<PageLoader />}>
+          <Contact />
+        </Suspense>
+      </Route>
+      <Route path="/checkout">
+        <Suspense fallback={<PageLoader />}>
+          <Checkout />
+        </Suspense>
+      </Route>
+      <Route path="/checkout/success">
+        <Suspense fallback={<PageLoader />}>
+          <CheckoutSuccess />
+        </Suspense>
+      </Route>
+      <Route path="/downloads">
+        <Suspense fallback={<PageLoader />}>
+          <Downloads />
+        </Suspense>
+      </Route>
+      <Route path="/subscription">
+        <Suspense fallback={<PageLoader />}>
+          <Subscription />
+        </Suspense>
+      </Route>
+      <Route path="/subscription/manage">
+        <Suspense fallback={<PageLoader />}>
+          <SubscriptionManagement />
+        </Suspense>
+      </Route>
+      <Route path="/favorites">
+        <Suspense fallback={<PageLoader />}>
+          <Favorites />
+        </Suspense>
+      </Route>
+      <Route path="/privacy">
+        <Suspense fallback={<PageLoader />}>
+          <Legal page="privacy" />
+        </Suspense>
+      </Route>
+      <Route path="/terms">
+        <Suspense fallback={<PageLoader />}>
+          <Legal page="terms" />
+        </Suspense>
+      </Route>
+      <Route path="/returns">
+        <Suspense fallback={<PageLoader />}>
+          <Legal page="returns" />
+        </Suspense>
+      </Route>
+      <Route path="/shipping">
+        <Suspense fallback={<PageLoader />}>
+          <Shipping />
+        </Suspense>
+      </Route>
+      <Route path="/breslov-wisdom">
+        <Suspense fallback={<PageLoader />}>
+          <BreslovWisdom />
+        </Suspense>
+      </Route>
+      <Route path="/keren-style">
+        <Suspense fallback={<PageLoader />}>
+          <KerenStyle />
+        </Suspense>
+      </Route>
+      <Route path="/haesh-hype">
+        <Suspense fallback={<PageLoader />}>
+          <HaeshHype />
+        </Suspense>
+      </Route>
+      <Route path="/chat">
+        <Suspense fallback={<PageLoader />}>
+          <Chat />
+        </Suspense>
+      </Route>
+      <Route path="/blog">
+        <Suspense fallback={<PageLoader />}>
+          <Blog />
+        </Suspense>
+      </Route>
+      <Route path="/yaaakov">
+        <Suspense fallback={<PageLoader />}>
+          <YaakovDashboard />
+        </Suspense>
+      </Route>
+      <Route path="/admin">
+        <Suspense fallback={<PageLoader />}>
+          <Admin />
+        </Suspense>
+      </Route>
+      <Route path="/orders/:id">
+        <Suspense fallback={<PageLoader />}>
+          <OrderTracking />
+        </Suspense>
+      </Route>
+      <Route path="/orders">
+        <Suspense fallback={<PageLoader />}>
+          <OrderTracking />
+        </Suspense>
+      </Route>
+      <Route component={NotFound} />
+    </Switch>
   );
 }
 
