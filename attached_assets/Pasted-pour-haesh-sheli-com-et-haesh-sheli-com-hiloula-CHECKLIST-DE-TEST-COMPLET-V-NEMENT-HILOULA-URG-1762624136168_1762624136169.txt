@@ -1,0 +1,207 @@
+pour haesh-sheli.com et haesh-sheli.com/hiloula 🚨 CHECKLIST DE TEST COMPLET - ÉVÉNEMENT HILOULA
+URGENT: Événement dans 30 minutes!
+URL Production: https://keren-david-centralized-555.replit.app/hiloula
+Date: 8 Novembre 2025
+Événement: Hiloula Rabbi Israel Dov Odesser - 17 Novembre 2025
+
+📋 TESTS CRITIQUES - SECTION 1: PAGE HILOULA LANDING (Points 1-25)
+Affichage & Design
+ 1. Page /hiloula se charge en moins de 3 secondes
+ 2. Hero section orange (#FF6B35 → #FFC837) visible
+ 3. Photo Rabbi Israel dans cercle blanc visible
+ 4. Titre hébreu "הדלקת נר לעילוי נשמת רבי ישראל דב אודסר זצ״ל" affiché
+ 5. Sous-titre "הילולת הסבא - י״ח חשוון" visible
+ 6. Date "כ״ה חשון תשפ״ו • 17 נובמבר 2025" correcte
+Countdown Timer
+ 7. Section countdown violet/rose (#8B5CF6 → #EC4899) affichée
+ 8. Timer affiche jours restants (devrait être ~9 jours)
+ 9. Timer affiche heures en temps réel
+ 10. Timer affiche minutes qui décrément
+ 11. Timer affiche secondes qui changent chaque seconde
+ 12. Emoji ⏰ visible avec "זמן הולך! ההילולא בעוד:"
+Image Promotionnelle
+ 13. Image promotionnelle (Rabbi + billets d'avion + globe) visible
+ 14. Image centrée avec max-width 600px
+ 15. Image a border-radius 16px
+ 16. Image a box-shadow visible
+ 17. Image responsive sur mobile (ne déborde pas)
+Formulaire Donation
+ 18. Section gradient violet/rose (#9333EA → #EC4899) visible
+ 19. Titre "🎁 תרום ₪200 והדליק נר לעילוי נשמה" affiché
+ 20. Champ "שם מלא *" (nom complet) avec placeholder
+ 21. Champ "אימייל *" (email) avec placeholder
+ 22. Champ "טלפון (אופציונלי)" avec placeholder "050-1234567"
+ 23. Input montant donation avec minimum 100₪
+ 24. Suggestions montant (100₪, 150₪, 200₪, 300₪) cliquables
+ 25. Texte des champs LISIBLE (couleur #1a1a1a, PAS blanc sur blanc)
+💳 TESTS PAYPAL - SECTION 2: DONATION FLOW (Points 26-50)
+Formulaire - Validation Frontend
+ 26. Formulaire vide → clic bouton → erreur "אנא מלא שם ואימייל"
+ 27. Nom seul rempli → erreur affichée
+ 28. Email invalide (ex: "test") → erreur validation
+ 29. Montant < 100₪ → erreur "מינימום תרומה 100₪"
+ 30. Montant 100₪ exactement → accepté
+Création Ordre PayPal
+ 31. Remplir: Nom "Test User", Email "test@example.com", Montant 100₪
+ 32. Clic bouton "💳 תרום 100₪ עכשיו"
+ 33. Loading state affiché: "⏳ מעבד תשלום..."
+ 34. Requête POST /api/lottery/donate envoyée
+ 35. Réponse contient "success": true
+ 36. Réponse contient "orderID" (format PayPal)
+ 37. Réponse contient "approvalUrl"
+ 38. Redirection automatique vers PayPal sandbox
+ 39. Page PayPal affiche montant correct (100 ILS)
+ 40. Bouton "Continuer" visible sur PayPal
+Tests Montants Variables
+ 41. Test donation 150₪ → ordre créé avec montant correct
+ 42. Test donation 200₪ → ordre créé avec montant correct
+ 43. Test donation 300₪ → ordre créé avec montant correct
+ 44. Test donation personnalisé 250₪ → fonctionne
+Logs Serveur PayPal
+ 45. Logs serveur montrent: "✅ Lottery donation order created: [ID]"
+ 46. Logs montrent: "Amount: [montant] ILS"
+ 47. Logs montrent: "🔗 Approval URL: https://..."
+ 48. Aucune erreur PayPal dans les logs
+ 49. Status code 200 pour POST /api/lottery/donate
+ 50. Session stocke donation info pour callback
+🗄️ TESTS DATABASE - SECTION 3: LOTTERY_ENTRIES (Points 51-65)
+Structure Table
+ 51. Table lottery_entries existe dans PostgreSQL
+ 52. Colonne id varchar primaryKey existe
+ 53. Colonne full_name text NOT NULL existe
+ 54. Colonne email text NOT NULL existe
+ 55. Colonne phone text nullable existe
+ 56. Colonne barcode_number text NOT NULL unique existe
+ 57. Colonne paypal_order_id text nullable existe
+ 58. Colonne donation_amount integer NOT NULL existe
+ 59. Colonne currency text NOT NULL existe
+ 60. Colonne status text nullable existe
+ 61. Colonne is_winner boolean nullable existe
+ 62. Colonne prize_info text nullable existe
+ 63. Colonne created_at timestamp nullable existe
+Test Données
+SQL à exécuter pour vérifier:
+
+SELECT * FROM lottery_entries ORDER BY created_at DESC LIMIT 5;
+SELECT COUNT(*) FROM lottery_entries;
+
+ 64. Query SELECT fonctionne sans erreur
+ 65. Entries créées après paiement PayPal capturé
+📱 TESTS QR CODE - SECTION 4 (Points 66-75)
+QR Code Production
+ 66. Fichier HILOULA-QR-CODE-PRODUCTION.png existe dans root
+ 67. QR code fait 2000x2000 pixels
+ 68. QR code format PNG noir/blanc
+ 69. Scanner QR code avec téléphone → ouvre URL production
+ 70. URL scannée: https://keren-david-centralized-555.replit.app/hiloula
+QR Code sur Page
+ 71. Section "📱 סרוק QR לתרומה מהירה" visible
+ 72. QR code dynamique généré sur page (violet #8B5CF6)
+ 73. QR code sur page scanne vers URL actuelle
+ 74. Texte "200 ₪" affiché sous QR code
+ 75. Texte "מינימום תרומה להדלקת נר" visible
+🎨 TESTS UI/UX - SECTION 5: RESPONSIVE & DESIGN (Points 76-85)
+Mobile (iPhone/Android)
+ 76. Page charge sur mobile (320px width)
+ 77. Image promotionnelle ne déborde pas
+ 78. Countdown timer lisible sur petit écran
+ 79. Formulaire utilisable avec clavier mobile
+ 80. Bouton donation assez grand pour toucher (min 48px height)
+ 81. Pas de scroll horizontal
+ 82. Police Assistant/Rubik charge correctement (RTL hébreu)
+Desktop
+ 83. Page centrée avec max-width
+ 84. Tous éléments visibles sans scroll excessif
+ 85. Hover effects sur bouton donation fonctionnent
+🌐 TESTS NAVIGATION - SECTION 6: MENU & LANGUES (Points 86-92)
+Popup Langues
+ 86. Clic icône globe → popup langues s'ouvre
+ 87. Popup passe AU-DESSUS du menu (z-index 9999)
+ 88. Backdrop semi-transparent visible
+ 89. Langues disponibles: HE, EN, FR, ES, RU
+ 90. Clic langue → popup se ferme
+ 91. Clic backdrop → popup se ferme
+ 92. Langue active en surbrillance bleu (#3b82f6)
+🤖 TESTS CHAT & ASSISTANT - SECTION 7 (Points 93-97)
+OpenRouter Chat
+ 93. Variable OPENROUTER_API_KEY existe et valide
+ 94. Endpoint POST /api/chat répond sans erreur
+ 95. Chat Breslov assistant fonctionne (test question en hébreu)
+ 96. Réponse assistant pertinente et en hébreu
+ 97. Pas d'erreur rate limit ou API key invalid
+✅ TESTS FINAUX - SECTION 8: PRODUCTION READY (Points 98-100)
+Performance & Sécurité
+ 98. Workflow dev status: RUNNING sans erreurs
+ 99. Aucune erreur critique dans logs serveur
+ 100. Page /hiloula accessible publiquement et fonctionnelle
+🔧 COMMANDES RAPIDES POUR TESTS
+Test PayPal Donation:
+curl -X POST https://keren-david-centralized-555.replit.app/api/lottery/donate \
+  -H "Content-Type: application/json" \
+  -d '{"fullName":"Test Event","email":"event@test.com","phone":"0501234567","donationAmount":100}'
+
+Résultat attendu:
+
+{
+  "success": true,
+  "orderID": "XXXXXXXXXXXXX",
+  "approvalUrl": "https://www.sandbox.paypal.com/checkoutnow?token=XXXXXXXXXXXXX",
+  "message": "הזמנה נוצרה בהצלחה"
+}
+
+Test Database:
+-- Compter entries
+SELECT COUNT(*) FROM lottery_entries;
+-- Voir dernières entries
+SELECT full_name, email, donation_amount, barcode_number, created_at 
+FROM lottery_entries 
+ORDER BY created_at DESC 
+LIMIT 10;
+-- Vérifier structure
+SELECT column_name, data_type, is_nullable 
+FROM information_schema.columns 
+WHERE table_name = 'lottery_entries' 
+ORDER BY ordinal_position;
+
+Test Logs Serveur:
+# Voir logs workflow dev
+tail -f /tmp/logs/dev_*.log | grep -E "lottery|PayPal|ERROR"
+
+🚨 CHECKLIST RAPIDE PRE-ÉVÉNEMENT (5 MIN)
+AVANT l'événement, vérifier CES 10 points critiques:
+
+✅ URL production accessible: https://keren-david-centralized-555.replit.app/hiloula
+✅ Page se charge en < 3 secondes
+✅ Image promotionnelle visible
+✅ Countdown timer fonctionne
+✅ Formulaire accepte donations 100₪+
+✅ Test donation crée orderID PayPal
+✅ QR code scanne vers bonne URL
+✅ Popup langues au-dessus menu
+✅ Mobile responsive
+✅ Aucune erreur serveur
+📞 EN CAS DE PROBLÈME
+Si test échoue:
+
+Vérifier logs serveur: /tmp/logs/dev_*.log
+Vérifier secrets: PAYPAL_CLIENT_ID, PAYPAL_SECRET, OPENROUTER_API_KEY
+Restart workflow: npm run dev
+Vérifier database: SELECT * FROM lottery_entries;
+Contacts urgence:
+
+Support technique: admin@holyrentals.com
+WhatsApp: +972-50-351-5893
+✨ STATUS ACTUEL DU SYSTÈME
+Derniers tests effectués (8 Nov 2025 17:35):
+
+✅ PayPal order 100₪: 38T26260PS246632J - SUCCESS
+✅ PayPal order 150₪: 16K41127NS3544001 - SUCCESS
+✅ Database lottery_entries: OPÉRATIONNELLE
+✅ Page responsive: VALIDÉE
+✅ Z-index popup: CORRIGÉ
+✅ Image promotionnelle: AJOUTÉE
+🎯 SYSTÈME PRÊT POUR L'ÉVÉNEMENT!
+
+Document créé: 8 Novembre 2025
+Pour: Claude Code, Manus, Genspark, ChatGPT Agent, Replit Agent
+Version: 1.0 - PRODUCTION READY 

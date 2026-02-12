@@ -1,0 +1,13 @@
+Assure-toi que, quand on ajoute des produits au cart, c'est-à-dire au panier, ce soit vraiment les vrais produits et seulement ceux qu'on a ajoutés qui soient ajoutés, sans d'autres produits qui viennent se greffer comme ça au cart. Fais que le cart ait une vraie mémoire.
+
+Et si tu peux vraiment créer une vraie mémoire pour les clients, ca veut dire que, si un client il vient et il s'identifie sur le site (ou même s'il ne s'identifie pas ; c'est important qu'il y ait, en tout cas, une vraie mémoire par rapport à la session, à cette session particulière avec le client).
+
+Comme je l'ai mentionné dans d'autres messages, quand on rentre sur la page d'accueil, tu as complètement esquinté et bousillé, donc ça, il va falloir que tu la corriges, parce que je vois que tu l'as pas corrigée. La page d'accueil était vraiment magnifique et, là, tu l'as complètement esquintée. Elle était belle, elle était vraiment super avec des images et tout magnifique, et je ne te l'ai jamais demandé de la changer. Malheureusement, tu l'as complètement détruite. Voilà.
+
+Et aussi le mot Yaakov Temporaire il apparaît dans le menu et tu l'as fait aussi apparaître en plein milieu de page de la page d'accueil, chose qui ne devrait pas avoir lieu. En plus, tu as mis les prix du cartes à côté de Yaakov en plein milieu de la page de. En fait, la page d'accueil était vraiment super et, en plus, c'est vraiment la première page qu'on voit, donc c'est important qu'elle soit parfaite. Là, tu l'as complètement tronqué, esquinter, donc il faut vraiment la régler ; c'est super important.
+
+Et je vois aussi qu'il y a plein, plein, plein de choses que je t'ai dites dans les messages précédents que tu n'as pas nécessairement prises en compte. On fait une analyse de tous les messages précédents que je t'ai donnés dans cette session, et vraiment, sur toi, d'arranger les choses une par une en faisant un plan.
+
+Because, là, j'ai pas l'impression que tu as tout réglé et j'ai l'impression, malheureusement, que tu as érodé ou oublié certaines de mes instructions, ce qui fait que je vais devoir tout vérifier encore une fois manuellement, et c'est vraiment dommage.
+
+Donc, tu dois vérifier cela. 

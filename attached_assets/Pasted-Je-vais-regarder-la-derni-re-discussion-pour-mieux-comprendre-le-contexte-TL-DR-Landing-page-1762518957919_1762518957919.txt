@@ -1,0 +1,129 @@
+Je vais regarder la dernière discussion pour mieux comprendre le contexte.🎯 **TL;DR**: Landing page Hiloula - 3 gagnants voyage Ouman + nouveau site interactif Rabbi Nachman
+
+💰 **QUICK WIN CASH**: Donations immédiates + emails qualifiés = Revenue pour Hafatsa
+
+📋 **ACTION ≤30min** 🎉
+
+Voici le copywriting complet en hébreu pour ta landing page:
+
+```html
+<!-- HERO SECTION -->
+<h1>🎉 בקרוב: אתר חדש ומהפכני של קרן רבי נחמן! 🎉</h1>
+
+<h2>🎁 3 מאושרים יזכו בנסיעה לאומן! 🎁</h2>
+
+<!-- COUNTDOWN -->
+<div class="countdown-box">
+    <h3>⏰ עוד 7 ימים להכרזה הגדולה! ⏰</h3>
+    <p class="highlight">כתובת האתר החדש תיחשף יחד עם שמות הזוכים</p>
+    <p class="date">📅 יום חמישי, י״ח חשון תשפ״ו</p>
+</div>
+
+<!-- MAIN MESSAGE -->
+<div class="main-content">
+    <h3>✈️ הגרלה מיוחדת - 3 כרטיסים לאומן! ✈️</h3>
+    
+    <p class="big-text">
+    השתתפו עכשיו בהגרלה הגדולה!<br>
+    3 זוכים מאושרים יקבלו נסיעה מלאה לציון הקדוש באומן
+    </p>
+    
+    <div class="prize-details">
+        🏆 <strong>הפרסים כוללים:</strong>
+        <ul>
+            <li>✅ טיסה הלוך ושוב</li>
+            <li>✅ לינה בבית מדרש</li>
+            <li>✅ ארוחות כשרות למהדרין</li>
+            <li>✅ ליווי רוחני מלא</li>
+        </ul>
+    </div>
+</div>
+
+<!-- TEASER NEW SITE -->
+<div class="coming-soon">
+    <h3>🚀 מה מחכה לכם באתר החדש? 🚀</h3>
+    
+    <div class="features">
+        <p>🎬 <strong>סרטונים אינטראקטיביים</strong><br>
+        חוויה מדהימה של שיעורי רבי נחמן בטכנולוגיה מתקדמת</p>
+        
+        <p>🎵 <strong>מוזיקה ברסלבית חיה</strong><br>
+        ניגונים, שירים ומנגינות שמחות 24/7</p>
+        
+        <p>🤖 <strong>אווטאר אינטראקטיבי</strong><br>
+        שאל שאלות וקבל תשובות מתורת רבי נחמן בזמן אמת!</p>
+        
+        <p>✨ <strong>משהו יוצא דופן שטרם נחשף...</strong><br>
+        חוויה רוחנית דיגיטלית שתשנה את חייכם!</p>
+    </div>
+</div>
+
+<!-- CTA SECTION -->
+<div class="cta-section">
+    <h3>📝 הרשמו עכשיו להשתתפות בהגרלה!</h3>
+    
+    <p class="urgency">
+    ⚡ <strong>זמן מוגבל!</strong> ⚡<br>
+    ההרשמה נסגרת בעוד 7 ימים בלבד!<br>
+    התוצאות ייקבעו לאחר סיום האיסוף והעיבוד
+    </p>
+    
+    <div class="steps">
+        <h4>איך משתתפים?</h4>
+        <p>1️⃣ הירשמו בטופס למטה</p>
+        <p>2️⃣ שתפו עם חברים (כל שיתוף = סיכוי נוסף!)</p>
+        <p>3️⃣ תרמו לקרן (אופציונלי - מגדיל סיכויים)</p>
+        <p>4️⃣ חכו להכרזה בעוד שבוע!</p>
+    </div>
+</div>
+
+<!-- BOTTOM MESSAGE -->
+<div class="bottom-message">
+    <h3>🌟 עולם חדש של רבי נחמן מחכה לכם! 🌟</h3>
+    
+    <p class="inspiration">
+    "כל העולם כולו גשר צר מאוד, והעיקר לא לפחד כלל"<br>
+    <strong>בעוד שבוע בדיוק - הכל ישתנה!</strong>
+    </p>
+    
+    <p class="final">
+    📍 כתובת האתר החדש<br>
+    🏆 שמות 3 הזוכים המאושרים<br>
+    🎊 הפתעות נוספות<br>
+    <strong>הכל יוכרז בו זמנית!</strong>
+    </p>
+    
+    <p class="signature">
+    נא נח נחמ נחמן מאומן! 🙏<br>
+    קרן הפצת רבי ישראל דב אודסר זצ״ל<br>
+    <strong>מביאים את האור של רבי נחמן לעולם הדיגיטלי!</strong>
+    </p>
+</div>
+```
+
+**Style CSS suggéré** (moderne + spirituel):
+```css
+.countdown-box { 
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    animation: pulse 2s infinite;
+}
+.highlight { 
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #FFD700;
+}
+.features p {
+    border-left: 4px solid #667eea;
+    padding-left: 15px;
+    margin: 20px 0;
+}
+```
+
+🔗 **SYNERGIE**: Landing → Emails → Donations → Voyages Ouman → Hafatsa mission
+
+💸 **IMPACT HAFATSA**: Chaque inscription = Contact futur acheteur livres RN = Revenue → Distribution mondiale
+
+🕎 **LIEN MISSION 63M$**: Site interactif = Toucher jeunes → Ventes livres × 1000 → Maasser → Foundation Hafatsa

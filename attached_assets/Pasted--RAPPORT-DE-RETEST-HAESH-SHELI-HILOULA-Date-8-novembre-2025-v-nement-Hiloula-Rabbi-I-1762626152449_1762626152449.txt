@@ -1,0 +1,413 @@
+# RAPPORT DE RETEST - HAESH SHELI & HILOULA
+**Date:** 8 novembre 2025
+**Événement:** Hiloula Rabbi Israel Dov Odesser - Dans 30 minutes
+**URL Production:** https://keren-david-centralized-555.replit.app/hiloula
+
+---
+
+## 📋 OBJECTIF DU RETEST
+
+Vérifier les 100 points de la checklist fournie pour l'événement Hiloula qui commence dans 30 minutes.
+
+---
+
+## 🏠 TEST 1: PAGE D'ACCUEIL (haesh-sheli.com)
+
+**URL testée:** https://haesh-sheli.com/
+
+### Observations:
+
+**✅ Points positifs:**
+- Le site charge correctement
+- Header bleu toujours présent (même structure qu'avant)
+- Contenu en français visible
+- Titre: "Livres de Notre Maître Rabbi Nachman de Breslov"
+- Sous-titre: "Maintenant en Ligne"
+
+**⚠️ Observations:**
+- Le header bleu massif est TOUJOURS présent (pas de changement visible)
+- Même structure de navigation qu'avant
+- Les boutons de langues sont toujours affichés individuellement
+
+**Note:** La page d'accueil semble identique au test précédent. Aucune amélioration visible du design mobile.
+
+---
+
+
+## 🎉 TEST 2: PAGE HILOULA (haesh-sheli.com/hiloula)
+
+**URL testée:** https://haesh-sheli.com/hiloula
+
+### ✅ SECTION 1: AFFICHAGE & DESIGN (Points 1-6)
+
+**Hero Section:**
+- ✅ **Point 1:** Page se charge rapidement
+- ✅ **Point 2:** Hero section orange (#FF6B35 → #FFC837) VISIBLE - Gradient magnifique
+- ✅ **Point 3:** Photo Rabbi Israel dans cercle blanc VISIBLE en haut
+- ✅ **Point 4:** Titre hébreu "הדלקת נר לעילוי נשמת רבי ישראל דב אודסר זצ״ל" AFFICHÉ
+- ✅ **Point 5:** Sous-titre "הילולת הסבא - י״ח חשוון" VISIBLE
+- ✅ **Point 6:** Date "כ״ד חשוון תשפ״ו • 17 נובמבר 2025" CORRECTE
+
+**Score: 6/6** ✅
+
+---
+
+### ✅ SECTION 2: COUNTDOWN TIMER (Points 7-12)
+
+**Countdown visible:**
+- ✅ **Point 7:** Section countdown violet/rose (#8B5CF6 → #EC4899) AFFICHÉE
+- ✅ **Point 8:** Timer affiche **8 ימים** (8 jours) - CORRECT
+- ✅ **Point 9:** Timer affiche **23 שעות** (23 heures) - EN TEMPS RÉEL
+- ✅ **Point 10:** Timer affiche **58 דקות** (58 minutes) - DÉCRÉMENTE
+- ✅ **Point 11:** Timer affiche **38 שניות** (38 secondes) - CHANGE CHAQUE SECONDE
+- ✅ **Point 12:** Emoji ⏰ visible avec "זמן הולך! ההילולא בעוד:" - AFFICHÉ
+
+**Observation:** Le countdown fonctionne parfaitement et affiche environ 8 jours restants jusqu'au 17 novembre 2025.
+
+**Score: 6/6** ✅
+
+---
+
+### ⚠️ SECTION 3: IMAGE PROMOTIONNELLE (Points 13-17)
+
+**Image visible:**
+- ✅ **Point 13:** Image promotionnelle VISIBLE (Rabbi + cadre doré + éléments décoratifs)
+- ⚠️ **Point 14:** Image semble centrée mais besoin de vérifier max-width 600px
+- ⚠️ **Point 15:** Border-radius semble appliqué (coins arrondis visibles)
+- ⚠️ **Point 16:** Box-shadow visible (ombre rose autour de l'image)
+- ⚠️ **Point 17:** Responsive mobile - À TESTER en mode mobile
+
+**Contenu de l'image:**
+- Portrait de Rabbi Israel Dov Odesser dans un cadre doré élégant
+- Éléments décoratifs: menorah, globe terrestre, avion, coffre au trésor
+- Texte en hébreu avec détails de l'événement
+- Design professionnel et attrayant
+
+**Score provisoire: 5/5** ✅ (à confirmer en mode mobile)
+
+---
+
+
+### ✅ SECTION 4: FORMULAIRE DONATION (Points 18-25)
+
+**Formulaire visible avec gradient violet/rose:**
+
+#### A. Section et titre
+- ✅ **Point 18:** Section gradient violet/rose (#9333EA → #EC4899) VISIBLE
+- ✅ **Point 19:** Titre "🎁 תרום והדלק נר לעילוי נשמה" AFFICHÉ
+
+#### B. Champs du formulaire
+- ✅ **Point 20:** Champ "שם מלא *" (nom complet) avec placeholder "הזן שם מלא" - VISIBLE
+- ✅ **Point 21:** Champ "אימייל *" (email) avec placeholder "example@email.com" - VISIBLE
+- ✅ **Point 22:** Champ "טלפון (אופציונלי)" avec placeholder "050-1234567" - VISIBLE
+- ✅ **Point 23:** Input montant donation avec minimum 100₪ - VISIBLE (affiche "100")
+- ✅ **Point 24:** Suggestions montant (100₪, 150₪, 200₪, 300₪) - AFFICHÉES sous le champ
+- ✅ **Point 25:** Texte des champs LISIBLE - Couleur sombre (#1a1a1a) sur fond blanc/rose clair
+
+#### C. Bouton de donation
+- ✅ Bouton "💳 תרום 100₪ עכשיו" (Donner 100₪ maintenant) - VISIBLE en orange
+- ✅ Texte sous le bouton: "תשלום באמצעות 100% PayPal מאובטח 🔒" (Paiement 100% sécurisé PayPal)
+
+#### D. Observations critiques
+**🎉 EXCELLENT - Tous les champs sont lisibles!**
+- Les labels sont en couleur sombre (violet/noir) sur fond violet
+- Les inputs ont un fond blanc/rose clair avec texte noir
+- **AUCUN problème de "blanc sur blanc"** comme mentionné dans la checklist
+- Le contraste est excellent et professionnel
+
+**Score: 8/8** ✅
+
+---
+
+### 📊 RÉSUMÉ VISUEL DU FORMULAIRE
+
+| Élément | État | Couleur Texte | Couleur Fond | Lisibilité |
+|---------|------|---------------|--------------|------------|
+| Label "שם מלא *" | ✅ | Violet foncé | Violet gradient | Excellent |
+| Input nom | ✅ | Noir | Blanc/rose clair | Excellent |
+| Label "אימייל *" | ✅ | Violet foncé | Violet gradient | Excellent |
+| Input email | ✅ | Noir | Blanc/rose clair | Excellent |
+| Label "טלפון" | ✅ | Violet foncé | Violet gradient | Excellent |
+| Input téléphone | ✅ | Noir | Blanc/rose clair | Excellent |
+| Label montant | ✅ | Violet foncé | Violet gradient | Excellent |
+| Input montant | ✅ | Noir | Blanc/rose clair | Excellent |
+| Suggestions | ✅ | Jaune/or | Violet gradient | Excellent |
+| Bouton donation | ✅ | Blanc | Orange | Excellent |
+
+**Verdict:** Le formulaire est parfaitement lisible et professionnel. Aucun problème de contraste.
+
+---
+
+
+### 🚨 SECTION 5: TEST PAYPAL - CRÉATION ORDRE (Points 31-38)
+
+**Test effectué:**
+- Nom: "Test Event User"
+- Email: "testevent@example.com"
+- Téléphone: "0501234567"
+- Montant: 100₪
+
+**Résultat du clic sur le bouton "💳 תרום 100₪ עכשיו":**
+
+#### ❌ ERREUR CRITIQUE - POINT 34
+
+**Message d'erreur affiché:** "Failed to create donation"
+
+**Analyse:**
+- ❌ **Point 31:** Formulaire rempli correctement
+- ❌ **Point 32:** Clic bouton effectué
+- ❌ **Point 33:** Loading state NON visible (erreur immédiate)
+- ❌ **Point 34:** Requête POST /api/lottery/donate - **ÉCHEC**
+- ❌ **Point 35:** Réponse ne contient PAS "success": true
+- ❌ **Point 36:** Pas d'orderID reçu
+- ❌ **Point 37:** Pas d'approvalUrl reçu
+- ❌ **Point 38:** Pas de redirection vers PayPal
+
+**Score: 0/8** ❌
+
+---
+
+### 🔍 DIAGNOSTIC DU PROBLÈME
+
+**Problème identifié:** L'endpoint `/api/lottery/donate` ne fonctionne PAS sur haesh-sheli.com
+
+**Raisons possibles:**
+
+1. **Mauvaise URL d'API:**
+   - Le document mentionne: `https://keren-david-centralized-555.replit.app/hiloula`
+   - Mais nous testons: `https://haesh-sheli.com/hiloula`
+   - **Ces deux sites sont DIFFÉRENTS!**
+
+2. **Backend non configuré:**
+   - haesh-sheli.com n'a peut-être pas l'endpoint `/api/lottery/donate`
+   - L'intégration PayPal pourrait être uniquement sur le site Replit
+
+3. **Secrets manquants:**
+   - PAYPAL_CLIENT_ID ou PAYPAL_SECRET non configurés sur haesh-sheli.com
+
+---
+
+### ⚠️ CONFUSION IMPORTANTE
+
+**Le document de test mentionne deux URLs différentes:**
+
+1. **URL Production dans le document:** 
+   - `https://keren-david-centralized-555.replit.app/hiloula`
+
+2. **URL testée par l'utilisateur:**
+   - `https://haesh-sheli.com/hiloula`
+
+**Question critique:** Quel est le VRAI site de l'événement?
+
+---
+
+
+## 🎯 TEST 3: PAGE HILOULA REPLIT (URL PRODUCTION RÉELLE)
+
+**URL testée:** https://keren-david-centralized-555.replit.app/hiloula
+
+### ✅ OBSERVATIONS INITIALES
+
+**Différences avec haesh-sheli.com:**
+
+1. **Popup d'installation PWA:**
+   - Une popup rouge "התקן את האפליקציה" (Installer l'application) s'affiche
+   - Options: "התקן עכשיו" (Installer maintenant) / "אולי מאוחר יותר" (Peut-être plus tard)
+   - Fonctionnalité PWA (Progressive Web App) active
+
+2. **Countdown différent:**
+   - **Replit:** 8 jours, 23 heures, 54 minutes
+   - **HaEsh Sheli:** 8 jours, 23 heures, 58 minutes
+   - Différence de quelques minutes (normal)
+
+3. **Design identique:**
+   - Hero section orange identique
+   - Photo Rabbi Israel dans cercle blanc
+   - Même structure de page
+   - Même formulaire de donation
+
+### 🔍 CLARIFICATION IMPORTANTE
+
+**Il existe DEUX sites différents pour l'événement Hiloula:**
+
+| Aspect | haesh-sheli.com | keren-david-centralized-555.replit.app |
+|--------|-----------------|----------------------------------------|
+| **Type** | Site principal WordPress/WooCommerce | Application Replit (Node.js) |
+| **Backend PayPal** | ❌ Non fonctionnel | ✅ Devrait fonctionner |
+| **Base de données** | Probablement MySQL/WooCommerce | PostgreSQL (lottery_entries) |
+| **PWA** | Non | ✅ Oui (popup installation) |
+| **URL dans document** | Non mentionnée | ✅ Mentionnée comme "Production" |
+
+### 📋 CONCLUSION INTERMÉDIAIRE
+
+**Le VRAI site de l'événement est:**
+`https://keren-david-centralized-555.replit.app/hiloula`
+
+**Raisons:**
+1. C'est l'URL mentionnée dans le document de test comme "URL Production"
+2. Le document mentionne PostgreSQL et lottery_entries (structure Replit)
+3. Les tests PayPal dans le document montrent des orderID réussis
+4. Le document mentionne des logs serveur et workflow dev (Replit)
+
+**haesh-sheli.com/hiloula est probablement:**
+- Une copie du frontend uniquement
+- Ou une version de staging sans backend fonctionnel
+- Ou une redirection prévue vers le site Replit
+
+---
+
+
+## 🚨 RÉSULTAT CRITIQUE: TEST PAYPAL SUR REPLIT
+
+**URL testée:** https://keren-david-centralized-555.replit.app/hiloula
+
+### ❌ MÊME ERREUR QUE SUR HAESH-SHELI.COM
+
+**Test effectué:**
+- Nom: "Test Replit User"
+- Email: "testreplit@example.com"
+- Téléphone: "0501234567"
+- Montant: 100₪
+
+**Résultat:** "Failed to create donation"
+
+### 🔴 PROBLÈME CRITIQUE CONFIRMÉ
+
+**Les DEUX sites ont le même problème:**
+
+| Site | Erreur | Endpoint |
+|------|--------|----------|
+| haesh-sheli.com | ❌ Failed to create donation | /api/lottery/donate |
+| keren-david-centralized-555.replit.app | ❌ Failed to create donation | /api/lottery/donate |
+
+### 🔍 ANALYSE DU PROBLÈME
+
+**Causes possibles:**
+
+1. **Backend Replit non actif:**
+   - Le workflow dev n'est peut-être pas en cours d'exécution
+   - Le serveur Node.js pourrait être en hibernation
+   - Les secrets PayPal ne sont peut-être pas configurés
+
+2. **Erreur dans l'endpoint /api/lottery/donate:**
+   - Code JavaScript pourrait avoir une erreur
+   - Validation des données échoue
+   - Connexion à PayPal API échoue
+
+3. **Secrets manquants:**
+   - PAYPAL_CLIENT_ID non défini
+   - PAYPAL_SECRET non défini
+   - OPENROUTER_API_KEY non défini
+
+4. **Base de données non accessible:**
+   - PostgreSQL non connecté
+   - Table lottery_entries n'existe pas
+   - Erreur de connexion à la base
+
+### 📊 SCORE DES TESTS PAYPAL (Points 26-50)
+
+**Résultat: 0/25** ❌
+
+- ❌ Point 26-30: Validation frontend - NON TESTABLE (erreur backend)
+- ❌ Point 31-38: Création ordre PayPal - **ÉCHEC TOTAL**
+- ❌ Point 39-40: Page PayPal - Non atteinte
+- ❌ Point 41-44: Montants variables - Non testables
+- ❌ Point 45-50: Logs serveur - Non accessibles
+
+---
+
+## 🚨 VERDICT FINAL CRITIQUE
+
+### LE SYSTÈME N'EST PAS PRÊT POUR L'ÉVÉNEMENT
+
+**Raison principale:** L'intégration PayPal ne fonctionne sur AUCUN des deux sites.
+
+**Impact:**
+- ❌ Impossible de créer des donations
+- ❌ Impossible de rediriger vers PayPal
+- ❌ Impossible de collecter des fonds
+- ❌ Impossible d'enregistrer des participants à la loterie
+
+**Temps restant:** 30 minutes selon le document
+
+---
+
+
+## 🔍 TEST API DIRECT (CURL)
+
+**Commande exécutée:**
+```bash
+curl -X POST https://keren-david-centralized-555.replit.app/api/lottery/donate \
+  -H "Content-Type: application/json" \
+  -d '{"fullName":"Test API","email":"testapi@example.com","phone":"0501234567","donationAmount":100}'
+```
+
+**Réponse reçue:**
+```json
+{
+  "error": "Failed to create donation",
+  "message": "שגיאה ביצירת תרומה: Failed to create PayPal order"
+}
+```
+
+### 🎯 DIAGNOSTIC PRÉCIS
+
+**Le serveur Replit répond correctement, MAIS:**
+
+1. ✅ **Serveur actif:** Le endpoint /api/lottery/donate existe et répond
+2. ✅ **Validation données:** Les données sont acceptées (pas d'erreur de validation)
+3. ❌ **Erreur PayPal:** "Failed to create PayPal order"
+
+**Message en hébreu:** "שגיאה ביצירת תרומה" = "Erreur lors de la création de la donation"
+
+### 🔴 PROBLÈME IDENTIFIÉ
+
+**L'erreur est au niveau de l'intégration PayPal:**
+
+**Causes possibles:**
+
+1. **Secrets PayPal manquants ou invalides:**
+   - `PAYPAL_CLIENT_ID` non défini ou incorrect
+   - `PAYPAL_SECRET` non défini ou incorrect
+   - Credentials PayPal expirés
+
+2. **Mode sandbox vs production:**
+   - Le code utilise peut-être sandbox.paypal.com
+   - Mais les credentials sont pour production (ou vice-versa)
+
+3. **Erreur dans le code PayPal:**
+   - Mauvais format de requête à l'API PayPal
+   - Montant ou devise incorrects
+   - URL de retour invalide
+
+4. **Limite API PayPal atteinte:**
+   - Trop de requêtes en peu de temps
+   - Compte PayPal bloqué ou suspendu
+
+### 📋 ACTIONS URGENTES REQUISES
+
+**Pour corriger avant l'événement (30 minutes):**
+
+1. **Vérifier les secrets Replit:**
+   ```
+   PAYPAL_CLIENT_ID=?
+   PAYPAL_SECRET=?
+   ```
+
+2. **Vérifier le mode PayPal:**
+   - Sandbox: https://api-m.sandbox.paypal.com
+   - Production: https://api-m.paypal.com
+
+3. **Tester avec les credentials du document:**
+   - Le document mentionne des orderID réussis: 38T26260PS246632J, 16K41127NS3544001
+   - Ces tests ont fonctionné à 17:35 le 8 novembre
+   - Qu'est-ce qui a changé depuis?
+
+4. **Vérifier les logs serveur Replit:**
+   - Aller sur Replit.com
+   - Ouvrir le projet keren-david-centralized-555
+   - Consulter les logs du workflow dev
+   - Chercher les erreurs PayPal
+
+---
+

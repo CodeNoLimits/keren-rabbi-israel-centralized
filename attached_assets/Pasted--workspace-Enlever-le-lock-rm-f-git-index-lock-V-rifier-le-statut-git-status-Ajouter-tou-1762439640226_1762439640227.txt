@@ -1,0 +1,54 @@
+~/workspace$ # Enlever le lock
+rm -f .git/index.lock
+
+# Vérifier le statut
+git status
+
+# Ajouter tous les fichiers modifiés
+git add .
+
+# Commit avec message
+git commit -m "Add lottery system and intelligent product routing"
+
+# Push vers GitHub
+git push origin KEREN_5.5.5_CURSOR
+On branch KEREN_5.5.5_CURSOR
+Your branch is ahead of 'origin/KEREN_5.5.5_CURSOR' by 54 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+    modified:   client/src/pages/home.tsx
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[KEREN_5.5.5_CURSOR 45e1716] Add lottery system and intelligent product routing
+ 1 file changed, 28 insertions(+), 30 deletions(-)
+Enumerating objects: 702, done.
+Counting objects: 100% (702/702), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (625/625), done.
+Writing objects: 100% (637/637), 288.48 MiB | 5.54 MiB/s, done.
+Total 637 (delta 285), reused 244 (delta 6), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (285/285), completed with 40 local objects.
+remote: fatal: did not receive expected object d32756946e00eb5401de99dab350992a43a6a6f7
+error: remote unpack failed: index-pack failed
+To https://github.com/CodeNoLimits/KEREN-DAVID-REPLIT-555
+ ! [remote rejected] KEREN_5.5.5_CURSOR -> KEREN_5.5.5_CURSOR (failed)
+error: failed to push some refs to 'https://github.com/CodeNoLimits/KEREN-DAVID-REPLIT-555'
+~/workspace$ git pull origin KEREN_5.5.5_CURSOR --rebase
+git push origin KEREN_5.5.5_CURSOR
+fatal: couldn't find remote ref KEREN_5.5.5_CURSOR
+Enumerating objects: 702, done.
+Counting objects: 100% (702/702), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (625/625), done.
+Writing objects: 100% (637/637), 288.48 MiB | 5.51 MiB/s, done.
+Total 637 (delta 285), reused 244 (delta 6), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (285/285), completed with 40 local objects.
+remote: fatal: did not receive expected object d32756946e00eb5401de99dab350992a43a6a6f7
+error: remote unpack failed: index-pack failed
+To https://github.com/CodeNoLimits/KEREN-DAVID-REPLIT-555
+ ! [remote rejected] KEREN_5.5.5_CURSOR -> KEREN_5.5.5_CURSOR (failed)
+error: failed to push some refs to 'https://github.com/CodeNoLimits/KEREN-DAVID-REPLIT-555'
+~/workspace$ 

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'wouter';
 import { Header } from '../components/Header';
+import { ProductVariantModal } from '../components/ProductVariantModal';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCart } from '../contexts/CartContext';
@@ -16,6 +17,7 @@ export default function Favorites() {
   const isRTL = currentLanguage === 'he';
   const [compareIds, setCompareIds] = useState<Set<string>>(new Set());
   const [showCompare, setShowCompare] = useState(false);
+  const [variantModalProduct, setVariantModalProduct] = useState<any | null>(null);
 
   const favoriteProducts = useMemo(() => {
     return Array.from(favorites)
@@ -89,24 +91,8 @@ export default function Favorites() {
   };
 
   const handleAddToCart = (product: any) => {
-    if (product.variants?.length > 0) {
-      const defaultVariant = product.variants[0];
-      addItem({
-        productId: product.id,
-        variantId: defaultVariant.id || `${product.id}-default`,
-        name: product.name,
-        nameEnglish: product.nameEnglish || product.name,
-        variant: {
-          format: defaultVariant.format || '',
-          binding: defaultVariant.binding || '',
-          size: defaultVariant.size || '',
-        },
-        price: defaultVariant.price,
-        quantity: 1,
-        image: product.images?.[0] || '',
-      });
-      setIsCartOpen(true);
-    }
+    // Task 1.1: Always open variant selector modal on "Add to Cart" to ensure user chooses size
+    setVariantModalProduct(product);
   };
 
   return (
@@ -378,6 +364,14 @@ export default function Favorites() {
           </div>
         )}
       </div>
+
+      {variantModalProduct && (
+        <ProductVariantModal 
+          product={variantModalProduct} 
+          isOpen={!!variantModalProduct} 
+          onClose={() => setVariantModalProduct(null)} 
+        />
+      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback, type ReactNode } from 'react';
 import { Link } from 'wouter';
 import { Header } from '../components/Header';
+import { ProductVariantModal } from '../components/ProductVariantModal';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency } from '../hooks/useCurrency';
 import { useCart } from '../contexts/CartContext';
@@ -54,6 +55,7 @@ export default function Home() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [variantModalProduct, setVariantModalProduct] = useState<Product | null>(null);
   const autoScrollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const quickAddTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -119,26 +121,9 @@ export default function Home() {
 
   // Quick add handler
   const handleQuickAdd = useCallback((product: Product) => {
-    const defaultVariant = product.variants?.[0];
-    if (!defaultVariant) return;
-    addItem({
-      productId: product.id,
-      variantId: defaultVariant.id,
-      name: product.name,
-      nameEnglish: product.nameEnglish || product.name,
-      image: product.images?.[0] || '',
-      price: defaultVariant.price,
-      quantity: 1,
-      variant: {
-        format: defaultVariant.format || '',
-        binding: defaultVariant.binding || '',
-        size: defaultVariant.size || '',
-      },
-    });
-    setIsCartOpen(true);
-    if (quickAddTimerRef.current) clearTimeout(quickAddTimerRef.current);
-    quickAddTimerRef.current = setTimeout(() => setIsCartOpen(false), 2000);
-  }, [addItem, setIsCartOpen]);
+    // Task 1.1: Always open variant selector modal on "Quick Add" to ensure user chooses size
+    setVariantModalProduct(product);
+  }, []);
 
   useEffect(() => {
     return () => { if (quickAddTimerRef.current) clearTimeout(quickAddTimerRef.current); };
@@ -181,6 +166,10 @@ export default function Home() {
       {/* ============================================ */}
       <section style={{
         background: '#FFFFFF',
+        backgroundImage: 'url("/images/jerusalem-skyline.svg")',
+        backgroundSize: 'contain',
+        backgroundPosition: 'bottom center',
+        backgroundRepeat: 'no-repeat',
         padding: '6rem 0',
         minHeight: '60vh',
         display: 'flex',
@@ -189,6 +178,12 @@ export default function Home() {
         overflow: 'hidden',
         borderBottom: '1px solid #f1f5f9',
       }}>
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.4) 100%)',
+          zIndex: 0
+        }} />
         <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', width: '100%', position: 'relative', zIndex: 1}}>
           <div className="hero-grid" style={{
             display: 'grid',
@@ -465,7 +460,15 @@ export default function Home() {
                     }}
                   >
                     <Link href={`/product/${product.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                      <div style={{width: '100%', height: '200px', overflow: 'hidden', background: '#FFFFFF'}}>
+                      <div style={{
+                        width: '100%', 
+                        height: '200px', 
+                        overflow: 'hidden', 
+                        background: '#f8f9fa',
+                        backgroundImage: 'url("/images/jerusalem-skyline.svg")',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'bottom center'
+                      }}>
                         {imgSrc ? (
                           <img
                             loading="lazy"
@@ -474,11 +477,11 @@ export default function Home() {
                             height="200"
                             src={imgSrc}
                             alt={descriptiveAlt}
-                            style={{width: '100%', height: '100%', objectFit: 'cover'}}
+                            style={{width: '100%', height: '100%', objectFit: 'cover', mixBlendMode: 'multiply'}}
                             onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
                           />
                         ) : (
-                          <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem'}}>
+                          <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', position: 'relative', zIndex: 1}}>
                             &#128214;
                           </div>
                         )}
@@ -624,7 +627,15 @@ export default function Home() {
                   }}
                 >
                   <Link href={`/product/${product.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                    <div style={{width: '100%', height: '240px', overflow: 'hidden', background: '#FFFFFF'}}>
+                    <div style={{
+                      width: '100%', 
+                      height: '240px', 
+                      overflow: 'hidden', 
+                      background: '#f8f9fa',
+                      backgroundImage: 'url("/images/jerusalem-skyline.svg")',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'bottom center'
+                    }}>
                       {imgSrc ? (
                         <img
                           loading="lazy"
@@ -633,12 +644,12 @@ export default function Home() {
                           height="240"
                           src={imgSrc}
                           alt={bsAlt}
-                          style={{width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease-out'}}
+                          style={{width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease-out', mixBlendMode: 'multiply'}}
                           className="group-hover:scale-105"
                           onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
                         />
                       ) : (
-                        <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.5rem'}}>
+                        <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.5rem', position: 'relative', zIndex: 1}}>
                           &#128214;
                         </div>
                       )}
@@ -671,6 +682,7 @@ export default function Home() {
                         borderBottom: '1px solid hsl(210, 85%, 45%)',
                         paddingBottom: '1px',
                         transition: 'color 0.2s',
+                        marginBottom: '1rem'
                       }}>
                         {ml(currentLanguage, {
                           he: '\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05DE\u05D5\u05E6\u05E8',
@@ -680,9 +692,49 @@ export default function Home() {
                           ru: '\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435',
                         })}
                       </span>
-                    </div>
-                  </Link>
-                </article>
+                    </Link>
+                    {/* Quick Add button - Task 1.1 */}
+                    {product.variants && product.variants.length > 0 && (
+                      <div style={{padding: '0 1.25rem 1.25rem'}}>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            handleQuickAdd(product as Product);
+                          }}
+                          style={{
+                            width: '100%',
+                            background: '#FF6B00',
+                            color: '#FFFFFF',
+                            border: 'none',
+                            padding: '0.75rem',
+                            borderRadius: '8px',
+                            cursor: 'pointer',
+                            fontSize: '0.9rem',
+                            fontWeight: '700',
+                            transition: 'all 0.2s ease',
+                            boxShadow: '0 2px 8px rgba(255,107,0,0.2)'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = '#E65A00';
+                            e.currentTarget.style.transform = 'translateY(-2px)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = '#FF6B00';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                          }}
+                        >
+                          {ml(currentLanguage, {
+                            he: '\u05D4\u05D5\u05E1\u05E3 \u05DC\u05E1\u05DC',
+                            en: 'Add to Cart',
+                            fr: 'Ajouter au Panier',
+                            es: 'A\u00F1adir al Carrito',
+                            ru: '\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443',
+                          })}
+                        </button>
+                      </div>
+                    )}
+                  </article>
               );
             })}
           </div>
@@ -735,8 +787,15 @@ export default function Home() {
                     e.currentTarget.style.transform = 'translateY(0)';
                     e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)';
                   }}>
-                  <div style={{height: '240px', overflow: 'hidden'}}>
-                    <img loading="lazy" decoding="async" width="280" height="240" src={book.image} alt={book.title} style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+                  <div style={{
+                    height: '240px', 
+                    overflow: 'hidden',
+                    background: '#f8f9fa',
+                    backgroundImage: 'url("/images/jerusalem-skyline.svg")',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'bottom center'
+                  }}>
+                    <img loading="lazy" decoding="async" width="280" height="240" src={book.image} alt={book.title} style={{width: '100%', height: '100%', objectFit: 'cover', mixBlendMode: 'multiply'}} />
                   </div>
                   <div style={{padding: '1.25rem', textAlign: 'center'}}>
                     <h3 style={{fontSize: '1.1rem', fontWeight: '600', color: 'hsl(210, 25%, 25%)', margin: 0}}>
@@ -1046,6 +1105,14 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {variantModalProduct && (
+        <ProductVariantModal 
+          product={variantModalProduct} 
+          isOpen={!!variantModalProduct} 
+          onClose={() => setVariantModalProduct(null)} 
+        />
+      )}
     </main>
   );
 }

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הגרלה לאומן - קרן רבי ישראל</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Heebo', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .rabbi-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 5px solid #667eea;
+            object-fit: cover;
+        }
+        
+        h1 {
+            color: #764ba2;
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .hiloula {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .urgence {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        #qrcode {
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            display: inline-block;
+        }
+        
+        .donation-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .price {
+            font-size: 48px;
+            color: #2ecc71;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .lottery-info {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .countdown {
+            font-size: 20px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff3cd;
+            border-radius: 10px;
+            color: #856404;
+        }
+        
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .email-form {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+        }
+        
+        .email-form input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            width: 250px;
+            margin-left: 10px;
+        }
+        
+        .email-form button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Photo Rabbi Israël - Remplace par ta vraie image -->
+        <img src="https://i.imgur.com/rabbi-israel.jpg" alt="רבי ישראל דב אודסר" class="rabbi-image" onerror="this.src='data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"150\" height=\"150\"><rect width=\"150\" height=\"150\" fill=\"%23667eea\"/><text x=\"50%\" y=\"50%\" text-anchor=\"middle\" dy=\".3em\" fill=\"white\" font-size=\"60\">רי״ד</text></svg>'">
+        
+        <h1>הילולת רבי ישראל</h1>
+        <div class="hiloula">כ״ה חשון - יום ראשון</div>
+        
+        <div class="urgence">
+            🔥 הגרלה מיוחדת להילולא! 🔥<br>
+            תרום 200₪ וזכה בנסיעה לאומן!
+        </div>
+        
+        <div class="donation-info">
+            <h2>📱 סרוק לתרומה מיידית</h2>
+            <div id="qrcode"></div>
+            <div class="price">200 ₪</div>
+            <p>מינימום לכניסה להגרלה</p>
+            <p><strong>100% להפצת ספרי רבי נחמן!</strong></p>
+        </div>
+        
+        <div class="lottery-info">
+            <h2>🎁 הפרס: נסיעה לאומן!</h2>
+            <p>✈️ טיסה הלוך-חזור</p>
+            <p>🏨 3 לילות מלון</p>
+            <p>🍽️ ארוחות כלולות</p>
+            <p>💰 שווי: 5,000₪</p>
+        </div>
+        
+        <div class="countdown">
+            ⏰ האתר המלא יעלה בעוד 14 ימים!<br>
+            📅 תוצאות ההגרלה: מוצ״ש פרשת וישב
+        </div>
+        
+        <div class="email-form">
+            <h3>📧 הירשם לעדכונים</h3>
+            <form id="emailForm" onsubmit="saveEmail(event)">
+                <input type="email" id="email" placeholder="המייל שלך" required>
+                <input type="tel" id="phone" placeholder="טלפון (רשות)">
+                <button type="submit">שלח</button>
+            </form>
+            <p id="message" style="color: green; margin-top: 10px; display: none;">✅ נרשמת בהצלחה!</p>
+        </div>
+        
+        <a href="https://wa.me/972501234567?text=רוצה%20להשתתף%20בהגרלה%20לאומן!" class="whatsapp-btn">
+            💬 שתף בוואטסאפ
+        </a>
+        
+        <a href="https://paypal.me/kerenrabinachman/200ILS" class="whatsapp-btn" style="background: #0070ba;">
+            💳 תרום עכשיו
+        </a>
+        
+        <div class="footer">
+            <p>נא נח נחמ נחמן מאומן 🙏</p>
+            <p>קרן הפצת רבי ישראל דב אודסר</p>
+            <p>לע״נ ישראל בער בן אברהם זצ״ל</p>
+        </div>
+    </div>
+    
+    <script>
+        // Génère QR Code pour PayPal
+        new QRCode(document.getElementById("qrcode"), {
+            text: "https://paypal.me/kerenrabinachman/200ILS",
+            width: 200,
+            height: 200,
+            colorDark: "#667eea",
+            colorLight: "#ffffff",
+        });
+        
+        // Sauvegarde emails dans localStorage (urgence)
+        function saveEmail(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const timestamp = new Date().toISOString();
+            
+            // Sauve dans localStorage
+            let emails = JSON.parse(localStorage.getItem('hiloula_emails') || '[]');
+            emails.push({email, phone, timestamp});
+            localStorage.setItem('hiloula_emails', JSON.stringify(emails));
+            
+            // Affiche message
+            document.getElementById('message').style.display = 'block';
+            document.getElementById('emailForm').reset();
+            
+            // Cache message après 3 sec
+            setTimeout(() => {
+                document.getElementById('message').style.display = 'none';
+            }, 3000);
+            
+            // Optionnel: Envoie à webhook/API
+            // fetch('ton-api-endpoint', {method: 'POST', body: JSON.stringify({email, phone})});
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+Parfait — je te prépare un **package prêt à coller** pour l’onglet *Magazine* :
+
+1. une **liste de vidéos YouTube vérifiables** sur **Saba Israël (Rabbi Yisrael Dov Odesser)** en **hébreu / français / anglais** (et je note l’absence probable en **espagnol / russe**, comme tu l’as demandé),
+2. un **format de remise** clair pour Replit (qu’ils peuvent intégrer tel quel),
+3. un **plan d’articles à écrire** (centrés exclusivement sur Saba Israël & les enseignements authentiques de Rabbi Naḥman),
+4. un **mapping “article → image libre → vidéo associée”** pour meubler immédiatement.
+
+> Note honnête : l’outil de recherche intégré ici limite l’indexation directe de résultats YouTube. Je t’inclus donc des **liens vérifiés** (Wikipédia pointe vers la page/chaîne “Rabbi Yisroel Ber Odesser” sur YouTube) + des **requêtes précises** que Replit peut lancer pour extraire automatiquement toutes les vidéos pertinentes avec filtres (titre/description/chaîne). Je fournis aussi des **images libres (Wikimedia Commons)** et des **sources biographiques fiables** pour ancrer les articles. ([Wikipédia][1])
+
+---
+
+# 1) Vidéos YouTube — liste de départ vérifiable
+
+### Hébreu (HE)
+
+* **Rabbi Yisroel Ber Odesser — YouTube (page listée par Wikipédia)**
+  *Ancre utile pour retrouver des enregistrements d’archives et compilations consacrées à סבא ישראל.*
+  Lien (depuis la section “Video and audio links” de Wikipédia) : “**Rabbi Yisroel Ber Odesser — YouTube**”. ([Wikipédia][1])
+
+> Pour extraire toutes les vidéos HE pertinentes (et **exclure les chaînes non liées**), demande à Replit de lancer ces requêtes YouTube (voir format “crawler” plus bas) :
+>
+> * `ישראל דב אודסר סבא ישראל`
+> * `רבי ישראל דב אודסר עדויות`
+> * `סבא ישראל אבי הנחל`
+> * `נ נח נחמ נחמן מאומן סבא ישראל`
+>   Filtre chaîne : inclure “קרן רבי ישראל … / Keren Rabbi Israel Dov Odesser / NaNach / ננח” ; exclure tout rabbin non-lié.
+
+### Français (FR)
+
+* **Témoignage / biographie en français** (ex. compilations “Breslev – Rabbi Israel Ber Odesser – témoignage/biographie”) — souvent postées par des disciples francophones ; à extraire via requêtes ci-dessous.
+  Requêtes :
+
+  * `Rabbi Israël Dov Odesser témoignage`
+  * `Saba Israël Odesser français`
+  * `Breslev Saba Israël FR`
+
+*(Tu m’avais signalé ce type de vidéo FR ; les requêtes ci-dessus permettent à Replit de récupérer les liens exacts + miniatures et métadonnées en masse.)*
+
+### Anglais (EN)
+
+* **Saba Yisroel / Yisroel Dov (Ber) Odesser — English** (clips, docs, lectures avec sous-titres) — à extraire via :
+
+  * `Rabbi Yisroel Dov Odesser English`
+  * `Saba Yisroel Odesser subtitled`
+  * `Na Nach Saba Israel English`
+
+### Espagnol & Russe
+
+* **Disponibilité limitée / quasi nulle** pour du contenu focalisé *exclusivement* sur Saba Israël — tu l’avais anticipé, on l’indique clairement dans la page (et on peut combler avec des sous-titres auto).
+
+**Sources d’appui biographique** (pour décrire correctement les vidéos et tags) :
+Wikipédia EN & HE (biographie + section “Videos”), dossier biographique de *Breslev.org* sur Saba Israël. ([Wikipédia][1])
+
+---
+
+# 2) Spécification “crawler” pour Replit (copier-coller)
+
+> Objectif : **sortir une liste JSON** prête à importer (Magazine), **par langue**, **100% centrée Saba ישראל**, avec **filtres d’exclusion**.
+
+```json
+{
+  "targets": [
+    {
+      "lang": "HE",
+      "queries": ["ישראל דב אודסר", "סבא ישראל", "רבי ישראל דב אודסר", "אבי הנחל", "נ נח נחמ נחמן מאומן סבא ישראל"],
+      "must_include_any": ["ישראל דב אודסר", "סבא ישראל", "Odesser"],
+      "channels_prefer": ["קרן רבי ישראל", "Keren Rabbi Israel Dov Odesser", "NaNach", "ננח"],
+      "exclude_keywords": ["שיעור שאינו קשור", "רב אחר", "מוזיקה לא קשורה"],
+      "max_results": 80
+    },
+    {
+      "lang": "FR",
+      "queries": ["Rabbi Israël Dov Odesser", "Saba Israël Odesser", "Breslev Saba Israël"],
+      "must_include_any": ["Odesser", "Saba", "Breslev"],
+      "channels_prefer": ["Breslev FR", "Keren Rabbi Israel (FR)"],
+      "exclude_keywords": ["rabbin", "témoignage"] ,
+      "max_results": 40
+    },
+    {
+      "lang": "EN",
+      "queries": ["Rabbi Yisroel Dov Odesser", "Saba Yisroel Odesser", "Na Nach Saba Israel"],
+      "must_include_any": ["Odesser", "Saba"],
+      "channels_prefer": ["NaNach", "Breslov English"],
+      "exclude_keywords": ["unrelated rabbi", "music unrelated"],
+      "max_results": 40
+    }
+  ],
+  "fields": ["title", "url", "channel", "duration", "published_at", "lang_guess", "description_snippet", "thumbnails"],
+  "post_filters": {
+    "hard_include": ["Odesser", "ישראל דב", "סבא ישראל", "Saba Israel", "Yisroel Dov"],
+    "hard_exclude": ["compilation unrelated", "parody", "meme", "other rabbis"]
+  },
+  "dedupe_by": ["videoId", "normalized_title"]
+}
+```
+
+---
+
+# 3) Articles “à écrire” (ancrés sur Rabbi Naḥman, centrés Saba Israël)
+
+> Tous **basés sur des sources reconnues** : vie de Saba Israël et mission de la **קרן רבי ישראל** (impression/diffusion des livres), + enseignements de Rabbi Naḥman (Hitbodedut, Simḥa, Tikkun HaKlali…). Références biographiques et de contexte : Wikipédia (EN/HE) et *Breslev.org* (notice détaillée). ([Wikipédia][1])
+
+### A1 — **הפתקא והניגון**
+
+**FR** : *Le Petek et le Nom : Na Naḥ Naḥma Naḥman Meouman*
+**Angle** : raconter sobrement le “Petek” et le rôle de Saba Israël dans la *simḥa* et la diffusion du Nom, sans polémique — lien avec l’élan missionnaire de la קרן (impression des sefarim).
+**Image conseillée** : Tombe de Rabbi Naḥman à Ouman (Wikimedia Commons). ([Wikimedia Commons][2])
+**Vidéo à associer** : playlist/vidéos HE “Saba ישראל — Na Nach… (archives)”. (à récupérer via le crawler YouTube ci-dessus).
+**CTA** : “Télécharger *Likoutey Moharan* – boutique”.
+
+### A2 — **אבי הנחל – המכתבים לשזר**
+
+**FR** : *Ibey Ha-Naḥal — lettres à Zalman Shazar*
+**Angle** : présenter l’échange Saba–Shazar (piété, hitbodedut, encouragements) et le livre **Ibey Ha-Naḥal (אבי הנחל)**. (Wikipédia EN mentionne ce corpus). ([Wikipédia][1])
+**Image** : Portrait Saba Israël (Commons/Wikidata/Zissil). ([wikidata.org][3])
+**Vidéo** : biographie HE (crawler HE).
+
+### A3 — **התבודדות – כלי הנשמה**
+
+**FR** : *La Hitbodedut — l’outil de l’âme*
+**Angle** : ancrer dans *Hishtapchut HaNefesh* (ouvrage de l’entourage de Rabbi Naḥman, découvert par Saba à ses débuts selon les bios), expliquer la pratique quotidienne (champ/forêt, 60 min/jour). Base historique ici : bio Wikipédia. ([Wikipédia][1])
+**Image** : photo libre de sentier/forêt (illustration symbolique).
+**Vidéo** : témoignages Saba sur la prière personnelle (crawler HE/EN).
+
+### A4 — **שמחה תמידית – עיקר גדול**
+
+**FR** : *La Joie constante — un principe majeur*
+**Angle** : exposer l’accent de Saba sur la **simḥa** ; relier à des leçons classiques de Rabbi Naḥman (ex. *Likkouté Moharan* I:24 sur l’élévation par la joie ; I:282 sur le nigoun).
+**Image** : danse hassidique (libre) ou portrait Saba souriant (Zissil si droits ok). ([zissil.com][4])
+**Vidéo** : extraits HE “שמחה / ריקוד עם סבא ישראל” (crawler HE).
+
+### A5 — **הדפסת ספרי רבנו – שליחות ללא גבולות**
+
+**FR** : *Imprimer & diffuser — une mission sans frontières*
+**Angle** : la **קרן רבי ישראל דב אודסר** et l’impression massive des sefarim de Rabbi Naḥman à prix coûtant ; historique & vocation (sources “À propos – האש שלי”). ([haesh-sheli.co.il][5])
+**Image** : photo libre de livres / imprimerie ; ou visuels du **catalogue** (si droits). ([calameo.com][6])
+**Vidéo** : contenu institutionnel / témoignages (crawler HE/FR/EN, priorité aux chaînes de la קרן).
+
+### A6 — **תיקון הכללי – עשרה מזמורי תהילים**
+
+**FR** : *Le Tikkoun HaKlali — 10 Psaumes de réparation*
+**Angle** : exposer la pratique telle que transmise par Rabbi Naḥman (sans paraphraser des textes sous droits), relier à la diffusion par la קרן (livrets multilingues).
+**Image** : photo libre de Tehilim / siddour.
+**Vidéo** : lectures/explications EN/HE (crawler).
+
+---
+
+# 4) Mapping **Articles ↔ Images libres ↔ Vidéos**
+
+| Article                     | Image (libre)                                        | Vidéo (YouTube)                                            |
+| --------------------------- | ---------------------------------------------------- | ---------------------------------------------------------- |
+| A1 – Petek & Nom            | **Tombe de Rabbi Naḥman – Ouman** (Commons)          | Requête HE “נ נח נחמ נחמן מאומן סבא ישראל” (playlist Saba) |
+| A2 – Ibey Ha-Naḥal          | **Portrait Saba Israël** (Wikidata/Zissil)           | Requête HE “רבי ישראל דב אודסר קורות חייו”                 |
+| A3 – Hitbodedut             | Photo libre forêt/sentier (Pexels/Commons)           | Requête HE/EN “Hitbodedut Saba Israel Odesser”             |
+| A4 – Simḥa                  | Portrait souriant / danse (Zissil/libre)             | Requête HE “שמחה סבא ישראל”                                |
+| A5 – Impression & diffusion | Photo imprimerie / **catalogue de la קרן** (Calameo) | Requête HE “קרן רבי ישראל הדפסה”                           |
+| A6 – Tikkoun HaKlali        | Photo Tehilim (libre)                                | Requête EN/HE “Tikkun Haklali Saba Israel”                 |
+
+**Liens images libres cités :**
+
+* Catégorie Commons *Yisroel Ber Odesser* (portraits & visuels liés). ([Wikimedia Commons][7])
+* Tombe de Rabbi Naḥman à Ouman (Commons). ([Wikimedia Commons][2])
+
+**Ancrages biographiques pour les textes** :
+
+* Wikipédia EN & HE sur Saba Israël. ([Wikipédia][1])
+* Notice *Breslev.org* (תולדות חייו…). ([שער ברסלב][8])
+
+---
+
+# 5) Format “prêt à intégrer” (Magazine)
+
+Tu peux remettre ce **CSV** à Replit (ou l’importer dans ton CMS) :
+
+```
+lang;type;title;slug;summary;image_url;image_credit;video_url;source_ref
+HE;article;הפתקא והניגון;petek-vehanigun;"סיפור הפתק וניגון נ נח נחמ נחמן מאומן אצל סבא ישראל, ומתוך שמחה ודבקות";https://commons.wikimedia.org/wiki/File:Rabbi_Nahman_Tomb_(Uman,_Ukraine).JPG;Wikimedia Commons;"(à compléter via crawler: playlist HE Saba)";WP-EN/HE + Breslev.org
+FR;article;Le Petek et le Nom;petek-nom;"Récit du Petek et le rôle de Saba Israël dans la joie et la diffusion du Nom";https://commons.wikimedia.org/wiki/File:Rabbi_Nahman_Tomb_(Uman,_Ukraine).JPG;Wikimedia Commons;"(lien exact YouTube FR via crawler)";WP-EN + Breslev.org
+HE;article;אבי הנחל – המכתבים לשזר;ibey-hanachal;"קווי דיוק על ההתכתבויות עם זלמן שזר ומשמעותן לעבודת ה'";(portrait Saba via Commons/Zissil);Zissil/Commons;"(bio HE via crawler)";WP-EN section Shazar
+FR;article;Hitbodedut – l’outil de l’âme;hitbodedut;"La pratique de la prière personnelle selon Rabbi Naḥman et reçue par Saba Israël";(photo forêt libre);Pexels/Commons;"(EN/HE clips sur hitbodedut)";WP-EN (Hishtapchut HaNefesh)
+FR;article;La Joie constante;simha;"Pourquoi la simḥa est une clé chez Rabbi Naḥman et Saba Israël";(portrait/danse libre);Zissil/Commons;"(HE clips simha)";WP-EN + enseignements Breslev
+HE;article;הדפסת ספרי רבנו – שליחות;printing-mission;"מפעל ההדפסה וההפצה של הקרן – ספרים במחיר הקרן";https://www.calameo.com/books/00679056550df3e678424;Calameo;"(vidéo institutionnelle via crawler)";À propos – האש שלי
+EN;article;Tikkun HaKlali;tikun-haklali;"Ten Psalms according to Rebbe Nachman – overview and practice";(photo Tehillim libre);Commons/Pexels;"(clips EN/HE)";Breslov tradition
+```
+
+---
+
+## Ce que tu peux afficher clairement sur le site
+
+* **“Pas (encore) de vidéos dédiées en ES/RU** — nous proposerons des **sous-titres automatiques** depuis HE/FR/EN.”
+* **“Politique éditoriale”** : uniquement Saba Israël / קרן רבי ישראל ; **exclusion d’autres figures**.
+
+---
+
+Si tu veux, je peux enchaîner avec le **texte complet de la page “Magazine”** (structure STItch : Hero, filtres langue/sujets, cartes article, carrousel vidéo, SEO titles/meta), en reprenant **exactement** les entrées ci-dessus.
+
+[1]: https://en.wikipedia.org/wiki/Yisroel_Ber_Odesser "Yisroel Ber Odesser - Wikipedia"
+[2]: https://commons.wikimedia.org/wiki/File%3ARabbi_Nahman_Tomb_%28Uman%2C_Ukraine%29.JPG?utm_source=chatgpt.com "File:Rabbi Nahman Tomb (Uman, Ukraine).JPG - Wikimedia Commons"
+[3]: https://www.wikidata.org/wiki/Q8053869?utm_source=chatgpt.com "Yisroel Ber Odesser - Wikidata"
+[4]: https://www.zissil.com/topics/File%3A00000542-younger-rabbi-yisroel-odesser-portrait-jpg?utm_source=chatgpt.com "File:00000542 younger rabbi yisroel odesser portrait.jpg"
+[5]: https://www.haesh-sheli.co.il/?page_id=38&utm_source=chatgpt.com "אודות – האש שלי – החנות למכירת ספרי רבי נחמן מברסלב במחיר הקרן"
+[6]: https://www.calameo.com/books/00679056550df3e678424?utm_source=chatgpt.com "קטלוג ספרים האש שלי קרן רבי ישראל גב אודסר זיעא ספרי רבי נחמן"
+[7]: https://commons.wikimedia.org/wiki/Category%3AYisroel_Ber_Odesser?utm_source=chatgpt.com "Category:Yisroel Ber Odesser - Wikimedia Commons"
+[8]: https://www.breslev.org/memorial-days/%D7%A8%D7%91%D7%99-%D7%99%D7%A9%D7%A8%D7%90%D7%9C-%D7%91%D7%A2%D7%A8-%D7%90%D7%95%D7%93%D7%A1%D7%A8/?utm_source=chatgpt.com "תולדות חייו של הרה\"ח רבי ישראל דב אודסר זצ\"ל - שער ברסלב"

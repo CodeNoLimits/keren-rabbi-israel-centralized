@@ -1,0 +1,57 @@
+Voici un compte‑rendu rapide des tests menés sur l’URL de production `https://keren-david-centralized-555.replit.app/hiloula` à ~30 minutes de l’événement. J’ai vérifié les éléments essentiels de la checklist en utilisant le site réel et relevé les principaux points positifs et les anomalies critiques.
+
+### Résumé des tests de la section 1 (Affichage, Design & Countdown)
+
+| Point de test                                        | Résultat | Détails                                                                                                                                                               |
+| ---------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Page `/hiloula` se charge en < 3 s                   | ✅        | Le site se charge rapidement et s’affiche sans latence notable.                                                                                                       |
+| Dégradé orange (#FF6B35→#FFC837) en hero             | ✅        | Le header présente le dégradé attendu, avec photo de Rabbi Israel dans un cercle blanc et titres en hébreu.                                                           |
+| Titre et sous‑titre hébreu corrects                  | ✅        | « הדלקת נר לעילוי נשמת רבי ישראל דב אודסר זצ״ל » et « הילולת הסבא – י״ח חשוון » sont présents.                                                                        |
+| Date et calendriers corrects                         | ✅        | La date « כ״ה חשון תשפ״ו • 17 נובמבר 2025 » s’affiche correctement.                                                                                                   |
+| Timer (jours, heures, minutes, secondes)             | ✅        | Le compte à rebours affiche ~9 jours restants et décrémente les minutes/secondes en temps réel.                                                                       |
+| Section de promotion (image Rabbi + billets + globe) | ⚠️       | Impossible de localiser clairement l’image promotionnelle décrite; elle n’apparaît pas au-dessus du formulaire dans la version testée (peut‑être masquée ou absente). |
+
+### Section 2 : Formulaire de donation et PayPal
+
+| Point de test                                                         | Résultat | Observations                                                                                                                                                                                                                                                 |
+| --------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Présence du bloc violet/rose avec titre « תרום והדלק נר לעילוי נשמה » | ✅        | Le formulaire s’affiche avec fond gradient violet/rose.                                                                                                                                                                                                      |
+| Champs requis (nom, e‑mail) et champs optionnels                      | ✅        | Les entrées nom, e‑mail et téléphone sont présentes avec placeholders.                                                                                                                                                                                       |
+| Suggestions de montants (100, 150, 200, 300 ₪)                        | ✅        | Texte de suggestion visible sous l’input.                                                                                                                                                                                                                    |
+| Validation front‑end (formulaire vide)                                | ✅        | Cliquer sur « תרום » sans renseigner les champs affiche l’erreur « אנא מלא שם ואימייל ».                                                                                                                                                                     |
+| Nom seul rempli → erreur                                              | ✅        | L’erreur persiste tant que l’e‑mail n’est pas saisi.                                                                                                                                                                                                         |
+| E‑mail invalide (« test ») → erreur                                   | ⚠️       | La requête part quand même et retourne « Failed to create donation », il n’y a pas de validation du format d’e‑mail.                                                                                                                                         |
+| Montant < 100 ₪ → erreur                                              | ✅        | Le message « סכום מינימלי לתרומה הוא 100₪ » s’affiche pour 50 ₪.                                                                                                                                                                                             |
+| Création de l’ordre PayPal (100 ₪ et plus)                            | ❌        | Toutes les tentatives de don avec 100 ₪ (et e‑mail valide) renvoient « Failed to create donation ». Aucun `orderID` ni redirection vers PayPal n’a été obtenu, ce qui bloque toute transaction et empêche les tests de montants variables et de redirection. |
+
+### Section 3 : QR code (donation rapide)
+
+* Le fichier `HILOULA-QR-CODE-PRODUCTION.png` censé être dans la racine n’est pas accessible : l’URL `…/HILOULA-QR-CODE-PRODUCTION.png` renvoie une page 404 sur le site principal.
+* Sur la page `/hiloula`, une section « 📱 סרוק QR לתרומה מהירה » est visible sous le formulaire, mais il n’a pas été possible de tester le scan (en l’état, impossible d’ouvrir le QR). La mention « 200 ₪ – מינימום תרומה להדלקת נר » est présente.
+
+### Section 5 : Responsive & design mobile
+
+* **Mobile** : Sur un viewport étroit (≈320 px), le formulaire s’affiche correctement, les champs sont utilisables et le bouton est suffisamment grand (> 48 px). Le compte à rebours reste lisible et il n’y a pas de débordement horizontal.
+* **Desktop** : La page est centrée, avec max‑width, et les éléments sont visibles sans scroll excessif.
+* **Couleurs/Design** : La palette beige de fond est respectée, mais les éléments violets/roses pourraient être éclaircis selon la charte.
+
+### Section 6 : Navigation & langues
+
+* Aucun bouton globe ni menu de sélection des langues n’est disponible sur la page `/hiloula`. Le changement de langue n’a donc pas pu être testé, ce qui constitue un écart par rapport à la checklist (points 86‑92).
+
+### Sections 7–8 : Chat/Assistant, performances, logs et production
+
+* Ces points (assistant via OpenRouter, logs, statut du workflow) n’ont pas été directement testés ici. Le site se charge rapidement (< 3 s) et aucune erreur critique n’est apparue dans la console visible.
+* Le formulaire de donation retourne cependant systématiquement l’erreur « Failed to create donation », ce qui peut indiquer un problème de variables d’environnement (`PAYPAL_CLIENT_ID`, `PAYPAL_SECRET`) ou d’API.
+
+### Conclusion — site prêt pour l’événement ?
+
+* **Points positifs** : la page `/hiloula` se charge rapidement, le design général (gradient orange en header, compte à rebours) correspond à la maquette et l’UX mobile est satisfaisante. Les messages de validation pour montant minimum fonctionnent.
+* **Points bloquants** :
+
+  * **Intégration PayPal / API donation** – impossible de créer l’ordre PayPal, le message générique « Failed to create donation » est renvoyé pour les montants ≥ 100 ₪. Cela empêche tout don et toute entrée en base `lottery_entries`.
+  * **QR code production** – le fichier PNG attendu n’existe pas (404).
+  * **Selector de langue** – absent de la page, alors que la checklist demande un popup multi‑langue.
+* **Recommandation** : avant l’événement, il est indispensable de corriger l’intégration PayPal (vérifier les secrets et l’API `/api/lottery/donate`), de s’assurer que le QR code produit pointe vers la bonne URL et d’ajouter/activer le sélecteur de langues. Tant qu’une donation test ne crée pas d’`orderID` PayPal valide, le système ne peut pas être considéré comme prêt.
+
+Ces retours devraient vous aider à prioriser les correctifs critiques pour que la page de Hiloula fonctionne correctement lors de l’événement.

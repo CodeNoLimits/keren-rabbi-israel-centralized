@@ -247,20 +247,30 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
         {/* Product header with image */}
         <div className="flex gap-4 p-4 pb-2 border-b border-gray-100">
           {/* Thumbnail image */}
-          <div className="flex-shrink-0 w-28 h-28 rounded-xl overflow-hidden bg-gray-100 border border-gray-200 shadow-sm">
+          <div className="flex-shrink-0 w-28 h-28 rounded-xl overflow-hidden bg-gray-100 border border-gray-200 shadow-sm relative">
+            {/* Jerusalem background element for modal */}
+            <div 
+              className="absolute inset-0 opacity-20 pointer-events-none" 
+              style={{
+                backgroundImage: 'url("/images/jerusalem-skyline.svg")',
+                backgroundSize: 'cover',
+                backgroundPosition: 'bottom center',
+              }}
+            />
             {product.images && product.images.length > 0 ? (
               <img
                 loading="lazy"
                 decoding="async"
                 src={convertImagePath(product.images[selectedImage] || product.images[0])}
                 alt={displayTitle}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover relative z-10"
+                style={{ mixBlendMode: 'multiply' }}
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                 }}
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-3xl">
+              <div className="w-full h-full flex items-center justify-center text-3xl relative z-10">
                 <span>&#128214;</span>
               </div>
             )}
@@ -323,85 +333,72 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
         </div>
 
         {/* Size Selection - Temu-style chips */}
-        {sizes.length > 1 && (
-          <div className="px-4 pt-4 pb-2">
-            <h4 className="text-sm font-semibold text-gray-700 mb-2">{t.size}</h4>
-            <div className="flex flex-wrap gap-2">
-              {sizes.map((size) => {
-                const isSelected = selectedSize === size;
-                const sizeVariants = getFormatsForSize(variants, size);
-                const minPrice = Math.min(...sizeVariants.map(v => v.price));
-                const hasStock = sizeVariants.some(v => v.inStock);
+        <div className="px-4 pt-4 pb-2">
+          <h4 className="text-sm font-semibold text-gray-700 mb-2">{t.size}</h4>
+          <div className="flex flex-wrap gap-2">
+            {sizes.length > 0 ? sizes.map((size) => {
+              const isSelected = selectedSize === size;
+              const sizeVariants = getFormatsForSize(variants, size);
+              const minPrice = Math.min(...sizeVariants.map(v => v.price));
+              const hasStock = sizeVariants.some(v => v.inStock);
 
-                return (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    disabled={!hasStock}
-                    className={`
-                      relative px-4 py-2 rounded-lg border-2 text-sm font-medium
-                      transition-all duration-200
-                      ${getSizeColor(size, isSelected)}
-                      ${!hasStock ? 'opacity-40 cursor-not-allowed line-through' : 'cursor-pointer'}
-                    `}
-                  >
-                    <div className="flex items-center gap-1">
-                      {isSelected && <Check className="h-3.5 w-3.5" />}
-                      <span>{size}</span>
-                    </div>
-                    <div className="text-xs opacity-75 mt-0.5">{minPrice} {'\u20AA'}</div>
-                  </button>
-                );
-              })}
-            </div>
+              return (
+                <button
+                  key={size}
+                  onClick={() => setSelectedSize(size)}
+                  disabled={!hasStock}
+                  className={`
+                    relative px-4 py-2 rounded-lg border-2 text-sm font-medium
+                    transition-all duration-200
+                    ${getSizeColor(size, isSelected)}
+                    ${!hasStock ? 'opacity-40 cursor-not-allowed line-through' : 'cursor-pointer'}
+                  `}
+                >
+                  <div className="flex items-center gap-1">
+                    {isSelected && <Check className="h-3.5 w-3.5" />}
+                    <span>{size}</span>
+                  </div>
+                  <div className="text-xs opacity-75 mt-0.5">{minPrice} {'\u20AA'}</div>
+                </button>
+              );
+            }) : (
+              <div className="text-sm text-gray-500 italic">{currentVariant.size}</div>
+            )}
           </div>
-        )}
+        </div>
 
         {/* Format/Binding Selection - Temu-style chips */}
-        {formatsForSelectedSize.length > 1 && (
-          <div className="px-4 pt-2 pb-2">
-            <h4 className="text-sm font-semibold text-gray-700 mb-2">{t.format}</h4>
-            <div className="flex flex-wrap gap-2">
-              {formatsForSelectedSize.map((variant) => {
-                const isSelected = selectedVariantId === variant.id;
-                return (
-                  <button
-                    key={variant.id}
-                    onClick={() => setSelectedVariantId(variant.id)}
-                    disabled={!variant.inStock}
-                    className={`
-                      relative px-4 py-2 rounded-lg border-2 text-sm font-medium
-                      transition-all duration-200
-                      ${isSelected
-                        ? 'bg-red-600 text-white border-red-600 shadow-lg scale-105'
-                        : 'bg-white text-gray-800 border-gray-300 hover:border-red-400 hover:bg-red-50'}
-                      ${!variant.inStock ? 'opacity-40 cursor-not-allowed line-through' : 'cursor-pointer'}
-                    `}
-                  >
-                    <div className="flex items-center gap-1">
-                      {isSelected && <Check className="h-3.5 w-3.5" />}
-                      <span>{variant.format}</span>
-                    </div>
-                    <div className="text-xs opacity-75 mt-0.5">{variant.price} {'\u20AA'}</div>
-                  </button>
-                );
-              })}
-            </div>
+        <div className="px-4 pt-2 pb-2">
+          <h4 className="text-sm font-semibold text-gray-700 mb-2">{t.format}</h4>
+          <div className="flex flex-wrap gap-2">
+            {formatsForSelectedSize.length > 0 ? formatsForSelectedSize.map((variant) => {
+              const isSelected = selectedVariantId === variant.id;
+              return (
+                <button
+                  key={variant.id}
+                  onClick={() => setSelectedVariantId(variant.id)}
+                  disabled={!variant.inStock}
+                  className={`
+                    relative px-4 py-2 rounded-lg border-2 text-sm font-medium
+                    transition-all duration-200
+                    ${isSelected
+                      ? 'bg-red-600 text-white border-red-600 shadow-lg scale-105'
+                      : 'bg-white text-gray-800 border-gray-300 hover:border-red-400 hover:bg-red-50'}
+                    ${!variant.inStock ? 'opacity-40 cursor-not-allowed line-through' : 'cursor-pointer'}
+                  `}
+                >
+                  <div className="flex items-center gap-1">
+                    {isSelected && <Check className="h-3.5 w-3.5" />}
+                    <span>{variant.format}</span>
+                  </div>
+                  <div className="text-xs opacity-75 mt-0.5">{variant.price} {'\u20AA'}</div>
+                </button>
+              );
+            }) : (
+              <div className="text-sm text-gray-500 italic">{currentVariant.format} - {currentVariant.binding}</div>
+            )}
           </div>
-        )}
-
-        {/* If only one variant, show its details */}
-        {sizes.length <= 1 && formatsForSelectedSize.length <= 1 && (
-          <div className="px-4 pt-3 pb-1">
-            <div className="bg-gray-50 rounded-lg p-3 text-sm text-gray-600">
-              <span className="font-medium">{currentVariant.format}</span>
-              {' - '}
-              <span>{currentVariant.binding}</span>
-              {' - '}
-              <span>{currentVariant.size}</span>
-            </div>
-          </div>
-        )}
+        </div>
 
         {/* Quantity selector */}
         <div className="px-4 pt-3 pb-2">

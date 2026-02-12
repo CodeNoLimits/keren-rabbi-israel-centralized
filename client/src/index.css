@@ -1343,10 +1343,10 @@ section li a:hover {
   }
 }
 
-/* Assombrir les images pour meilleure visibilité */
-img:not(.header-logo img):not([data-no-filter]) {
+/* Assombrir les images pour meilleure visibilité - SUPPRIMÉ car Esther trouve ça trop sombre */
+/* img:not(.header-logo img):not([data-no-filter]) {
   filter: brightness(0.85) contrast(1.15);
-}
+} */
 
 /* Améliorer la visibilité du texte - couleurs plus foncées */
 .text-muted-foreground,

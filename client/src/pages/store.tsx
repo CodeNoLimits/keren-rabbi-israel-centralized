@@ -26,7 +26,7 @@ function LazyImage({ src, alt, className, dataTestId, onError }: {
 }) {
   const [loaded, setLoaded] = useState(false);
   return (
-    <div className="relative w-full h-full bg-gray-50 overflow-hidden">
+    <div className="relative w-full h-full bg-transparent overflow-hidden">
       <img
         loading="lazy"
         decoding="async"
@@ -144,13 +144,9 @@ export default function Store() {
   const [variantModalProduct, setVariantModalProduct] = useState<Product | null>(null);
 
   const handleQuickAdd = useCallback((product: Product) => {
-    const defaultVariant = product.variants?.[0];
-    if (!defaultVariant) return;
-    addItem({ productId: product.id, variantId: defaultVariant.id, name: product.name, nameEnglish: product.nameEnglish || product.name, image: product.images?.[0] || '', price: defaultVariant.price, quantity: 1, variant: { format: defaultVariant.format || '', binding: defaultVariant.binding || '', size: defaultVariant.size || '' } });
-    setIsCartOpen(true);
-    if (quickAddTimerRef.current) clearTimeout(quickAddTimerRef.current);
-    quickAddTimerRef.current = setTimeout(() => { setIsCartOpen(false); }, 2000);
-  }, [addItem, setIsCartOpen]);
+    // Task 1.1: Always open variant selector modal on "Quick Add" to ensure user chooses size
+    setVariantModalProduct(product);
+  }, []);
 
   useEffect(() => { return () => { if (quickAddTimerRef.current) clearTimeout(quickAddTimerRef.current); }; }, []);
 
@@ -323,13 +319,13 @@ export default function Store() {
 
                     <Link href={`/product/${product.id}`} tabIndex={0} aria-label={`${currentLanguage === 'he' ? '\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05E4\u05E8\u05D8\u05D9\u05DD:' : 'View details:'} ${productTitle}`}>
                       {product.images && product.images.length > 0 ? (
-                        <div className="relative w-full aspect-square overflow-hidden cursor-pointer">
-                          <LazyImage src={convertImagePath(product.images[0])} alt={buildProductAlt(product, currentLanguage)} className={`absolute inset-0 w-full h-full object-cover ${product.images.length > 1 ? 'group-hover:opacity-0' : 'hover:opacity-90'}`} dataTestId={`img-product-${product.id}`} onError={(e) => { const target = e.currentTarget as HTMLImageElement; const parent = target.parentElement; if (parent) { parent.innerHTML = `<div class="w-full h-full bg-gray-100 flex flex-col items-center justify-center gap-2 text-gray-400"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><span class="text-xs text-gray-500 px-2 text-center line-clamp-2">${target.alt}</span></div>`; } }} />
+                        <div className="relative w-full aspect-square overflow-hidden cursor-pointer bg-[#f8f9fa] bg-[url('/images/jerusalem-skyline.svg')] bg-cover bg-bottom">
+                          <LazyImage src={convertImagePath(product.images[0])} alt={buildProductAlt(product, currentLanguage)} className={`absolute inset-0 w-full h-full object-cover mix-blend-multiply ${product.images.length > 1 ? 'group-hover:opacity-0' : 'hover:opacity-90'}`} dataTestId={`img-product-${product.id}`} onError={(e) => { const target = e.currentTarget as HTMLImageElement; const parent = target.parentElement; if (parent) { parent.innerHTML = `<div class="w-full h-full bg-gray-100 flex flex-col items-center justify-center gap-2 text-gray-400"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><span class="text-xs text-gray-500 px-2 text-center line-clamp-2">${target.alt}</span></div>`; } }} />
                           {product.images.length > 1 && (<img loading="lazy" decoding="async" width="300" height="300" src={convertImagePath(product.images[1])} alt={buildProductAlt(product, currentLanguage, '- 2')} className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100" data-testid={`img-product-hover-${product.id}`} onError={(e) => { e.currentTarget.remove(); }} />)}
                           {product.variants && product.variants.length > 0 && (<button onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleQuickAdd(product as Product); }} className="absolute bottom-2 left-2 right-2 z-20 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 translate-y-2 group-hover:translate-y-0 focus-visible:translate-y-0 transition-all duration-300 ease-out bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-semibold text-sm py-2 px-3 rounded-lg shadow-lg flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2" data-testid={`button-quick-add-${product.id}`} aria-label={quickAddLabels[currentLanguage] || quickAddLabels.he}><Plus size={16} strokeWidth={3} /><span>{quickAddLabels[currentLanguage] || quickAddLabels.he}</span></button>)}
                         </div>
                       ) : (
-                        <div className="w-full aspect-square bg-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors relative" data-testid={`placeholder-product-${product.id}`} role="img" aria-label={productTitle}><span className="text-2xl" aria-hidden="true">&#128214;</span>
+                        <div className="w-full aspect-square bg-[#f8f9fa] bg-[url('/images/jerusalem-skyline.svg')] bg-cover bg-bottom flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors relative" data-testid={`placeholder-product-${product.id}`} role="img" aria-label={productTitle}><span className="text-2xl z-10" aria-hidden="true">&#128214;</span>
                           {product.variants && product.variants.length > 0 && (<button onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleQuickAdd(product as Product); }} className="absolute bottom-2 left-2 right-2 z-20 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 translate-y-2 group-hover:translate-y-0 focus-visible:translate-y-0 transition-all duration-300 ease-out bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white font-semibold text-sm py-2 px-3 rounded-lg shadow-lg flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2" data-testid={`button-quick-add-placeholder-${product.id}`} aria-label={quickAddLabels[currentLanguage] || quickAddLabels.he}><Plus size={16} strokeWidth={3} /><span>{quickAddLabels[currentLanguage] || quickAddLabels.he}</span></button>)}
                         </div>
                       )}
@@ -340,8 +336,8 @@ export default function Store() {
                       <div className="text-sm font-black text-orange-600 mb-1" data-testid={`text-price-${product.id}`}>{product.variants && product.variants.length > 0 ? (() => { const minPrice = Math.min(...product.variants.map(v => v.price)); const fromLabel = currentLanguage === 'he' ? '\u05D4\u05D7\u05DC \u05DE-' : currentLanguage === 'fr' ? '\u00C0 partir de ' : currentLanguage === 'es' ? 'Desde ' : currentLanguage === 'ru' ? '\u041E\u0442 ' : 'From '; return <>{fromLabel}<span className="text-lg">{minPrice} {'\u20AA'}</span></>; })() : currentLanguage === 'he' ? '\u05DE\u05D7\u05D9\u05E8 \u05DC\u05D0 \u05D6\u05DE\u05D9\u05DF' : 'Price unavailable'}</div>
                       <div className="flex items-center justify-between text-[10px] uppercase font-bold text-gray-400 mb-3" data-testid={`text-category-${product.id}`}><span>{getInterfaceCategoryName(product.category, currentLanguage)}</span>{product.variants && product.variants.length > 1 && (<span className="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded-sm">{product.variants.length} {currentLanguage === 'he' ? '\u05D0\u05E4\u05E9\u05E8\u05D5\u05D9\u05D5\u05EA' : 'options'}</span>)}</div>
                       <div className="flex gap-2">
-                        <Link href={`/product/${product.id}`} className="flex-1"><Button className="w-full bg-gray-900 hover:bg-gray-800 text-white text-xs font-bold uppercase tracking-widest rounded-none h-10" data-testid={`button-view-details-${product.id}`} aria-label={`${currentLanguage === 'he' ? '\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05E4\u05E8\u05D8\u05D9\u05DD' : 'View Details'}: ${productTitle}`}>{currentLanguage === 'he' ? '\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05E4\u05E8\u05D8\u05D9\u05DD' : t.viewProduct}</Button></Link>
-                        <Button className="bg-orange-600 hover:bg-orange-700 text-white px-3 rounded-none h-10" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setVariantModalProduct(product as Product); }} data-testid={`button-add-to-cart-${product.id}`} aria-label={`${currentLanguage === 'he' ? '\u05D4\u05D5\u05E1\u05E3 \u05DC\u05E1\u05DC' : 'Add to cart'}: ${productTitle}`}><ShoppingCart className="h-4 w-4" /></Button>
+                        <Link href={`/product/${product.id}`} className="flex-1"><Button className="w-full bg-gray-900 hover:bg-gray-800 text-white text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-none h-10 px-2 sm:px-4" data-testid={`button-view-details-${product.id}`} aria-label={`${currentLanguage === 'he' ? '\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05E4\u05E8\u05D8\u05D9\u05DD' : 'View Details'}: ${productTitle}`}>{currentLanguage === 'he' ? '\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05E4\u05E8\u05D8\u05D9\u05DD' : 'View Details'}</Button></Link>
+                        <Button className="bg-orange-600 hover:bg-orange-700 text-white px-3 sm:px-5 rounded-none h-10 flex items-center gap-2" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setVariantModalProduct(product as Product); }} data-testid={`button-add-to-cart-${product.id}`} aria-label={`${currentLanguage === 'he' ? '\u05D4\u05D5\u05E1\u05E3 \u05DC\u05E1\u05DC' : 'Add to cart'}: ${productTitle}`}><ShoppingCart className="h-4 w-4" /><span className="hidden sm:inline text-xs font-bold uppercase">{currentLanguage === 'he' ? '\u05D4\u05D5\u05E1\u05E3' : 'Add'}</span></Button>
                       </div>
                     </div>
                   </article>

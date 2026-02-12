@@ -1,0 +1,402 @@
+DOCUMENT DE TEST COMPLET - MANUS & JAMES PARK
+Site: HaEsh Sheli (האש שלי) - E-commerce Breslov
+Date de création: 6 novembre 2025
+Événement critique: Présentation à 20,000 personnes ce soir (Hilloula Rabbi Israel Dov Odesser)
+
+🎯 OBJECTIF PRINCIPAL
+Tester TOUTES les fonctionnalités du site en mobile ET desktop, identifier tous les problèmes visuels et techniques, et vérifier que le site est prêt pour l'événement de ce soir.
+
+📋 HISTORIQUE COMPLET DES DEMANDES CLIENT
+1. SYSTÈME DE LOTERIE (PRIORITÉ CRITIQUE)
+Flux complet à tester:
+
+QR Code → Landing Page → Formulaire → PayPal → Base de données → Admin Draw
+
+Endpoints à vérifier:
+
+✅ /lottery - Page publique de loterie
+✅ /lottery-payment - Page de paiement
+✅ /lottery-admin - Page admin (PROTÉGÉE - nécessite admin auth)
+✅ POST /api/lottery/payment-entry - Entrée après paiement PayPal (PUBLIC)
+✅ POST /api/lottery/draw-winner - Tirage au sort (ADMIN ONLY)
+✅ GET /api/lottery/participants - Liste participants (ADMIN ONLY)
+✅ GET /api/lottery/winners - Liste gagnants (PUBLIC)
+Tests critiques:
+
+Scanner le QR code → doit amener à /lottery-payment
+Remplir le formulaire avec:
+Nom: Test Participant
+Email: test@example.com
+Téléphone: +972501234567
+Montant: 36 ILS minimum
+Cliquer sur bouton PayPal → vérifier redirection PayPal
+Compléter paiement test PayPal
+Vérifier que l'entrée apparaît dans la base de données lottery_participants
+Accéder à /lottery-admin en tant qu'admin
+Voir la liste des participants
+Cliquer "Draw Winner" → vérifier le tirage pondéré (plus d'achats = plus de chances)
+SÉCURITÉ CRITIQUE:
+
+❌ Tenter d'accéder /lottery-admin SANS login → doit bloquer (401)
+❌ Tenter d'accéder /lottery-admin avec user NON-admin → doit bloquer (403)
+✅ Accéder avec user admin → doit fonctionner
+2. PAYPAL INTEGRATION (PRIORITÉ CRITIQUE)
+Pages avec boutons PayPal:
+
+/store - Chaque produit
+/product/:id - Page produit individuelle
+Tests critiques:
+
+Aller sur /product/1 (n'importe quel livre)
+Sélectionner variante (format, taille)
+Sélectionner quantité (ex: 3)
+VÉRIFIER LE PRIX: Doit afficher variant.price × quantity
+Cliquer sur bouton PayPal bleu
+Vérifier que PayPal charge le PRIX CORRECT
+Compléter paiement test
+Vérifier redirection après paiement
+ALTERNATIVE: Tester bouton "Pay via Old Site" → doit rediriger vers haesh-sheli.co.il/checkout
+Prix à vérifier:
+
+Livre à 95 ILS × 2 = 190 ILS dans PayPal ✅
+Livre à 120 ILS × 1 = 120 ILS dans PayPal ✅
+3. DESIGN MOBILE (PRIORITÉ CRITIQUE - CLIENT FRUSTRÉ)
+Problème rapporté: "Tout le site en mobile est dégueulasse"
+
+Pages à inspecter visuellement en mobile (< 768px):
+
+A. Page d'accueil /
+Problèmes identifiés:
+
+❌ ÉNORME BLOC BLEU en haut (400px+ de hauteur)
+❌ Blocs bleus partout dans le header
+❌ Boutons avec gradient bleu (from-[#1e40af] to-[#1e3a8a])
+❌ Design général pas harmonieux
+Ce qui devrait être:
+
+✅ Header mobile: 48px de hauteur MAXIMUM
+✅ Hamburger menu (☰) en haut à droite
+✅ Logo/titre centré
+✅ Design beige minimaliste (#FAEBD7 background)
+✅ Photo du livre apparaît EN PREMIER (pas de blocs bleus avant)
+✅ Pas de gradients bleus
+B. Sélecteur de langues mobile
+Problème rapporté: "Clique sur le bouton des langues en mobile. Ça change même sans nous donner le sélecteur."
+
+Comportement actuel (MAUVAIS):
+
+Cliquer sur Globe (🌐) → change directement la langue
+Comportement attendu (CORRIGÉ):
+
+Cliquer sur Globe → ouvre un popup/menu
+Menu affiche les 5 langues avec drapeaux:
+🇮🇱 עברית (HE)
+🇺🇸 English (EN)
+🇫🇷 Français (FR)
+🇪🇸 Español (ES)
+🇷🇺 Русский (RU)
+Cliquer sur une langue → change et ferme le menu
+Cliquer en dehors → ferme sans changer
+C. Toutes les pages en mobile
+Vérifier ces pages en mode mobile:
+
+/ - Homepage
+/store - Boutique
+/product/1 - Page produit
+/about - À propos
+/magazine - Magazine
+/lottery - Loterie
+/haesh-hype - HaEsh Hype
+/contact - Contact
+Critères de validation:
+
+✅ Texte lisible (taille 16px minimum)
+✅ Boutons cliquables (48px minimum touch target)
+✅ Pas de débordement horizontal
+✅ Images chargent correctement
+✅ Pas de blocs bleus massifs
+✅ Design cohérent beige/crème
+4. BACKGROUNDS RABBI ISRAEL (DEMANDE CLIENT)
+Demande: "Je ne vois pas dans le site les photos que je t'avais demandé de mettre en arrière-plan"
+
+Photos ajoutées:
+
+public/rabbi-israel-1.jpg
+public/rabbi-israel-2.jpg
+public/rabbi-israel-3.jpg
+public/rabbi-israel-4.jpg
+public/rabbi-israel-5.jpg
+Pages qui DOIVENT avoir ces backgrounds (opacity 0.05-0.08):
+
+/magazine - Hero + Content sections
+/about - Hero + Content sections
+/haesh-hype - Hero + Content sections
+/lottery - Hero section
+Test visuel:
+
+Accéder à chaque page
+VÉRIFIER: Background image subtil visible (très transparent)
+VÉRIFIER: Texte reste parfaitement lisible
+VÉRIFIER: Images ne sont PAS trop visibles (opacity max 0.08)
+5. MULTI-LANGUE (5 LANGUES)
+Langues supportées:
+
+🇮🇱 Hébreu (HE) - Par défaut, RTL
+🇺🇸 Anglais (EN) - LTR
+🇫🇷 Français (FR) - LTR
+🇪🇸 Espagnol (ES) - LTR
+🇷🇺 Russe (RU) - LTR
+Tests:
+
+Changer vers chaque langue
+Vérifier que:
+Direction texte correcte (RTL pour hébreu, LTR pour autres)
+Traductions présentes sur TOUTES les pages
+Boutons/labels traduits
+Prix affichés en ILS (₪) dans toutes les langues
+Pas de texte manquant ou en anglais par défaut
+6. AUTHENTIFICATION & AUTORISATION
+Système:
+
+Session-based auth avec Replit Auth
+PostgreSQL session store
+Rôle admin via flag isAdmin dans table users
+Tests critiques:
+
+Utilisateur non-connecté:
+
+Accéder /lottery-admin → 401 Unauthorized
+Accéder toutes les routes publiques → OK
+Utilisateur connecté (non-admin):
+
+Accéder /lottery-admin → 403 Forbidden
+Message: "Accès réservé aux administrateurs"
+Utilisateur admin:
+
+Accéder /lottery-admin → 200 OK
+Voir liste participants
+Pouvoir effectuer tirage
+Comment créer un admin:
+
+-- Dans l'onglet Database de Replit
+UPDATE users SET is_admin = true WHERE email = 'admin@example.com';
+
+7. PERFORMANCES & OPTIMISATION
+Objectif: 300%+ conversion rate improvement
+
+Métriques à vérifier:
+
+⏱ First Contentful Paint (FCP) < 1.5s
+⏱ Largest Contentful Paint (LCP) < 2.5s
+⏱ Time to Interactive (TTI) < 3.5s
+📱 Mobile-first: 60%+ du trafic vient du mobile
+Tests de charge:
+
+Simuler 100 utilisateurs simultanés sur /store
+Vérifier temps de réponse API < 500ms
+Vérifier base de données PostgreSQL gère la charge
+8. CONTENU & RÉFÉRENCES
+CRITIQUE: Toutes les références doivent être à "Saba Israel" (Rabbi Israel Dov Odesser זצ״ל)
+
+Pages à vérifier:
+
+/about - Biographie du fondateur
+/magazine - Articles sur Saba Israel
+/lottery - Texte sur la Hilloula
+Rechercher dans le code:
+
+❌ Ne doit PAS contenir: "Yaakov", "Jacob"
+✅ Doit contenir: "Saba Israel", "Rabbi Israel Dov Odesser", "הסבא"
+9. INTÉGRATIONS EXTERNES
+Services utilisés:
+
+PayPal (Sandbox/Production)
+Neon Database (PostgreSQL)
+Replit Auth
+SendGrid (emails - si configuré)
+Vérifier:
+
+Variables d'environnement présentes:
+DATABASE_URL
+PAYPAL_CLIENT_ID
+PAYPAL_SECRET
+Autres secrets nécessaires
+10. REDIRECTION VERS ANCIEN SITE
+Fonctionnalité: Option "Pay via Old Site"
+
+Test:
+
+Sur n'importe quelle page produit
+Cliquer "תשלום דרך האתר הישן" (ou équivalent en autre langue)
+VÉRIFIER: Redirection vers https://haesh-sheli.co.il/checkout
+VÉRIFIER: WooCommerce cart sur ancien site
+🔍 CHECKLIST DE TEST MOBILE (PRIORITÉ HAUTE)
+Header Mobile
+ Hauteur totale ≤ 60px
+ Hamburger menu (☰) visible et fonctionnel
+ Logo/titre visible
+ Bouton panier visible avec compteur
+ Bouton Globe pour langues ouvre popup (ne change PAS directement)
+ Pas de gradients bleus
+ Background beige/crème
+Menu Hamburger
+ S'ouvre en slide drawer (animation smooth)
+ Affiche toutes les pages de navigation
+ Bouton fermer (X) visible
+ Liens cliquables (48px touch target)
+ Ferme après clic sur lien
+ Overlay semi-transparent derrière
+Page d'accueil Mobile
+ Photo du livre apparaît EN PREMIER
+ Pas de bloc bleu massif en haut
+ Titre du livre lisible
+ Prix visible
+ Bouton "Acheter" visible et cliquable
+ Sections empilées verticalement
+ Pas de débordement horizontal
+Boutique Mobile (/store)
+ Grille de produits: 1 colonne en mobile
+ Images produits chargent correctement
+ Prix lisibles
+ Filtres accessibles (collapse/expand)
+ Barre de recherche fonctionnelle
+ Pagination visible
+Page Produit Mobile (/product/:id)
+ Image produit grande et claire
+ Titre lisible (taille appropriée)
+ Prix bien visible
+ Sélecteur de variante (format, taille) utilisable
+ Sélecteur de quantité (+/-) fonctionne
+ Bouton PayPal cliquable (48px min)
+ Bouton "Pay via Old Site" visible
+ Description produit lisible
+Loterie Mobile (/lottery)
+ Background Rabbi Israel visible (subtil)
+ Titre événement visible
+ Countdown timer fonctionne
+ Formulaire utilisable:
+ Champs assez grands pour taper
+ Labels clairs
+ Bouton submit cliquable
+ Poster événement affiché
+Admin Loterie (/lottery-admin)
+ Protection auth fonctionne
+ Liste participants affichée correctement
+ Bouton "Draw Winner" visible
+ Animation tirage fonctionne
+ Gagnant affiché clairement
+🐛 BUGS CONNUS À VÉRIFIER
+1. Erreurs LSP (TypeScript)
+Fichiers à vérifier:
+
+client/src/pages/product.tsx - ✅ CORRIGÉ (CartItem type)
+client/src/pages/store.tsx - ✅ CORRIGÉ (null vs undefined)
+Commande:
+
+npm run build
+# Doit compiler SANS erreurs
+
+2. Warnings Console Browser
+À vérifier dans DevTools:
+
+❌ Failed to load resource: 401 (Unauthorized) - Normal si pas connecté
+❌ Unrecognized feature: 'web-share' - Peut ignorer
+✅ Pas d'autres erreurs critiques
+3. Images manquantes
+Vérifier que ces images existent:
+
+ls -la public/rabbi-israel-*.jpg
+# Doit montrer 5 fichiers (1.jpg à 5.jpg)
+
+4. Base de données
+Vérifier schéma Drizzle:
+
+npm run db:push
+# Doit synchroniser sans erreurs
+
+Tables critiques:
+
+users (avec colonne is_admin)
+lottery_participants
+lottery_draws
+lottery_winners
+products
+product_variants
+📊 RAPPORTS À FOURNIR
+Rapport de Test Mobile
+Pour chaque page testée en mobile, documenter:
+
+Screenshot de la page
+Problèmes visuels identifiés (liste)
+Suggestions d'amélioration
+Score de 1-10 pour l'expérience mobile
+Rapport de Test PayPal
+Prix affichés dans le site
+Prix chargés dans PayPal (doivent correspondre)
+Redirection après paiement (fonctionne?)
+Entrées base de données (participant enregistré?)
+Rapport de Sécurité
+Endpoints protégés testés (liste)
+Tentatives d'accès non-autorisé (résultats)
+Vulnérabilités identifiées (si présentes)
+Rapport de Performance
+Temps de chargement par page (mobile + desktop)
+Core Web Vitals (LCP, FID, CLS)
+Recommandations d'optimisation
+🚀 PRÊT POUR PRODUCTION?
+Checklist finale avant événement de ce soir:
+ Tous les tests de loterie passent
+ PayPal fonctionne avec prix corrects
+ Design mobile acceptable (minimum 7/10)
+ Backgrounds Rabbi Israel visibles
+ Aucune erreur critique en console
+ Au moins 1 utilisateur admin créé dans DB
+ Variables d'environnement production configurées
+ Build production réussit (npm run build)
+Si UN SEUL item ci-dessus échoue → SITE PAS PRÊT
+📞 CONTACT & SUPPORT
+En cas de problème bloquant:
+
+Documenter le problème avec screenshots
+Vérifier les logs serveur (npm run dev output)
+Vérifier les logs browser (DevTools Console)
+Reporter au développeur avec détails complets
+Priorités de correction:
+
+🔴 CRITIQUE: Loterie, PayPal, Auth
+🟡 IMPORTANT: Design mobile, Performance
+🟢 NICE-TO-HAVE: Optimisations mineures
+💡 NOTES TECHNIQUES
+Structure du projet
+├── client/src/          # Frontend React
+│   ├── pages/          # Pages React
+│   ├── components/     # Composants réutilisables
+│   ├── contexts/       # React Context (Language, Cart)
+│   └── styles/         # CSS global
+├── server/             # Backend Express
+│   ├── api/           # Routes API
+│   ├── storage.ts     # Interface base de données
+│   └── replitAuth.ts  # Middleware auth
+├── shared/            # Code partagé
+│   └── schema.ts      # Schéma Drizzle
+└── public/            # Assets statiques
+
+Commandes utiles
+# Démarrer dev
+npm run dev
+# Build production
+npm run build
+# Push DB schema
+npm run db:push
+# Forcer push DB
+npm run db:push --force
+
+Environnement
+Node.js: v20+
+Database: PostgreSQL (Neon)
+Framework: React 18 + Vite + TypeScript
+Backend: Express + Drizzle ORM
+✅ CONCLUSION
+Ce document couvre TOUTES les fonctionnalités du site HaEsh Sheli qui doivent être testées avant l'événement de ce soir avec 20,000 personnes.
+
+Focus principal: MOBILE + LOTERIE + PAYPAL

@@ -17,25 +17,19 @@ export default function Product() {
   const [linkCopied, setLinkCopied] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
-  const [isZoomed, setIsZoomed] = useState(false);
-  const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const imageContainerRef = useRef<HTMLDivElement>(null);
-  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
-  const { toggleFavorite, isFavorite } = useFavorites();
-  const { addItem } = useCart();
-  const { toast } = useToast();
-  const { currentLanguage } = useLanguage();
-
-  if (!match || !params?.id) {
-    return <div>{currentLanguage === 'he' ? 'מוצר לא נמצא' : 'Product not found'}</div>;
-  }
 
   const product = realBreslovProducts[params.id];
 
   if (!product) {
     return <div>{currentLanguage === 'he' ? 'מוצר לא נמצא' : 'Product not found'}</div>;
   }
+
+  // Initialize selected variant when product is loaded
+  useEffect(() => {
+    if (product && product.variants && product.variants.length > 0 && !selectedVariant) {
+      setSelectedVariant(product.variants[0].id);
+    }
+  }, [product, selectedVariant]);
 
   // Task 26: Find products in the same language group (different language versions)
   const languageVersions = product.languageGroupId
@@ -394,6 +388,11 @@ export default function Product() {
                   border: '1px solid #ddd',
                   cursor: isZoomed ? 'zoom-out' : 'zoom-in',
                   position: 'relative',
+                  backgroundColor: '#f8f9fa',
+                  backgroundImage: 'url("/images/jerusalem-skyline.svg")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'bottom center',
+                  backgroundRepeat: 'no-repeat',
                 }}
               >
                 <img loading="lazy"
@@ -409,6 +408,9 @@ export default function Product() {
                     transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
                     transition: isZoomed ? 'transform-origin 0.05s ease-out, transform 0.3s ease' : 'transform 0.3s ease-in-out',
                     pointerEvents: 'none',
+                    zIndex: 1,
+                    position: 'relative',
+                    mixBlendMode: 'multiply',
                   }}
                 />
                 {/* Fullscreen button */}

@@ -1,0 +1,175 @@
+# RÉSUMÉ EXÉCUTIF - TEST HAESH SHELI
+**Date:** 8 novembre 2025  
+**Site:** https://haesh-sheli.com/  
+**Événement:** Hilloula Rabbi Israel Dov Odesser - Ce soir devant 20,000 personnes
+
+---
+
+## 🚨 VERDICT FINAL
+
+### LE SITE N'EST PAS PRÊT POUR L'ÉVÉNEMENT DE CE SOIR
+
+**Raison critique:** La page admin de loterie (/lottery-admin) retourne une erreur 404, rendant impossible le tirage au sort devant le public.
+
+---
+
+## 🔴 PROBLÈMES BLOQUANTS (À CORRIGER IMMÉDIATEMENT)
+
+### 1. Page Admin Loterie - BLOQUANT TOTAL
+
+**URL:** https://haesh-sheli.com/lottery-admin  
+**Statut:** Erreur 404 - Page Non Trouvée  
+**Impact:** Impossible d'effectuer le tirage au sort ce soir
+
+**Actions requises (URGENT - 1-2 heures):**
+- Vérifier que la route /lottery-admin existe dans le code
+- Corriger le routing ou créer la page manquante
+- Créer un compte administrateur dans la base de données
+- Tester le flux complet: connexion → liste participants → tirage
+
+### 2. Design Mobile - CRITIQUE
+
+**Problème:** Header bleu occupe 400-500px en mobile (au lieu de 48-60px)  
+**Impact:** Utilisateur doit scroller pour voir le contenu  
+**Plainte client confirmée:** "Tout le site en mobile est dégueulasse"
+
+**Pages affectées:** TOUTES (/, /store, /product, /lottery, /about, /magazine)
+
+**Actions requises (URGENT - 2-3 heures):**
+- Réduire le header mobile à 60px maximum
+- Implémenter un hamburger menu (☰)
+- Cacher les liens de navigation dans un menu drawer
+- Afficher uniquement: Logo + Hamburger + Panier + Globe (langues)
+
+---
+
+## 🟡 PROBLÈMES IMPORTANTS (Non bloquants mais demandés par le client)
+
+### 3. Sélecteur de Langues Mobile
+
+**Problème:** Cliquer sur un bouton de langue change directement la langue  
+**Attendu:** Ouvrir un popup avec les 5 langues avant de changer
+
+### 4. Backgrounds Rabbi Israel
+
+**Problème:** Les images rabbi-israel-1.jpg à rabbi-israel-5.jpg ne sont PAS visibles en arrière-plan  
+**Pages concernées:** /magazine, /about, /haesh-hype, /lottery  
+**Attendu:** Images en background avec opacity 0.05-0.08
+
+---
+
+## ✅ POINTS POSITIFS (Fonctionnent bien)
+
+### Système de Loterie (/lottery-payment)
+- ✅ Formulaire fonctionne parfaitement
+- ✅ Validation des champs correcte
+- ✅ Écran de confirmation clair
+- ✅ Montant minimum 36 ILS accepté
+
+### Intégration PayPal
+- ✅ Bouton PayPal présent sur page loterie
+- ✅ Deux boutons PayPal sur pages produits
+- ✅ Option "Payer via l'ancien site" disponible
+- ✅ Prix affichés correctement
+
+### Page Produit (Likutei Moharan)
+- ✅ 10 variantes disponibles avec prix différents
+- ✅ Sélecteur de quantité fonctionnel
+- ✅ Informations complètes (960 pages, ISBN, éditeur)
+- ✅ Images professionnelles
+
+### Traductions Multi-langues
+- ✅ 5 langues fonctionnent: HE, EN, FR, ES, RU
+- ✅ Direction du texte correcte (RTL pour hébreu)
+- ✅ Traductions présentes sur toutes les pages
+
+### Contenu Saba Israel
+- ✅ Toutes les références à "Saba Israel" (Rabbi Israel Dov Odesser)
+- ✅ AUCUNE mention de "Yaakov" ou "Jacob"
+- ✅ Biographie complète et respectueuse sur /about
+- ✅ Conforme aux spécifications du client
+
+### Boutique
+- ✅ 43 livres affichés avec filtres
+- ✅ Recherche fonctionnelle
+- ✅ Catégories multiples (auteurs, langues, tailles, reliures)
+- ✅ Prix en ILS (₪) dans toutes les langues
+
+---
+
+## 📊 SCORES PAR PAGE
+
+| Page | Score | Commentaire |
+|------|-------|-------------|
+| Page d'accueil (desktop) | 6/10 | Header bleu trop imposant |
+| Page d'accueil (mobile) | 2/10 | Header occupe tout l'écran |
+| Loterie (/lottery) | 8/10 | Bon design, countdown fonctionne |
+| Paiement loterie (/lottery-payment) | 9/10 | Excellent formulaire |
+| Admin loterie (/lottery-admin) | 0/10 | **404 - N'existe pas** |
+| Boutique (/store) | 7/10 | Contenu riche, mobile non optimal |
+| Page produit | 9/10 | Excellente, PayPal présent |
+| Magazine | 8/10 | Beau design, manque backgrounds |
+| À propos | 9/10 | Contenu conforme, bien structuré |
+
+**Score moyen:** 6.4/10 (sans compter la page admin qui n'existe pas)
+
+---
+
+## 🎯 CHECKLIST AVANT ÉVÉNEMENT
+
+### URGENT (Avant ce soir)
+- [ ] **Corriger /lottery-admin** (PRIORITÉ ABSOLUE)
+- [ ] Créer un compte admin dans la base de données
+- [ ] Tester le tirage au sort avec données réelles
+- [ ] Vérifier PayPal en mode production (pas sandbox)
+
+### IMPORTANT (Si temps disponible)
+- [ ] Réduire le header mobile à 60px
+- [ ] Implémenter hamburger menu
+- [ ] Corriger sélecteur de langues mobile
+
+### SOUHAITABLE (Après l'événement)
+- [ ] Ajouter backgrounds Rabbi Israel
+- [ ] Optimiser la grille produits en mobile
+- [ ] Améliorer les performances (LCP, FCP)
+
+---
+
+## 💡 RECOMMANDATION FINALE
+
+### SI /lottery-admin PEUT ÊTRE CORRIGÉ DANS LES 2 HEURES:
+✅ Procéder avec l'événement  
+✅ Tester le flux complet avant le début  
+✅ Avoir un plan B (tirage manuel) en cas de problème
+
+### SI /lottery-admin NE PEUT PAS ÊTRE CORRIGÉ:
+❌ **REPORTER LE TIRAGE AU SORT**  
+❌ Ne pas risquer un échec devant 20,000 personnes  
+✅ Annoncer que le tirage aura lieu en ligne après l'événement
+
+---
+
+## 📞 CONTACT DÉVELOPPEUR
+
+**Actions immédiates requises:**
+
+1. **Vérifier le code serveur** - La route /lottery-admin existe-t-elle?
+2. **Vérifier la base de données** - Y a-t-il un utilisateur admin?
+3. **Tester en local** - Le tirage au sort fonctionne-t-il?
+4. **Déployer les corrections** - Combien de temps nécessaire?
+
+**Temps estimé pour corrections critiques:** 2-4 heures
+
+---
+
+## 📎 FICHIERS JOINTS
+
+- `rapport_tests_haesh_sheli.md` - Rapport complet détaillé
+- `test_screenshots/` - Captures d'écran des tests
+- `pasted_content.txt` - Document de spécifications original
+
+---
+
+**Préparé par:** Manus AI Testing System  
+**Date:** 8 novembre 2025, 12:45 GMT+2  
+**Temps avant événement:** ~22 heures
