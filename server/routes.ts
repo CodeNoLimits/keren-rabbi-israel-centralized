@@ -7,6 +7,29 @@ import { fileURLToPath } from "url";
 import Stripe from "stripe";
 import { User } from "@shared/schema";
 import { sendOrderConfirmation } from "./emailService";
+
+// PayPal API base URLs
+const PAYPAL_API = process.env.NODE_ENV === 'production' 
+  ? 'https://api-m.paypal.com' 
+  : 'https://api-m.sandbox.paypal.com';
+
+const getPayPalAccessToken = async () => {
+  const clientId = process.env.PAYPAL_CLIENT_ID || 'sb';
+  const clientSecret = process.env.PAYPAL_CLIENT_SECRET || '';
+  const auth = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+  
+  const response = await fetch(`${PAYPAL_API}/v1/oauth2/token`, {
+    method: 'POST',
+    body: 'grant_type=client_credentials',
+    headers: {
+      Authorization: `Basic ${auth}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
+  
+  const data: any = await response.json();
+  return data.access_token;
+};
 import { chatWithGemini, chatWithGeminiStream, checkGeminiConnection, analyzeUserSentiment } from "./geminiService";
 import type { ChatRequest } from "./chatTypes";
 import { chatWithOpenAI, chatWithOpenAIStream, checkOpenAIConnection, analyzeUserSentimentOpenAI } from "./openaiService";
@@ -269,7 +292,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         shippingMethod: shippingMethod,
         shippingAddress: shippingAddress,
         billingAddress: billingAddress || shippingAddress,
-        paymentMethod: 'stripe',
+        paymentMethod: paymentMethod === 'paypal' ? 'paypal' : 'stripe',
         stripePaymentIntentId: null,
         stripeChargeId: null,
         paymentStatus: 'pending',
@@ -295,70 +318,75 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Create Stripe payment intent with idempotency key to prevent duplicate charges
-      // Task 81 & 82: Configured for ILS currency with Israeli payment methods
-      const idempotencyKey = `order-${order.id}`;
-      const paymentIntentParams: any = {
-        amount: totalAmount, // Already in agorot (Israeli cents)
-        currency: 'ils', // Task 81: ILS currency verified
-        // Task 82: Payment methods enabled via PaymentElement
-        // Supported: card, bit (Israeli instant payment), google_pay, apple_pay
-        metadata: {
-          orderId: order.id,
-          isSubscriber: isSubscriber.toString(),
-          subscriberDiscount: subscriberDiscount.toString(),
-          couponCode: appliedCoupon?.code || '',
-          couponDiscount: couponDiscount.toString()
-        },
-        description: `Order ${order.id} - Breslov Books`,
-        receipt_email: email
-      };
+      let clientSecret = null;
 
-      if (customerId) {
-        paymentIntentParams.customer = customerId;
+      // Only create Stripe intent for credit card or bit
+      if (paymentMethod === 'credit_card' || paymentMethod === 'bit') {
+        // Create Stripe payment intent with idempotency key to prevent duplicate charges
+        const idempotencyKey = `order-${order.id}`;
+        const paymentIntentParams: any = {
+          amount: totalAmount,
+          currency: 'ils',
+          metadata: {
+            orderId: order.id,
+            isSubscriber: isSubscriber.toString(),
+            subscriberDiscount: subscriberDiscount.toString(),
+            couponCode: appliedCoupon?.code || '',
+            couponDiscount: couponDiscount.toString()
+          },
+          description: `Order ${order.id} - Breslov Books`,
+          receipt_email: email
+        };
+
+        if (customerId) {
+          paymentIntentParams.customer = customerId;
+        }
+
+        const paymentIntent = await stripe.paymentIntents.create(paymentIntentParams, {
+          idempotencyKey: idempotencyKey
+        });
+
+        clientSecret = paymentIntent.client_secret;
+
+        // Update order with payment intent ID
+        await storage.updateOrder(order.id, {
+          stripePaymentIntentId: paymentIntent.id
+        });
+
+        // Create payment transaction record
+        await storage.createPaymentTransaction({
+          orderId: order.id,
+          provider: 'stripe',
+          providerTransactionId: paymentIntent.id,
+          providerCustomerId: customerId || null,
+          amount: totalAmount,
+          currency: 'ILS',
+          status: 'pending',
+          failureCode: null,
+          failureMessage: null,
+          refundAmount: 0,
+          refundReason: null,
+          refundedAt: null,
+          metadata: {
+            validatedCartItems: validatedCartItems.map(item => ({
+              productId: item.productId,
+              variantId: item.variantId,
+              productName: item.productName,
+              quantity: item.quantity,
+              unitPrice: item.unitPrice,
+              totalPrice: item.totalPrice
+            })),
+            shippingMethod: shippingMethod,
+            isSubscriber: isSubscriber
+          }
+        });
       }
 
-      const paymentIntent = await stripe.paymentIntents.create(paymentIntentParams, {
-        idempotencyKey: idempotencyKey
-      });
-
-      // Update order with payment intent ID
-      await storage.updateOrder(order.id, {
-        stripePaymentIntentId: paymentIntent.id
-      });
-
-      // Create payment transaction record
-      await storage.createPaymentTransaction({
-        orderId: order.id,
-        provider: 'stripe',
-        providerTransactionId: paymentIntent.id,
-        providerCustomerId: customerId || null,
-        amount: totalAmount,
-        currency: 'ILS',
-        status: 'pending',
-        failureCode: null,
-        failureMessage: null,
-        refundAmount: 0,
-        refundReason: null,
-        refundedAt: null,
-        metadata: {
-          validatedCartItems: validatedCartItems.map(item => ({
-            productId: item.productId,
-            variantId: item.variantId,
-            productName: item.productName,
-            quantity: item.quantity,
-            unitPrice: item.unitPrice,
-            totalPrice: item.totalPrice
-          })),
-          shippingMethod: shippingMethod,
-          isSubscriber: isSubscriber
-        }
-      });
-
       res.json({
-        clientSecret: paymentIntent.client_secret,
+        clientSecret: clientSecret,
         orderId: order.id,
         orderSummary: {
+          orderId: order.id,
           subtotal: subtotal,
           subscriberDiscount: subscriberDiscount,
           couponDiscount: couponDiscount,
@@ -1201,6 +1229,96 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res,
       () => {}
     );
+  });
+
+  // Task 86: PayPal Integration
+  app.post('/api/paypal/create-order', async (req, res) => {
+    try {
+      const { cart, totalAmount } = req.body;
+      const accessToken = await getPayPalAccessToken();
+      
+      const response = await fetch(`${PAYPAL_API}/v2/checkout/orders`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          intent: 'CAPTURE',
+          purchase_units: [{
+            amount: {
+              currency_code: 'ILS',
+              value: (totalAmount / 100).toFixed(2),
+            },
+          }],
+        }),
+      });
+      
+      const order = await response.json();
+      res.json(order);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.post('/api/paypal/capture-order', async (req, res) => {
+    try {
+      const { orderID, orderId: systemOrderId } = req.body;
+      const accessToken = await getPayPalAccessToken();
+      
+      const response = await fetch(`${PAYPAL_API}/v2/checkout/orders/${orderID}/capture`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      
+      const captureData: any = await response.json();
+      
+      if (captureData.status === 'COMPLETED') {
+        // Update order in our system
+        if (systemOrderId) {
+          await storage.updateOrder(systemOrderId, {
+            paymentStatus: 'succeeded',
+            status: 'processing',
+            paymentMethod: 'paypal'
+          });
+          
+          // Send confirmation email
+          const order = await storage.getOrder(systemOrderId);
+          const orderItems = await storage.getOrderItems(systemOrderId);
+          if (order && orderItems.length > 0) {
+            await sendOrderConfirmation({
+              orderId: order.id,
+              customerName: order.shippingAddress?.fullName || 'לקוח יקר',
+              email: order.email,
+              items: orderItems.map(item => ({
+                name: item.productName,
+                nameEnglish: item.productNameEnglish || undefined,
+                quantity: item.quantity,
+                price: item.unitPrice,
+                variant: item.variantDetails
+              })),
+              shippingAddress: order.shippingAddress,
+              orderSummary: {
+                subtotal: order.subtotal,
+                discount: order.discountAmount,
+                vatAmount: order.vatAmount,
+                shippingAmount: order.shippingAmount,
+                totalAmount: order.totalAmount,
+                currency: 'ILS'
+              },
+              isSubscriber: false
+            });
+          }
+        }
+      }
+      
+      res.json(captureData);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
   });
 
   const httpServer = createServer(app);

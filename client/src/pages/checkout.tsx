@@ -11,6 +11,7 @@ import { CheckoutForm } from '@/components/CheckoutForm';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShoppingCart, CreditCard } from 'lucide-react';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 // Load Stripe
 const stripePublicKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
@@ -239,46 +240,100 @@ export default function Checkout() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50" dir={dir}>
-      <Header />
+    <PayPalScriptProvider options={{ 
+      "clientId": import.meta.env.VITE_PAYPAL_CLIENT_ID || "sb",
+      currency: "ILS",
+      intent: "capture"
+    }}>
+      <div className="min-h-screen bg-gray-50" dir={dir}>
+        <Header />
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-5xl mx-auto">
-          {/* Page title */}
-          <h1 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-            {t('checkoutTitle')}
-          </h1>
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-5xl mx-auto">
+            {/* Page title */}
+            <h1 className="text-2xl md:text-3xl font-bold mb-8 text-center">
+              {t('checkoutTitle')}
+            </h1>
 
-          {!clientSecret ? (
-            <CheckoutForm onSuccess={(secret, summary) => {
-              setClientSecret(secret);
-              setOrderSummary(summary);
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }} />
-          ) : (
-            <div className="max-w-2xl mx-auto">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-center">
-                    <CreditCard className="h-8 w-8 mx-auto mb-2" />
-                    {t('securePayment')}
-                  </CardTitle>
-                  <CardDescription className="text-center">
-                    {t('securePaymentDesc')}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {stripePromise && (
-                    <Elements stripe={stripePromise} options={{ clientSecret }}>
-                      <StripePaymentForm clientSecret={clientSecret} orderSummary={orderSummary} />
-                    </Elements>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-          )}
+            {!orderSummary ? (
+              <CheckoutForm onSuccess={(secret, summary) => {
+                setClientSecret(secret);
+                setOrderSummary(summary);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }} />
+            ) : (
+              <div className="max-w-2xl mx-auto">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-center">
+                      <CreditCard className="h-8 w-8 mx-auto mb-2" />
+                      {t('securePayment')}
+                    </CardTitle>
+                    <CardDescription className="text-center">
+                      {t('securePaymentDesc')}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {clientSecret ? (
+                      stripePromise && (
+                        <Elements stripe={stripePromise} options={{ clientSecret }}>
+                          <StripePaymentForm clientSecret={clientSecret} orderSummary={orderSummary} />
+                        </Elements>
+                      )
+                    ) : (
+                      <div className="space-y-6">
+                        <div className="p-4 bg-blue-50 rounded-lg border border-blue-100 text-center">
+                          <p className="text-blue-800 font-medium mb-4">
+                            {currentLanguage === 'he' ? 'המשך תשלום באמצעות PayPal' : 'Continue with PayPal payment'}
+                          </p>
+                          <PayPalButtons 
+                            style={{ layout: "vertical" }}
+                            createOrder={async () => {
+                              try {
+                                const response = await apiRequest("POST", "/api/paypal/create-order", {
+                                  totalAmount: orderSummary.totalAmount
+                                });
+                                const order = await response.json();
+                                return order.id;
+                              } catch (err) {
+                                console.error(err);
+                                return "";
+                              }
+                            }}
+                            onApprove={async (data) => {
+                              try {
+                                const response = await apiRequest("POST", "/api/paypal/capture-order", {
+                                  orderID: data.orderID,
+                                  orderId: orderSummary.orderId
+                                });
+                                const captureData = await response.json();
+                                if (captureData.status === 'COMPLETED') {
+                                   toast({ title: t('success') });
+                                   clearCart();
+                                   window.location.href = '/checkout/success';
+                                }
+                              } catch (err) {
+                                console.error(err);
+                              }
+                            }}
+                          />
+                        </div>
+                        <Button 
+                          variant="ghost" 
+                          className="w-full"
+                          onClick={() => setOrderSummary(null)}
+                        >
+                          {currentLanguage === 'he' ? 'חזור לעדכון פרטים' : 'Back to details'}
+                        </Button>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </PayPalScriptProvider>
   );
 }

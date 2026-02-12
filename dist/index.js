@@ -1237,1277 +1237,8 @@ async function sendOrderConfirmation(orderData) {
 // server/geminiService.ts
 import { GoogleGenAI } from "@google/genai";
 
-// client/src/data/realProducts.ts
-var realBreslovProducts = {
-  "likutei-moharan": {
-    id: "likutei-moharan",
-    name: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF',
-    nameEnglish: "Likutei Moharan",
-    nameFrench: "Likout\xE9 Moharan",
-    nameSpanish: "Likutei Moharan",
-    nameRussian: "\u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u041C\u043E\u0430\u0440\u0430\u043D",
-    description: '\u05D7\u05D9\u05D1\u05D5\u05E8\u05D5 \u05D4\u05D2\u05D3\u05D5\u05DC, \u05D4\u05E7\u05D3\u05D5\u05E9 \u05D5\u05D4\u05E0\u05D5\u05E8\u05D0, \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1. \u05DE\u05DB\u05D9\u05DC \u05DE\u05D0\u05D5\u05EA "\u05EA\u05D5\u05E8\u05D5\u05EA" - \u05DE\u05D0\u05DE\u05E8\u05D9 \u05E7\u05D5\u05D3\u05E9 \u05E9\u05E0\u05D0\u05DE\u05E8\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D1\u05E9\u05D1\u05EA\u05D5\u05EA, \u05D1\u05D7\u05D2\u05D9\u05DD \u05D5\u05D1\u05DE\u05D5\u05E2\u05D3\u05D9\u05DD \u05E9\u05D5\u05E0\u05D9\u05DD. \u05D7\u05DC\u05E7\u05DD \u05E0\u05DB\u05EA\u05D1 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E2\u05E6\u05DE\u05D5, \u05D5\u05D7\u05DC\u05E7\u05DD \u05D4\u05D2\u05D3\u05D5\u05DC \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E1\u05D5\u05E4\u05E8\u05D5 \u05D5\u05EA\u05DC\u05DE\u05D9\u05D3\u05D5 \u05D4\u05E0\u05D0\u05DE\u05DF \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF.',
-    descriptionEnglish: 'The great, holy and awesome work of our teacher Rabbi Nachman of Breslov. Contains hundreds of "teachings" - holy discourses given by Rabbenu on Sabbaths, holidays and various occasions.',
-    category: "\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
-    subcategory: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF',
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "likutei-moharan-group",
-    // Groups all language versions together
-    pages: 960,
-    isbn: "978-965-7023-01-1",
-    images: [
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 1_1757275910545.jpg",
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 1_1757278339720.jpg",
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 1_1757281125909.jpg",
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 2_1757280401419.jpg"
-    ],
-    variants: [
-      {
-        id: "giant-skai-with-commentaries",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05DE\u05E4\u05E8\u05E9\u05D9\u05DD",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05E2\u05E0\u05E7",
-        dimensions: "32*22",
-        volumes: 1,
-        price: 95,
-        inStock: true,
-        stockQuantity: 15
-      },
-      {
-        id: "giant-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05E2\u05E0\u05E7",
-        dimensions: "32*22",
-        volumes: 1,
-        price: 55,
-        inStock: true,
-        stockQuantity: 20
-      },
-      {
-        id: "large-skai-with-commentaries",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05DE\u05E4\u05E8\u05E9\u05D9\u05DD",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 55,
-        inStock: true,
-        stockQuantity: 12
-      },
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 40
-      },
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 50
-      },
-      {
-        id: "medium-leather-pearl",
-        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8 \u05DC\u05D1\u05DF/\u05E4\u05E0\u05D9\u05E0\u05D4",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 45,
-        inStock: true,
-        stockQuantity: 25
-      },
-      {
-        id: "small-laminated",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 25,
-        inStock: true,
-        stockQuantity: 60
-      },
-      {
-        id: "small-nylon-3vol",
-        format: "\u05E8\u05DA \u05E0\u05D9\u05DC\u05D5\u05DF",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 3,
-        price: 40,
-        inStock: true,
-        stockQuantity: 30
-      },
-      {
-        id: "english-large-3vol",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05D0\u05E0\u05D2\u05DC\u05D9\u05EA",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 3,
-        price: 165,
-        inStock: true,
-        stockQuantity: 8
-      },
-      {
-        id: "english-giant",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05D0\u05E0\u05D2\u05DC\u05D9\u05EA",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05E2\u05E0\u05E7",
-        dimensions: "32*22",
-        volumes: 1,
-        price: 160,
-        inStock: true,
-        stockQuantity: 6
-      }
-    ],
-    features: [
-      "\u05D7\u05D9\u05D1\u05D5\u05E8\u05D5 \u05D4\u05D2\u05D3\u05D5\u05DC \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF",
-      "\u05DE\u05D0\u05D5\u05EA \u05EA\u05D5\u05E8\u05D5\u05EA \u05E7\u05D3\u05D5\u05E9\u05D5\u05EA",
-      "\u05E0\u05D3\u05E4\u05E1 \u05E2\u05D5\u05D3 \u05D1\u05D7\u05D9\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
-      "\u05D1\u05E1\u05D9\u05E1 \u05DC\u05DB\u05DC \u05D7\u05E1\u05D9\u05D3\u05D5\u05EA \u05D1\u05E8\u05E1\u05DC\u05D1",
-      "\u05D6\u05DE\u05D9\u05DF \u05D1\u05DE\u05D2\u05D5\u05D5\u05DF \u05D2\u05D3\u05DC\u05D9\u05DD \u05D5\u05DB\u05E8\u05D9\u05DB\u05D5\u05EA"
-    ],
-    tags: ['\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF', "\u05EA\u05D5\u05E8\u05D5\u05EA", "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF", "\u05D9\u05E1\u05D5\u05D3", "\u05E7\u05D3\u05D5\u05E9\u05D4"],
-    isActive: true,
-    isFeatured: true
-  },
-  "kitzur-likutei-moharan": {
-    id: "kitzur-likutei-moharan",
-    name: '\u05E7\u05D9\u05E6\u05D5\u05E8 \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF',
-    nameEnglish: "Kitzur Likutei Moharan",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: `\u05E4\u05E1\u05E7\u05D0\u05D5\u05EA \u05DE\u05E7\u05D5\u05E6\u05E8\u05D5\u05EA \u05DE\u05EA\u05D5\u05E8\u05D5\u05EA\u05D9\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF, \u05D4\u05E1\u05E4\u05E8 \u05E0\u05E2\u05E8\u05DA \u05D1\u05E4\u05E7\u05D5\u05D3\u05EA\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05EA\u05DC\u05DE\u05D9\u05D3\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF. \u05E2\u05DC \u05D4\u05E1\u05E4\u05E8 \u05DB\u05D5\u05EA\u05D1 \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05E7\u05E8\u05D3\u05D5\u05E0\u05E8 \u05D1\u05D0\u05D7\u05D3 \u05DE\u05DE\u05DB\u05EA\u05D1\u05D9\u05D5: "\u05D5\u05D4\u05E1\u05E4\u05E8 \u05D4\u05D6\u05D4 \u05D4\u05D9\u05D4 \u05D9\u05E7\u05E8 \u05DE\u05D0\u05D5\u05D3 \u05D1\u05E2\u05D9\u05E0\u05D9 \u05DE\u05D5\u05E8\u05E0\u05D5 \u05D4\u05E8\u05D1 \u05D4\u05E6\u05D3\u05D9\u05E7 \u05E8' \u05E0\u05EA\u05DF \u05D6\u05E6"\u05DC \u05D5\u05E4\u05E7\u05D3 \u05D5\u05E6\u05D9\u05D5\u05D5\u05D4 \u05DC\u05DB\u05DC \u05D0\u05E0\u05E9\u05D9\u05D5 \u05DC\u05E2\u05E1\u05D5\u05E7 \u05D5\u05DC\u05DC\u05DE\u05D5\u05D3 \u05D1\u05D5 \u05D1\u05DB\u05DC \u05D9\u05D5\u05DD"`,
-    descriptionEnglish: "Shortened passages from the teachings of Rabbenu Rabbi Nachman, compiled under his direction by his student Rabbi Nathan.",
-    category: "\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
-    subcategory: "\u05E7\u05D9\u05E6\u05D5\u05E8\u05D9\u05DD",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "kitzur-likutei-moharan-group",
-    pages: 416,
-    isbn: "978-965-7023-02-8",
-    images: [
-      "/attached_assets/\u05E7\u05D9\u05E6\u05D5\u05E8 \u05DC\u05D9\u05E7\u05D5\u05DE 1_1757275910546.jpg",
-      "/attached_assets/\u05E7\u05D9\u05E6\u05D5\u05E8 \u05DC\u05D9\u05E7\u05D5\u05DE 1_1757278339721.jpg",
-      "/attached_assets/\u05E7\u05D9\u05E6\u05D5\u05E8 \u05DC\u05D9\u05E7\u05D5\u05DE 1_1757281125911.jpg",
-      "/attached_assets/\u05E7\u05D9\u05E6\u05D5\u05E8 \u05DC\u05D9\u05E7\u05D5\u05DE_1757281085509.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 40,
-        inStock: true,
-        stockQuantity: 25
-      },
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 30
-      }
-    ],
-    features: [
-      "\u05E4\u05E1\u05E7\u05D0\u05D5\u05EA \u05DE\u05E7\u05D5\u05E6\u05E8\u05D5\u05EA",
-      "\u05E0\u05E2\u05E8\u05DA \u05D1\u05E4\u05E7\u05D5\u05D3\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5",
-      "\u05DC\u05D9\u05E7\u05D5\u05D8 \u05DE\u05D4\u05EA\u05D5\u05E8\u05D5\u05EA \u05D4\u05E7\u05D3\u05D5\u05E9\u05D5\u05EA",
-      "\u05DE\u05EA\u05D0\u05D9\u05DD \u05DC\u05DC\u05D9\u05DE\u05D5\u05D3 \u05D9\u05D5\u05DE\u05D9\u05D5\u05DE\u05D9",
-      "\u05D9\u05E7\u05E8 \u05D1\u05E2\u05D9\u05E0\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF"
-    ],
-    tags: ["\u05E7\u05D9\u05E6\u05D5\u05E8", '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF', "\u05DC\u05D9\u05DE\u05D5\u05D3 \u05D9\u05D5\u05DE\u05D9\u05D5\u05DE\u05D9", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF"],
-    isActive: true,
-    isFeatured: true
-  },
-  "likutei-tefilot": {
-    id: "likutei-tefilot",
-    name: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA",
-    nameEnglish: "Likutei Tefilot",
-    nameFrench: "Likout\xE9 T\xE9filot",
-    nameSpanish: "Likutei Tefilot",
-    nameRussian: "\u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u0422\u0444\u0438\u043B\u043E\u0442",
-    description: '\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA\u05D9\u05D5 \u05D4\u05E0\u05E4\u05DC\u05D0\u05D5\u05EA \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05E9\u05D7\u05D5\u05D1\u05E8\u05D5 \u05E2\u05DC \u05D1\u05E1\u05D9\u05E1 \u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF. \u05E2\u05DC\u05D9\u05D4\u05DD \u05D0\u05DE\u05E8 \u05E8\u05D1\u05D9\u05E0\u05D5: "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05D4\u05E0\u05E2\u05E9\u05D5\u05EA \u05DE\u05D4\u05EA\u05D5\u05E8\u05D5\u05EA - \u05DE\u05E2\u05DC\u05D5\u05EA \u05E9\u05E2\u05E9\u05D5\u05E2\u05D9\u05DD \u05DC\u05DE\u05E2\u05DC\u05D4 \u05E9\u05DE\u05E2\u05D5\u05DC\u05DD \u05DC\u05D0 \u05E2\u05DC\u05D5!"',
-    descriptionEnglish: `The wonderful prayers of Rabbi Nathan, composed based on Rabbi Nachman's teachings from Likutei Moharan. About them Rabbenu said: "Prayers made from the teachings - cause delights above that never existed before!"`,
-    category: "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA",
-    subcategory: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "likutei-tefilot-group",
-    pages: 1152,
-    isbn: "978-965-7023-12-7",
-    images: [
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA 1_1757275910545.jpg",
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA 1_1757278339720.jpg",
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA 1_1757281125910.jpg",
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA 2_1757280401419.jpg"
-    ],
-    variants: [
-      {
-        id: "large-leather",
-        format: "\u05E2\u05D5\u05E8",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 120,
-        inStock: true,
-        stockQuantity: 15
-      },
-      {
-        id: "large-skai-with-prayers-2vol",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05D5\u05EA\u05D7\u05E0\u05D5\u05E0\u05D9\u05DD",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 2,
-        price: 80,
-        inStock: true,
-        stockQuantity: 20
-      },
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 40,
-        inStock: true,
-        stockQuantity: 35
-      },
-      {
-        id: "medium-skai-with-prayers-3vol",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05D5\u05EA\u05D7\u05E0\u05D5\u05E0\u05D9\u05DD",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 3,
-        price: 90,
-        inStock: true,
-        stockQuantity: 18
-      },
-      {
-        id: "medium-leather-like",
-        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 50,
-        inStock: true,
-        stockQuantity: 25
-      },
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 40
-      },
-      {
-        id: "small-leather-like",
-        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 55,
-        inStock: true,
-        stockQuantity: 20
-      },
-      {
-        id: "small-laminated",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 25,
-        inStock: true,
-        stockQuantity: 60
-      },
-      {
-        id: "small-laminated-3vol",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 3,
-        price: 40,
-        inStock: true,
-        stockQuantity: 35
-      },
-      {
-        id: "medium-laminated-12vol",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 12,
-        price: 60,
-        inStock: true,
-        stockQuantity: 15
-      }
-    ],
-    features: [
-      "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05DE\u05D9\u05D5\u05E1\u05D3\u05D5\u05EA \u05E2\u05DC \u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF",
-      "\u05D7\u05D9\u05D1\u05D5\u05E8\u05D5 \u05D4\u05E0\u05E4\u05DC\u05D0 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
-      "\u05DE\u05E2\u05DC\u05D4 \u05E9\u05E2\u05E9\u05D5\u05E2\u05D9\u05DD \u05DC\u05DE\u05E2\u05DC\u05D4",
-      "\u05D6\u05DE\u05D9\u05DF \u05D1\u05DE\u05D2\u05D5\u05D5\u05DF \u05DB\u05E8\u05D9\u05DB\u05D5\u05EA \u05D5\u05D2\u05D3\u05DC\u05D9\u05DD",
-      "\u05D0\u05D9\u05DB\u05D5\u05EA \u05D4\u05D3\u05E4\u05E1\u05D4 \u05DE\u05E2\u05D5\u05DC\u05D4"
-    ],
-    tags: ["\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF", "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA", "\u05EA\u05D7\u05E0\u05D5\u05E0\u05D9\u05DD", "\u05E7\u05D3\u05D5\u05E9\u05D4"],
-    isActive: true,
-    isFeatured: true
-  },
-  "alim-letrufah": {
-    id: "alim-letrufah",
-    name: "\u05E2\u05DC\u05D9\u05DD \u05DC\u05EA\u05E8\u05D5\u05E4\u05D4",
-    nameEnglish: "Alim Letrufah",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: "\u05DE\u05D0\u05D5\u05EA \u05DE\u05DB\u05EA\u05D1\u05D9\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05E9\u05E9\u05DC\u05D7 \u05DC\u05D1\u05E0\u05D9\u05D5 \u05D5\u05DC\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05D5 \u05E2\u05D3 \u05E1\u05DE\u05D5\u05DA \u05DC\u05E4\u05D8\u05D9\u05E8\u05EA\u05D5. \u05DE\u05DB\u05EA\u05D1\u05D9\u05DD \u05D0\u05DC\u05D5 \u05D4\u05DD \u05D0\u05D5\u05E6\u05E8 \u05D1\u05DC\u05D5\u05DD \u05E9\u05DC \u05D9\u05E8\u05D0\u05EA \u05E9\u05DE\u05D9\u05DD, \u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA, \u05E9\u05D9\u05D7\u05D5\u05EA \u05E7\u05D5\u05D3\u05E9, \u05E2\u05E6\u05D5\u05EA \u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05D7\u05D9\u05D9\u05DD, \u05D5\u05E8\u05D5\u05D5\u05D9\u05D9\u05DD \u05D1\u05D3\u05D1\u05D9\u05E7\u05D5\u05EA \u05E2\u05D6\u05D4 \u05D1\u05E8\u05D1\u05D9\u05E0\u05D5.",
-    descriptionEnglish: "Hundreds of letters from Rabbi Nathan, sent to his sons and students until close to his passing. These letters are a treasury of fear of Heaven, strengthening, holy conversations, and life-illuminating advice.",
-    category: "\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD \u05D5\u05DB\u05EA\u05D1\u05D9\u05DD",
-    subcategory: "\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "alim-letrufah-group",
-    pages: 1088,
-    isbn: "978-965-7023-13-4",
-    images: [
-      "/attached_assets/\u05E2\u05DC\u05D9\u05DD \u05DC\u05EA\u05E8\u05D5\u05E4\u05D4 1_1757275910546.jpg",
-      "/attached_assets/\u05E2\u05DC\u05D9\u05DD \u05DC\u05EA\u05E8\u05D5\u05E4\u05D4 1_1757278339721.jpg",
-      "/attached_assets/\u05E2\u05DC\u05D9\u05DD \u05DC\u05EA\u05E8\u05D5\u05E4\u05D4 1_1757281125910.jpg",
-      "/attached_assets/\u05E2\u05DC\u05D9\u05DD_1757281085507.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 40,
-        inStock: true,
-        stockQuantity: 25
-      },
-      {
-        id: "large-leather-pearl",
-        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8 \u05DC\u05D1\u05DF/\u05E4\u05E0\u05D9\u05E0\u05D4",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 50,
-        inStock: true,
-        stockQuantity: 15
-      },
-      {
-        id: "medium-skai-3vol",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 3,
-        price: 90,
-        inStock: true,
-        stockQuantity: 20
-      },
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 30
-      }
-    ],
-    features: [
-      "\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E7\u05D5\u05D3\u05E9 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
-      "\u05D0\u05D5\u05E6\u05E8 \u05E9\u05DC \u05D9\u05E8\u05D0\u05EA \u05E9\u05DE\u05D9\u05DD",
-      "\u05E2\u05E6\u05D5\u05EA \u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05D7\u05D9\u05D9\u05DD",
-      "\u05D3\u05D1\u05D9\u05E7\u05D5\u05EA \u05E2\u05D6\u05D4 \u05D1\u05E8\u05D1\u05D9\u05E0\u05D5",
-      "\u05E9\u05D9\u05D7\u05D5\u05EA \u05E7\u05D5\u05D3\u05E9 \u05D5\u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA"
-    ],
-    tags: ["\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF", "\u05D9\u05E8\u05D0\u05EA \u05E9\u05DE\u05D9\u05DD", "\u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA", "\u05E2\u05E6\u05D5\u05EA"],
-    isActive: true,
-    isFeatured: true
-  },
-  "siporei-masiyot": {
-    id: "siporei-masiyot",
-    name: "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA",
-    nameEnglish: "Stories of Rabbi Nachman",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: "\u05E9\u05DC\u05D5\u05E9 \u05E2\u05E9\u05E8\u05D4 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA, \u05D1\u05EA\u05D5\u05E1\u05E4\u05EA \u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD \u05E7\u05E6\u05E8\u05D9\u05DD, \u05E9\u05E1\u05D9\u05E4\u05E8 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05D1\u05D0\u05E8\u05D1\u05E2 \u05E9\u05E0\u05D5\u05EA \u05D7\u05D9\u05D9\u05D5 \u05D4\u05D0\u05D7\u05E8\u05D5\u05E0\u05D5\u05EA. \u05E0\u05E8\u05E9\u05DE\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05EA\u05DC\u05DE\u05D9\u05D3\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05D1\u05E9\u05E4\u05EA \u05D4\u05D0\u05D9\u05D3\u05D9\u05E9 \u05DB\u05E4\u05D9 \u05E9\u05E1\u05D5\u05E4\u05E8\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05D0\u05E3 \u05EA\u05D5\u05E8\u05D2\u05DE\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D5 \u05DC\u05DC\u05E9\u05D5\u05DF \u05D4\u05E7\u05D5\u05D3\u05E9.",
-    descriptionEnglish: "Thirteen tales, plus short stories, told by Rabbi Nachman in the last four years of his life. Recorded by his student Rabbi Nathan in Yiddish as told by Rabbenu and translated by him into Hebrew.",
-    category: "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD \u05D5\u05DE\u05E2\u05E9\u05D9\u05D5\u05EA",
-    subcategory: "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "siporei-masiyot-group",
-    pages: 448,
-    isbn: "978-965-7023-14-1",
-    images: [
-      "/attached_assets/\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA 1_1757275910546.jpg",
-      "/attached_assets/\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA 1_1757278339721.jpg",
-      "/attached_assets/\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA 2_1757280401419.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai-with-hints",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05E8\u05DE\u05D6\u05D9 \u05D4\u05DE\u05E2\u05E9\u05D9\u05D5\u05EA",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 20
-      },
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 25
-      },
-      {
-        id: "medium-skai-with-hints",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05E8\u05DE\u05D6\u05D9 \u05D4\u05DE\u05E2\u05E9\u05D9\u05D5\u05EA",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 30
-      },
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 35
-      },
-      {
-        id: "small-soft-leather",
-        format: "\u05E2\u05D5\u05E8 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 25,
-        inStock: true,
-        stockQuantity: 40
-      },
-      {
-        id: "small-laminated",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 20,
-        inStock: true,
-        stockQuantity: 60
-      },
-      {
-        id: "small-laminated-soft",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 10,
-        inStock: true,
-        stockQuantity: 80
-      }
-    ],
-    features: [
-      '\u05D9"\u05D2 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA \u05E7\u05D3\u05D5\u05E9\u05D5\u05EA',
-      "\u05E0\u05E8\u05E9\u05DD \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
-      "\u05E1\u05D2\u05D5\u05DC\u05D4 \u05DC\u05E4\u05E7\u05D9\u05D3\u05EA \u05E2\u05E7\u05E8\u05D5\u05EA",
-      "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05E7\u05D5\u05D3\u05E9 \u05E2\u05DE\u05D5\u05E7\u05D9\u05DD",
-      "\u05D6\u05DE\u05D9\u05DF \u05E2\u05DD \u05E8\u05DE\u05D6\u05D9 \u05D4\u05DE\u05E2\u05E9\u05D9\u05D5\u05EA"
-    ],
-    tags: ["\u05DE\u05E2\u05E9\u05D9\u05D5\u05EA", "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD", "\u05E7\u05D3\u05D5\u05E9\u05D4", "\u05E8\u05DE\u05D6\u05D9\u05DD", "\u05E1\u05D2\u05D5\u05DC\u05D5\u05EA"],
-    isActive: true,
-    isFeatured: true
-  },
-  "sefer-hamidot": {
-    id: "sefer-hamidot",
-    name: "\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D9\u05D3\u05D5\u05EA",
-    nameEnglish: "Sefer Hamidot",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: '\u05DE\u05DB\u05D9\u05DC \u05E4\u05E1\u05E7\u05D0\u05D5\u05EA \u05E7\u05E6\u05E8\u05D5\u05EA \u05D5\u05EA\u05DE\u05E6\u05D9\u05EA\u05D9\u05D5\u05EA \u05D1\u05DE\u05E2\u05DC\u05EA \u05D4\u05DE\u05D9\u05D3\u05D5\u05EA \u05D4\u05D8\u05D5\u05D1\u05D5\u05EA \u05D5\u05D1\u05D7\u05D5\u05D1\u05EA \u05D4\u05D4\u05EA\u05E8\u05D7\u05E7\u05D5\u05EA \u05DE\u05DE\u05D9\u05D3\u05D5\u05EA \u05E8\u05E2\u05D5\u05EA, \u05D4\u05E1\u05E4\u05E8 \u05E0\u05DB\u05EA\u05D1 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E2\u05D5\u05D3 \u05D1\u05D9\u05DC\u05D3\u05D5\u05EA\u05D5, \u05E8\u05D5\u05D1\u05D5 \u05E0\u05DC\u05E7\u05D8 \u05DE\u05DE\u05D0\u05DE\u05E8\u05D9 \u05D7\u05D6"\u05DC \u05D5\u05D7\u05DC\u05E7\u05D5 \u05D4\u05D9\u05E0\u05D5 \u05D4\u05E9\u05D2\u05D5\u05EA \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E2\u05E6\u05DE\u05D5. \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05EA\u05D1\u05D8\u05D0 \u05E2\u05DC\u05D9\u05D5 "\u05D4\u05E1\u05E4\u05E8 \u05D4\u05D6\u05D4 - \u05E2\u05E9\u05D4 \u05D0\u05D5\u05EA\u05D9 \u05D9\u05D4\u05D5\u05D3\u05D9"',
-    descriptionEnglish: "Contains short and concise passages about the excellence of good character traits and the obligation to distance oneself from bad ones. Written by Rabbenu in his youth, mostly collected from the sayings of our Sages.",
-    category: "\u05DE\u05D5\u05E1\u05E8 \u05D5\u05D4\u05D3\u05E8\u05DB\u05D4",
-    subcategory: "\u05DE\u05D9\u05D3\u05D5\u05EA \u05D8\u05D5\u05D1\u05D5\u05EA",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "sefer-hamidot-group",
-    pages: 320,
-    isbn: "978-965-7023-15-8",
-    images: [
-      "/attached_assets/\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D9\u05D3\u05D5\u05EA 1_1757275910546.jpg",
-      "/attached_assets/\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D9\u05D3\u05D5\u05EA 1_1757278339721.jpg",
-      "/attached_assets/\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D9\u05D3\u05D5\u05EA 1_1757281125910.jpg",
-      "/attached_assets/\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D9\u05D3\u05D5\u05EA 2_1757280401419.jpg"
-    ],
-    variants: [
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 40
-      },
-      {
-        id: "small-laminated",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 20,
-        inStock: true,
-        stockQuantity: 60
-      },
-      {
-        id: "small-laminated-soft",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 10,
-        inStock: true,
-        stockQuantity: 80
-      }
-    ],
-    features: [
-      "\u05E0\u05DB\u05EA\u05D1 \u05D1\u05D9\u05DC\u05D3\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5",
-      "\u05DE\u05D9\u05D3\u05D5\u05EA \u05D8\u05D5\u05D1\u05D5\u05EA \u05D5\u05E8\u05E2\u05D5\u05EA",
-      "\u05E4\u05E1\u05E7\u05D0\u05D5\u05EA \u05E7\u05E6\u05E8\u05D5\u05EA \u05D5\u05D7\u05D3\u05D5\u05EA",
-      "\u05D1\u05E1\u05D9\u05E1 \u05DC\u05DE\u05D5\u05E1\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D9",
-      "\u05D4\u05E1\u05E4\u05E8 \u05E9\u05E2\u05E9\u05D4 \u05D0\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D9\u05D4\u05D5\u05D3\u05D9"
-    ],
-    tags: ["\u05DE\u05D9\u05D3\u05D5\u05EA", "\u05DE\u05D5\u05E1\u05E8", "\u05D9\u05DC\u05D3\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5", '\u05D7\u05D6"\u05DC', "\u05D0\u05DC\u05E3 \u05D1\u05D9\u05EA"],
-    isActive: true,
-    isFeatured: true
-  },
-  "hishtapchut-hanefesh": {
-    id: "hishtapchut-hanefesh",
-    name: "\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA \u05D4\u05E0\u05E4\u05E9 \u05D5\u05DE\u05E9\u05D9\u05D1\u05EA \u05E0\u05E4\u05E9",
-    nameEnglish: "Outpouring of the Soul",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: '\u05DC\u05E7\u05D8 \u05E9\u05D9\u05D7\u05D5\u05EA \u05D5\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05E0\u05E4\u05DC\u05D0\u05D9\u05DD \u05D1\u05DE\u05E2\u05DC\u05EA \u05D4\u05D4\u05EA\u05D1\u05D5\u05D3\u05D3\u05D5\u05EA \u05D5\u05D4\u05E9\u05D9\u05D7\u05D4 \u05E9\u05DC \u05D4\u05D9\u05D4\u05D5\u05D3\u05D9 \u05D1\u05D9\u05E0\u05D5 \u05DC\u05D1\u05D9\u05DF \u05E7\u05D5\u05E0\u05D5 - \u05D4\u05E2\u05E6\u05D4 \u05D4\u05E2\u05D9\u05E7\u05E8\u05D9\u05EA \u05D5\u05D4\u05DE\u05E8\u05DB\u05D6\u05D9\u05EA \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF, \u05E9\u05D4\u05EA\u05D1\u05D8\u05D0: "\u05DE\u05E7\u05D8\u05DF \u05D5\u05E2\u05D3 \u05D2\u05D3\u05D5\u05DC, \u05D0\u05D9 \u05D0\u05E4\u05E9\u05E8 \u05DC\u05D4\u05D9\u05D5\u05EA \u05D9\u05D4\u05D5\u05D3\u05D9 \u05DB\u05E9\u05E8, \u05DB\u05D9 \u05D0\u05DD \u05E2\u05DC \u05D9\u05D3\u05D9 \u05D4\u05EA\u05D1\u05D5\u05D3\u05D3\u05D5\u05EA"',
-    descriptionEnglish: "A collection of wonderful conversations and speeches about the excellence of seclusion and the conversation of the Jew between him and his Creator - the main and central advice of our holy Rebbe Nachman.",
-    category: "\u05D4\u05EA\u05D1\u05D5\u05D3\u05D3\u05D5\u05EA \u05D5\u05EA\u05E4\u05D9\u05DC\u05D4",
-    subcategory: "\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA \u05D4\u05E0\u05E4\u05E9",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "hishtapchut-hanefesh-group",
-    pages: 242,
-    isbn: "978-965-7023-16-5",
-    images: [
-      "/attached_assets/\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA 1_1757275910544.jpg",
-      "/attached_assets/\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA 1_1757278339719.jpg",
-      "/attached_assets/\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA 2_1757275875791.jpg",
-      "/attached_assets/\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA_1757281003111.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 25
-      },
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 35
-      },
-      {
-        id: "small-laminated",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 20,
-        inStock: true,
-        stockQuantity: 50
-      }
-    ],
-    features: [
-      "\u05D4\u05E2\u05E6\u05D4 \u05D4\u05DE\u05E8\u05DB\u05D6\u05D9\u05EA \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5",
-      "\u05D4\u05EA\u05D1\u05D5\u05D3\u05D3\u05D5\u05EA \u05D9\u05D5\u05DE\u05D9\u05D5\u05DE\u05D9\u05EA",
-      "\u05E9\u05D9\u05D7\u05D4 \u05D1\u05D9\u05E0\u05D5 \u05DC\u05D1\u05D9\u05DF \u05E7\u05D5\u05E0\u05D5",
-      "\u05DC\u05D9\u05E7\u05D5\u05D8 \u05E0\u05E4\u05DC\u05D0 \u05DE\u05DB\u05DC \u05D4\u05E1\u05E4\u05E8\u05D9\u05DD",
-      "\u05D4\u05D3\u05E8\u05DB\u05D4 \u05DE\u05E2\u05E9\u05D9\u05EA"
-    ],
-    tags: ["\u05D4\u05EA\u05D1\u05D5\u05D3\u05D3\u05D5\u05EA", "\u05EA\u05E4\u05D9\u05DC\u05D4", "\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA", "\u05DE\u05E9\u05D9\u05D1\u05EA \u05E0\u05E4\u05E9", "\u05E2\u05E6\u05D4 \u05DE\u05E8\u05DB\u05D6\u05D9\u05EA"],
-    isActive: true,
-    isFeatured: true
-  },
-  "likutei-halakhot": {
-    id: "likutei-halakhot",
-    name: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA",
-    nameEnglish: "Likutei Halakhot",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: '\u05D7\u05D9\u05D1\u05D5\u05E8\u05D5 \u05D4\u05D2\u05D3\u05D5\u05DC \u05D5\u05D4\u05DE\u05D5\u05E4\u05DC\u05D0 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05EA\u05DC\u05DE\u05D9\u05D3\u05D5 \u05D4\u05DE\u05D5\u05D1\u05D4\u05E7 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1 \u05D6\u05D9\u05E2"\u05D0, \u05DE\u05DB\u05D9\u05DC \u05D3\u05E8\u05D5\u05E9\u05D9\u05DD \u05E0\u05E4\u05DC\u05D0\u05D9\u05DD \u05D1\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05E9\u05DD, \u05DE\u05E1\u05D5\u05D3\u05E8 \u05E2\u05DC \u05D0\u05E8\u05D1\u05E2\u05EA \u05D7\u05DC\u05E7\u05D9 \u05E9\u05D5\u05DC\u05D7\u05DF-\u05E2\u05E8\u05D5\u05DA, \u05DE\u05D7\u05D5\u05DC\u05E7 \u05DC\u05E9\u05DE\u05D5\u05E0\u05D4 \u05DB\u05E8\u05DB\u05D9\u05DD. \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05D4\u05EA\u05D1\u05D8\u05D0: "\u05D4\u05E2\u05D5\u05DC\u05DD \u05D0\u05D5\u05DE\u05E8\u05D9\u05DD \u05E2\u05DC \u05E1\u05E4\u05E8 \u05D4\u05E9\u05DC"\u05D4 \u05D4\u05E7\u05D3\u05D5\u05E9, \u05E9\u05D4\u05D5\u05D0 \u05D4\u05E9\u05E2\u05E8 \u05DC\u05D2\u05DF \u05E2\u05D3\u05DF, \u05D5\u05D0\u05E0\u05D9 \u05D0\u05D5\u05DE\u05E8 \u05E2\u05DC \u05E1\u05E4\u05E8\u05D9 \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u2013 \u05E9\u05D4\u05D5\u05D0 \u05D4\u05D2\u05DF \u05E2\u05D3\u05DF \u05E9\u05DC \u05D4\u05E9\u05DD \u05D9\u05EA\u05D1\u05E8\u05DA \u05D1\u05E2\u05E6\u05DE\u05D5!"',
-    descriptionEnglish: "The great and wonderful work of Rabbi Nathan, the outstanding student of our teacher Rabbi Nachman of Breslov, containing wonderful discourses on divine service, arranged according to the four sections of the Shulchan Aruch.",
-    category: "\u05D4\u05DC\u05DB\u05D4 \u05D5\u05E2\u05D1\u05D5\u05D3\u05D4",
-    subcategory: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "likutei-halakhot-group",
-    pages: 2800,
-    isbn: "978-965-7023-17-2",
-    images: [
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA 1_1757280778288.jpg",
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA 2_1757280778288.jpg",
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA 3_1757280778288.jpg"
-    ],
-    variants: [
-      {
-        id: "large-8vol-illuminated",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05DE\u05D0\u05D9\u05E8\u05EA \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 8,
-        price: 380,
-        inStock: true,
-        stockQuantity: 5
-      },
-      {
-        id: "large-8vol-standard",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "25*17",
-        volumes: 8,
-        price: 280,
-        inStock: true,
-        stockQuantity: 8
-      },
-      {
-        id: "medium-20vol",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 20,
-        price: 480,
-        inStock: true,
-        stockQuantity: 3
-      },
-      {
-        id: "giant-8vol",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05E2\u05E0\u05E7",
-        dimensions: "32*22",
-        volumes: 8,
-        price: 420,
-        inStock: true,
-        stockQuantity: 4
-      }
-    ],
-    features: [
-      "\u05D7\u05D9\u05D1\u05D5\u05E8\u05D5 \u05D4\u05D2\u05D3\u05D5\u05DC \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
-      `\u05DE\u05E1\u05D5\u05D3\u05E8 \u05E2\u05DC \u05D3' \u05D7\u05DC\u05E7\u05D9 \u05E9\u05D5"\u05E2`,
-      "\u05D3\u05E8\u05D5\u05E9\u05D9\u05DD \u05E0\u05E4\u05DC\u05D0\u05D9\u05DD \u05D1\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05E9\u05DD",
-      "\u05D4\u05D2\u05DF \u05E2\u05D3\u05DF \u05E9\u05DC \u05D4\u05E9\u05DD \u05D9\u05EA\u05D1\u05E8\u05DA",
-      "\u05D6\u05DE\u05D9\u05DF \u05D1\u05DE\u05E1\u05E4\u05E8 \u05DE\u05D4\u05D3\u05D5\u05E8\u05D5\u05EA"
-    ],
-    tags: ["\u05D4\u05DC\u05DB\u05D4", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF", "\u05E9\u05D5\u05DC\u05D7\u05DF \u05E2\u05E8\u05D5\u05DA", "\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05E9\u05DD", "\u05D3\u05E8\u05D5\u05E9\u05D9\u05DD"],
-    isActive: true,
-    isFeatured: true
-  },
-  "likutei-etzot": {
-    id: "likutei-etzot",
-    name: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA",
-    nameEnglish: "Likutei Etzot",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: "\u05E1\u05E4\u05E8\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1, \u05DE\u05DB\u05D9\u05DC \u05E2\u05E6\u05D5\u05EA \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA \u05DC\u05D7\u05D9\u05D9 \u05D4\u05D9\u05D5\u05DE\u05D9\u05D5\u05DD \u05D4\u05DE\u05D5\u05D1\u05D0\u05D5\u05EA \u05DE\u05EA\u05D5\u05DA \u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5. \u05D4\u05E1\u05E4\u05E8 \u05DE\u05E1\u05D5\u05D3\u05E8 \u05DC\u05E4\u05D9 \u05E0\u05D5\u05E9\u05D0\u05D9\u05DD \u05D5\u05DE\u05D4\u05D5\u05D5\u05D4 \u05DE\u05D3\u05E8\u05D9\u05DA \u05E4\u05E8\u05E7\u05D8\u05D9 \u05DC\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05E9\u05DD.",
-    descriptionEnglish: "The book of Rabbi Nathan of Breslov, containing practical advice for daily life brought from Rabbenu's books. The book is organized by topics and serves as a practical guide for divine service.",
-    category: "\u05E2\u05E6\u05D5\u05EA \u05D5\u05D4\u05D3\u05E8\u05DB\u05D4",
-    subcategory: "\u05E2\u05E6\u05D5\u05EA \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "likutei-etzot-group",
-    pages: 576,
-    isbn: "978-965-7023-18-9",
-    images: [
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA 1_1757275910545.jpg",
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA 1_1757278339720.jpg",
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA 1_1757281125909.jpg",
-      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA_1757281003113.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 30
-      },
-      {
-        id: "large-skai-with-commentary-2vol",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05DB\u05D5\u05DC\u05DC \u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05D1\u05D5\u05D0\u05E8\u05D5\u05EA \u05D5\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E8\u05D1\u05D9 \u05E9\u05DE\u05E9\u05D5\u05DF",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 2,
-        price: 80,
-        inStock: true,
-        stockQuantity: 15
-      },
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 40
-      },
-      {
-        id: "small-laminated",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 20,
-        inStock: true,
-        stockQuantity: 60
-      },
-      {
-        id: "small-laminated-soft",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 10,
-        inStock: true,
-        stockQuantity: 80
-      }
-    ],
-    features: [
-      "\u05E2\u05E6\u05D5\u05EA \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA \u05DC\u05D7\u05D9\u05D9 \u05D9\u05D5\u05DE\u05D9\u05D5\u05DD",
-      "\u05DE\u05E1\u05D5\u05D3\u05E8 \u05DC\u05E4\u05D9 \u05E0\u05D5\u05E9\u05D0\u05D9\u05DD",
-      "\u05DE\u05D3\u05E8\u05D9\u05DA \u05E4\u05E8\u05E7\u05D8\u05D9",
-      '\u05DE\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF',
-      "\u05D6\u05DE\u05D9\u05DF \u05E2\u05DD \u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05D1\u05D5\u05D0\u05E8\u05D5\u05EA"
-    ],
-    tags: ["\u05E2\u05E6\u05D5\u05EA", "\u05D4\u05D3\u05E8\u05DB\u05D4", "\u05D9\u05D5\u05DE\u05D9\u05D5\u05DE\u05D9", "\u05DE\u05E2\u05E9\u05D9", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF"],
-    isActive: true,
-    isFeatured: true
-  },
-  "etzot-hamevuarot": {
-    id: "etzot-hamevuarot",
-    name: "\u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05D1\u05D5\u05D0\u05E8\u05D5\u05EA",
-    nameEnglish: "Eitzos Mevu'arot",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: "\u05D7\u05D5\u05D1\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E9\u05DE\u05E9\u05D5\u05DF \u05D1\u05D0\u05E8\u05E1\u05E7\u05D9 \u05E0\u05DB\u05D3 \u05E8\u05D1\u05D9\u05E0\u05D5, \u05D1\u05DE\u05E7\u05D5\u05E8 \u05D1\u05D0\u05D9\u05D3\u05D9\u05E9, \u05D4\u05E9\u05E4\u05D4 \u05D4\u05DE\u05D3\u05D5\u05D1\u05E8\u05EA \u05D1\u05D0\u05D5\u05EA\u05DF \u05E9\u05E0\u05D9\u05DD. \u05D4\u05E1\u05E4\u05E8 \u05D4\u05D5\u05D0 \u05D1\u05D9\u05D0\u05D5\u05E8 \u05DC\u05E1\u05E4\u05E8 '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA' \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05E0\u05DB\u05EA\u05D1 \u05D1\u05E1\u05D2\u05E0\u05D5\u05DF \u05E4\u05E9\u05D5\u05D8 \u05D5\u05E7\u05D5\u05DC\u05D7 \u05D4\u05DE\u05EA\u05D0\u05D9\u05DD \u05DC\u05DB\u05DC \u05E9\u05DB\u05D1\u05D5\u05EA \u05D4\u05E6\u05D9\u05D1\u05D5\u05E8.",
-    descriptionEnglish: "Compiled by Rabbi Shimshon Barsky, grandson of Rabbenu, originally in Yiddish. The book is an explanation of Rabbi Nathan's 'Likutei Etzot', written in a simple and flowing style suitable for all segments of the public.",
-    category: "\u05E2\u05E6\u05D5\u05EA \u05D5\u05D4\u05D3\u05E8\u05DB\u05D4",
-    subcategory: "\u05D1\u05D9\u05D0\u05D5\u05E8\u05D9\u05DD",
-    author: "\u05E8\u05D1\u05D9 \u05E9\u05DE\u05E9\u05D5\u05DF \u05D1\u05D0\u05E8\u05E1\u05E7\u05D9",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "etzot-hamevuarot-group",
-    pages: 384,
-    isbn: "978-965-7023-19-6",
-    images: [
-      "/attached_assets/\u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05D1\u05D5\u05D0\u05E8\u05D5\u05EA 1_1757275910546.jpg",
-      "/attached_assets/\u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05D1\u05D5\u05D0\u05E8\u05D5\u05EA 1_1757278339721.jpg",
-      "/attached_assets/\u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05D1\u05D5\u05D0\u05E8\u05D5\u05EA 1_1757281125911.jpg"
-    ],
-    variants: [
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 35
-      }
-    ],
-    features: [
-      "\u05D1\u05D9\u05D0\u05D5\u05E8 \u05DC\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA",
-      "\u05E0\u05DB\u05D3 \u05E8\u05D1\u05D9\u05E0\u05D5",
-      "\u05E1\u05D2\u05E0\u05D5\u05DF \u05E4\u05E9\u05D5\u05D8 \u05D5\u05E7\u05D5\u05DC\u05D7",
-      "\u05DE\u05EA\u05D0\u05D9\u05DD \u05DC\u05DB\u05DC \u05E9\u05DB\u05D1\u05D5\u05EA \u05D4\u05E6\u05D9\u05D1\u05D5\u05E8",
-      "\u05EA\u05D5\u05E8\u05D2\u05DD \u05DE\u05D0\u05D9\u05D3\u05D9\u05E9"
-    ],
-    tags: ["\u05E2\u05E6\u05D5\u05EA", "\u05D1\u05D9\u05D0\u05D5\u05E8", "\u05E0\u05DB\u05D3 \u05E8\u05D1\u05D9\u05E0\u05D5", "\u05E4\u05E9\u05D5\u05D8", "\u05DE\u05D1\u05D5\u05D0\u05E8"],
-    isActive: true,
-    isFeatured: false
-  },
-  "sichos-haran": {
-    id: "sichos-haran",
-    name: '\u05E9\u05D9\u05D7\u05D5\u05EA \u05D4\u05E8"\u05DF',
-    nameEnglish: "Sichos Haran",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: `"\u05D1\u05EA\u05D7\u05D9\u05DC\u05D4 \u05E1\u05D1\u05D5\u05E8 \u05D4\u05D9\u05D9\u05EA\u05D9 \u05E9\u05E8\u05E7 \u05D0\u05EA \u05EA\u05D5\u05E8\u05D5\u05EA\u05D9\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E6\u05E8\u05D9\u05DA \u05DC\u05DB\u05EA\u05D5\u05D1", \u05E1\u05D9\u05E4\u05E8 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, "\u05D0\u05D5\u05DC\u05DD \u05DC\u05D9\u05DE\u05D9\u05DD \u05D4\u05D1\u05E0\u05EA\u05D9 \u05E9\u05DB\u05DC \u05E9\u05D9\u05D7\u05D4 \u05E9\u05DC\u05D5, \u05E6\u05E8\u05D9\u05DA \u05DC\u05D4\u05E2\u05DC\u05D5\u05EA \u05E2\u05DC \u05D4\u05DB\u05EA\u05D1". \u05D4\u05E1\u05E4\u05E8 '\u05E9\u05D9\u05D7\u05D5\u05EA \u05D4\u05E8"\u05DF' \u05DE\u05DB\u05D9\u05DC \u05E9\u05D9\u05D7\u05D5\u05EA \u05E9\u05E0\u05D0\u05DE\u05E8\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D1\u05E0\u05E1\u05D9\u05E2\u05D5\u05EA \u05D5\u05D1\u05D3\u05E8\u05DB\u05D9\u05DD, \u05D5\u05D1\u05D4\u05D6\u05D3\u05DE\u05E0\u05D5\u05D9\u05D5\u05EA \u05E9\u05D5\u05E0\u05D5\u05EA, \u05DC\u05D0\u05D5 \u05D3\u05D5\u05D5\u05E7\u05D0 \u05D1\u05E9\u05D5\u05DC\u05D7\u05DF \u05D4\u05E9\u05D1\u05EA \u05D0\u05D5 \u05D1\u05E6\u05D9\u05D1\u05D5\u05E8 \u05D7\u05E1\u05D9\u05D3\u05D9\u05DD.`,
-    descriptionEnglish: `"At first I thought only Rabbenu's teachings needed to be written," Rabbi Nathan said, "but later I understood that every conversation of his needs to be put in writing." Sichos Haran contains conversations said by Rabbenu during travels and journeys.`,
-    category: "\u05E9\u05D9\u05D7\u05D5\u05EA \u05D5\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD",
-    subcategory: "\u05E9\u05D9\u05D7\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "sichos-haran-group",
-    pages: 446,
-    isbn: "978-965-7023-20-2",
-    images: [
-      "/attached_assets/\u05E9\u05D9\u05D7\u05D5\u05EA \u05D4\u05E8\u05DF 1_1757281125911.jpg",
-      "/attached_assets/\u05E9\u05D9\u05D7\u05D5\u05EA \u05D4\u05E8\u05DF_1757281085509.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 25
-      },
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 35
-      },
-      {
-        id: "small-laminated",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 25,
-        inStock: true,
-        stockQuantity: 50
-      },
-      {
-        id: "small-laminated-soft",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 10,
-        inStock: true,
-        stockQuantity: 70
-      }
-    ],
-    features: [
-      "\u05E9\u05D9\u05D7\u05D5\u05EA \u05D1\u05E0\u05E1\u05D9\u05E2\u05D5\u05EA \u05D5\u05D3\u05E8\u05DB\u05D9\u05DD",
-      "\u05DB\u05DC \u05E9\u05D9\u05D7\u05D4 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D7\u05E9\u05D5\u05D1\u05D4",
-      "\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05D9\u05D5\u05DE\u05D9\u05D5\u05DE\u05D9\u05D9\u05DD",
-      "\u05E0\u05E8\u05E9\u05DD \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
-      "\u05E9\u05D9\u05D7\u05D5\u05EA \u05DC\u05D3\u05E8\u05DA \u05D5\u05DC\u05D7\u05D9\u05D9\u05DD"
-    ],
-    tags: ["\u05E9\u05D9\u05D7\u05D5\u05EA", "\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD", "\u05E0\u05E1\u05D9\u05E2\u05D5\u05EA", "\u05D9\u05D5\u05DE\u05D9\u05D5\u05DD", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF"],
-    isActive: true,
-    isFeatured: true
-  },
-  "chayei-moharan": {
-    id: "chayei-moharan",
-    name: '\u05D7\u05D9\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF',
-    nameEnglish: "Chayei Moharan",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: "\u05D1\u05D7\u05D9\u05D1\u05D5\u05E8 \u05D6\u05D4, \u05D4\u05E2\u05DC\u05D4 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05E2\u05DC \u05D4\u05DB\u05EA\u05D1 \u05DE\u05D0\u05DE\u05E8\u05D9\u05DD \u05D5\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05E9\u05E9\u05DE\u05E2 \u05DE\u05E4\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5, \u05D1\u05D4\u05DD \u05DE\u05EA\u05D2\u05DC\u05D4 \u05D8\u05E4\u05D7 \u05DE\u05D2\u05D3\u05D5\u05DC\u05EA\u05D5 \u05D4\u05E2\u05E6\u05D5\u05DE\u05D4 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5. \u05DE\u05D7\u05D5\u05DC\u05E7 \u05DC\u05E4\u05D9 \u05E0\u05D5\u05E9\u05D0\u05D9\u05DD: \u05E9\u05D9\u05D7\u05D5\u05EA \u05D4\u05E9\u05D9\u05D9\u05DB\u05D5\u05EA \u05DC\u05EA\u05D5\u05E8\u05D5\u05EA, \u05DE\u05D0\u05DE\u05E8\u05D9\u05DD \u05D1\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4', \u05D1\u05D2\u05D3\u05D5\u05DC\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5, \u05D1\u05DE\u05E2\u05DC\u05EA \u05EA\u05D5\u05E8\u05EA\u05D5 \u05D5\u05D1\u05DE\u05E2\u05DC\u05EA \u05D0\u05E0\u05E9\u05D9\u05D5 \u05D5\u05DE\u05E7\u05D5\u05E8\u05D1\u05D9\u05D5.",
-    descriptionEnglish: "In this work, Rabbi Nathan put to writing statements and speeches he heard from Rabbenu, revealing a glimpse of Rabbenu's enormous greatness. Divided by topics: conversations related to teachings, articles on divine service, on Rabbenu's greatness.",
-    category: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA \u05D5\u05D7\u05D9\u05D9\u05DD",
-    subcategory: "\u05D7\u05D9\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "chayei-moharan-group",
-    pages: 640,
-    isbn: "978-965-7023-21-9",
-    images: [
-      "/attached_assets/\u05D7\u05D9\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 1_1757275910544.jpg",
-      "/attached_assets/\u05D7\u05D9\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 1_1757278339719.jpg",
-      "/attached_assets/\u05D7\u05D9\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 2_1757280401417.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 25
-      },
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 35
-      },
-      {
-        id: "small-laminated-soft",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 10,
-        inStock: false,
-        stockQuantity: 0
-      }
-    ],
-    features: [
-      "\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05E9\u05E0\u05E9\u05DE\u05E2\u05D5 \u05DE\u05E4\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
-      "\u05D8\u05E4\u05D7 \u05DE\u05D2\u05D3\u05D5\u05DC\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5",
-      "\u05DE\u05D7\u05D5\u05DC\u05E7 \u05DC\u05E4\u05D9 \u05E0\u05D5\u05E9\u05D0\u05D9\u05DD",
-      "\u05D2\u05D3\u05D5\u05DC\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05EA\u05D5\u05E8\u05EA\u05D5",
-      "\u05DE\u05E2\u05DC\u05EA \u05D0\u05E0\u05E9\u05D9\u05D5 \u05D5\u05DE\u05E7\u05D5\u05E8\u05D1\u05D9\u05D5"
-    ],
-    tags: ["\u05D7\u05D9\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5", "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA", "\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD", "\u05D2\u05D3\u05D5\u05DC\u05D4", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF"],
-    isActive: true,
-    isFeatured: true
-  },
-  "yimei-maharanat": {
-    id: "yimei-maharanat",
-    name: '\u05D9\u05DE\u05D9 \u05DE\u05D5\u05D4\u05E8\u05E0"\u05EA',
-    nameEnglish: "Yimei Maharnat",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: "\u05D9\u05D5\u05DE\u05E0\u05D5 \u05D4\u05E0\u05E4\u05DC\u05D0 \u05E9\u05DC \u05D4\u05EA\u05DC\u05DE\u05D9\u05D3 \u05D4\u05DE\u05D5\u05D1\u05D4\u05E7 \u05D5\u05D4\u05E0\u05D0\u05DE\u05DF \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF. \u05D1\u05D5 \u05D2\u05D5\u05DC\u05DC \u05D0\u05EA \u05E7\u05D5\u05E8\u05D5\u05EA \u05D7\u05D9\u05D9\u05D5 \u05DE\u05D4\u05EA\u05E7\u05E8\u05D1\u05D5\u05EA\u05D5 \u05DC\u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05E2\u05D3 \u05DC\u05D0\u05D7\u05E8 \u05E0\u05E1\u05D9\u05E2\u05EA\u05D5 \u05DC\u05D0\u05E8\u05E5 \u05D9\u05E9\u05E8\u05D0\u05DC. \u05D4\u05E8\u05D3\u05D9\u05E4\u05D5\u05EA, \u05D4\u05D1\u05D9\u05D6\u05D9\u05D5\u05E0\u05D5\u05EA, \u05D4\u05E7\u05E9\u05D9\u05D9\u05DD \u05D5\u05D4\u05DE\u05E0\u05D9\u05E2\u05D5\u05EA, \u05DC\u05E6\u05D3 \u05D4\u05E2\u05E9\u05D9\u05D9\u05D4 \u05D4\u05D1\u05DC\u05EA\u05D9 \u05E4\u05D5\u05E1\u05E7\u05EA \u05DC\u05D4\u05E0\u05D7\u05DC\u05EA \u05DE\u05D5\u05E8\u05E9\u05EA\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DC\u05D3\u05D5\u05E8\u05D5\u05EA \u05E2\u05D5\u05DC\u05DD.",
-    descriptionEnglish: "The wonderful diary of the outstanding and faithful student Rabbi Nathan. In it he unfolds the events of his life from his approach to Rabbenu until after his journey to the Land of Israel.",
-    category: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA \u05D5\u05D7\u05D9\u05D9\u05DD",
-    subcategory: "\u05D9\u05DE\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "yimei-maharanat-group",
-    pages: 512,
-    isbn: "978-965-7023-22-6",
-    images: [
-      "/attached_assets/\u05D9\u05DE\u05D9 \u05DE\u05D5\u05D4\u05E8\u05E0\u05EA 1_1757275910544.jpg",
-      "/attached_assets/\u05D9\u05DE\u05D9 \u05DE\u05D5\u05D4\u05E8\u05E0\u05EA 1_1757278339719.jpg",
-      "/attached_assets/\u05D9\u05DE\u05D9 \u05DE\u05D5\u05D4\u05E8\u05E0\u05EA 2_1757280401418.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 20
-      },
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 30
-      },
-      {
-        id: "small-laminated",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 20,
-        inStock: true,
-        stockQuantity: 40
-      }
-    ],
-    features: [
-      "\u05D9\u05D5\u05DE\u05E0\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
-      "\u05DE\u05D4\u05EA\u05E7\u05E8\u05D1\u05D5\u05EA \u05DC\u05E8\u05D1\u05D9\u05E0\u05D5",
-      "\u05E0\u05E1\u05D9\u05E2\u05D4 \u05DC\u05D0\u05E8\u05E5 \u05D9\u05E9\u05E8\u05D0\u05DC",
-      "\u05E8\u05D3\u05D9\u05E4\u05D5\u05EA \u05D5\u05E7\u05E9\u05D9\u05D9\u05DD",
-      "\u05D4\u05E0\u05D7\u05DC\u05EA \u05D4\u05DE\u05D5\u05E8\u05E9\u05EA"
-    ],
-    tags: ["\u05D9\u05D5\u05DE\u05DF", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF", "\u05D0\u05E8\u05E5 \u05D9\u05E9\u05E8\u05D0\u05DC", "\u05E8\u05D3\u05D9\u05E4\u05D5\u05EA", "\u05DE\u05D5\u05E8\u05E9\u05EA"],
-    isActive: true,
-    isFeatured: true
-  },
-  "kochvei-ohr": {
-    id: "kochvei-ohr",
-    name: "\u05DB\u05D5\u05DB\u05D1\u05D9 \u05D0\u05D5\u05E8",
-    nameEnglish: "Kochvei Ohr",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: `\u05E1\u05E4\u05E8\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05D0\u05D1\u05E8\u05D4\u05DD \u05D7\u05D6\u05DF, \u05D1\u05E0\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05D5\u05DC\u05D8\u05E9\u05D9\u05DF \u05EA\u05DC\u05DE\u05D9\u05D3 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF. \u05DE\u05DB\u05D9\u05DC \u05D0\u05E8\u05D1\u05E2\u05D4 \u05D7\u05DC\u05E7\u05D9\u05DD: '\u05D0\u05E0\u05E9\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF' \u2013\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD \u05E2\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05D5, '\u05D0\u05DE\u05EA \u05D5\u05D0\u05DE\u05D5\u05E0\u05D4' \u2013 \u05E9\u05D9\u05D7\u05D5\u05EA \u05D1\u05DE\u05E2\u05DC\u05EA \u05D4\u05D0\u05DE\u05D5\u05E0\u05D4, '\u05D7\u05DB\u05DE\u05D4 \u05D5\u05D1\u05D9\u05E0\u05D4' \u05E8\u05DE\u05D6\u05D9\u05DD \u05D5\u05E1\u05D5\u05D3\u05D5\u05EA \u05D1\u05D2\u05D3\u05D5\u05DC\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5, '\u05E9\u05E9\u05D5\u05DF \u05D5\u05E9\u05DE\u05D7\u05D4' \u2013 \u05E9\u05D9\u05D7\u05D5\u05EA \u05D5\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05E2\u05DC \u05DE\u05E2\u05DC\u05EA \u05D4\u05E9\u05DE\u05D7\u05D4.`,
-    descriptionEnglish: "The book of Rabbi Avraham Chazan, son of Rabbi Nachman of Tulchyn, student of Rabbi Nathan. Contains four parts: 'People of Moharan' - stories about Rabbenu and his students, 'Truth and Faith' - conversations about the excellence of faith.",
-    category: "\u05E9\u05D9\u05D7\u05D5\u05EA \u05D5\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD",
-    subcategory: "\u05DB\u05D5\u05DB\u05D1\u05D9 \u05D0\u05D5\u05E8",
-    author: "\u05E8\u05D1\u05D9 \u05D0\u05D1\u05E8\u05D4\u05DD \u05D7\u05D6\u05DF",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "kochvei-ohr-group",
-    pages: 480,
-    isbn: "978-965-7023-23-3",
-    images: [
-      "/attached_assets/\u05DB\u05D5\u05DB\u05D1\u05D9 \u05D0\u05D5\u05E8 1_1757275910545.jpg",
-      "/attached_assets/\u05DB\u05D5\u05DB\u05D1\u05D9 \u05D0\u05D5\u05E8 1_1757278339720.jpg",
-      "/attached_assets/\u05DB\u05D5\u05DB\u05D1\u05D9 \u05D0\u05D5\u05E8 2_1757280401418.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 20
-      },
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 25
-      },
-      {
-        id: "small-laminated",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 20,
-        inStock: true,
-        stockQuantity: 35
-      },
-      {
-        id: "small-laminated-soft",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 10,
-        inStock: true,
-        stockQuantity: 50
-      }
-    ],
-    features: [
-      "\u05D0\u05E8\u05D1\u05E2\u05D4 \u05D7\u05DC\u05E7\u05D9\u05DD \u05E0\u05E4\u05DC\u05D0\u05D9\u05DD",
-      "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD \u05E2\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05D5",
-      "\u05E9\u05D9\u05D7\u05D5\u05EA \u05D1\u05D0\u05DE\u05D5\u05E0\u05D4 \u05D5\u05E9\u05DE\u05D7\u05D4",
-      "\u05E8\u05DE\u05D6\u05D9\u05DD \u05D5\u05E1\u05D5\u05D3\u05D5\u05EA",
-      "\u05D1\u05DF \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05D5\u05DC\u05D8\u05E9\u05D9\u05DF"
-    ],
-    tags: ["\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD", "\u05D0\u05DE\u05D5\u05E0\u05D4", "\u05E9\u05DE\u05D7\u05D4", "\u05E8\u05DE\u05D6\u05D9\u05DD", "\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05DD"],
-    isActive: true,
-    isFeatured: true
-  },
-  "tehilim": {
-    id: "tehilim",
-    name: "\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD",
-    nameEnglish: "Tehilim (Psalms)",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: '"\u05DE\u05D9 \u05E9\u05E8\u05D5\u05E6\u05D4 \u05DC\u05D6\u05DB\u05D5\u05EA \u05DC\u05EA\u05E9\u05D5\u05D1\u05D4 - \u05D9\u05D4\u05D9\u05D4 \u05E8\u05D2\u05D9\u05DC \u05D1\u05D0\u05DE\u05D9\u05E8\u05EA \u05EA\u05D4\u05DC\u05D9\u05DD, \u05DB\u05D9 \u05D0\u05DE\u05D9\u05E8\u05EA \u05EA\u05D4\u05DC\u05D9\u05DD \u05DE\u05E1\u05D5\u05D2\u05DC \u05DC\u05EA\u05E9\u05D5\u05D1\u05D4" \u05DE\u05D2\u05DC\u05D4 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF (\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF \u05E2\u05D2) \u05DE\u05D4\u05D3\u05D5\u05E8\u05D4 \u05DE\u05D9\u05D5\u05D7\u05D3\u05EA, \u05D1\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u05D2\u05D3\u05D5\u05DC\u05D5\u05EA \u05D5\u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD, \u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05DE\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05E2\u05DC \u05D4\u05D3\u05E3, \u05DC\u05E4\u05D9 \u05E1\u05D3\u05E8 \u05D4\u05DE\u05D6\u05DE\u05D5\u05E8\u05D9\u05DD.',
-    descriptionEnglish: '"Whoever wants to merit repentance - should be regular in saying Tehilim, for saying Tehilim is conducive to repentance" reveals our holy Rebbe Nachman. Special edition with large, clear letters, with Likutei Halakhot from Rabbi Nathan on the page.',
-    category: '\u05EA\u05E0"\u05DA \u05D5\u05EA\u05E4\u05D9\u05DC\u05D4',
-    subcategory: "\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD",
-    author: "\u05D3\u05D5\u05D3 \u05D4\u05DE\u05DC\u05DA",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    languageGroupId: "tehilim-group",
-    pages: 350,
-    isbn: "978-965-7023-24-0",
-    images: [
-      "/attached_assets/\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD 1_1757275910547.jpg",
-      "/attached_assets/\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD 1_1757278339722.jpg",
-      "/attached_assets/\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD 1_1757281125911.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai-with-halakhot",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 25
-      },
-      {
-        id: "medium-skai-with-tzadikim",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05E9\u05DE\u05D5\u05EA \u05D4\u05E6\u05D3\u05D9\u05E7\u05D9\u05DD",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 30
-      },
-      {
-        id: "medium-leather-pearl",
-        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8 \u05DC\u05D1\u05DF/\u05E4\u05E0\u05D9\u05E0\u05D4",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 40,
-        inStock: true,
-        stockQuantity: 20
-      },
-      {
-        id: "small-laminated-tzadikim",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E2\u05DD \u05E9\u05DE\u05D5\u05EA \u05D4\u05E6\u05D3\u05D9\u05E7\u05D9\u05DD",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 20,
-        inStock: true,
-        stockQuantity: 50
-      }
-    ],
-    features: [
-      "\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u05D2\u05D3\u05D5\u05DC\u05D5\u05EA \u05D5\u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD",
-      "\u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05E2\u05DC \u05D4\u05D3\u05E3",
-      "\u05DE\u05E1\u05D5\u05D2\u05DC \u05DC\u05EA\u05E9\u05D5\u05D1\u05D4",
-      "\u05DC\u05E4\u05D9 \u05E1\u05D3\u05E8 \u05D4\u05DE\u05D6\u05DE\u05D5\u05E8\u05D9\u05DD",
-      "\u05D3\u05D1\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E2\u05DC \u05D4\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD"
-    ],
-    tags: ["\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD", "\u05EA\u05E9\u05D5\u05D1\u05D4", "\u05EA\u05E4\u05D9\u05DC\u05D4", "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA", "\u05DE\u05D6\u05DE\u05D5\u05E8\u05D9\u05DD"],
-    isActive: true,
-    isFeatured: true
-  },
+// client/src/data/products/chagim.ts
+var chagimProducts = {
   "rosh-hashana-sheli": {
     id: "rosh-hashana-sheli",
     name: "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05E9\u05DC\u05D9",
@@ -2779,395 +1510,6 @@ var realBreslovProducts = {
     isActive: true,
     isFeatured: true
   },
-  "otzer-hayirah": {
-    id: "otzer-hayirah",
-    name: "\u05D0\u05D5\u05E6\u05E8 \u05D4\u05D9\u05E8\u05D0\u05D4",
-    nameEnglish: "Treasury of Fear of Heaven",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: `\u05E0\u05E7\u05E8\u05D0 \u05D1\u05DE\u05E7\u05D5\u05E8: \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA \u05D7\u05D3\u05E9. \u05EA\u05D5\u05DB\u05DF \u05D4\u05E1\u05E4\u05E8: \u05DC\u05D9\u05E7\u05D5\u05D8 \u05D5\u05E7\u05D9\u05E6\u05D5\u05E8 \u05DE\u05E1\u05E4\u05E8\u05D9 '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA' \u05DC\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05D6\u05E6"\u05DC, \u05DC\u05D4\u05D5\u05E6\u05D9\u05D0 \u05DE\u05D4\u05DD \u05D0\u05EA \u05DB\u05DC \u05D4\u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05EA\u05D1\u05D0\u05E8\u05D9\u05DD \u05D1\u05D3\u05E8\u05D5\u05E9\u05D9\u05D5 \u05D4\u05D0\u05E8\u05D5\u05DB\u05D9\u05DD \u05DC\u05E2\u05D5\u05D1\u05D3\u05D4 \u05D5\u05DC\u05DE\u05E2\u05E9\u05D4. \u05D4\u05E1\u05E4\u05E8 \u05DE\u05D7\u05D5\u05DC\u05E7 \u05DC\u05D0\u05E8\u05D1\u05E2\u05D4 \u05D7\u05DC\u05E7\u05D9\u05DD: \u05D0\u05DE\u05EA \u05D5\u05E6\u05D3\u05E7. \u05DB\u05E0\u05E1\u05EA \u05E7\u05D4\u05DC \u05E6\u05D1\u05D0\u05D5\u05EA. \u05EA\u05E9\u05D5\u05D1\u05EA \u05D4\u05E9\u05E0\u05D4. \u05E2\u05E6\u05EA \u05E9\u05DC\u05D5\u05DD.`,
-    descriptionEnglish: `Originally called: New Likutei Etzot. A collection and summary from Rabbi Nathan's "Likutei Halakhot" books, extracting all the practical advice from his lengthy discourses.`,
-    category: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9\u05DD",
-    subcategory: "\u05E2\u05E6\u05D5\u05EA",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    pages: 850,
-    isbn: "978-965-7023-31-8",
-    images: [
-      "/attached_assets/\u05D0\u05D5\u05E6\u05E8 \u05D4\u05D9\u05E8\u05D0\u05D4 1_1757275234154.jpg",
-      "/attached_assets/\u05D0\u05D5\u05E6\u05E8 \u05D4\u05D9\u05E8\u05D0\u05D4 2_1757275234155.jpg",
-      "/attached_assets/\u05D0\u05D5\u05E6\u05E8 \u05D4\u05D9\u05E8\u05D0\u05D4 3_1757275234155.jpg",
-      "/attached_assets/\u05D0\u05D5\u05E6\u05E8 \u05D4\u05D9\u05E8\u05D0\u05D4 4_1757275234156.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai-5vol",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 5,
-        price: 200,
-        inStock: true,
-        stockQuantity: 10
-      }
-    ],
-    features: [
-      "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA \u05D7\u05D3\u05E9",
-      "\u05DE\u05E1\u05E4\u05E8\u05D9 \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA",
-      "\u05E2\u05E6\u05D5\u05EA \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA \u05DC\u05E2\u05D5\u05D1\u05D3\u05D4",
-      "\u05D0\u05E8\u05D1\u05E2\u05D4 \u05D7\u05DC\u05E7\u05D9\u05DD \u05E2\u05D9\u05E7\u05E8\u05D9\u05D9\u05DD",
-      "\u05D7\u05D5\u05D1\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF"
-    ],
-    tags: ["\u05D9\u05E8\u05D0\u05EA \u05E9\u05DE\u05D9\u05DD", "\u05E2\u05E6\u05D5\u05EA", "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9\u05DD", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF", "\u05D4\u05DC\u05DB\u05D5\u05EA"],
-    isActive: true,
-    isFeatured: true
-  },
-  "chumash-likutei-halakhot": {
-    id: "chumash-likutei-halakhot",
-    name: "\u05D7\u05D5\u05DE\u05E9 \u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA",
-    nameEnglish: "Pentateuch with Likutei Halakhot",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: '\u05E1\u05D8 \u05D7\u05DE\u05D9\u05E9\u05D4 \u05D7\u05D5\u05DE\u05E9\u05D9 \u05EA\u05D5\u05E8\u05D4 \u05D1\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD, \u05DB\u05D5\u05DC\u05DC \u05D1\u05EA\u05D5\u05DB\u05D5 \u05EA\u05E8\u05D2\u05D5\u05DD \u05D0\u05D5\u05E0\u05E7\u05DC\u05D5\u05E1 \u05D5\u05E4\u05D9\u05E8\u05D5\u05E9 \u05E8\u05E9"\u05D9, \u05D1\u05EA\u05D5\u05E1\u05E4\u05EA \u05DC\u05D9\u05E7\u05D5\u05D8 \u05E0\u05E4\u05DC\u05D0 \u05DE\u05DE\u05E9\u05E0\u05EA\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1 \u05D6\u05D9\u05E2"\u05D0 \u05E2\u05DC \u05D4\u05E4\u05E8\u05E9\u05D4, \u05DE\u05E1\u05E4\u05E8 \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05DC\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1 \u05D6\u05E6"\u05DC. \u05E2\u05E8\u05D5\u05DA \u05D5\u05DE\u05E1\u05D5\u05D3\u05E8 \u05E2\u05DC \u05D4\u05D3\u05E3, \u05D1\u05E6\u05D5\u05E8\u05D4 \u05E0\u05D5\u05D7\u05D4 \u05D5\u05E7\u05DC\u05D4 \u05DC\u05DC\u05DE\u05D9\u05D3\u05D4.',
-    descriptionEnglish: "Set of five Torah volumes with illuminating letters, including Onkelos translation and Rashi commentary, plus a wonderful collection from Rabbi Nachman's teachings on the weekly portion, from Likutei Halakhot by Rabbi Nathan.",
-    category: '\u05D7\u05D5\u05DE\u05E9\u05D9\u05DD \u05D5\u05EA\u05E0"\u05DA',
-    subcategory: "\u05D7\u05D5\u05DE\u05E9 \u05E2\u05DD \u05E4\u05D9\u05E8\u05D5\u05E9\u05D9\u05DD",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    pages: 1250,
-    isbn: "978-965-7023-32-5",
-    images: [
-      "/attached_assets/\u05D7\u05D5\u05DE\u05E9 \u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05D1\u05D9\u05E0\u05D5\u05E0\u05D9 1_1757275732701.jpg",
-      "/attached_assets/\u05D7\u05D5\u05DE\u05E9 \u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05D1\u05D9\u05E0\u05D5\u05E0\u05D9 2_1757275732701.jpg",
-      "/attached_assets/\u05D7\u05D5\u05DE\u05E9 \u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05D1\u05D9\u05E0\u05D5\u05E0\u05D9 3_1757275732702.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai-5vol",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 5,
-        price: 175,
-        inStock: true,
-        stockQuantity: 12
-      },
-      {
-        id: "large-leather-5vol",
-        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8 \u05D7\u05D5\u05DD",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 5,
-        price: 225,
-        inStock: true,
-        stockQuantity: 8
-      },
-      {
-        id: "medium-skai-5vol",
-        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05E9\u05D1\u05EA",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 5,
-        price: 150,
-        inStock: true,
-        stockQuantity: 15
-      },
-      {
-        id: "medium-leather-5vol",
-        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 5,
-        price: 175,
-        inStock: true,
-        stockQuantity: 10
-      }
-    ],
-    features: [
-      "\u05D7\u05DE\u05D9\u05E9\u05D4 \u05D7\u05D5\u05DE\u05E9\u05D9 \u05EA\u05D5\u05E8\u05D4",
-      "\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD",
-      '\u05EA\u05E8\u05D2\u05D5\u05DD \u05D0\u05D5\u05E0\u05E7\u05DC\u05D5\u05E1 \u05D5\u05E8\u05E9"\u05D9',
-      "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05E2\u05DC \u05D4\u05E4\u05E8\u05E9\u05D4",
-      "\u05E2\u05E8\u05D5\u05DA \u05D5\u05DE\u05E1\u05D5\u05D3\u05E8 \u05D1\u05E0\u05D5\u05D7\u05D5\u05EA"
-    ],
-    tags: ["\u05D7\u05D5\u05DE\u05E9", "\u05EA\u05D5\u05E8\u05D4", "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA", '\u05E8\u05E9"\u05D9', "\u05E4\u05E8\u05E9\u05D4"],
-    isActive: true,
-    isFeatured: true
-  },
-  "kol-bo-leyeshuot": {
-    id: "kol-bo-leyeshuot",
-    name: "\u05DB\u05DC \u05D1\u05D5 \u05DC\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA",
-    nameEnglish: "Kol Bo Leyeshuot",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: "\u05DB\u05E9\u05DE\u05D5 \u05DB\u05DF \u05D4\u05D5\u05D0. \u05DE\u05DB\u05D9\u05DC: \u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05DB\u05DC\u05DC\u05D9, \u05EA\u05D9\u05E7\u05D5\u05DF \u05D7\u05E6\u05D5\u05EA, \u05DE\u05E0\u05D7\u05D4 \u05D5\u05E2\u05E8\u05D1\u05D9\u05EA, \u05E9\u05D9\u05E8 \u05D4\u05E9\u05D9\u05E8\u05D9\u05DD, \u05D0\u05DE\u05D9\u05E8\u05D5\u05EA \u05DC\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA, \u05D0\u05D5\u05E8 \u05E1\u05D2\u05D5\u05DC\u05D5\u05EA, \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05DC\u05E7\u05D1\u05E8\u05D9 \u05E6\u05D3\u05D9\u05E7\u05D9\u05DD, \u05D5\u05E2\u05D5\u05D3. \u05D1\u05D4\u05D5\u05E6\u05D0\u05D4 \u05DE\u05D4\u05D5\u05D3\u05E8\u05EA \u05D5\u05DE\u05E4\u05D5\u05D0\u05E8\u05EA \u05D1\u05DB\u05E8\u05D9\u05DB\u05EA \u05E2\u05D5\u05E8 \u05D0\u05DE\u05D9\u05EA\u05D9 \u05DE\u05E9\u05D5\u05D1\u05D7.",
-    descriptionEnglish: "As its name suggests, it contains everything for salvation: Tikkun HaKlali, Tikkun Chatzot, afternoon and evening prayers, Song of Songs, recitations for salvation, segulot, prayers for graves of tzaddikim, and more.",
-    category: "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05D5\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA",
-    subcategory: "\u05D0\u05D5\u05E1\u05E3 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    pages: 400,
-    isbn: "978-965-7023-33-2",
-    images: [
-      "/attached_assets/\u05DB\u05DC \u05D1\u05D5 1_1757275910545.jpg",
-      "/attached_assets/\u05DB\u05DC \u05D1\u05D5 1_1757278339720.jpg",
-      "/attached_assets/\u05DB\u05DC \u05D1\u05D5 2_1757280401418.jpg"
-    ],
-    variants: [
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 30
-      },
-      {
-        id: "medium-genuine-leather",
-        format: "\u05E2\u05D5\u05E8 \u05D0\u05DE\u05D9\u05EA\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 80,
-        inStock: true,
-        stockQuantity: 15
-      },
-      {
-        id: "medium-leather-like",
-        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 50,
-        inStock: true,
-        stockQuantity: 25
-      },
-      {
-        id: "small-laminated",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 20,
-        inStock: true,
-        stockQuantity: 50
-      },
-      {
-        id: "small-nylon",
-        format: "\u05E8\u05DA \u05E0\u05D9\u05DC\u05D5\u05DF",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 10,
-        inStock: true,
-        stockQuantity: 70
-      }
-    ],
-    features: [
-      "\u05DB\u05DC \u05DE\u05D4 \u05E9\u05E6\u05E8\u05D9\u05DA \u05DC\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA",
-      "\u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05DB\u05DC\u05DC\u05D9 \u05D5\u05EA\u05D9\u05E7\u05D5\u05DF \u05D7\u05E6\u05D5\u05EA",
-      "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05DC\u05E7\u05D1\u05E8\u05D9 \u05E6\u05D3\u05D9\u05E7\u05D9\u05DD",
-      "\u05D0\u05DE\u05D9\u05E8\u05D5\u05EA \u05D5\u05E1\u05D2\u05D5\u05DC\u05D5\u05EA",
-      "\u05DB\u05E8\u05D9\u05DB\u05EA \u05E2\u05D5\u05E8 \u05D0\u05DE\u05D9\u05EA\u05D9 \u05DE\u05E9\u05D5\u05D1\u05D7"
-    ],
-    tags: ["\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA", "\u05EA\u05D9\u05E7\u05D5\u05DF", "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA", "\u05E1\u05D2\u05D5\u05DC\u05D5\u05EA", "\u05E6\u05D3\u05D9\u05E7\u05D9\u05DD"],
-    isActive: true,
-    isFeatured: true
-  },
-  "tikkun-haklali": {
-    id: "tikkun-haklali",
-    name: "\u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05DB\u05DC\u05DC\u05D9",
-    nameEnglish: "Tikkun HaKlali",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: '\u05E2\u05E9\u05E8\u05EA \u05D4\u05DE\u05D6\u05DE\u05D5\u05E8\u05D9\u05DD \u05E9\u05D2\u05D9\u05DC\u05D4 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DC\u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05D1\u05E8\u05D9\u05EA. \u05D1\u05DE\u05D4\u05D3\u05D5\u05E8\u05EA \u05D4\u05E7\u05E8\u05DF \u05DE\u05D5\u05E4\u05D9\u05E2 \u05DB\u05DC \u05E4\u05E1\u05D5\u05E7 \u05D1\u05E4\u05E0\u05D9 \u05E2\u05E6\u05DE\u05D5 \u05D1\u05D2\u05D5\u05D3\u05DC \u05DE\u05D0\u05D9\u05E8 \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD, \u05DC\u05E4\u05D9 \u05D4\u05D5\u05E8\u05D0\u05EA\u05D5 \u05D5\u05E8\u05E6\u05D5\u05E0\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D5\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8 \u05D6\u05E6"\u05DC. \u05E7\u05D9\u05D9\u05DD \u05D1\u05E9\u05DC\u05D5\u05E9\u05D4 \u05D2\u05D3\u05DC\u05D9\u05DD, \u05DC\u05E4\u05D9 \u05D1\u05D7\u05D9\u05E8\u05D4.',
-    descriptionEnglish: "The ten psalms that our holy Rebbe Nachman revealed for rectifying the covenant. In the Keren edition, each verse appears separately in illuminating size, according to the instruction and wish of Rabbi Israel Dov Odesser.",
-    category: "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05D5\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA",
-    subcategory: "\u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05DB\u05DC\u05DC\u05D9",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    pages: 80,
-    isbn: "978-965-7023-34-9",
-    images: [
-      "/attached_assets/\u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05DB\u05DC\u05DC\u05D9_1757281158220.jpg"
-    ],
-    variants: [
-      {
-        id: "large-laminated-soft",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 3,
-        inStock: true,
-        stockQuantity: 100
-      },
-      {
-        id: "medium-laminated-soft",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 2,
-        inStock: true,
-        stockQuantity: 150
-      },
-      {
-        id: "small-laminated-soft",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 1,
-        inStock: true,
-        stockQuantity: 200
-      },
-      {
-        id: "small-gold-laminated",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05D6\u05D4\u05D1 \u05D0\u05DC \u05EA\u05D9\u05E8\u05D0",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 2,
-        inStock: true,
-        stockQuantity: 100
-      },
-      {
-        id: "small-soft-leather",
-        format: "\u05E2\u05D5\u05E8 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 18,
-        inStock: true,
-        stockQuantity: 40
-      }
-    ],
-    features: [
-      "\u05E2\u05E9\u05E8\u05EA \u05D4\u05DE\u05D6\u05DE\u05D5\u05E8\u05D9\u05DD \u05D4\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
-      "\u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05D1\u05E8\u05D9\u05EA",
-      "\u05DB\u05DC \u05E4\u05E1\u05D5\u05E7 \u05D1\u05E4\u05E0\u05D9 \u05E2\u05E6\u05DE\u05D5",
-      "\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD",
-      "\u05DC\u05E4\u05D9 \u05E8\u05E6\u05D5\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D5\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8"
-    ],
-    tags: ["\u05EA\u05D9\u05E7\u05D5\u05DF", "\u05DE\u05D6\u05DE\u05D5\u05E8\u05D9\u05DD", "\u05D1\u05E8\u05D9\u05EA", "\u05E7\u05D3\u05D5\u05E9\u05D4", "\u05D0\u05D5\u05D3\u05E1\u05E8"],
-    isActive: true,
-    isFeatured: true
-  },
-  "yekara-deshabbata": {
-    id: "yekara-deshabbata",
-    name: "\u05D9\u05E7\u05E8\u05D0 \u05D3\u05E9\u05D1\u05EA\u05D0",
-    nameEnglish: "Yekara DeShabbata",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: '\u05D7\u05D5\u05D1\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF \u05EA\u05DC\u05DE\u05D9\u05D3 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF. \u05EA\u05D5\u05DB\u05DF \u05D4\u05E1\u05E4\u05E8: \u05D2\u05D9\u05DC\u05D5\u05D9 \u05D4\u05E7\u05E9\u05E8 \u05D1\u05D9\u05DF \u05DE\u05D0\u05DE\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9 \u05D1"\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF", "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA" \u05D5"\u05E9\u05D9\u05D7\u05D5\u05EA \u05D4\u05E8"\u05DF", \u05DC\u05D9\u05E7\u05E8\u05EA \u05E7\u05D3\u05D5\u05E9\u05EA \u05E9\u05D1\u05EA. \u05D4\u05DE\u05D7\u05D1\u05E8 \u05DE\u05E6\u05D9\u05D9\u05DF: "\u05E9\u05DE\u05E2\u05EA\u05D9 \u05D1\u05E9\u05DD \u05D2\u05D3\u05D5\u05DC\u05D9 \u05D4\u05E6\u05D3\u05D9\u05E7\u05D9\u05DD \u05E7\u05D3\u05DE\u05D5\u05E0\u05D9\u05DD \u05E9\u05D4\u05D9\u05D5 \u05DE\u05E4\u05DC\u05D9\u05D2\u05D9\u05DF \u05DE\u05D0\u05D5\u05D3 \u05D1\u05E7\u05D3\u05D5\u05E9\u05EA \u05EA\u05D5\u05E8\u05EA\u05D5 \u05D5\u05DE\u05D0\u05DE\u05E8\u05D9\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05D0\u05DE\u05E8\u05D5 \u05E2\u05DC\u05D9\u05D4\u05DD \u05D1\u05E4\u05D9\u05E8\u05D5\u05E9 \u05E9\u05D4\u05DD \u05D1\u05D1\u05D7\u05D9\u05E0\u05EA \u05E7\u05D3\u05D5\u05E9\u05EA \u05E9\u05D1\u05EA"',
-    descriptionEnglish: "Composed by Rabbi Nachman of Tchehrin, student of Rabbi Nathan. The book reveals the connection between Rabbenu's teachings in Likutei Moharan, Tales, and Sichos HaRan to the holiness of Shabbat.",
-    category: "\u05E1\u05E4\u05E8\u05D9 \u05D4\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05DD",
-    subcategory: "\u05D7\u05D2\u05D9\u05DD \u05D5\u05DE\u05D5\u05E2\u05D3\u05D9\u05DD",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    pages: 320,
-    isbn: "978-965-7023-45-5",
-    images: [
-      "/attached_assets/\u05D9\u05E7\u05E8\u05D0 \u05D3\u05E9\u05D1\u05EA\u05D0 1_1757281125909.jpg",
-      "/attached_assets/\u05D9\u05E7\u05E8\u05D0 \u05D3\u05E9\u05D1\u05EA\u05D0 2_1757281003112.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 20
-      }
-    ],
-    features: [
-      "\u05E7\u05E9\u05E8 \u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05DC\u05E9\u05D1\u05EA \u05E7\u05D5\u05D3\u05E9",
-      "\u05D7\u05D9\u05D3\u05D5\u05E9\u05D9\u05DD \u05E2\u05DC \u05E7\u05D3\u05D5\u05E9\u05EA \u05E9\u05D1\u05EA",
-      "\u05DE\u05D1\u05D5\u05E1\u05E1 \u05E2\u05DC \u05DB\u05DC \u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
-      "\u05DE\u05D7\u05D1\u05E8 \u05EA\u05DC\u05DE\u05D9\u05D3 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
-      "\u05D2\u05D9\u05DC\u05D5\u05D9 \u05E2\u05D5\u05DE\u05E7 \u05D4\u05EA\u05D5\u05E8\u05D5\u05EA"
-    ],
-    tags: ["\u05E9\u05D1\u05EA", "\u05E7\u05D3\u05D5\u05E9\u05D4", "\u05EA\u05D5\u05E8\u05D5\u05EA", "\u05D7\u05D2\u05D9\u05DD", "\u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF"],
-    isActive: true,
-    isFeatured: true
-  },
-  "yareach-haeitanim": {
-    id: "yareach-haeitanim",
-    name: "\u05D9\u05E8\u05D7 \u05D4\u05D0\u05D9\u05EA\u05E0\u05D9\u05DD",
-    nameEnglish: "Yareach HaEitanim",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: '\u05D7\u05D5\u05D1\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF \u05EA\u05DC\u05DE\u05D9\u05D3 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF. \u05D1\u05E1\u05E4\u05E8 \u05D4\u05D5\u05D0 \u05DE\u05E8\u05D0\u05D4 \u05DB\u05D9\u05E6\u05D3 \u05D1\u05DB\u05DC \u05EA\u05D5\u05E8\u05D5\u05EA\u05D9\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05DB\u05DC\u05D5\u05DC \u05E2\u05E0\u05D9\u05DF \u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4, \u05D9\u05D5\u05DD \u05D4\u05DB\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD, \u05E1\u05D5\u05DB\u05D5\u05EA \u05D5\u05E9\u05DE\u05D9\u05E0\u05D9 \u05E2\u05E6\u05E8\u05EA. \u05D4\u05E9\u05DD "\u05D9\u05E8\u05D7 \u05D4\u05D0\u05D9\u05EA\u05E0\u05D9\u05DD" \u05D4\u05D5\u05D0 \u05DB\u05D9\u05E0\u05D5\u05D9 \u05DC\u05D7\u05D5\u05D3\u05E9 \u05EA\u05E9\u05E8\u05D9 \u05D1\u05D2\u05DE\u05E8\u05D0, \u05E2\u05DC \u05E9\u05DD \u05E9\u05D4\u05D5\u05D0 "\u05D0\u05D9\u05EA\u05DF \u05D1\u05DE\u05E6\u05D5\u05D5\u05EA". \u05D4\u05E1\u05E4\u05E8 \u05E0\u05D3\u05E4\u05E1 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E0\u05DB\u05D3 \u05D4\u05DE\u05D7\u05D1\u05E8 \u05E8\u05D1\u05D9 \u05D0\u05D1\u05E8\u05D4\u05DD \u05E9\u05D8\u05E8\u05E0\u05D4\u05D0\u05E8\u05E5 \u05DB\u05D5\u05DB\u05D1-\u05DC\u05D1.',
-    descriptionEnglish: `Composed by Rabbi Nachman of Tchehrin. Shows how all of Rabbenu's teachings contain the concepts of Rosh Hashana, Yom Kippur, Sukkot and Shemini Atzeret. "Yareach HaEitanim" refers to the month of Tishrei.`,
-    category: "\u05E1\u05E4\u05E8\u05D9 \u05D4\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05DD",
-    subcategory: "\u05D7\u05D2\u05D9\u05DD \u05D5\u05DE\u05D5\u05E2\u05D3\u05D9\u05DD",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    pages: 280,
-    isbn: "978-965-7023-46-2",
-    images: [
-      "/attached_assets/3_1757275751756.jpg",
-      "/attached_assets/\u05D4\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05E9\u05DC\u05D9 3_1757275239935.jpg",
-      "/attached_assets/\u05D0\u05D5\u05D9\u05E8\u05D4_1757280778285.jpg"
-    ],
-    variants: [
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 25
-      }
-    ],
-    features: [
-      "\u05D7\u05D5\u05D3\u05E9 \u05EA\u05E9\u05E8\u05D9 \u05D4\u05DE\u05E7\u05D5\u05D3\u05E9",
-      "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D5\u05D9\u05D5\u05DD \u05DB\u05D9\u05E4\u05D5\u05E8",
-      "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D5\u05E9\u05DE\u05D9\u05E0\u05D9 \u05E2\u05E6\u05E8\u05EA",
-      "\u05D0\u05D9\u05EA\u05DF \u05D1\u05DE\u05E6\u05D5\u05D5\u05EA",
-      "\u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E2\u05DC \u05D4\u05D7\u05D2\u05D9\u05DD"
-    ],
-    tags: ["\u05EA\u05E9\u05E8\u05D9", "\u05D7\u05D2\u05D9\u05DD", "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4", "\u05D9\u05D5\u05DD \u05DB\u05D9\u05E4\u05D5\u05E8", "\u05DE\u05D5\u05E2\u05D3\u05D9\u05DD"],
-    isActive: true,
-    isFeatured: false
-  },
   "maafer-lefaar": {
     id: "maafer-lefaar",
     name: "\u05DE\u05D0\u05E4\u05E8 \u05DC\u05E4\u05D0\u05E8",
@@ -3345,6 +1687,1015 @@ var realBreslovProducts = {
     tags: ["\u05E9\u05D1\u05D5\u05E2\u05D5\u05EA", "\u05DE\u05EA\u05DF \u05EA\u05D5\u05E8\u05D4", "\u05EA\u05D9\u05E7\u05D5\u05DF \u05DC\u05D9\u05DC\u05D4", "\u05E7\u05D1\u05DC\u05D4", "\u05D7\u05DE\u05D9\u05E9\u05D9\u05DD"],
     isActive: true,
     isFeatured: false
+  }
+};
+
+// client/src/data/products/etzot.ts
+var etzotProducts = {
+  "likutei-etzot": {
+    id: "likutei-etzot",
+    name: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA",
+    nameEnglish: "Likutei Etzot",
+    nameFrench: "Recueil de Conseils",
+    nameSpanish: "Colecci\xF3n de Consejos",
+    nameRussian: "\u0421\u0431\u043E\u0440\u043D\u0438\u043A \u0421\u043E\u0432\u0435\u0442\u043E\u0432",
+    description: "\u05E1\u05E4\u05E8\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1, \u05DE\u05DB\u05D9\u05DC \u05E2\u05E6\u05D5\u05EA \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA \u05DC\u05D7\u05D9\u05D9 \u05D4\u05D9\u05D5\u05DE\u05D9\u05D5\u05DD \u05D4\u05DE\u05D5\u05D1\u05D0\u05D5\u05EA \u05DE\u05EA\u05D5\u05DA \u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5. \u05D4\u05E1\u05E4\u05E8 \u05DE\u05E1\u05D5\u05D3\u05E8 \u05DC\u05E4\u05D9 \u05E0\u05D5\u05E9\u05D0\u05D9\u05DD \u05D5\u05DE\u05D4\u05D5\u05D5\u05D4 \u05DE\u05D3\u05E8\u05D9\u05DA \u05E4\u05E8\u05E7\u05D8\u05D9 \u05DC\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05E9\u05DD.",
+    descriptionEnglish: "The book of Rabbi Nathan of Breslov, containing practical advice for daily life brought from Rabbenu's books. The book is organized by topics and serves as a practical guide for divine service.",
+    category: "\u05E2\u05E6\u05D5\u05EA \u05D5\u05D4\u05D3\u05E8\u05DB\u05D4",
+    subcategory: "\u05E2\u05E6\u05D5\u05EA \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "likutei-etzot-group",
+    pages: 576,
+    isbn: "978-965-7023-18-9",
+    images: [
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA 1_1757275910545.jpg",
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA 1_1757278339720.jpg",
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA 1_1757281125909.jpg",
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA_1757281003113.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 30
+      },
+      {
+        id: "large-skai-with-commentary-2vol",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05DB\u05D5\u05DC\u05DC \u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05D1\u05D5\u05D0\u05E8\u05D5\u05EA \u05D5\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E8\u05D1\u05D9 \u05E9\u05DE\u05E9\u05D5\u05DF",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 2,
+        price: 80,
+        inStock: true,
+        stockQuantity: 15
+      },
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 40
+      },
+      {
+        id: "small-laminated",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 20,
+        inStock: true,
+        stockQuantity: 60
+      },
+      {
+        id: "small-laminated-soft",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 10,
+        inStock: true,
+        stockQuantity: 80
+      }
+    ],
+    features: [
+      "\u05E2\u05E6\u05D5\u05EA \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA \u05DC\u05D7\u05D9\u05D9 \u05D9\u05D5\u05DE\u05D9\u05D5\u05DD",
+      "\u05DE\u05E1\u05D5\u05D3\u05E8 \u05DC\u05E4\u05D9 \u05E0\u05D5\u05E9\u05D0\u05D9\u05DD",
+      "\u05DE\u05D3\u05E8\u05D9\u05DA \u05E4\u05E8\u05E7\u05D8\u05D9",
+      '\u05DE\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF',
+      "\u05D6\u05DE\u05D9\u05DF \u05E2\u05DD \u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05D1\u05D5\u05D0\u05E8\u05D5\u05EA"
+    ],
+    tags: ["\u05E2\u05E6\u05D5\u05EA", "\u05D4\u05D3\u05E8\u05DB\u05D4", "\u05D9\u05D5\u05DE\u05D9\u05D5\u05DE\u05D9", "\u05DE\u05E2\u05E9\u05D9", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF"],
+    isActive: true,
+    isFeatured: true
+  },
+  "etzot-hamevuarot": {
+    id: "etzot-hamevuarot",
+    name: "\u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05D1\u05D5\u05D0\u05E8\u05D5\u05EA",
+    nameEnglish: "Eitzos Mevu'arot",
+    nameFrench: "Conseils Expliqu\xE9s",
+    nameSpanish: "Consejos Explicados",
+    nameRussian: "\u041E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u043D\u044B\u0435 \u0421\u043E\u0432\u0435\u0442\u044B",
+    description: "\u05D7\u05D5\u05D1\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E9\u05DE\u05E9\u05D5\u05DF \u05D1\u05D0\u05E8\u05E1\u05E7\u05D9 \u05E0\u05DB\u05D3 \u05E8\u05D1\u05D9\u05E0\u05D5, \u05D1\u05DE\u05E7\u05D5\u05E8 \u05D1\u05D0\u05D9\u05D3\u05D9\u05E9, \u05D4\u05E9\u05E4\u05D4 \u05D4\u05DE\u05D3\u05D5\u05D1\u05E8\u05EA \u05D1\u05D0\u05D5\u05EA\u05DF \u05E9\u05E0\u05D9\u05DD. \u05D4\u05E1\u05E4\u05E8 \u05D4\u05D5\u05D0 \u05D1\u05D9\u05D0\u05D5\u05E8 \u05DC\u05E1\u05E4\u05E8 '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA' \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05E0\u05DB\u05EA\u05D1 \u05D1\u05E1\u05D2\u05E0\u05D5\u05DF \u05E4\u05E9\u05D5\u05D8 \u05D5\u05E7\u05D5\u05DC\u05D7 \u05D4\u05DE\u05EA\u05D0\u05D9\u05DD \u05DC\u05DB\u05DC \u05E9\u05DB\u05D1\u05D5\u05EA \u05D4\u05E6\u05D9\u05D1\u05D5\u05E8.",
+    descriptionEnglish: "Compiled by Rabbi Shimshon Barsky, grandson of Rabbenu, originally in Yiddish. The book is an explanation of Rabbi Nathan's 'Likutei Etzot', written in a simple and flowing style suitable for all segments of the public.",
+    descriptionFrench: "Compil\xE9 par Rabbi Chimchon Barsky, petit-fils de Rabb\xE9nou, originellement en yiddish, la langue parl\xE9e \xE0 cette \xE9poque. Le livre est une explication du 'Likout\xE9 \xC9tsot' de Rabbi Nathan, \xE9crit dans un style simple et fluide adapt\xE9 \xE0 tous les publics.",
+    descriptionSpanish: "Compilado por el Rabino Shimshon Barsky, nieto de Rabenu, originalmente en yiddish, el idioma hablado en aquellos a\xF1os. El libro es una explicaci\xF3n del 'Likutei Etzot' del Rabino Nathan, escrito en un estilo simple y fluido adecuado para todos los sectores del p\xFAblico.",
+    descriptionRussian: "\u0421\u043E\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u043E \u0440\u0430\u0431\u0431\u0438 \u0428\u0438\u043C\u0448\u043E\u043D\u043E\u043C \u0411\u0430\u0440\u0441\u043A\u0438\u043C, \u0432\u043D\u0443\u043A\u043E\u043C \u0420\u0430\u0431\u0435\u0439\u043D\u0443, \u043F\u0435\u0440\u0432\u043E\u043D\u0430\u0447\u0430\u043B\u044C\u043D\u043E \u043D\u0430 \u0438\u0434\u0438\u0448\u0435, \u044F\u0437\u044B\u043A\u0435, \u043D\u0430 \u043A\u043E\u0442\u043E\u0440\u043E\u043C \u0433\u043E\u0432\u043E\u0440\u0438\u043B\u0438 \u0432 \u0442\u0435 \u0433\u043E\u0434\u044B. \u041A\u043D\u0438\u0433\u0430 \u044F\u0432\u043B\u044F\u0435\u0442\u0441\u044F \u043E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u0438\u0435\u043C '\u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u042D\u0446\u043E\u0442' \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430, \u043D\u0430\u043F\u0438\u0441\u0430\u043D\u043D\u0430\u044F \u0432 \u043F\u0440\u043E\u0441\u0442\u043E\u043C \u0438 \u043F\u043B\u0430\u0432\u043D\u043E\u043C \u0441\u0442\u0438\u043B\u0435, \u043F\u043E\u0434\u0445\u043E\u0434\u044F\u0449\u0435\u043C \u0434\u043B\u044F \u0432\u0441\u0435\u0445 \u0441\u043B\u043E\u0435\u0432 \u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430.",
+    category: "\u05E2\u05E6\u05D5\u05EA \u05D5\u05D4\u05D3\u05E8\u05DB\u05D4",
+    subcategory: "\u05D1\u05D9\u05D0\u05D5\u05E8\u05D9\u05DD",
+    author: "\u05E8\u05D1\u05D9 \u05E9\u05DE\u05E9\u05D5\u05DF \u05D1\u05D0\u05E8\u05E1\u05E7\u05D9",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "etzot-hamevuarot-group",
+    pages: 384,
+    isbn: "978-965-7023-19-6",
+    images: [
+      "/attached_assets/\u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05D1\u05D5\u05D0\u05E8\u05D5\u05EA 1_1757275910546.jpg",
+      "/attached_assets/\u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05D1\u05D5\u05D0\u05E8\u05D5\u05EA 1_1757278339721.jpg",
+      "/attached_assets/\u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05D1\u05D5\u05D0\u05E8\u05D5\u05EA 1_1757281125911.jpg"
+    ],
+    variants: [
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 35
+      }
+    ],
+    features: [
+      "\u05D1\u05D9\u05D0\u05D5\u05E8 \u05DC\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA",
+      "\u05E0\u05DB\u05D3 \u05E8\u05D1\u05D9\u05E0\u05D5",
+      "\u05E1\u05D2\u05E0\u05D5\u05DF \u05E4\u05E9\u05D5\u05D8 \u05D5\u05E7\u05D5\u05DC\u05D7",
+      "\u05DE\u05EA\u05D0\u05D9\u05DD \u05DC\u05DB\u05DC \u05E9\u05DB\u05D1\u05D5\u05EA \u05D4\u05E6\u05D9\u05D1\u05D5\u05E8",
+      "\u05EA\u05D5\u05E8\u05D2\u05DD \u05DE\u05D0\u05D9\u05D3\u05D9\u05E9"
+    ],
+    featuresFrench: [
+      "Explication du Likout\xE9 \xC9tsot",
+      "Petit-fils de Rabb\xE9nou",
+      "Style simple et fluide",
+      "Adapt\xE9 \xE0 tous les publics",
+      "Traduit du yiddish"
+    ],
+    featuresSpanish: [
+      "Explicaci\xF3n del Likutei Etzot",
+      "Nieto de Rabenu",
+      "Estilo simple y fluido",
+      "Adecuado para todos los p\xFAblicos",
+      "Traducido del yiddish"
+    ],
+    featuresRussian: [
+      "\u041E\u0431\u044A\u044F\u0441\u043D\u0435\u043D\u0438\u0435 \u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u042D\u0446\u043E\u0442",
+      "\u0412\u043D\u0443\u043A \u0420\u0430\u0431\u0435\u0439\u043D\u0443",
+      "\u041F\u0440\u043E\u0441\u0442\u043E\u0439 \u0438 \u043F\u043B\u0430\u0432\u043D\u044B\u0439 \u0441\u0442\u0438\u043B\u044C",
+      "\u041F\u043E\u0434\u0445\u043E\u0434\u0438\u0442 \u0434\u043B\u044F \u0432\u0441\u0435\u0445 \u0441\u043B\u043E\u0435\u0432 \u043E\u0431\u0449\u0435\u0441\u0442\u0432\u0430",
+      "\u041F\u0435\u0440\u0435\u0432\u0435\u0434\u0435\u043D\u043E \u0441 \u0438\u0434\u0438\u0448\u0430"
+    ],
+    tags: ["\u05E2\u05E6\u05D5\u05EA", "\u05D1\u05D9\u05D0\u05D5\u05E8", "\u05E0\u05DB\u05D3 \u05E8\u05D1\u05D9\u05E0\u05D5", "\u05E4\u05E9\u05D5\u05D8", "\u05DE\u05D1\u05D5\u05D0\u05E8"],
+    isActive: true,
+    isFeatured: false
+  }
+};
+
+// client/src/data/products/halacha.ts
+var halachaProducts = {
+  "likutei-halakhot": {
+    id: "likutei-halakhot",
+    name: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA",
+    nameEnglish: "Likutei Halakhot",
+    nameFrench: "Recueil de Lois",
+    nameSpanish: "Colecci\xF3n de Leyes",
+    nameRussian: "\u0421\u043E\u0431\u0440\u0430\u043D\u0438\u0435 \u0417\u0430\u043A\u043E\u043D\u043E\u0432",
+    description: '\u05D7\u05D9\u05D1\u05D5\u05E8\u05D5 \u05D4\u05D2\u05D3\u05D5\u05DC \u05D5\u05D4\u05DE\u05D5\u05E4\u05DC\u05D0 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05EA\u05DC\u05DE\u05D9\u05D3\u05D5 \u05D4\u05DE\u05D5\u05D1\u05D4\u05E7 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1 \u05D6\u05D9\u05E2"\u05D0, \u05DE\u05DB\u05D9\u05DC \u05D3\u05E8\u05D5\u05E9\u05D9\u05DD \u05E0\u05E4\u05DC\u05D0\u05D9\u05DD \u05D1\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05E9\u05DD, \u05DE\u05E1\u05D5\u05D3\u05E8 \u05E2\u05DC \u05D0\u05E8\u05D1\u05E2\u05EA \u05D7\u05DC\u05E7\u05D9 \u05E9\u05D5\u05DC\u05D7\u05DF-\u05E2\u05E8\u05D5\u05DA, \u05DE\u05D7\u05D5\u05DC\u05E7 \u05DC\u05E9\u05DE\u05D5\u05E0\u05D4 \u05DB\u05E8\u05DB\u05D9\u05DD. \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05D4\u05EA\u05D1\u05D8\u05D0: "\u05D4\u05E2\u05D5\u05DC\u05DD \u05D0\u05D5\u05DE\u05E8\u05D9\u05DD \u05E2\u05DC \u05E1\u05E4\u05E8 \u05D4\u05E9\u05DC"\u05D4 \u05D4\u05E7\u05D3\u05D5\u05E9, \u05E9\u05D4\u05D5\u05D0 \u05D4\u05E9\u05E2\u05E8 \u05DC\u05D2\u05DF \u05E2\u05D3\u05DF, \u05D5\u05D0\u05E0\u05D9 \u05D0\u05D5\u05DE\u05E8 \u05E2\u05DC \u05E1\u05E4\u05E8\u05D9 \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u2013 \u05E9\u05D4\u05D5\u05D0 \u05D4\u05D2\u05DF \u05E2\u05D3\u05DF \u05E9\u05DC \u05D4\u05E9\u05DD \u05D9\u05EA\u05D1\u05E8\u05DA \u05D1\u05E2\u05E6\u05DE\u05D5!"',
+    descriptionEnglish: "The great and wonderful work of Rabbi Nathan, the outstanding student of our teacher Rabbi Nachman of Breslov, containing wonderful discourses on divine service, arranged according to the four sections of the Shulchan Aruch.",
+    descriptionFrench: `L'\u0153uvre majestueuse et merveilleuse de Rabbi Nathan, le disciple \xE9minent de notre ma\xEEtre Rabbi Nahman de Breslev, contenant des discours merveilleux sur le service divin, organis\xE9e selon les quatre sections du Choulhan Aroukh, divis\xE9e en huit volumes. Rabbi Nathan a d\xE9clar\xE9 : "Le monde dit du livre du Chela HaKadoch qu'il est la porte du Jardin d'\xC9den, et moi je dis de mon livre Likout\xE9 Halakhot qu'il est le Jardin d'\xC9den de Hachem Lui-m\xEAme !"`,
+    descriptionSpanish: 'La gran y maravillosa obra del Rabino Nathan, el destacado estudiante de nuestro maestro Rabino Najman de Breslov, que contiene discursos maravillosos sobre el servicio divino, organizada seg\xFAn las cuatro secciones del Shulj\xE1n Aruj, dividida en ocho vol\xFAmenes. El Rabino Nathan declar\xF3: "El mundo dice del libro del Shela HaKadosh que es la puerta del Jard\xEDn del Ed\xE9n, y yo digo de mi libro Likutei Halajot que es el Jard\xEDn del Ed\xE9n de Hashem mismo!"',
+    descriptionRussian: '\u0412\u0435\u043B\u0438\u043A\u0438\u0439 \u0438 \u0447\u0443\u0434\u0435\u0441\u043D\u044B\u0439 \u0442\u0440\u0443\u0434 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430, \u0432\u044B\u0434\u0430\u044E\u0449\u0435\u0433\u043E\u0441\u044F \u0443\u0447\u0435\u043D\u0438\u043A\u0430 \u043D\u0430\u0448\u0435\u0433\u043E \u0443\u0447\u0438\u0442\u0435\u043B\u044F \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430 \u0438\u0437 \u0411\u0440\u0430\u0446\u043B\u0430\u0432\u0430, \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0449\u0438\u0439 \u043F\u0440\u0435\u043A\u0440\u0430\u0441\u043D\u044B\u0435 \u0440\u0430\u0441\u0441\u0443\u0436\u0434\u0435\u043D\u0438\u044F \u043E \u0441\u043B\u0443\u0436\u0435\u043D\u0438\u0438 \u0412\u0441\u0435\u0432\u044B\u0448\u043D\u0435\u043C\u0443, \u043E\u0440\u0433\u0430\u043D\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u044B\u0439 \u0441\u043E\u0433\u043B\u0430\u0441\u043D\u043E \u0447\u0435\u0442\u044B\u0440\u0435\u043C \u0440\u0430\u0437\u0434\u0435\u043B\u0430\u043C \u0428\u0443\u043B\u0445\u0430\u043D \u0410\u0440\u0443\u0445\u0430, \u0440\u0430\u0437\u0434\u0435\u043B\u0435\u043D\u043D\u044B\u0439 \u043D\u0430 \u0432\u043E\u0441\u0435\u043C\u044C \u0442\u043E\u043C\u043E\u0432. \u0420\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D \u0437\u0430\u044F\u0432\u0438\u043B: "\u041C\u0438\u0440 \u0433\u043E\u0432\u043E\u0440\u0438\u0442 \u043E \u043A\u043D\u0438\u0433\u0435 \u0428\u0435\u043B\u0430 \u0425\u0430\u041A\u0430\u0434\u043E\u0448, \u0447\u0442\u043E \u043E\u043D\u0430 \u0432\u0440\u0430\u0442\u0430 \u0432 \u0413\u0430\u043D \u042D\u0434\u0435\u043D, \u0430 \u044F \u0433\u043E\u0432\u043E\u0440\u044E \u043E \u043C\u043E\u0435\u0439 \u043A\u043D\u0438\u0433\u0435 \u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u0410\u043B\u0430\u0445\u043E\u0442, \u0447\u0442\u043E \u043E\u043D\u0430 \u0441\u0430\u043C \u0413\u0430\u043D \u042D\u0434\u0435\u043D \u0412\u0441\u0435\u0432\u044B\u0448\u043D\u0435\u0433\u043E!"',
+    category: "\u05D4\u05DC\u05DB\u05D4 \u05D5\u05E2\u05D1\u05D5\u05D3\u05D4",
+    subcategory: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "likutei-halakhot-group",
+    pages: 2800,
+    isbn: "978-965-7023-17-2",
+    images: [
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA 1_1757280778288.jpg",
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA 2_1757280778288.jpg",
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA 3_1757280778288.jpg"
+    ],
+    variants: [
+      {
+        id: "large-8vol-illuminated",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05DE\u05D0\u05D9\u05E8\u05EA \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 8,
+        price: 380,
+        inStock: true,
+        stockQuantity: 5
+      },
+      {
+        id: "large-8vol-standard",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "25*17",
+        volumes: 8,
+        price: 280,
+        inStock: true,
+        stockQuantity: 8
+      },
+      {
+        id: "medium-20vol",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 20,
+        price: 480,
+        inStock: true,
+        stockQuantity: 3
+      },
+      {
+        id: "giant-8vol",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05E2\u05E0\u05E7",
+        dimensions: "32*22",
+        volumes: 8,
+        price: 420,
+        inStock: true,
+        stockQuantity: 4
+      }
+    ],
+    features: [
+      "\u05D7\u05D9\u05D1\u05D5\u05E8\u05D5 \u05D4\u05D2\u05D3\u05D5\u05DC \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
+      `\u05DE\u05E1\u05D5\u05D3\u05E8 \u05E2\u05DC \u05D3' \u05D7\u05DC\u05E7\u05D9 \u05E9\u05D5"\u05E2`,
+      "\u05D3\u05E8\u05D5\u05E9\u05D9\u05DD \u05E0\u05E4\u05DC\u05D0\u05D9\u05DD \u05D1\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05E9\u05DD",
+      "\u05D4\u05D2\u05DF \u05E2\u05D3\u05DF \u05E9\u05DC \u05D4\u05E9\u05DD \u05D9\u05EA\u05D1\u05E8\u05DA",
+      "\u05D6\u05DE\u05D9\u05DF \u05D1\u05DE\u05E1\u05E4\u05E8 \u05DE\u05D4\u05D3\u05D5\u05E8\u05D5\u05EA"
+    ],
+    featuresFrench: [
+      "L'\u0153uvre majeure de Rabbi Nathan",
+      "Organis\xE9 selon les 4 sections du Choulhan Aroukh",
+      "Discours merveilleux sur le service divin",
+      "Le Jardin d'\xC9den de Hachem Lui-m\xEAme",
+      "Disponible en plusieurs \xE9ditions"
+    ],
+    featuresSpanish: [
+      "La gran obra del Rabino Nathan",
+      "Organizado seg\xFAn las 4 secciones del Shulj\xE1n Aruj",
+      "Discursos maravillosos sobre el servicio divino",
+      "El Jard\xEDn del Ed\xE9n de Hashem mismo",
+      "Disponible en varias ediciones"
+    ],
+    featuresRussian: [
+      "\u0412\u0435\u043B\u0438\u043A\u0438\u0439 \u0442\u0440\u0443\u0434 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430",
+      "\u041E\u0440\u0433\u0430\u043D\u0438\u0437\u043E\u0432\u0430\u043D \u043F\u043E 4 \u0440\u0430\u0437\u0434\u0435\u043B\u0430\u043C \u0428\u0443\u043B\u0445\u0430\u043D \u0410\u0440\u0443\u0445\u0430",
+      "\u0427\u0443\u0434\u0435\u0441\u043D\u044B\u0435 \u0440\u0430\u0441\u0441\u0443\u0436\u0434\u0435\u043D\u0438\u044F \u043E \u0441\u043B\u0443\u0436\u0435\u043D\u0438\u0438 \u0412\u0441\u0435\u0432\u044B\u0448\u043D\u0435\u043C\u0443",
+      "\u0421\u0430\u043C \u0413\u0430\u043D \u042D\u0434\u0435\u043D \u0412\u0441\u0435\u0432\u044B\u0448\u043D\u0435\u0433\u043E",
+      "\u0414\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u0432 \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u0438\u0445 \u0438\u0437\u0434\u0430\u043D\u0438\u044F\u0445"
+    ],
+    tags: ["\u05D4\u05DC\u05DB\u05D4", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF", "\u05E9\u05D5\u05DC\u05D7\u05DF \u05E2\u05E8\u05D5\u05DA", "\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05E9\u05DD", "\u05D3\u05E8\u05D5\u05E9\u05D9\u05DD"],
+    isActive: true,
+    isFeatured: true
+  }
+};
+
+// client/src/data/products/likutim.ts
+var likutimProducts = {
+  "otzer-hayirah": {
+    id: "otzer-hayirah",
+    name: "\u05D0\u05D5\u05E6\u05E8 \u05D4\u05D9\u05E8\u05D0\u05D4",
+    nameEnglish: "Treasury of Fear of Heaven",
+    nameFrench: "Tr\xE9sor de la Crainte C\xE9leste",
+    nameSpanish: "Tesoro del Temor Celestial",
+    nameRussian: "\u0421\u043E\u043A\u0440\u043E\u0432\u0438\u0449\u043D\u0438\u0446\u0430 \u0422\u0440\u0435\u043F\u0435\u0442\u0430 \u043F\u0435\u0440\u0435\u0434 \u041D\u0435\u0431\u0435\u0441\u0430\u043C\u0438",
+    description: `\u05E0\u05E7\u05E8\u05D0 \u05D1\u05DE\u05E7\u05D5\u05E8: \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA \u05D7\u05D3\u05E9. \u05EA\u05D5\u05DB\u05DF \u05D4\u05E1\u05E4\u05E8: \u05DC\u05D9\u05E7\u05D5\u05D8 \u05D5\u05E7\u05D9\u05E6\u05D5\u05E8 \u05DE\u05E1\u05E4\u05E8\u05D9 '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA' \u05DC\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05D6\u05E6"\u05DC, \u05DC\u05D4\u05D5\u05E6\u05D9\u05D0 \u05DE\u05D4\u05DD \u05D0\u05EA \u05DB\u05DC \u05D4\u05E2\u05E6\u05D5\u05EA \u05D4\u05DE\u05EA\u05D1\u05D0\u05E8\u05D9\u05DD \u05D1\u05D3\u05E8\u05D5\u05E9\u05D9\u05D5 \u05D4\u05D0\u05E8\u05D5\u05DB\u05D9\u05DD \u05DC\u05E2\u05D5\u05D1\u05D3\u05D4 \u05D5\u05DC\u05DE\u05E2\u05E9\u05D4. \u05D4\u05E1\u05E4\u05E8 \u05DE\u05D7\u05D5\u05DC\u05E7 \u05DC\u05D0\u05E8\u05D1\u05E2\u05D4 \u05D7\u05DC\u05E7\u05D9\u05DD: \u05D0\u05DE\u05EA \u05D5\u05E6\u05D3\u05E7. \u05DB\u05E0\u05E1\u05EA \u05E7\u05D4\u05DC \u05E6\u05D1\u05D0\u05D5\u05EA. \u05EA\u05E9\u05D5\u05D1\u05EA \u05D4\u05E9\u05E0\u05D4. \u05E2\u05E6\u05EA \u05E9\u05DC\u05D5\u05DD.`,
+    descriptionEnglish: `Originally called: New Likutei Etzot. A collection and summary from Rabbi Nathan's "Likutei Halakhot" books, extracting all the practical advice from his lengthy discourses.`,
+    descriptionFrench: `Originellement appel\xE9 : Nouveau Likout\xE9 \xC9tsot. Contenu du livre : recueil et r\xE9sum\xE9 des livres "Likout\xE9 Halakhot" de Rabbi Nathan, extrayant tous les conseils pratiques de ses longs discours pour l'action et la pratique. Le livre est divis\xE9 en quatre parties : V\xE9rit\xE9 et Justice, Assembl\xE9e de la Congr\xE9gation des Arm\xE9es, T\xE9chouva de l'Ann\xE9e, Conseil de Paix.`,
+    descriptionSpanish: 'Originalmente llamado: Nuevo Likutei Etzot. Contenido del libro: recopilaci\xF3n y resumen de los libros "Likutei Halajot" del Rabino Nathan, extrayendo todos los consejos pr\xE1cticos de sus largos discursos para la acci\xF3n y la pr\xE1ctica. El libro est\xE1 dividido en cuatro partes: Verdad y Justicia, Asamblea de la Congregaci\xF3n de los Ej\xE9rcitos, Teshuv\xE1 del A\xF1o, Consejo de Paz.',
+    descriptionRussian: '\u041F\u0435\u0440\u0432\u043E\u043D\u0430\u0447\u0430\u043B\u044C\u043D\u043E \u043D\u0430\u0437\u044B\u0432\u0430\u043B\u043E\u0441\u044C: \u041D\u043E\u0432\u044B\u0439 \u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u042D\u0446\u043E\u0442. \u0421\u043E\u0434\u0435\u0440\u0436\u0430\u043D\u0438\u0435 \u043A\u043D\u0438\u0433\u0438: \u0441\u0431\u043E\u0440\u043D\u0438\u043A \u0438 \u043A\u0440\u0430\u0442\u043A\u043E\u0435 \u0438\u0437\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u043A\u043D\u0438\u0433 "\u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u0410\u043B\u0430\u0445\u043E\u0442" \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430, \u0438\u0437\u0432\u043B\u0435\u043A\u0430\u044E\u0449\u0435\u0435 \u0432\u0441\u0435 \u043F\u0440\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0441\u043E\u0432\u0435\u0442\u044B \u0438\u0437 \u0435\u0433\u043E \u0434\u043B\u0438\u043D\u043D\u044B\u0445 \u0440\u0430\u0441\u0441\u0443\u0436\u0434\u0435\u043D\u0438\u0439 \u0434\u043B\u044F \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F \u0438 \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0438. \u041A\u043D\u0438\u0433\u0430 \u0440\u0430\u0437\u0434\u0435\u043B\u0435\u043D\u0430 \u043D\u0430 \u0447\u0435\u0442\u044B\u0440\u0435 \u0447\u0430\u0441\u0442\u0438: \u0418\u0441\u0442\u0438\u043D\u0430 \u0438 \u0421\u043F\u0440\u0430\u0432\u0435\u0434\u043B\u0438\u0432\u043E\u0441\u0442\u044C, \u0421\u043E\u0431\u0440\u0430\u043D\u0438\u0435 \u041E\u0431\u0449\u0438\u043D\u044B \u0412\u043E\u0438\u043D\u0441\u0442\u0432, \u0422\u0448\u0443\u0432\u0430 \u0413\u043E\u0434\u0430, \u0421\u043E\u0432\u0435\u0442 \u041C\u0438\u0440\u0430.',
+    category: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9\u05DD",
+    subcategory: "\u05E2\u05E6\u05D5\u05EA",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    pages: 850,
+    isbn: "978-965-7023-31-8",
+    images: [
+      "/attached_assets/\u05D0\u05D5\u05E6\u05E8 \u05D4\u05D9\u05E8\u05D0\u05D4 1_1757275234154.jpg",
+      "/attached_assets/\u05D0\u05D5\u05E6\u05E8 \u05D4\u05D9\u05E8\u05D0\u05D4 2_1757275234155.jpg",
+      "/attached_assets/\u05D0\u05D5\u05E6\u05E8 \u05D4\u05D9\u05E8\u05D0\u05D4 3_1757275234155.jpg",
+      "/attached_assets/\u05D0\u05D5\u05E6\u05E8 \u05D4\u05D9\u05E8\u05D0\u05D4 4_1757275234156.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai-5vol",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 5,
+        price: 200,
+        inStock: true,
+        stockQuantity: 10
+      }
+    ],
+    features: [
+      "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA \u05D7\u05D3\u05E9",
+      "\u05DE\u05E1\u05E4\u05E8\u05D9 \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA",
+      "\u05E2\u05E6\u05D5\u05EA \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA \u05DC\u05E2\u05D5\u05D1\u05D3\u05D4",
+      "\u05D0\u05E8\u05D1\u05E2\u05D4 \u05D7\u05DC\u05E7\u05D9\u05DD \u05E2\u05D9\u05E7\u05E8\u05D9\u05D9\u05DD",
+      "\u05D7\u05D5\u05D1\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF"
+    ],
+    featuresFrench: [
+      "Nouveau Likout\xE9 \xC9tsot",
+      "Des livres Likout\xE9 Halakhot",
+      "Conseils pratiques pour l'action",
+      "Quatre parties principales",
+      "Compil\xE9 par Rabbi Nahman de Tcherin"
+    ],
+    featuresSpanish: [
+      "Nuevo Likutei Etzot",
+      "De los libros Likutei Halajot",
+      "Consejos pr\xE1cticos para la acci\xF3n",
+      "Cuatro partes principales",
+      "Compilado por el Rabino Najman de Tcherin"
+    ],
+    featuresRussian: [
+      "\u041D\u043E\u0432\u044B\u0439 \u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u042D\u0446\u043E\u0442",
+      "\u0418\u0437 \u043A\u043D\u0438\u0433 \u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u0410\u043B\u0430\u0445\u043E\u0442",
+      "\u041F\u0440\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0441\u043E\u0432\u0435\u0442\u044B \u0434\u043B\u044F \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F",
+      "\u0427\u0435\u0442\u044B\u0440\u0435 \u043E\u0441\u043D\u043E\u0432\u043D\u044B\u0435 \u0447\u0430\u0441\u0442\u0438",
+      "\u0421\u043E\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u043E \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u043E\u043C \u0438\u0437 \u0427\u0435\u0440\u0438\u043D\u0430"
+    ],
+    tags: ["\u05D9\u05E8\u05D0\u05EA \u05E9\u05DE\u05D9\u05DD", "\u05E2\u05E6\u05D5\u05EA", "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9\u05DD", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF", "\u05D4\u05DC\u05DB\u05D5\u05EA"],
+    isActive: true,
+    isFeatured: true
+  }
+};
+
+// client/src/data/products/michtavim.ts
+var michtavimProducts = {
+  "alim-letrufah": {
+    id: "alim-letrufah",
+    name: "\u05E2\u05DC\u05D9\u05DD \u05DC\u05EA\u05E8\u05D5\u05E4\u05D4",
+    nameEnglish: "Alim Letrufah",
+    nameFrench: "Feuilles de Gu\xE9rison",
+    nameSpanish: "Hojas de Curaci\xF3n",
+    nameRussian: "\u041B\u0438\u0441\u0442\u044C\u044F \u0418\u0441\u0446\u0435\u043B\u0435\u043D\u0438\u044F",
+    description: "\u05DE\u05D0\u05D5\u05EA \u05DE\u05DB\u05EA\u05D1\u05D9\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05E9\u05E9\u05DC\u05D7 \u05DC\u05D1\u05E0\u05D9\u05D5 \u05D5\u05DC\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05D5 \u05E2\u05D3 \u05E1\u05DE\u05D5\u05DA \u05DC\u05E4\u05D8\u05D9\u05E8\u05EA\u05D5. \u05DE\u05DB\u05EA\u05D1\u05D9\u05DD \u05D0\u05DC\u05D5 \u05D4\u05DD \u05D0\u05D5\u05E6\u05E8 \u05D1\u05DC\u05D5\u05DD \u05E9\u05DC \u05D9\u05E8\u05D0\u05EA \u05E9\u05DE\u05D9\u05DD, \u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA, \u05E9\u05D9\u05D7\u05D5\u05EA \u05E7\u05D5\u05D3\u05E9, \u05E2\u05E6\u05D5\u05EA \u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05D7\u05D9\u05D9\u05DD, \u05D5\u05E8\u05D5\u05D5\u05D9\u05D9\u05DD \u05D1\u05D3\u05D1\u05D9\u05E7\u05D5\u05EA \u05E2\u05D6\u05D4 \u05D1\u05E8\u05D1\u05D9\u05E0\u05D5.",
+    descriptionEnglish: "Hundreds of letters from Rabbi Nathan, sent to his sons and students until close to his passing. These letters are a treasury of fear of Heaven, strengthening, holy conversations, and life-illuminating advice.",
+    descriptionFrench: "Des centaines de lettres de Rabbi Nathan, envoy\xE9es \xE0 ses fils et ses disciples jusqu'\xE0 peu avant son d\xE9c\xE8s. Ces lettres sont un tr\xE9sor inestimable de crainte du Ciel, de renforcement, de conversations saintes, de conseils illuminant la vie, et impr\xE9gn\xE9es d'un attachement intense \xE0 Rabb\xE9nou.",
+    descriptionSpanish: "Cientos de cartas del Rabino Nathan, enviadas a sus hijos y disc\xEDpulos hasta cerca de su fallecimiento. Estas cartas son un tesoro invaluable de temor del Cielo, fortalecimiento, conversaciones santas, consejos que iluminan la vida, e impregnadas de un apego intenso a Rabenu.",
+    descriptionRussian: "\u0421\u043E\u0442\u043D\u0438 \u043F\u0438\u0441\u0435\u043C \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430, \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043D\u044B\u0445 \u0435\u0433\u043E \u0441\u044B\u043D\u043E\u0432\u044C\u044F\u043C \u0438 \u0443\u0447\u0435\u043D\u0438\u043A\u0430\u043C \u0432\u043F\u043B\u043E\u0442\u044C \u0434\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u0438 \u0431\u043B\u0438\u0437\u043A\u043E\u0433\u043E \u043A \u0435\u0433\u043E \u043A\u043E\u043D\u0447\u0438\u043D\u0435. \u042D\u0442\u0438 \u043F\u0438\u0441\u044C\u043C\u0430 \u044F\u0432\u043B\u044F\u044E\u0442\u0441\u044F \u0431\u0435\u0441\u0446\u0435\u043D\u043D\u043E\u0439 \u0441\u043E\u043A\u0440\u043E\u0432\u0438\u0449\u043D\u0438\u0446\u0435\u0439 \u0442\u0440\u0435\u043F\u0435\u0442\u0430 \u043F\u0435\u0440\u0435\u0434 \u041D\u0435\u0431\u0435\u0441\u0430\u043C\u0438, \u0443\u043A\u0440\u0435\u043F\u043B\u0435\u043D\u0438\u044F, \u0441\u0432\u044F\u0442\u044B\u0445 \u0431\u0435\u0441\u0435\u0434, \u0441\u043E\u0432\u0435\u0442\u043E\u0432, \u043E\u0441\u0432\u0435\u0449\u0430\u044E\u0449\u0438\u0445 \u0436\u0438\u0437\u043D\u044C, \u0438 \u043F\u0440\u043E\u043F\u0438\u0442\u0430\u043D\u044B \u0441\u0438\u043B\u044C\u043D\u043E\u0439 \u043F\u0440\u0438\u0432\u044F\u0437\u0430\u043D\u043D\u043E\u0441\u0442\u044C\u044E \u043A \u0420\u0430\u0431\u0435\u0439\u043D\u0443.",
+    category: "\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD \u05D5\u05DB\u05EA\u05D1\u05D9\u05DD",
+    subcategory: "\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "alim-letrufah-group",
+    pages: 1088,
+    isbn: "978-965-7023-13-4",
+    images: [
+      "/attached_assets/\u05E2\u05DC\u05D9\u05DD \u05DC\u05EA\u05E8\u05D5\u05E4\u05D4 1_1757275910546.jpg",
+      "/attached_assets/\u05E2\u05DC\u05D9\u05DD \u05DC\u05EA\u05E8\u05D5\u05E4\u05D4 1_1757278339721.jpg",
+      "/attached_assets/\u05E2\u05DC\u05D9\u05DD \u05DC\u05EA\u05E8\u05D5\u05E4\u05D4 1_1757281125910.jpg",
+      "/attached_assets/\u05E2\u05DC\u05D9\u05DD_1757281085507.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 40,
+        inStock: true,
+        stockQuantity: 25
+      },
+      {
+        id: "large-leather-pearl",
+        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8 \u05DC\u05D1\u05DF/\u05E4\u05E0\u05D9\u05E0\u05D4",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 50,
+        inStock: true,
+        stockQuantity: 15
+      },
+      {
+        id: "medium-skai-3vol",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 3,
+        price: 90,
+        inStock: true,
+        stockQuantity: 20
+      },
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 30
+      }
+    ],
+    features: [
+      "\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E7\u05D5\u05D3\u05E9 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
+      "\u05D0\u05D5\u05E6\u05E8 \u05E9\u05DC \u05D9\u05E8\u05D0\u05EA \u05E9\u05DE\u05D9\u05DD",
+      "\u05E2\u05E6\u05D5\u05EA \u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05D7\u05D9\u05D9\u05DD",
+      "\u05D3\u05D1\u05D9\u05E7\u05D5\u05EA \u05E2\u05D6\u05D4 \u05D1\u05E8\u05D1\u05D9\u05E0\u05D5",
+      "\u05E9\u05D9\u05D7\u05D5\u05EA \u05E7\u05D5\u05D3\u05E9 \u05D5\u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA"
+    ],
+    featuresFrench: [
+      "Lettres saintes de Rabbi Nathan",
+      "Tr\xE9sor de crainte du Ciel",
+      "Conseils illuminant la vie",
+      "Attachement intense \xE0 Rabb\xE9nou",
+      "Conversations saintes et renforcement"
+    ],
+    featuresSpanish: [
+      "Cartas santas del Rabino Nathan",
+      "Tesoro de temor del Cielo",
+      "Consejos que iluminan la vida",
+      "Apego intenso a Rabenu",
+      "Conversaciones santas y fortalecimiento"
+    ],
+    featuresRussian: [
+      "\u0421\u0432\u044F\u0442\u044B\u0435 \u043F\u0438\u0441\u044C\u043C\u0430 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430",
+      "\u0421\u043E\u043A\u0440\u043E\u0432\u0438\u0449\u043D\u0438\u0446\u0430 \u0442\u0440\u0435\u043F\u0435\u0442\u0430 \u043F\u0435\u0440\u0435\u0434 \u041D\u0435\u0431\u0435\u0441\u0430\u043C\u0438",
+      "\u0421\u043E\u0432\u0435\u0442\u044B, \u043E\u0441\u0432\u0435\u0449\u0430\u044E\u0449\u0438\u0435 \u0436\u0438\u0437\u043D\u044C",
+      "\u0421\u0438\u043B\u044C\u043D\u0430\u044F \u043F\u0440\u0438\u0432\u044F\u0437\u0430\u043D\u043D\u043E\u0441\u0442\u044C \u043A \u0420\u0430\u0431\u0435\u0439\u043D\u0443",
+      "\u0421\u0432\u044F\u0442\u044B\u0435 \u0431\u0435\u0441\u0435\u0434\u044B \u0438 \u0443\u043A\u0440\u0435\u043F\u043B\u0435\u043D\u0438\u0435"
+    ],
+    tags: ["\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF", "\u05D9\u05E8\u05D0\u05EA \u05E9\u05DE\u05D9\u05DD", "\u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA", "\u05E2\u05E6\u05D5\u05EA"],
+    isActive: true,
+    isFeatured: true
+  },
+  "mikhtavei-rabbi-natan-tiveria": {
+    id: "mikhtavei-rabbi-natan-tiveria",
+    name: "\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D8\u05D1\u05E8\u05D9\u05D4",
+    nameEnglish: "Mikhtavei Rabbi Natan MeTiveria",
+    nameFrench: "Lettres de Rabbi Nathan de Tib\xE9riade",
+    nameSpanish: "Cartas del Rabino Nathan de Tiber\xEDades",
+    nameRussian: "\u041F\u0438\u0441\u044C\u043C\u0430 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430 \u0438\u0437 \u0422\u0432\u0435\u0440\u0438\u0438",
+    description: '\u05E1\u05E4\u05E8 \u05D4\u05DE\u05DB\u05D9\u05DC \u05E7\u05E8\u05D5\u05D1 \u05DC\u05DE\u05D0\u05EA\u05D9\u05D9\u05DD \u05DE\u05DB\u05EA\u05D1\u05D9\u05DD \u05E9\u05DB\u05EA\u05D1 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05D1"\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4 \u05DE\u05D8\u05D1\u05E8\u05D9\u05D4, \u05DE\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05D5 \u05D4\u05DE\u05D5\u05D1\u05D4\u05E7\u05D9\u05DD \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05DC\u05D9\u05D3\u05D9\u05D3\u05D9\u05D5 \u05D1\u05D0\u05E8\u05E5 \u05D5\u05D1\u05D7\u05D5"\u05DC. \u05D2\u05D3\u05D5\u05E9 \u05D1\u05E9\u05D9\u05D7\u05D5\u05EA \u05D5\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05E0\u05DC\u05D4\u05D1\u05D9\u05DD \u05D1\u05D2\u05D3\u05D5\u05DC\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05EA\u05DC\u05DE\u05D9\u05D3\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05DE\u05E2\u05DC\u05EA \u05DC\u05D9\u05DE\u05D5\u05D3 \u05E1\u05E4\u05E8\u05D9\u05D4\u05DD, \u05D5\u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA \u05D1\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05E9\u05DD.',
+    descriptionEnglish: "Book containing nearly two hundred letters written by Rabbi Nathan bar Yehuda of Tiberias, one of Rabbi Nathan's distinguished students, to friends in Israel and abroad. Full of enthusiastic conversations about the greatness of Rabbenu and Rabbi Nathan.",
+    descriptionFrench: "Livre contenant pr\xE8s de deux cents lettres \xE9crites par Rabbi Nathan bar Y\xE9houda de Tib\xE9riade, l'un des disciples distingu\xE9s de Rabbi Nathan, \xE0 des amis en Isra\xEBl et \xE0 l'\xE9tranger. Rempli de conversations enthousiastes sur la grandeur de Rabb\xE9nou et de son disciple Rabbi Nathan, la valeur de l'\xE9tude de leurs livres, et le renforcement dans le service divin.",
+    descriptionSpanish: "Libro que contiene casi doscientas cartas escritas por el Rabino Nathan bar Yehuda de Tiber\xEDades, uno de los disc\xEDpulos distinguidos del Rabino Nathan, a amigos en Israel y en el extranjero. Lleno de conversaciones entusiastas sobre la grandeza de Rabenu y de su disc\xEDpulo Rabino Nathan, el valor del estudio de sus libros, y el fortalecimiento en el servicio divino.",
+    descriptionRussian: "\u041A\u043D\u0438\u0433\u0430, \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0449\u0430\u044F \u043F\u043E\u0447\u0442\u0438 \u0434\u0432\u0435\u0441\u0442\u0438 \u043F\u0438\u0441\u0435\u043C, \u043D\u0430\u043F\u0438\u0441\u0430\u043D\u043D\u044B\u0445 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u043E\u043C \u0431\u0430\u0440 \u0418\u0435\u0433\u0443\u0434\u043E\u0439 \u0438\u0437 \u0422\u0432\u0435\u0440\u0438\u0438, \u043E\u0434\u043D\u0438\u043C \u0438\u0437 \u0432\u044B\u0434\u0430\u044E\u0449\u0438\u0445\u0441\u044F \u0443\u0447\u0435\u043D\u0438\u043A\u043E\u0432 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430, \u0434\u0440\u0443\u0437\u044C\u044F\u043C \u0432 \u0418\u0437\u0440\u0430\u0438\u043B\u0435 \u0438 \u0437\u0430 \u0440\u0443\u0431\u0435\u0436\u043E\u043C. \u041F\u043E\u043B\u043D\u0430 \u0432\u043E\u0441\u0442\u043E\u0440\u0436\u0435\u043D\u043D\u044B\u0445 \u0431\u0435\u0441\u0435\u0434 \u043E \u0432\u0435\u043B\u0438\u0447\u0438\u0438 \u0420\u0430\u0431\u0435\u0439\u043D\u0443 \u0438 \u0435\u0433\u043E \u0443\u0447\u0435\u043D\u0438\u043A\u0430 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430, \u0446\u0435\u043D\u043D\u043E\u0441\u0442\u0438 \u0438\u0437\u0443\u0447\u0435\u043D\u0438\u044F \u0438\u0445 \u043A\u043D\u0438\u0433 \u0438 \u0443\u043A\u0440\u0435\u043F\u043B\u0435\u043D\u0438\u044F \u0432 \u0441\u043B\u0443\u0436\u0435\u043D\u0438\u0438 \u0412\u0441\u0435\u0432\u044B\u0448\u043D\u0435\u043C\u0443.",
+    category: "\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD",
+    subcategory: "\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E7\u05D5\u05D3\u05E9",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05D1\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4 \u05DE\u05D8\u05D1\u05E8\u05D9\u05D4",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    pages: 380,
+    isbn: "978-965-7023-53-0",
+    images: [
+      "/attached_assets/\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E8 \u05E0\u05EA\u05DF 1_1757281125910.jpg",
+      "/attached_assets/\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E8 \u05E0\u05EA\u05DF_1757281003113.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 18
+      }
+    ],
+    features: [
+      "\u05DE\u05D0\u05EA\u05D9\u05D9\u05DD \u05DE\u05DB\u05EA\u05D1\u05D9\u05DD",
+      "\u05EA\u05DC\u05DE\u05D9\u05D3 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
+      "\u05DE\u05D8\u05D1\u05E8\u05D9\u05D4 \u05D4\u05E7\u05D3\u05D5\u05E9\u05D4",
+      "\u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA \u05D1\u05D0\u05DE\u05D5\u05E0\u05D4",
+      "\u05DC\u05D9\u05DE\u05D5\u05D3 \u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5"
+    ],
+    featuresFrench: [
+      "Deux cents lettres",
+      "Disciple de Rabbi Nathan",
+      "De la sainte Tib\xE9riade",
+      "Renforcement dans la foi",
+      "\xC9tude des livres de Rabb\xE9nou"
+    ],
+    featuresSpanish: [
+      "Doscientas cartas",
+      "Disc\xEDpulo del Rabino Nathan",
+      "De la santa Tiber\xEDades",
+      "Fortalecimiento en la fe",
+      "Estudio de los libros de Rabenu"
+    ],
+    featuresRussian: [
+      "\u0414\u0432\u0435\u0441\u0442\u0438 \u043F\u0438\u0441\u0435\u043C",
+      "\u0423\u0447\u0435\u043D\u0438\u043A \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430",
+      "\u0418\u0437 \u0441\u0432\u044F\u0442\u043E\u0439 \u0422\u0432\u0435\u0440\u0438\u0438",
+      "\u0423\u043A\u0440\u0435\u043F\u043B\u0435\u043D\u0438\u0435 \u0432 \u0432\u0435\u0440\u0435",
+      "\u0418\u0437\u0443\u0447\u0435\u043D\u0438\u0435 \u043A\u043D\u0438\u0433 \u0420\u0430\u0431\u0435\u0439\u043D\u0443"
+    ],
+    tags: ["\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD", "\u05D8\u05D1\u05E8\u05D9\u05D4", "\u05EA\u05DC\u05DE\u05D9\u05D3", "\u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA", "\u05D0\u05DE\u05D5\u05E0\u05D4"],
+    isActive: true,
+    isFeatured: false
+  },
+  "avi-hanachal": {
+    id: "avi-hanachal",
+    name: "\u05D0\u05D1'\u05D9 \u05D4\u05E0\u05D7\u05DC",
+    nameEnglish: "Avi HaNachal",
+    nameFrench: "Mon P\xE8re du Ruisseau",
+    nameSpanish: "Mi Padre del Arroyo",
+    nameRussian: "\u041C\u043E\u0439 \u041E\u0442\u0435\u0446 \u0420\u0443\u0447\u044C\u044F",
+    description: "\u05DE\u05DB\u05EA\u05D1\u05D9\u05D5 \u05D4\u05E0\u05E4\u05DC\u05D0\u05D9\u05DD \u05E9\u05DC \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D5\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8, \u05D1\u05E2\u05D9\u05E7\u05E8 \u05D0\u05DC\u05D5 \u05E9\u05E0\u05E9\u05DC\u05D7\u05D5 \u05DC\u05D6\u05DC\u05DE\u05DF \u05E9\u05D6\u05E8. \u05D4\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD \u05DE\u05DB\u05D9\u05DC\u05D9\u05DD \u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05E7\u05D3\u05D5\u05E9\u05D9\u05DD, \u05DE\u05D7\u05D6\u05E7\u05D9\u05DD \u05D5\u05DE\u05E2\u05D5\u05D3\u05D3\u05D9\u05DD, \u05DE\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05DC\u05D0\u05DE\u05E5 \u05D1\u05E8\u05DB\u05D9\u05D9\u05DD \u05DB\u05D5\u05E9\u05DC\u05D5\u05EA \u05D5\u05DC\u05D7\u05D6\u05E7 \u05D9\u05D3\u05D9\u05D9\u05DD \u05E8\u05E4\u05D5\u05EA. \u05DC\u05D4\u05D7\u05D3\u05D9\u05E8 \u05D1\u05DC\u05D1 \u05D4\u05E7\u05D5\u05E8\u05D0 \u05D0\u05DE\u05D5\u05E0\u05D4 \u05D1\u05D4' \u05D9\u05EA\u05D1\u05E8\u05DA \u05D5\u05D1\u05E6\u05D3\u05D9\u05E7 \u05D4\u05D0\u05DE\u05EA.",
+    descriptionEnglish: "The wonderful letters of Rabbi Yisrael Dov Odesser, especially those sent to Zalman Shazar. The letters contain holy words, strengthening and encouraging, from Rabbenu and Rabbi Nathan's books, to strengthen weak knees and fortify drooping hands.",
+    category: "\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD",
+    subcategory: "\u05DE\u05DB\u05EA\u05D1\u05D9 \u05D0\u05D5\u05D3\u05E1\u05E8",
+    author: "\u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D5\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    pages: 280,
+    isbn: "978-965-7023-56-1",
+    images: [
+      "/attached_assets/\u05D0\u05D1\u05D9 \u05D4\u05E0\u05D7\u05DC_1757281003110.jpg",
+      "/attached_assets/\u05D0\u05D1\u05D9 \u05D4\u05E0\u05D7\u05DC \u05D1\u05D0\u05E0\u05D2\u05DC\u05D9\u05EA_1757280778284.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 25
+      },
+      {
+        id: "large-leather-like-pearl",
+        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8 \u05DC\u05D1\u05DF/\u05E4\u05E0\u05D9\u05E0\u05D4",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 45,
+        inStock: true,
+        stockQuantity: 15
+      },
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 35
+      },
+      {
+        id: "small-laminated-soft",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 10,
+        inStock: true,
+        stockQuantity: 80
+      },
+      {
+        id: "french-medium-2vol",
+        format: "\u05E6\u05E8\u05E4\u05EA\u05D9\u05EA",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 2,
+        price: 64,
+        inStock: true,
+        stockQuantity: 12
+      }
+    ],
+    features: [
+      "\u05DE\u05DB\u05EA\u05D1\u05D9 \u05D0\u05D5\u05D3\u05E1\u05E8 \u05D4\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
+      "\u05DC\u05D6\u05DC\u05DE\u05DF \u05E9\u05D6\u05E8 \u05E0\u05DB\u05EA\u05D1\u05D5",
+      "\u05D7\u05D9\u05D6\u05D5\u05E7 \u05D5\u05E2\u05D9\u05D3\u05D5\u05D3",
+      "\u05D0\u05DE\u05D5\u05E0\u05D4 \u05D1\u05E6\u05D3\u05D9\u05E7",
+      "\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05E7\u05D3\u05D5\u05E9\u05D9\u05DD"
+    ],
+    tags: ["\u05D0\u05D5\u05D3\u05E1\u05E8", "\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD", "\u05D7\u05D9\u05D6\u05D5\u05E7", "\u05D0\u05DE\u05D5\u05E0\u05D4", "\u05E6\u05D3\u05D9\u05E7"],
+    isActive: true,
+    isFeatured: true
+  }
+};
+
+// client/src/data/products/musar.ts
+var musarProducts = {
+  "sefer-hamidot": {
+    id: "sefer-hamidot",
+    name: "\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D9\u05D3\u05D5\u05EA",
+    nameEnglish: "Sefer Hamidot",
+    nameFrench: "Livre des Traits de Caract\xE8re",
+    nameSpanish: "Libro de los Rasgos de Car\xE1cter",
+    nameRussian: "\u041A\u043D\u0438\u0433\u0430 \u041A\u0430\u0447\u0435\u0441\u0442\u0432",
+    description: '\u05DE\u05DB\u05D9\u05DC \u05E4\u05E1\u05E7\u05D0\u05D5\u05EA \u05E7\u05E6\u05E8\u05D5\u05EA \u05D5\u05EA\u05DE\u05E6\u05D9\u05EA\u05D9\u05D5\u05EA \u05D1\u05DE\u05E2\u05DC\u05EA \u05D4\u05DE\u05D9\u05D3\u05D5\u05EA \u05D4\u05D8\u05D5\u05D1\u05D5\u05EA \u05D5\u05D1\u05D7\u05D5\u05D1\u05EA \u05D4\u05D4\u05EA\u05E8\u05D7\u05E7\u05D5\u05EA \u05DE\u05DE\u05D9\u05D3\u05D5\u05EA \u05E8\u05E2\u05D5\u05EA, \u05D4\u05E1\u05E4\u05E8 \u05E0\u05DB\u05EA\u05D1 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E2\u05D5\u05D3 \u05D1\u05D9\u05DC\u05D3\u05D5\u05EA\u05D5, \u05E8\u05D5\u05D1\u05D5 \u05E0\u05DC\u05E7\u05D8 \u05DE\u05DE\u05D0\u05DE\u05E8\u05D9 \u05D7\u05D6"\u05DC \u05D5\u05D7\u05DC\u05E7\u05D5 \u05D4\u05D9\u05E0\u05D5 \u05D4\u05E9\u05D2\u05D5\u05EA \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E2\u05E6\u05DE\u05D5. \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05EA\u05D1\u05D8\u05D0 \u05E2\u05DC\u05D9\u05D5 "\u05D4\u05E1\u05E4\u05E8 \u05D4\u05D6\u05D4 - \u05E2\u05E9\u05D4 \u05D0\u05D5\u05EA\u05D9 \u05D9\u05D4\u05D5\u05D3\u05D9"',
+    descriptionEnglish: "Contains short and concise passages about the excellence of good character traits and the obligation to distance oneself from bad ones. Written by Rabbenu in his youth, mostly collected from the sayings of our Sages.",
+    category: "\u05DE\u05D5\u05E1\u05E8 \u05D5\u05D4\u05D3\u05E8\u05DB\u05D4",
+    subcategory: "\u05DE\u05D9\u05D3\u05D5\u05EA \u05D8\u05D5\u05D1\u05D5\u05EA",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "sefer-hamidot-group",
+    pages: 320,
+    isbn: "978-965-7023-15-8",
+    images: [
+      "/attached_assets/\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D9\u05D3\u05D5\u05EA 1_1757275910546.jpg",
+      "/attached_assets/\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D9\u05D3\u05D5\u05EA 1_1757278339721.jpg",
+      "/attached_assets/\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D9\u05D3\u05D5\u05EA 1_1757281125910.jpg",
+      "/attached_assets/\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D9\u05D3\u05D5\u05EA 2_1757280401419.jpg"
+    ],
+    variants: [
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 40
+      },
+      {
+        id: "small-laminated",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 20,
+        inStock: true,
+        stockQuantity: 60
+      },
+      {
+        id: "small-laminated-soft",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 10,
+        inStock: true,
+        stockQuantity: 80
+      }
+    ],
+    features: [
+      "\u05E0\u05DB\u05EA\u05D1 \u05D1\u05D9\u05DC\u05D3\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5",
+      "\u05DE\u05D9\u05D3\u05D5\u05EA \u05D8\u05D5\u05D1\u05D5\u05EA \u05D5\u05E8\u05E2\u05D5\u05EA",
+      "\u05E4\u05E1\u05E7\u05D0\u05D5\u05EA \u05E7\u05E6\u05E8\u05D5\u05EA \u05D5\u05D7\u05D3\u05D5\u05EA",
+      "\u05D1\u05E1\u05D9\u05E1 \u05DC\u05DE\u05D5\u05E1\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D9",
+      "\u05D4\u05E1\u05E4\u05E8 \u05E9\u05E2\u05E9\u05D4 \u05D0\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D9\u05D4\u05D5\u05D3\u05D9"
+    ],
+    tags: ["\u05DE\u05D9\u05D3\u05D5\u05EA", "\u05DE\u05D5\u05E1\u05E8", "\u05D9\u05DC\u05D3\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5", '\u05D7\u05D6"\u05DC', "\u05D0\u05DC\u05E3 \u05D1\u05D9\u05EA"],
+    isActive: true,
+    isFeatured: true
+  }
+};
+
+// client/src/data/products/sefarim-rabbenu.ts
+var sefarimRabbenuProducts = {
+  "likutei-moharan": {
+    id: "likutei-moharan",
+    name: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF',
+    nameEnglish: "Likutei Moharan",
+    nameFrench: "Likout\xE9 Moharan",
+    nameSpanish: "Likutei Moharan",
+    nameRussian: "\u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u041C\u043E\u0430\u0440\u0430\u043D",
+    description: '\u05D7\u05D9\u05D1\u05D5\u05E8\u05D5 \u05D4\u05D2\u05D3\u05D5\u05DC, \u05D4\u05E7\u05D3\u05D5\u05E9 \u05D5\u05D4\u05E0\u05D5\u05E8\u05D0, \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1. \u05DE\u05DB\u05D9\u05DC \u05DE\u05D0\u05D5\u05EA "\u05EA\u05D5\u05E8\u05D5\u05EA" - \u05DE\u05D0\u05DE\u05E8\u05D9 \u05E7\u05D5\u05D3\u05E9 \u05E9\u05E0\u05D0\u05DE\u05E8\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D1\u05E9\u05D1\u05EA\u05D5\u05EA, \u05D1\u05D7\u05D2\u05D9\u05DD \u05D5\u05D1\u05DE\u05D5\u05E2\u05D3\u05D9\u05DD \u05E9\u05D5\u05E0\u05D9\u05DD. \u05D7\u05DC\u05E7\u05DD \u05E0\u05DB\u05EA\u05D1 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E2\u05E6\u05DE\u05D5, \u05D5\u05D7\u05DC\u05E7\u05DD \u05D4\u05D2\u05D3\u05D5\u05DC \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E1\u05D5\u05E4\u05E8\u05D5 \u05D5\u05EA\u05DC\u05DE\u05D9\u05D3\u05D5 \u05D4\u05E0\u05D0\u05DE\u05DF \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF.',
+    descriptionEnglish: 'The great, holy and awesome work of our teacher Rabbi Nachman of Breslov. Contains hundreds of "teachings" - holy discourses given by Rabbenu on Sabbaths, holidays and various occasions.',
+    category: "\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
+    subcategory: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF',
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "likutei-moharan-group",
+    // Groups all language versions together
+    pages: 960,
+    isbn: "978-965-7023-01-1",
+    images: [
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 1_1757275910545.jpg",
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 1_1757278339720.jpg",
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 1_1757281125909.jpg",
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 2_1757280401419.jpg"
+    ],
+    variants: [
+      {
+        id: "giant-skai-with-commentaries",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05DE\u05E4\u05E8\u05E9\u05D9\u05DD",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05E2\u05E0\u05E7",
+        dimensions: "32*22",
+        volumes: 1,
+        price: 95,
+        inStock: true,
+        stockQuantity: 15
+      },
+      {
+        id: "giant-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05E2\u05E0\u05E7",
+        dimensions: "32*22",
+        volumes: 1,
+        price: 55,
+        inStock: true,
+        stockQuantity: 20
+      },
+      {
+        id: "large-skai-with-commentaries",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05DE\u05E4\u05E8\u05E9\u05D9\u05DD",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 55,
+        inStock: true,
+        stockQuantity: 12
+      },
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 40
+      },
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 50
+      },
+      {
+        id: "medium-leather-pearl",
+        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8 \u05DC\u05D1\u05DF/\u05E4\u05E0\u05D9\u05E0\u05D4",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 45,
+        inStock: true,
+        stockQuantity: 25
+      },
+      {
+        id: "small-laminated",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 25,
+        inStock: true,
+        stockQuantity: 60
+      },
+      {
+        id: "small-nylon-3vol",
+        format: "\u05E8\u05DA \u05E0\u05D9\u05DC\u05D5\u05DF",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 3,
+        price: 40,
+        inStock: true,
+        stockQuantity: 30
+      },
+      {
+        id: "english-large-3vol",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05D0\u05E0\u05D2\u05DC\u05D9\u05EA",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 3,
+        price: 165,
+        inStock: true,
+        stockQuantity: 8
+      },
+      {
+        id: "english-giant",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05D0\u05E0\u05D2\u05DC\u05D9\u05EA",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05E2\u05E0\u05E7",
+        dimensions: "32*22",
+        volumes: 1,
+        price: 160,
+        inStock: true,
+        stockQuantity: 6
+      }
+    ],
+    features: [
+      "\u05D7\u05D9\u05D1\u05D5\u05E8\u05D5 \u05D4\u05D2\u05D3\u05D5\u05DC \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF",
+      "\u05DE\u05D0\u05D5\u05EA \u05EA\u05D5\u05E8\u05D5\u05EA \u05E7\u05D3\u05D5\u05E9\u05D5\u05EA",
+      "\u05E0\u05D3\u05E4\u05E1 \u05E2\u05D5\u05D3 \u05D1\u05D7\u05D9\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
+      "\u05D1\u05E1\u05D9\u05E1 \u05DC\u05DB\u05DC \u05D7\u05E1\u05D9\u05D3\u05D5\u05EA \u05D1\u05E8\u05E1\u05DC\u05D1",
+      "\u05D6\u05DE\u05D9\u05DF \u05D1\u05DE\u05D2\u05D5\u05D5\u05DF \u05D2\u05D3\u05DC\u05D9\u05DD \u05D5\u05DB\u05E8\u05D9\u05DB\u05D5\u05EA"
+    ],
+    tags: ['\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF', "\u05EA\u05D5\u05E8\u05D5\u05EA", "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF", "\u05D9\u05E1\u05D5\u05D3", "\u05E7\u05D3\u05D5\u05E9\u05D4"],
+    isActive: true,
+    isFeatured: true
+  },
+  "kitzur-likutei-moharan": {
+    id: "kitzur-likutei-moharan",
+    name: '\u05E7\u05D9\u05E6\u05D5\u05E8 \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF',
+    nameEnglish: "Kitzur Likutei Moharan",
+    nameFrench: "Kitsour Likout\xE9 Moharan",
+    nameSpanish: "Kitzur Likutei Moharan",
+    nameRussian: "\u041A\u0438\u0446\u0443\u0440 \u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u041C\u043E\u0430\u0440\u0430\u043D",
+    description: `\u05E4\u05E1\u05E7\u05D0\u05D5\u05EA \u05DE\u05E7\u05D5\u05E6\u05E8\u05D5\u05EA \u05DE\u05EA\u05D5\u05E8\u05D5\u05EA\u05D9\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF, \u05D4\u05E1\u05E4\u05E8 \u05E0\u05E2\u05E8\u05DA \u05D1\u05E4\u05E7\u05D5\u05D3\u05EA\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05EA\u05DC\u05DE\u05D9\u05D3\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF. \u05E2\u05DC \u05D4\u05E1\u05E4\u05E8 \u05DB\u05D5\u05EA\u05D1 \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05E7\u05E8\u05D3\u05D5\u05E0\u05E8 \u05D1\u05D0\u05D7\u05D3 \u05DE\u05DE\u05DB\u05EA\u05D1\u05D9\u05D5: "\u05D5\u05D4\u05E1\u05E4\u05E8 \u05D4\u05D6\u05D4 \u05D4\u05D9\u05D4 \u05D9\u05E7\u05E8 \u05DE\u05D0\u05D5\u05D3 \u05D1\u05E2\u05D9\u05E0\u05D9 \u05DE\u05D5\u05E8\u05E0\u05D5 \u05D4\u05E8\u05D1 \u05D4\u05E6\u05D3\u05D9\u05E7 \u05E8' \u05E0\u05EA\u05DF \u05D6\u05E6"\u05DC \u05D5\u05E4\u05E7\u05D3 \u05D5\u05E6\u05D9\u05D5\u05D5\u05D4 \u05DC\u05DB\u05DC \u05D0\u05E0\u05E9\u05D9\u05D5 \u05DC\u05E2\u05E1\u05D5\u05E7 \u05D5\u05DC\u05DC\u05DE\u05D5\u05D3 \u05D1\u05D5 \u05D1\u05DB\u05DC \u05D9\u05D5\u05DD"`,
+    descriptionEnglish: "Shortened passages from the teachings of Rabbenu Rabbi Nachman, compiled under his direction by his student Rabbi Nathan.",
+    category: "\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
+    subcategory: "\u05E7\u05D9\u05E6\u05D5\u05E8\u05D9\u05DD",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "kitzur-likutei-moharan-group",
+    pages: 416,
+    isbn: "978-965-7023-02-8",
+    images: [
+      "/attached_assets/\u05E7\u05D9\u05E6\u05D5\u05E8 \u05DC\u05D9\u05E7\u05D5\u05DE 1_1757275910546.jpg",
+      "/attached_assets/\u05E7\u05D9\u05E6\u05D5\u05E8 \u05DC\u05D9\u05E7\u05D5\u05DE 1_1757278339721.jpg",
+      "/attached_assets/\u05E7\u05D9\u05E6\u05D5\u05E8 \u05DC\u05D9\u05E7\u05D5\u05DE 1_1757281125911.jpg",
+      "/attached_assets/\u05E7\u05D9\u05E6\u05D5\u05E8 \u05DC\u05D9\u05E7\u05D5\u05DE_1757281085509.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 40,
+        inStock: true,
+        stockQuantity: 25
+      },
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 30
+      }
+    ],
+    features: [
+      "\u05E4\u05E1\u05E7\u05D0\u05D5\u05EA \u05DE\u05E7\u05D5\u05E6\u05E8\u05D5\u05EA",
+      "\u05E0\u05E2\u05E8\u05DA \u05D1\u05E4\u05E7\u05D5\u05D3\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5",
+      "\u05DC\u05D9\u05E7\u05D5\u05D8 \u05DE\u05D4\u05EA\u05D5\u05E8\u05D5\u05EA \u05D4\u05E7\u05D3\u05D5\u05E9\u05D5\u05EA",
+      "\u05DE\u05EA\u05D0\u05D9\u05DD \u05DC\u05DC\u05D9\u05DE\u05D5\u05D3 \u05D9\u05D5\u05DE\u05D9\u05D5\u05DE\u05D9",
+      "\u05D9\u05E7\u05E8 \u05D1\u05E2\u05D9\u05E0\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF"
+    ],
+    tags: ["\u05E7\u05D9\u05E6\u05D5\u05E8", '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF', "\u05DC\u05D9\u05DE\u05D5\u05D3 \u05D9\u05D5\u05DE\u05D9\u05D5\u05DE\u05D9", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF"],
+    isActive: true,
+    isFeatured: true
+  }
+};
+
+// client/src/data/products/sefarim-talmidim.ts
+var sefarimTalmidimProducts = {
+  "yekara-deshabbata": {
+    id: "yekara-deshabbata",
+    name: "\u05D9\u05E7\u05E8\u05D0 \u05D3\u05E9\u05D1\u05EA\u05D0",
+    nameEnglish: "Yekara DeShabbata",
+    nameFrench: "La Pr\xE9ciosit\xE9 du Chabbat",
+    nameSpanish: "La Preciosidad del Shabat",
+    nameRussian: "\u0414\u0440\u0430\u0433\u043E\u0446\u0435\u043D\u043D\u043E\u0441\u0442\u044C \u0428\u0430\u0431\u0431\u0430\u0442\u0430",
+    description: '\u05D7\u05D5\u05D1\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF \u05EA\u05DC\u05DE\u05D9\u05D3 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF. \u05EA\u05D5\u05DB\u05DF \u05D4\u05E1\u05E4\u05E8: \u05D2\u05D9\u05DC\u05D5\u05D9 \u05D4\u05E7\u05E9\u05E8 \u05D1\u05D9\u05DF \u05DE\u05D0\u05DE\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9 \u05D1"\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF", "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA" \u05D5"\u05E9\u05D9\u05D7\u05D5\u05EA \u05D4\u05E8"\u05DF", \u05DC\u05D9\u05E7\u05E8\u05EA \u05E7\u05D3\u05D5\u05E9\u05EA \u05E9\u05D1\u05EA. \u05D4\u05DE\u05D7\u05D1\u05E8 \u05DE\u05E6\u05D9\u05D9\u05DF: "\u05E9\u05DE\u05E2\u05EA\u05D9 \u05D1\u05E9\u05DD \u05D2\u05D3\u05D5\u05DC\u05D9 \u05D4\u05E6\u05D3\u05D9\u05E7\u05D9\u05DD \u05E7\u05D3\u05DE\u05D5\u05E0\u05D9\u05DD \u05E9\u05D4\u05D9\u05D5 \u05DE\u05E4\u05DC\u05D9\u05D2\u05D9\u05DF \u05DE\u05D0\u05D5\u05D3 \u05D1\u05E7\u05D3\u05D5\u05E9\u05EA \u05EA\u05D5\u05E8\u05EA\u05D5 \u05D5\u05DE\u05D0\u05DE\u05E8\u05D9\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05D0\u05DE\u05E8\u05D5 \u05E2\u05DC\u05D9\u05D4\u05DD \u05D1\u05E4\u05D9\u05E8\u05D5\u05E9 \u05E9\u05D4\u05DD \u05D1\u05D1\u05D7\u05D9\u05E0\u05EA \u05E7\u05D3\u05D5\u05E9\u05EA \u05E9\u05D1\u05EA"',
+    descriptionEnglish: "Composed by Rabbi Nachman of Tchehrin, student of Rabbi Nathan. The book reveals the connection between Rabbenu's teachings in Likutei Moharan, Tales, and Sichos HaRan to the holiness of Shabbat.",
+    descriptionFrench: `Compos\xE9 par Rabbi Nahman de Tcherin, disciple de Rabbi Nathan. Le livre r\xE9v\xE8le le lien entre les enseignements de Rabb\xE9nou dans Likout\xE9 Moharan, les Contes et Sihot HaRane, et la saintet\xE9 du Chabbat. L'auteur note : "J'ai entendu au nom des grands tsadikim anciens qu'ils exaltaient grandement la saintet\xE9 de la Torah et des enseignements sacr\xE9s de Rabb\xE9nou, et ils disaient explicitement qu'ils sont de l'aspect de la saintet\xE9 du Chabbat"`,
+    descriptionSpanish: 'Compuesto por el Rabino Najman de Tcherin, disc\xEDpulo del Rabino Nathan. El libro revela la conexi\xF3n entre las ense\xF1anzas de Rabenu en Likutei Moharan, los Cuentos y Sijot HaRan, y la santidad del Shabat. El autor nota: "Escuch\xE9 en nombre de los grandes tsadikim antiguos que exaltaban grandemente la santidad de la Tor\xE1 y las ense\xF1anzas sagradas de Rabenu, y dijeron expl\xEDcitamente que son del aspecto de la santidad del Shabat"',
+    descriptionRussian: '\u0421\u043E\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u043E \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u043E\u043C \u0438\u0437 \u0427\u0435\u0440\u0438\u043D\u0430, \u0443\u0447\u0435\u043D\u0438\u043A\u043E\u043C \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430. \u041A\u043D\u0438\u0433\u0430 \u0440\u0430\u0441\u043A\u0440\u044B\u0432\u0430\u0435\u0442 \u0441\u0432\u044F\u0437\u044C \u043C\u0435\u0436\u0434\u0443 \u0443\u0447\u0435\u043D\u0438\u044F\u043C\u0438 \u0420\u0430\u0431\u0435\u0439\u043D\u0443 \u0432 \u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u041C\u043E\u0430\u0440\u0430\u043D, \u0420\u0430\u0441\u0441\u043A\u0430\u0437\u0430\u043C\u0438 \u0438 \u0421\u0438\u0445\u043E\u0442 \u0430\u0420\u0430\u043D, \u0438 \u0441\u0432\u044F\u0442\u043E\u0441\u0442\u044C\u044E \u0428\u0430\u0431\u0431\u0430\u0442\u0430. \u0410\u0432\u0442\u043E\u0440 \u043E\u0442\u043C\u0435\u0447\u0430\u0435\u0442: "\u042F \u0441\u043B\u044B\u0448\u0430\u043B \u043E\u0442 \u0438\u043C\u0435\u043D\u0438 \u0432\u0435\u043B\u0438\u043A\u0438\u0445 \u043F\u0440\u0430\u0432\u0435\u0434\u043D\u0438\u043A\u043E\u0432 \u0434\u0440\u0435\u0432\u043D\u043E\u0441\u0442\u0438, \u0447\u0442\u043E \u043E\u043D\u0438 \u0447\u0440\u0435\u0437\u0432\u044B\u0447\u0430\u0439\u043D\u043E \u0432\u043E\u0441\u0445\u0432\u0430\u043B\u044F\u043B\u0438 \u0441\u0432\u044F\u0442\u043E\u0441\u0442\u044C \u0422\u043E\u0440\u044B \u0438 \u0441\u0432\u044F\u0449\u0435\u043D\u043D\u044B\u0445 \u0443\u0447\u0435\u043D\u0438\u0439 \u0420\u0430\u0431\u0435\u0439\u043D\u0443, \u0438 \u0433\u043E\u0432\u043E\u0440\u0438\u043B\u0438 \u044F\u0432\u043D\u043E, \u0447\u0442\u043E \u043E\u043D\u0438 \u0438\u0437 \u0430\u0441\u043F\u0435\u043A\u0442\u0430 \u0441\u0432\u044F\u0442\u043E\u0441\u0442\u0438 \u0428\u0430\u0431\u0431\u0430\u0442\u0430"',
+    category: "\u05E1\u05E4\u05E8\u05D9 \u05D4\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05DD",
+    subcategory: "\u05D7\u05D2\u05D9\u05DD \u05D5\u05DE\u05D5\u05E2\u05D3\u05D9\u05DD",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    pages: 320,
+    isbn: "978-965-7023-45-5",
+    images: [
+      "/attached_assets/\u05D9\u05E7\u05E8\u05D0 \u05D3\u05E9\u05D1\u05EA\u05D0 1_1757281125909.jpg",
+      "/attached_assets/\u05D9\u05E7\u05E8\u05D0 \u05D3\u05E9\u05D1\u05EA\u05D0 2_1757281003112.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 20
+      }
+    ],
+    features: [
+      "\u05E7\u05E9\u05E8 \u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05DC\u05E9\u05D1\u05EA \u05E7\u05D5\u05D3\u05E9",
+      "\u05D7\u05D9\u05D3\u05D5\u05E9\u05D9\u05DD \u05E2\u05DC \u05E7\u05D3\u05D5\u05E9\u05EA \u05E9\u05D1\u05EA",
+      "\u05DE\u05D1\u05D5\u05E1\u05E1 \u05E2\u05DC \u05DB\u05DC \u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
+      "\u05DE\u05D7\u05D1\u05E8 \u05EA\u05DC\u05DE\u05D9\u05D3 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
+      "\u05D2\u05D9\u05DC\u05D5\u05D9 \u05E2\u05D5\u05DE\u05E7 \u05D4\u05EA\u05D5\u05E8\u05D5\u05EA"
+    ],
+    featuresFrench: [
+      "Lien des enseignements de Rabb\xE9nou au Chabbat saint",
+      "Innovations sur la saintet\xE9 du Chabbat",
+      "Bas\xE9 sur tous les livres de Rabb\xE9nou",
+      "Auteur disciple de Rabbi Nathan",
+      "R\xE9v\xE9lation de la profondeur des enseignements"
+    ],
+    featuresSpanish: [
+      "Conexi\xF3n de las ense\xF1anzas de Rabenu al Shabat santo",
+      "Innovaciones sobre la santidad del Shabat",
+      "Basado en todos los libros de Rabenu",
+      "Autor disc\xEDpulo del Rabino Nathan",
+      "Revelaci\xF3n de la profundidad de las ense\xF1anzas"
+    ],
+    featuresRussian: [
+      "\u0421\u0432\u044F\u0437\u044C \u0443\u0447\u0435\u043D\u0438\u0439 \u0420\u0430\u0431\u0435\u0439\u043D\u0443 \u0441\u043E \u0441\u0432\u044F\u0442\u044B\u043C \u0428\u0430\u0431\u0431\u0430\u0442\u043E\u043C",
+      "\u041D\u043E\u0432\u0448\u0435\u0441\u0442\u0432\u0430 \u043E \u0441\u0432\u044F\u0442\u043E\u0441\u0442\u0438 \u0428\u0430\u0431\u0431\u0430\u0442\u0430",
+      "\u041E\u0441\u043D\u043E\u0432\u0430\u043D\u043E \u043D\u0430 \u0432\u0441\u0435\u0445 \u043A\u043D\u0438\u0433\u0430\u0445 \u0420\u0430\u0431\u0435\u0439\u043D\u0443",
+      "\u0410\u0432\u0442\u043E\u0440 \u0443\u0447\u0435\u043D\u0438\u043A \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430",
+      "\u0420\u0430\u0441\u043A\u0440\u044B\u0442\u0438\u0435 \u0433\u043B\u0443\u0431\u0438\u043D\u044B \u0443\u0447\u0435\u043D\u0438\u0439"
+    ],
+    tags: ["\u05E9\u05D1\u05EA", "\u05E7\u05D3\u05D5\u05E9\u05D4", "\u05EA\u05D5\u05E8\u05D5\u05EA", "\u05D7\u05D2\u05D9\u05DD", "\u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF"],
+    isActive: true,
+    isFeatured: true
+  },
+  "yareach-haeitanim": {
+    id: "yareach-haeitanim",
+    name: "\u05D9\u05E8\u05D7 \u05D4\u05D0\u05D9\u05EA\u05E0\u05D9\u05DD",
+    nameEnglish: "Yareach HaEitanim",
+    nameFrench: null,
+    nameSpanish: null,
+    nameRussian: null,
+    description: '\u05D7\u05D5\u05D1\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF \u05EA\u05DC\u05DE\u05D9\u05D3 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF. \u05D1\u05E1\u05E4\u05E8 \u05D4\u05D5\u05D0 \u05DE\u05E8\u05D0\u05D4 \u05DB\u05D9\u05E6\u05D3 \u05D1\u05DB\u05DC \u05EA\u05D5\u05E8\u05D5\u05EA\u05D9\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05DB\u05DC\u05D5\u05DC \u05E2\u05E0\u05D9\u05DF \u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4, \u05D9\u05D5\u05DD \u05D4\u05DB\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD, \u05E1\u05D5\u05DB\u05D5\u05EA \u05D5\u05E9\u05DE\u05D9\u05E0\u05D9 \u05E2\u05E6\u05E8\u05EA. \u05D4\u05E9\u05DD "\u05D9\u05E8\u05D7 \u05D4\u05D0\u05D9\u05EA\u05E0\u05D9\u05DD" \u05D4\u05D5\u05D0 \u05DB\u05D9\u05E0\u05D5\u05D9 \u05DC\u05D7\u05D5\u05D3\u05E9 \u05EA\u05E9\u05E8\u05D9 \u05D1\u05D2\u05DE\u05E8\u05D0, \u05E2\u05DC \u05E9\u05DD \u05E9\u05D4\u05D5\u05D0 "\u05D0\u05D9\u05EA\u05DF \u05D1\u05DE\u05E6\u05D5\u05D5\u05EA". \u05D4\u05E1\u05E4\u05E8 \u05E0\u05D3\u05E4\u05E1 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E0\u05DB\u05D3 \u05D4\u05DE\u05D7\u05D1\u05E8 \u05E8\u05D1\u05D9 \u05D0\u05D1\u05E8\u05D4\u05DD \u05E9\u05D8\u05E8\u05E0\u05D4\u05D0\u05E8\u05E5 \u05DB\u05D5\u05DB\u05D1-\u05DC\u05D1.',
+    descriptionEnglish: `Composed by Rabbi Nachman of Tchehrin. Shows how all of Rabbenu's teachings contain the concepts of Rosh Hashana, Yom Kippur, Sukkot and Shemini Atzeret. "Yareach HaEitanim" refers to the month of Tishrei.`,
+    category: "\u05E1\u05E4\u05E8\u05D9 \u05D4\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05DD",
+    subcategory: "\u05D7\u05D2\u05D9\u05DD \u05D5\u05DE\u05D5\u05E2\u05D3\u05D9\u05DD",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    pages: 280,
+    isbn: "978-965-7023-46-2",
+    images: [
+      "/attached_assets/3_1757275751756.jpg",
+      "/attached_assets/\u05D4\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05E9\u05DC\u05D9 3_1757275239935.jpg",
+      "/attached_assets/\u05D0\u05D5\u05D9\u05E8\u05D4_1757280778285.jpg"
+    ],
+    variants: [
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 25
+      }
+    ],
+    features: [
+      "\u05D7\u05D5\u05D3\u05E9 \u05EA\u05E9\u05E8\u05D9 \u05D4\u05DE\u05E7\u05D5\u05D3\u05E9",
+      "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4 \u05D5\u05D9\u05D5\u05DD \u05DB\u05D9\u05E4\u05D5\u05E8",
+      "\u05E1\u05D5\u05DB\u05D5\u05EA \u05D5\u05E9\u05DE\u05D9\u05E0\u05D9 \u05E2\u05E6\u05E8\u05EA",
+      "\u05D0\u05D9\u05EA\u05DF \u05D1\u05DE\u05E6\u05D5\u05D5\u05EA",
+      "\u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E2\u05DC \u05D4\u05D7\u05D2\u05D9\u05DD"
+    ],
+    tags: ["\u05EA\u05E9\u05E8\u05D9", "\u05D7\u05D2\u05D9\u05DD", "\u05E8\u05D0\u05E9 \u05D4\u05E9\u05E0\u05D4", "\u05D9\u05D5\u05DD \u05DB\u05D9\u05E4\u05D5\u05E8", "\u05DE\u05D5\u05E2\u05D3\u05D9\u05DD"],
+    isActive: true,
+    isFeatured: false
   },
   "nachal-novea": {
     id: "nachal-novea",
@@ -3443,57 +2794,13 @@ var realBreslovProducts = {
     isActive: true,
     isFeatured: false
   },
-  "mikhtavei-rabbi-natan-tiveria": {
-    id: "mikhtavei-rabbi-natan-tiveria",
-    name: "\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D8\u05D1\u05E8\u05D9\u05D4",
-    nameEnglish: "Mikhtavei Rabbi Natan MeTiveria",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
-    description: '\u05E1\u05E4\u05E8 \u05D4\u05DE\u05DB\u05D9\u05DC \u05E7\u05E8\u05D5\u05D1 \u05DC\u05DE\u05D0\u05EA\u05D9\u05D9\u05DD \u05DE\u05DB\u05EA\u05D1\u05D9\u05DD \u05E9\u05DB\u05EA\u05D1 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05D1"\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4 \u05DE\u05D8\u05D1\u05E8\u05D9\u05D4, \u05DE\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05D5 \u05D4\u05DE\u05D5\u05D1\u05D4\u05E7\u05D9\u05DD \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05DC\u05D9\u05D3\u05D9\u05D3\u05D9\u05D5 \u05D1\u05D0\u05E8\u05E5 \u05D5\u05D1\u05D7\u05D5"\u05DC. \u05D2\u05D3\u05D5\u05E9 \u05D1\u05E9\u05D9\u05D7\u05D5\u05EA \u05D5\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05E0\u05DC\u05D4\u05D1\u05D9\u05DD \u05D1\u05D2\u05D3\u05D5\u05DC\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05EA\u05DC\u05DE\u05D9\u05D3\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05DE\u05E2\u05DC\u05EA \u05DC\u05D9\u05DE\u05D5\u05D3 \u05E1\u05E4\u05E8\u05D9\u05D4\u05DD, \u05D5\u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA \u05D1\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05E9\u05DD.',
-    descriptionEnglish: "Book containing nearly two hundred letters written by Rabbi Nathan bar Yehuda of Tiberias, one of Rabbi Nathan's distinguished students, to friends in Israel and abroad. Full of enthusiastic conversations about the greatness of Rabbenu and Rabbi Nathan.",
-    category: "\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD",
-    subcategory: "\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E7\u05D5\u05D3\u05E9",
-    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05D1\u05E8 \u05D9\u05D4\u05D5\u05D3\u05D4 \u05DE\u05D8\u05D1\u05E8\u05D9\u05D4",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    pages: 380,
-    isbn: "978-965-7023-53-0",
-    images: [
-      "/attached_assets/\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E8 \u05E0\u05EA\u05DF 1_1757281125910.jpg",
-      "/attached_assets/\u05DE\u05DB\u05EA\u05D1\u05D9 \u05E8 \u05E0\u05EA\u05DF_1757281003113.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 18
-      }
-    ],
-    features: [
-      "\u05DE\u05D0\u05EA\u05D9\u05D9\u05DD \u05DE\u05DB\u05EA\u05D1\u05D9\u05DD",
-      "\u05EA\u05DC\u05DE\u05D9\u05D3 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
-      "\u05DE\u05D8\u05D1\u05E8\u05D9\u05D4 \u05D4\u05E7\u05D3\u05D5\u05E9\u05D4",
-      "\u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA \u05D1\u05D0\u05DE\u05D5\u05E0\u05D4",
-      "\u05DC\u05D9\u05DE\u05D5\u05D3 \u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5"
-    ],
-    tags: ["\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD", "\u05D8\u05D1\u05E8\u05D9\u05D4", "\u05EA\u05DC\u05DE\u05D9\u05D3", "\u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA", "\u05D0\u05DE\u05D5\u05E0\u05D4"],
-    isActive: true,
-    isFeatured: false
-  },
   "parparaot-al-hashas": {
     id: "parparaot-al-hashas",
     name: '\u05E4\u05E8\u05E4\u05E8\u05D0\u05D5\u05EA \u05E2\u05DC \u05D4\u05E9"\u05E1',
     nameEnglish: "Parparaot Al HaShas",
-    nameFrench: "Parparaot Al HaShas",
-    nameSpanish: "Parparaot Al HaShas",
-    nameRussian: "\u041F\u0430\u0440\u043F\u0430\u0440\u0430\u043E\u0442 \u0430\u043B\u044C \u0430-\u0428\u0430\u0441",
+    nameFrench: null,
+    nameSpanish: null,
+    nameRussian: null,
     description: '\u05D7\u05D5\u05D1\u05E8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05E9\u05E2\u05D4\u05E8\u05D9\u05DF \u05EA\u05DC\u05DE\u05D9\u05D3 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05DE\u05DB\u05D9\u05DC \u05D7\u05D9\u05D3\u05D5\u05E9\u05D9\u05DD \u05E2\u05DE\u05D5\u05E7\u05D9\u05DD \u05D5\u05E0\u05E4\u05DC\u05D0\u05D9\u05DD \u05D4\u05DE\u05E7\u05E9\u05E8\u05D9\u05DD \u05D0\u05EA \u05D3\u05D1\u05E8\u05D9 \u05D4\u05D2\u05DE\u05E8\u05D0 \u05DC\u05D9\u05E1\u05D5\u05D3\u05D5\u05EA \u05D4\u05DE\u05D5\u05D1\u05D0\u05D9\u05DD \u05D1\u05EA\u05D5\u05E8\u05D5\u05EA\u05D9\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E9\u05D1\u05E1\u05E4\u05E8 "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF". \u05D0\u05DC\u05D9\u05D5 \u05E0\u05D5\u05E1\u05E3 \u05D4\u05E1\u05E4\u05E8 "\u05D8\u05D5\u05D1\u05D5\u05EA \u05D6\u05D9\u05DB\u05E8\u05D5\u05E0\u05D5\u05EA" \u05DE\u05E0\u05DB\u05D3 \u05D4\u05DE\u05D7\u05D1\u05E8, \u05E8\u05D1\u05D9 \u05D0\u05D1\u05E8\u05D4\u05DD \u05E9\u05D8\u05E8\u05E0\u05D4\u05D0\u05E8\u05E5 - \u05DB\u05D5\u05DB\u05D1 \u05DC\u05D1, \u05D4\u05DE\u05DB\u05D9\u05DC \u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD \u05DE\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA \u05D7\u05D9\u05D5 \u05E9\u05DC \u05E1\u05D1\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF.',
     descriptionEnglish: `Composed by Rabbi Nachman of Tchehrin, student of Rabbi Nathan. Contains deep and wondrous insights connecting the words of the Talmud to the foundations in Rabbenu's teachings in Likutei Moharan. Includes "Tovot Zichronot" with stories about Rabbi Nathan.`,
     category: "\u05E1\u05E4\u05E8\u05D9 \u05D4\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05DD",
@@ -3536,9 +2843,9 @@ var realBreslovProducts = {
     id: "likutei-even",
     name: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D0\u05D1\u05DF",
     nameEnglish: "Likutei Even",
-    nameFrench: "Likout\xE9 Even",
-    nameSpanish: "Likutei Even",
-    nameRussian: "\u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u042D\u0432\u0435\u043D",
+    nameFrench: null,
+    nameSpanish: null,
+    nameRussian: null,
     description: `\u05D0\u05E8\u05D1\u05E2\u05D4 \u05E1\u05E4\u05E8\u05D9\u05DD \u05D1\u05DB\u05E8\u05DA \u05D0\u05D7\u05D3: \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D0\u05D1\u05DF - \u05D7\u05D9\u05D1\u05D5\u05E8\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05D0\u05E4\u05E8\u05D9\u05DD \u05D1\u05DF \u05E8\u05D1\u05D9 \u05E0\u05E4\u05EA\u05DC\u05D9, \u05EA\u05DC\u05DE\u05D9\u05D3 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05DE\u05D9\u05D5\u05E1\u05D3 \u05E2\u05DC \u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05E2\u05DC \u05D7\u05DC\u05E7 "\u05D0\u05D5\u05E8\u05D7 \u05D7\u05D9\u05D9\u05DD" \u05D1\u05E9\u05D5\u05DC\u05D7\u05DF \u05E2\u05E8\u05D5\u05DA. \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05D4\u05D1\u05D5\u05E7\u05E8 - \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05E9\u05E0\u05DB\u05EA\u05D1\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05D0\u05E4\u05E8\u05D9\u05DD. \u05D0\u05DE\u05D5\u05E0\u05EA \u05E2\u05EA\u05D9\u05DA - \u05E1\u05E4\u05E8\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05D0\u05DC\u05D8\u05E8 \u05DE\u05D8\u05E4\u05DC\u05D9\u05E7 \u05D1\u05DE\u05E2\u05DC\u05EA \u05E0\u05D9\u05E6\u05D5\u05DC \u05D4\u05D6\u05DE\u05DF \u05DC\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4'. \u05E2\u05E6\u05D5\u05EA \u05D9\u05E9\u05E8\u05D5\u05EA - \u05D4\u05D5\u05E1\u05E4\u05D5\u05EA \u05DC\u05E1\u05E4\u05E8 \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05E2\u05E6\u05D5\u05EA.`,
     descriptionEnglish: "Four books in one volume: Likutei Even by Rabbi Ephraim ben Rabbi Naftali based on Rabbenu's teachings and Orach Chaim; Morning Prayers; Emunat Itecha about utilizing time for divine service; and Etzot Yesharot - additions to Likutei Etzot.",
     category: "\u05E1\u05E4\u05E8\u05D9 \u05D4\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05DD",
@@ -3577,101 +2884,13 @@ var realBreslovProducts = {
     isActive: true,
     isFeatured: false
   },
-  "avi-hanachal": {
-    id: "avi-hanachal",
-    name: "\u05D0\u05D1'\u05D9 \u05D4\u05E0\u05D7\u05DC",
-    nameEnglish: "Avi HaNachal",
-    nameFrench: "Avi HaNahal",
-    nameSpanish: "Avi HaNajal",
-    nameRussian: "\u0410\u0432\u0438 \u0430-\u041D\u0430\u0445\u0430\u043B\u044C",
-    description: "\u05DE\u05DB\u05EA\u05D1\u05D9\u05D5 \u05D4\u05E0\u05E4\u05DC\u05D0\u05D9\u05DD \u05E9\u05DC \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D5\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8, \u05D1\u05E2\u05D9\u05E7\u05E8 \u05D0\u05DC\u05D5 \u05E9\u05E0\u05E9\u05DC\u05D7\u05D5 \u05DC\u05D6\u05DC\u05DE\u05DF \u05E9\u05D6\u05E8. \u05D4\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD \u05DE\u05DB\u05D9\u05DC\u05D9\u05DD \u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05E7\u05D3\u05D5\u05E9\u05D9\u05DD, \u05DE\u05D7\u05D6\u05E7\u05D9\u05DD \u05D5\u05DE\u05E2\u05D5\u05D3\u05D3\u05D9\u05DD, \u05DE\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05DC\u05D0\u05DE\u05E5 \u05D1\u05E8\u05DB\u05D9\u05D9\u05DD \u05DB\u05D5\u05E9\u05DC\u05D5\u05EA \u05D5\u05DC\u05D7\u05D6\u05E7 \u05D9\u05D3\u05D9\u05D9\u05DD \u05E8\u05E4\u05D5\u05EA. \u05DC\u05D4\u05D7\u05D3\u05D9\u05E8 \u05D1\u05DC\u05D1 \u05D4\u05E7\u05D5\u05E8\u05D0 \u05D0\u05DE\u05D5\u05E0\u05D4 \u05D1\u05D4' \u05D9\u05EA\u05D1\u05E8\u05DA \u05D5\u05D1\u05E6\u05D3\u05D9\u05E7 \u05D4\u05D0\u05DE\u05EA.",
-    descriptionEnglish: "The wonderful letters of Rabbi Yisrael Dov Odesser, especially those sent to Zalman Shazar. The letters contain holy words, strengthening and encouraging, from Rabbenu and Rabbi Nathan's books, to strengthen weak knees and fortify drooping hands.",
-    category: "\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD",
-    subcategory: "\u05DE\u05DB\u05EA\u05D1\u05D9 \u05D0\u05D5\u05D3\u05E1\u05E8",
-    author: "\u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D5\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    pages: 280,
-    isbn: "978-965-7023-56-1",
-    images: [
-      "/attached_assets/\u05D0\u05D1\u05D9 \u05D4\u05E0\u05D7\u05DC_1757281003110.jpg",
-      "/attached_assets/\u05D0\u05D1\u05D9 \u05D4\u05E0\u05D7\u05DC \u05D1\u05D0\u05E0\u05D2\u05DC\u05D9\u05EA_1757280778284.jpg"
-    ],
-    variants: [
-      {
-        id: "large-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 35,
-        inStock: true,
-        stockQuantity: 25
-      },
-      {
-        id: "large-leather-like-pearl",
-        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8 \u05DC\u05D1\u05DF/\u05E4\u05E0\u05D9\u05E0\u05D4",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 1,
-        price: 45,
-        inStock: true,
-        stockQuantity: 15
-      },
-      {
-        id: "medium-skai",
-        format: "\u05E1\u05E7\u05D0\u05D9",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 30,
-        inStock: true,
-        stockQuantity: 35
-      },
-      {
-        id: "small-laminated-soft",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
-        binding: "\u05E8\u05DA",
-        size: "\u05E7\u05D8\u05DF",
-        dimensions: "12*8",
-        volumes: 1,
-        price: 10,
-        inStock: true,
-        stockQuantity: 80
-      },
-      {
-        id: "french-medium-2vol",
-        format: "\u05E6\u05E8\u05E4\u05EA\u05D9\u05EA",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 2,
-        price: 64,
-        inStock: true,
-        stockQuantity: 12
-      }
-    ],
-    features: [
-      "\u05DE\u05DB\u05EA\u05D1\u05D9 \u05D0\u05D5\u05D3\u05E1\u05E8 \u05D4\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
-      "\u05DC\u05D6\u05DC\u05DE\u05DF \u05E9\u05D6\u05E8 \u05E0\u05DB\u05EA\u05D1\u05D5",
-      "\u05D7\u05D9\u05D6\u05D5\u05E7 \u05D5\u05E2\u05D9\u05D3\u05D5\u05D3",
-      "\u05D0\u05DE\u05D5\u05E0\u05D4 \u05D1\u05E6\u05D3\u05D9\u05E7",
-      "\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05E7\u05D3\u05D5\u05E9\u05D9\u05DD"
-    ],
-    tags: ["\u05D0\u05D5\u05D3\u05E1\u05E8", "\u05DE\u05DB\u05EA\u05D1\u05D9\u05DD", "\u05D7\u05D9\u05D6\u05D5\u05E7", "\u05D0\u05DE\u05D5\u05E0\u05D4", "\u05E6\u05D3\u05D9\u05E7"],
-    isActive: true,
-    isFeatured: true
-  },
   "yisrael-saba": {
     id: "yisrael-saba",
     name: "\u05D9\u05E9\u05E8\u05D0\u05DC \u05E1\u05D1\u05D0",
     nameEnglish: "Yisrael Saba",
-    nameFrench: "Isra\xEBl Saba",
-    nameSpanish: "Israel Saba",
-    nameRussian: "\u0418\u0441\u0440\u0430\u044D\u043B\u044C \u0421\u0430\u0431\u0430",
+    nameFrench: null,
+    nameSpanish: null,
+    nameRussian: null,
     description: "\u05E9\u05D9\u05D7\u05D5\u05EA\u05D9\u05D5 \u05D4\u05D9\u05D5\u05E7\u05D3\u05D5\u05EA \u05D5\u05D4\u05E0\u05DC\u05D4\u05D1\u05D5\u05EA \u05E9\u05DC \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D5\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8, \u05DE\u05EA\u05E7\u05D5\u05E4\u05EA \u05D7\u05D9\u05D9\u05D5 \u05D4\u05D0\u05D7\u05E8\u05D5\u05E0\u05D4. \u05E0\u05E2\u05E8\u05DA \u05E2\u05DC \u05E4\u05D9 \u05E7\u05DC\u05D8\u05D5\u05EA \u05D1\u05D4\u05DF \u05D4\u05D5\u05E7\u05DC\u05D8\u05D5 \u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05DE\u05E7\u05D5\u05E8\u05D1\u05D9\u05D5. \u05D4\u05E9\u05D9\u05D7\u05D5\u05EA \u05DE\u05DC\u05D0\u05D5\u05EA \u05D1\u05D4\u05EA\u05D7\u05D6\u05E7\u05D5\u05EA, \u05D9\u05E8\u05D0\u05EA \u05E9\u05DE\u05D9\u05DD, \u05D0\u05D4\u05D1\u05EA \u05D4' \u05D9\u05EA\u05D1\u05E8\u05DA, \u05D0\u05D4\u05D1\u05EA \u05D4\u05E6\u05D3\u05D9\u05E7 \u05D5\u05D0\u05D4\u05D1\u05EA \u05D9\u05E9\u05E8\u05D0\u05DC. \u05D5\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05D1\u05DE\u05E2\u05DC\u05EA \u05D4\u05D4\u05EA\u05E7\u05E8\u05D1\u05D5\u05EA \u05DC\u05E8\u05D1\u05D9\u05E0\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF, \u05DC\u05D9\u05DE\u05D5\u05D3 \u05E1\u05E4\u05E8\u05D9\u05D5 \u05D5\u05D4\u05E4\u05E6\u05EA\u05DD \u05D1\u05E7\u05E8\u05D1 \u05E2\u05DD \u05D9\u05E9\u05E8\u05D0\u05DC.",
     descriptionEnglish: "The fiery and enthusiastic conversations of Rabbi Yisrael Dov Odesser from his later years. Compiled from recordings made by his close associates. Full of strengthening, fear of Heaven, love of God, love of the tzaddik and love of Israel.",
     category: "\u05E1\u05E4\u05E8\u05D9 \u05D4\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05DD",
@@ -3724,9 +2943,9 @@ var realBreslovProducts = {
     id: "maayen-hamitgaber",
     name: "\u05DE\u05E2\u05D9\u05DF \u05D4\u05DE\u05EA\u05D2\u05D1\u05E8",
     nameEnglish: "Ma'ayan HaMitgaber",
-    nameFrench: "Maayan HaMitgabert",
-    nameSpanish: "Maayan HaMitgaber",
-    nameRussian: "\u041C\u0430\u0430\u044F\u043D \u0430-\u041C\u0438\u0442\u0433\u0430\u0431\u0435\u0440",
+    nameFrench: null,
+    nameSpanish: null,
+    nameRussian: null,
     description: '\u05D7\u05D9\u05D3\u05D5\u05E9\u05D9\u05DD \u05E2\u05DE\u05D5\u05E7\u05D9\u05DD \u05D5\u05E0\u05E4\u05DC\u05D0\u05D9\u05DD \u05E2\u05DC \u05D4\u05E1\u05E4\u05E8 \u05D4\u05E7\u05D3\u05D5\u05E9 "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF", \u05E9\u05D4\u05D5\u05E2\u05DC\u05D5 \u05E2\u05DC \u05D4\u05DB\u05EA\u05D1 \u05D1\u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E2\u05DE\u05E8\u05DD \u05D9\u05D5\u05E1\u05E3 \u05D4\u05D5\u05E8\u05D1\u05D9\u05E5, \u05E0\u05DB\u05D3\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D5\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8. \u05D4\u05E1\u05E4\u05E8 \u05DE\u05D2\u05DC\u05D4 \u05E8\u05D1\u05D3\u05D9\u05DD \u05E0\u05D5\u05E1\u05E4\u05D9\u05DD \u05D1\u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05DE\u05E2\u05DE\u05D9\u05E7 \u05D1\u05D4\u05D1\u05E0\u05EA \u05D4\u05E0\u05D5\u05E9\u05D0\u05D9\u05DD \u05D4\u05E8\u05D5\u05D7\u05E0\u05D9\u05D9\u05DD \u05E9\u05D1\u05D4\u05DD.',
     descriptionEnglish: `Deep and wondrous insights on the holy book "Likutei Moharan," written by Rabbi Amram Yosef Horowitz, grandson of Rabbi Yisrael Dov Odesser. The book reveals additional layers in Rabbenu's teachings and deepens understanding of spiritual matters.`,
     category: "\u05E1\u05E4\u05E8\u05D9 \u05D4\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05DD",
@@ -3764,15 +2983,76 @@ var realBreslovProducts = {
     isActive: true,
     isFeatured: false
   },
+  "emunat-itecha": {
+    id: "emunat-itecha",
+    name: "\u05D0\u05DE\u05D5\u05E0\u05EA \u05E2\u05EA\u05D9\u05DA",
+    nameEnglish: "Emunat Itecha",
+    nameFrench: null,
+    nameSpanish: null,
+    nameRussian: null,
+    description: "\u05E1\u05E4\u05E8\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05D0\u05DC\u05D8\u05E8 \u05DE\u05D8\u05E4\u05DC\u05D9\u05E7 \u05D1\u05DE\u05E2\u05DC\u05EA \u05E0\u05D9\u05E6\u05D5\u05DC \u05D4\u05D6\u05DE\u05DF \u05DC\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4'. \u05D4\u05E1\u05E4\u05E8 \u05DE\u05DC\u05DE\u05D3 \u05DB\u05D9\u05E6\u05D3 \u05DC\u05D4\u05E7\u05D3\u05D9\u05E9 \u05DB\u05DC \u05E8\u05D2\u05E2 \u05D5\u05E8\u05D2\u05E2 \u05DC\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05D1\u05D5\u05E8\u05D0, \u05D5\u05D0\u05D9\u05DA \u05DC\u05D4\u05E4\u05D5\u05DA \u05D0\u05EA \u05D7\u05D9\u05D9 \u05D4\u05D9\u05D5\u05DD-\u05D9\u05D5\u05DD \u05DC\u05E2\u05D1\u05D5\u05D3\u05D4 \u05E8\u05D5\u05D7\u05E0\u05D9\u05EA \u05DE\u05EA\u05DE\u05D3\u05EA. \u05DE\u05D1\u05D5\u05E1\u05E1 \u05E2\u05DC \u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D1\u05E2\u05E0\u05D9\u05DF \u05D6\u05DE\u05DF \u05D5\u05D6\u05DB\u05D9\u05E8\u05EA \u05D4\u05D1\u05D5\u05E8\u05D0.",
+    descriptionEnglish: "Book by Rabbi Alter of Teplik about the virtue of utilizing time for divine service. Teaches how to dedicate every moment to serving the Creator and transform daily life into continuous spiritual work. Based on Rabbenu's teachings about time and remembering the Creator.",
+    category: "\u05E1\u05E4\u05E8\u05D9 \u05D4\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05DD",
+    subcategory: "\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05E9\u05DD",
+    author: "\u05E8\u05D1\u05D9 \u05D0\u05DC\u05D8\u05E8 \u05DE\u05D8\u05E4\u05DC\u05D9\u05E7",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    pages: 160,
+    isbn: "978-965-7023-61-5",
+    images: [
+      "/attached_assets/\u05D0\u05DE\u05D5\u05E0\u05EA \u05E2\u05D9\u05EA\u05DA \u05E6\u05E8\u05E4\u05EA\u05D9\u05EA_1757280778286.jpg"
+    ],
+    variants: [
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "12*17",
+        volumes: 1,
+        price: 20,
+        inStock: true,
+        stockQuantity: 40
+      },
+      {
+        id: "medium-french-booklet",
+        format: "\u05E7\u05D5\u05E0\u05D8\u05E8\u05E1 \u05E6\u05E8\u05E4\u05EA\u05D9\u05EA",
+        binding: "\u05E8\u05DA",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 6,
+        inStock: true,
+        stockQuantity: 60
+      }
+    ],
+    features: [
+      "\u05E0\u05D9\u05E6\u05D5\u05DC \u05D4\u05D6\u05DE\u05DF \u05D4\u05E7\u05D3\u05D5\u05E9",
+      "\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4' \u05EA\u05DE\u05D9\u05D3\u05D9\u05EA",
+      "\u05D7\u05D9\u05D9 \u05D9\u05D5\u05DD-\u05D9\u05D5\u05DD \u05E8\u05D5\u05D7\u05E0\u05D9\u05D9\u05DD",
+      "\u05D6\u05DB\u05D9\u05E8\u05EA \u05D4\u05D1\u05D5\u05E8\u05D0",
+      "\u05E8\u05D1\u05D9 \u05D0\u05DC\u05D8\u05E8 \u05D7\u05D9\u05D1\u05E8"
+    ],
+    tags: ["\u05D6\u05DE\u05DF", "\u05E2\u05D1\u05D5\u05D3\u05D4", "\u05E8\u05D5\u05D7\u05E0\u05D9\u05D5\u05EA", "\u05D8\u05E4\u05DC\u05D9\u05E7", "\u05D9\u05D5\u05DD \u05D9\u05D5\u05DD"],
+    isActive: true,
+    isFeatured: false
+  }
+};
+
+// client/src/data/products/segulot.ts
+var segulotProducts = {
   "shemot-hatzadikim": {
     id: "shemot-hatzadikim",
     name: "\u05E9\u05DE\u05D5\u05EA \u05D4\u05E6\u05D3\u05D9\u05E7\u05D9\u05DD",
     nameEnglish: "Shemot HaTzadikim",
-    nameFrench: null,
-    nameSpanish: null,
-    nameRussian: null,
+    nameFrench: "Noms des Justes",
+    nameSpanish: "Nombres de los Justos",
+    nameRussian: "\u0418\u043C\u0435\u043D\u0430 \u041F\u0440\u0430\u0432\u0435\u0434\u043D\u0438\u043A\u043E\u0432",
     description: "\u05E9\u05E0\u05DC\u05E7\u05D8 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05E9\u05D0\u05DE\u05D9\u05E8\u05EA\u05D5 \u05DE\u05E1\u05D5\u05D2\u05DC\u05EA \u05DC\u05E9\u05E0\u05D5\u05EA \u05D0\u05EA \u05D4\u05D8\u05D1\u05E2 \u05D5\u05DC\u05D4\u05DE\u05E9\u05D9\u05DA \u05E0\u05D9\u05E1\u05D9\u05DD, \u05DB\u05D3\u05D1\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9. \u05D4\u05E1\u05E4\u05E8 \u05DE\u05DB\u05D9\u05DC \u05E8\u05E9\u05D9\u05DE\u05EA \u05E9\u05DE\u05D5\u05EA \u05E6\u05D3\u05D9\u05E7\u05D9\u05DD \u05D5\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD \u05E9\u05D0\u05DE\u05D9\u05E8\u05EA\u05DD \u05D1\u05D3\u05D1\u05D9\u05E7\u05D5\u05EA \u05D5\u05D1\u05DB\u05D5\u05D5\u05E0\u05D4 \u05D9\u05DB\u05D5\u05DC\u05D4 \u05DC\u05D4\u05D1\u05D9\u05D0 \u05D9\u05E9\u05D5\u05E2\u05D5\u05EA \u05D5\u05E8\u05E4\u05D5\u05D0\u05D5\u05EA.",
     descriptionEnglish: "Compiled by Rabbi Nathan, whose recitation is capable of changing nature and drawing miracles, according to our holy Rabbenu. Contains a list of names of tzaddikim and holy ones whose recitation with devotion can bring salvation and healing.",
+    descriptionFrench: "Compil\xE9 par Rabbi Nathan, dont la r\xE9citation est capable de changer la nature et d'attirer les miracles, selon notre saint Rabb\xE9nou. Contient une liste de noms de justes et de saints dont la r\xE9citation avec d\xE9votion et intention peut apporter salut et gu\xE9rison.",
+    descriptionSpanish: "Compilado por el Rabino Nathan, cuya recitaci\xF3n es capaz de cambiar la naturaleza y atraer milagros, seg\xFAn nuestro santo Rabenu. Contiene una lista de nombres de justos y santos cuya recitaci\xF3n con devoci\xF3n e intenci\xF3n puede traer salvaci\xF3n y curaci\xF3n.",
+    descriptionRussian: "\u0421\u043E\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u043E \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u043E\u043C, \u0447\u0442\u0435\u043D\u0438\u0435 \u043A\u043E\u0442\u043E\u0440\u043E\u0433\u043E \u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043F\u0440\u0438\u0440\u043E\u0434\u0443 \u0438 \u043F\u0440\u0438\u0432\u043B\u0435\u0447\u044C \u0447\u0443\u0434\u0435\u0441\u0430, \u0441\u043E\u0433\u043B\u0430\u0441\u043D\u043E \u043D\u0430\u0448\u0435\u043C\u0443 \u0441\u0432\u044F\u0442\u043E\u043C\u0443 \u0420\u0430\u0431\u0435\u0439\u043D\u0443. \u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 \u0441\u043F\u0438\u0441\u043E\u043A \u0438\u043C\u0435\u043D \u043F\u0440\u0430\u0432\u0435\u0434\u043D\u0438\u043A\u043E\u0432 \u0438 \u0441\u0432\u044F\u0442\u044B\u0445, \u0447\u0442\u0435\u043D\u0438\u0435 \u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0441 \u043F\u0440\u0435\u0434\u0430\u043D\u043D\u043E\u0441\u0442\u044C\u044E \u0438 \u043D\u0430\u043C\u0435\u0440\u0435\u043D\u0438\u0435\u043C \u043C\u043E\u0436\u0435\u0442 \u043F\u0440\u0438\u043D\u0435\u0441\u0442\u0438 \u0441\u043F\u0430\u0441\u0435\u043D\u0438\u0435 \u0438 \u0438\u0441\u0446\u0435\u043B\u0435\u043D\u0438\u0435.",
     category: "\u05E1\u05D2\u05D5\u05DC\u05D5\u05EA \u05D5\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA",
     subcategory: "\u05E9\u05DE\u05D5\u05EA \u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
     author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
@@ -3826,9 +3106,911 @@ var realBreslovProducts = {
       "\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA \u05D5\u05E8\u05E4\u05D5\u05D0\u05D5\u05EA",
       "\u05D0\u05DE\u05D9\u05E8\u05D4 \u05D1\u05D3\u05D1\u05D9\u05E7\u05D5\u05EA"
     ],
+    featuresFrench: [
+      "Compilation de Rabbi Nathan",
+      "Changer la nature",
+      "Attirer les miracles",
+      "Salut et gu\xE9risons",
+      "R\xE9citation avec d\xE9votion"
+    ],
+    featuresSpanish: [
+      "Compilaci\xF3n del Rabino Nathan",
+      "Cambiar la naturaleza",
+      "Atraer milagros",
+      "Salvaci\xF3n y curaciones",
+      "Recitaci\xF3n con devoci\xF3n"
+    ],
+    featuresRussian: [
+      "\u041A\u043E\u043C\u043F\u0438\u043B\u044F\u0446\u0438\u044F \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430",
+      "\u0418\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0435 \u043F\u0440\u0438\u0440\u043E\u0434\u044B",
+      "\u041F\u0440\u0438\u0432\u043B\u0435\u0447\u0435\u043D\u0438\u0435 \u0447\u0443\u0434\u0435\u0441",
+      "\u0421\u043F\u0430\u0441\u0435\u043D\u0438\u0435 \u0438 \u0438\u0441\u0446\u0435\u043B\u0435\u043D\u0438\u044F",
+      "\u0427\u0442\u0435\u043D\u0438\u0435 \u0441 \u043F\u0440\u0435\u0434\u0430\u043D\u043D\u043E\u0441\u0442\u044C\u044E"
+    ],
     tags: ["\u05E6\u05D3\u05D9\u05E7\u05D9\u05DD", "\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA", "\u05E0\u05D9\u05E1\u05D9\u05DD", "\u05E8\u05E4\u05D5\u05D0\u05D5\u05EA", "\u05E1\u05D2\u05D5\u05DC\u05D5\u05EA"],
     isActive: true,
     isFeatured: false
+  }
+};
+
+// client/src/data/products/sichot.ts
+var sichotProducts = {
+  "sichos-haran": {
+    id: "sichos-haran",
+    name: '\u05E9\u05D9\u05D7\u05D5\u05EA \u05D4\u05E8"\u05DF',
+    nameEnglish: "Sichos Haran",
+    nameFrench: "Conversations de Rabbi Nachman",
+    nameSpanish: "Conversaciones de Rab\xED Najm\xE1n",
+    nameRussian: "\u0411\u0435\u0441\u0435\u0434\u044B \u0420\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430",
+    description: `"\u05D1\u05EA\u05D7\u05D9\u05DC\u05D4 \u05E1\u05D1\u05D5\u05E8 \u05D4\u05D9\u05D9\u05EA\u05D9 \u05E9\u05E8\u05E7 \u05D0\u05EA \u05EA\u05D5\u05E8\u05D5\u05EA\u05D9\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E6\u05E8\u05D9\u05DA \u05DC\u05DB\u05EA\u05D5\u05D1", \u05E1\u05D9\u05E4\u05E8 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, "\u05D0\u05D5\u05DC\u05DD \u05DC\u05D9\u05DE\u05D9\u05DD \u05D4\u05D1\u05E0\u05EA\u05D9 \u05E9\u05DB\u05DC \u05E9\u05D9\u05D7\u05D4 \u05E9\u05DC\u05D5, \u05E6\u05E8\u05D9\u05DA \u05DC\u05D4\u05E2\u05DC\u05D5\u05EA \u05E2\u05DC \u05D4\u05DB\u05EA\u05D1". \u05D4\u05E1\u05E4\u05E8 '\u05E9\u05D9\u05D7\u05D5\u05EA \u05D4\u05E8"\u05DF' \u05DE\u05DB\u05D9\u05DC \u05E9\u05D9\u05D7\u05D5\u05EA \u05E9\u05E0\u05D0\u05DE\u05E8\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D1\u05E0\u05E1\u05D9\u05E2\u05D5\u05EA \u05D5\u05D1\u05D3\u05E8\u05DB\u05D9\u05DD, \u05D5\u05D1\u05D4\u05D6\u05D3\u05DE\u05E0\u05D5\u05D9\u05D5\u05EA \u05E9\u05D5\u05E0\u05D5\u05EA, \u05DC\u05D0\u05D5 \u05D3\u05D5\u05D5\u05E7\u05D0 \u05D1\u05E9\u05D5\u05DC\u05D7\u05DF \u05D4\u05E9\u05D1\u05EA \u05D0\u05D5 \u05D1\u05E6\u05D9\u05D1\u05D5\u05E8 \u05D7\u05E1\u05D9\u05D3\u05D9\u05DD.`,
+    descriptionEnglish: `"At first I thought only Rabbenu's teachings needed to be written," Rabbi Nathan said, "but later I understood that every conversation of his needs to be put in writing." Sichos Haran contains conversations said by Rabbenu during travels and journeys.`,
+    category: "\u05E9\u05D9\u05D7\u05D5\u05EA \u05D5\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD",
+    subcategory: "\u05E9\u05D9\u05D7\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "sichos-haran-group",
+    pages: 446,
+    isbn: "978-965-7023-20-2",
+    images: [
+      "/attached_assets/\u05E9\u05D9\u05D7\u05D5\u05EA \u05D4\u05E8\u05DF 1_1757281125911.jpg",
+      "/attached_assets/\u05E9\u05D9\u05D7\u05D5\u05EA \u05D4\u05E8\u05DF_1757281085509.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 25
+      },
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 35
+      },
+      {
+        id: "small-laminated",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 25,
+        inStock: true,
+        stockQuantity: 50
+      },
+      {
+        id: "small-laminated-soft",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 10,
+        inStock: true,
+        stockQuantity: 70
+      }
+    ],
+    features: [
+      "\u05E9\u05D9\u05D7\u05D5\u05EA \u05D1\u05E0\u05E1\u05D9\u05E2\u05D5\u05EA \u05D5\u05D3\u05E8\u05DB\u05D9\u05DD",
+      "\u05DB\u05DC \u05E9\u05D9\u05D7\u05D4 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D7\u05E9\u05D5\u05D1\u05D4",
+      "\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05D9\u05D5\u05DE\u05D9\u05D5\u05DE\u05D9\u05D9\u05DD",
+      "\u05E0\u05E8\u05E9\u05DD \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
+      "\u05E9\u05D9\u05D7\u05D5\u05EA \u05DC\u05D3\u05E8\u05DA \u05D5\u05DC\u05D7\u05D9\u05D9\u05DD"
+    ],
+    tags: ["\u05E9\u05D9\u05D7\u05D5\u05EA", "\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD", "\u05E0\u05E1\u05D9\u05E2\u05D5\u05EA", "\u05D9\u05D5\u05DE\u05D9\u05D5\u05DD", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF"],
+    isActive: true,
+    isFeatured: true
+  }
+};
+
+// client/src/data/products/sipurim.ts
+var sipurimProducts = {
+  "siporei-masiyot": {
+    id: "siporei-masiyot",
+    name: "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA",
+    nameEnglish: "Stories of Rabbi Nachman",
+    nameFrench: "Contes mystiques",
+    nameSpanish: "Cuentos m\xEDsticos",
+    nameRussian: "\u041C\u0438\u0441\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0435 \u0440\u0430\u0441\u0441\u043A\u0430\u0437\u044B",
+    description: "\u05E9\u05DC\u05D5\u05E9 \u05E2\u05E9\u05E8\u05D4 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA, \u05D1\u05EA\u05D5\u05E1\u05E4\u05EA \u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD \u05E7\u05E6\u05E8\u05D9\u05DD, \u05E9\u05E1\u05D9\u05E4\u05E8 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05D1\u05D0\u05E8\u05D1\u05E2 \u05E9\u05E0\u05D5\u05EA \u05D7\u05D9\u05D9\u05D5 \u05D4\u05D0\u05D7\u05E8\u05D5\u05E0\u05D5\u05EA. \u05E0\u05E8\u05E9\u05DE\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05EA\u05DC\u05DE\u05D9\u05D3\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05D1\u05E9\u05E4\u05EA \u05D4\u05D0\u05D9\u05D3\u05D9\u05E9 \u05DB\u05E4\u05D9 \u05E9\u05E1\u05D5\u05E4\u05E8\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05D0\u05E3 \u05EA\u05D5\u05E8\u05D2\u05DE\u05D5 \u05E2\u05DC \u05D9\u05D3\u05D5 \u05DC\u05DC\u05E9\u05D5\u05DF \u05D4\u05E7\u05D5\u05D3\u05E9.",
+    descriptionEnglish: "Thirteen tales, plus short stories, told by Rabbi Nachman in the last four years of his life. Recorded by his student Rabbi Nathan in Yiddish as told by Rabbenu and translated by him into Hebrew.",
+    category: "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD \u05D5\u05DE\u05E2\u05E9\u05D9\u05D5\u05EA",
+    subcategory: "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "siporei-masiyot-group",
+    pages: 448,
+    isbn: "978-965-7023-14-1",
+    images: [
+      "/attached_assets/\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA 1_1757275910546.jpg",
+      "/attached_assets/\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA 1_1757278339721.jpg",
+      "/attached_assets/\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA 2_1757280401419.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai-with-hints",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05E8\u05DE\u05D6\u05D9 \u05D4\u05DE\u05E2\u05E9\u05D9\u05D5\u05EA",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 20
+      },
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 25
+      },
+      {
+        id: "medium-skai-with-hints",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05E8\u05DE\u05D6\u05D9 \u05D4\u05DE\u05E2\u05E9\u05D9\u05D5\u05EA",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 30
+      },
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 35
+      },
+      {
+        id: "small-soft-leather",
+        format: "\u05E2\u05D5\u05E8 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 25,
+        inStock: true,
+        stockQuantity: 40
+      },
+      {
+        id: "small-laminated",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 20,
+        inStock: true,
+        stockQuantity: 60
+      },
+      {
+        id: "small-laminated-soft",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 10,
+        inStock: true,
+        stockQuantity: 80
+      }
+    ],
+    features: [
+      '\u05D9"\u05D2 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA \u05E7\u05D3\u05D5\u05E9\u05D5\u05EA',
+      "\u05E0\u05E8\u05E9\u05DD \u05E2\u05DC \u05D9\u05D3\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
+      "\u05E1\u05D2\u05D5\u05DC\u05D4 \u05DC\u05E4\u05E7\u05D9\u05D3\u05EA \u05E2\u05E7\u05E8\u05D5\u05EA",
+      "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05E7\u05D5\u05D3\u05E9 \u05E2\u05DE\u05D5\u05E7\u05D9\u05DD",
+      "\u05D6\u05DE\u05D9\u05DF \u05E2\u05DD \u05E8\u05DE\u05D6\u05D9 \u05D4\u05DE\u05E2\u05E9\u05D9\u05D5\u05EA"
+    ],
+    tags: ["\u05DE\u05E2\u05E9\u05D9\u05D5\u05EA", "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD", "\u05E7\u05D3\u05D5\u05E9\u05D4", "\u05E8\u05DE\u05D6\u05D9\u05DD", "\u05E1\u05D2\u05D5\u05DC\u05D5\u05EA"],
+    isActive: true,
+    isFeatured: true
+  },
+  "kochvei-ohr": {
+    id: "kochvei-ohr",
+    name: "\u05DB\u05D5\u05DB\u05D1\u05D9 \u05D0\u05D5\u05E8",
+    nameEnglish: "Kochvei Ohr",
+    nameFrench: "\xC9toiles de Lumi\xE8re",
+    nameSpanish: "Estrellas de Luz",
+    nameRussian: "\u0417\u0432\u0435\u0437\u0434\u044B \u0421\u0432\u0435\u0442\u0430",
+    description: `\u05E1\u05E4\u05E8\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05D0\u05D1\u05E8\u05D4\u05DD \u05D7\u05D6\u05DF, \u05D1\u05E0\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05D5\u05DC\u05D8\u05E9\u05D9\u05DF \u05EA\u05DC\u05DE\u05D9\u05D3 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF. \u05DE\u05DB\u05D9\u05DC \u05D0\u05E8\u05D1\u05E2\u05D4 \u05D7\u05DC\u05E7\u05D9\u05DD: '\u05D0\u05E0\u05E9\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF' \u2013\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD \u05E2\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05D5, '\u05D0\u05DE\u05EA \u05D5\u05D0\u05DE\u05D5\u05E0\u05D4' \u2013 \u05E9\u05D9\u05D7\u05D5\u05EA \u05D1\u05DE\u05E2\u05DC\u05EA \u05D4\u05D0\u05DE\u05D5\u05E0\u05D4, '\u05D7\u05DB\u05DE\u05D4 \u05D5\u05D1\u05D9\u05E0\u05D4' \u05E8\u05DE\u05D6\u05D9\u05DD \u05D5\u05E1\u05D5\u05D3\u05D5\u05EA \u05D1\u05D2\u05D3\u05D5\u05DC\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5, '\u05E9\u05E9\u05D5\u05DF \u05D5\u05E9\u05DE\u05D7\u05D4' \u2013 \u05E9\u05D9\u05D7\u05D5\u05EA \u05D5\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05E2\u05DC \u05DE\u05E2\u05DC\u05EA \u05D4\u05E9\u05DE\u05D7\u05D4.`,
+    descriptionEnglish: "The book of Rabbi Avraham Chazan, son of Rabbi Nachman of Tulchyn, student of Rabbi Nathan. Contains four parts: 'People of Moharan' - stories about Rabbenu and his students, 'Truth and Faith' - conversations about the excellence of faith.",
+    descriptionFrench: "Le livre de Rabbi Avraham Hazan, fils de Rabbi Nahman de Tultchyn, disciple de Rabbi Nathan. Contient quatre parties : 'Les Gens de Moharane' - r\xE9cits sur Rabb\xE9nou et ses disciples, 'V\xE9rit\xE9 et Foi' - conversations sur l'excellence de la foi, 'Sagesse et Intelligence' - allusions et secrets sur la grandeur de Rabb\xE9nou, 'Joie et All\xE9gresse' - conversations et pri\xE8res sur la valeur de la joie.",
+    descriptionSpanish: "El libro del Rabino Abraham Jaz\xE1n, hijo del Rabino Najman de Tultchyn, disc\xEDpulo del Rabino Nathan. Contiene cuatro partes: 'La Gente de Mohar\xE1n' - historias sobre Rabenu y sus disc\xEDpulos, 'Verdad y Fe' - conversaciones sobre la excelencia de la fe, 'Sabidur\xEDa e Inteligencia' - alusiones y secretos sobre la grandeza de Rabenu, 'Gozo y Alegr\xEDa' - conversaciones y oraciones sobre el valor de la alegr\xEDa.",
+    descriptionRussian: "\u041A\u043D\u0438\u0433\u0430 \u0440\u0430\u0431\u0431\u0438 \u0410\u0432\u0440\u0430\u0430\u043C\u0430 \u0425\u0430\u0437\u0430\u043D\u0430, \u0441\u044B\u043D\u0430 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430 \u0438\u0437 \u0422\u0443\u043B\u044C\u0447\u0438\u043D\u0430, \u0443\u0447\u0435\u043D\u0438\u043A\u0430 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430. \u0421\u043E\u0434\u0435\u0440\u0436\u0438\u0442 \u0447\u0435\u0442\u044B\u0440\u0435 \u0447\u0430\u0441\u0442\u0438: '\u041B\u044E\u0434\u0438 \u041C\u043E\u0430\u0440\u0430\u043D\u0430' - \u0440\u0430\u0441\u0441\u043A\u0430\u0437\u044B \u043E \u0420\u0430\u0431\u0435\u0439\u043D\u0443 \u0438 \u0435\u0433\u043E \u0443\u0447\u0435\u043D\u0438\u043A\u0430\u0445, '\u0418\u0441\u0442\u0438\u043D\u0430 \u0438 \u0412\u0435\u0440\u0430' - \u0431\u0435\u0441\u0435\u0434\u044B \u043E \u043F\u0440\u0435\u0432\u043E\u0441\u0445\u043E\u0434\u0441\u0442\u0432\u0435 \u0432\u0435\u0440\u044B, '\u041C\u0443\u0434\u0440\u043E\u0441\u0442\u044C \u0438 \u0420\u0430\u0437\u0443\u043C' - \u043D\u0430\u043C\u0435\u043A\u0438 \u0438 \u0442\u0430\u0439\u043D\u044B \u043E \u0432\u0435\u043B\u0438\u0447\u0438\u0438 \u0420\u0430\u0431\u0435\u0439\u043D\u0443, '\u0420\u0430\u0434\u043E\u0441\u0442\u044C \u0438 \u0412\u0435\u0441\u0435\u043B\u044C\u0435' - \u0431\u0435\u0441\u0435\u0434\u044B \u0438 \u043C\u043E\u043B\u0438\u0442\u0432\u044B \u043E \u0446\u0435\u043D\u043D\u043E\u0441\u0442\u0438 \u0440\u0430\u0434\u043E\u0441\u0442\u0438.",
+    category: "\u05E9\u05D9\u05D7\u05D5\u05EA \u05D5\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD",
+    subcategory: "\u05DB\u05D5\u05DB\u05D1\u05D9 \u05D0\u05D5\u05E8",
+    author: "\u05E8\u05D1\u05D9 \u05D0\u05D1\u05E8\u05D4\u05DD \u05D7\u05D6\u05DF",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "kochvei-ohr-group",
+    pages: 480,
+    isbn: "978-965-7023-23-3",
+    images: [
+      "/attached_assets/\u05DB\u05D5\u05DB\u05D1\u05D9 \u05D0\u05D5\u05E8 1_1757275910545.jpg",
+      "/attached_assets/\u05DB\u05D5\u05DB\u05D1\u05D9 \u05D0\u05D5\u05E8 1_1757278339720.jpg",
+      "/attached_assets/\u05DB\u05D5\u05DB\u05D1\u05D9 \u05D0\u05D5\u05E8 2_1757280401418.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 20
+      },
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 25
+      },
+      {
+        id: "small-laminated",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 20,
+        inStock: true,
+        stockQuantity: 35
+      },
+      {
+        id: "small-laminated-soft",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 10,
+        inStock: true,
+        stockQuantity: 50
+      }
+    ],
+    features: [
+      "\u05D0\u05E8\u05D1\u05E2\u05D4 \u05D7\u05DC\u05E7\u05D9\u05DD \u05E0\u05E4\u05DC\u05D0\u05D9\u05DD",
+      "\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD \u05E2\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05D5",
+      "\u05E9\u05D9\u05D7\u05D5\u05EA \u05D1\u05D0\u05DE\u05D5\u05E0\u05D4 \u05D5\u05E9\u05DE\u05D7\u05D4",
+      "\u05E8\u05DE\u05D6\u05D9\u05DD \u05D5\u05E1\u05D5\u05D3\u05D5\u05EA",
+      "\u05D1\u05DF \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D8\u05D5\u05DC\u05D8\u05E9\u05D9\u05DF"
+    ],
+    featuresFrench: [
+      "Quatre parties merveilleuses",
+      "R\xE9cits sur Rabb\xE9nou et ses disciples",
+      "Conversations sur la foi et la joie",
+      "Allusions et secrets",
+      "Fils de Rabbi Nahman de Tultchyn"
+    ],
+    featuresSpanish: [
+      "Cuatro partes maravillosas",
+      "Historias sobre Rabenu y sus disc\xEDpulos",
+      "Conversaciones sobre fe y alegr\xEDa",
+      "Alusiones y secretos",
+      "Hijo del Rabino Najman de Tultchyn"
+    ],
+    featuresRussian: [
+      "\u0427\u0435\u0442\u044B\u0440\u0435 \u0447\u0443\u0434\u0435\u0441\u043D\u044B\u0435 \u0447\u0430\u0441\u0442\u0438",
+      "\u0420\u0430\u0441\u0441\u043A\u0430\u0437\u044B \u043E \u0420\u0430\u0431\u0435\u0439\u043D\u0443 \u0438 \u0435\u0433\u043E \u0443\u0447\u0435\u043D\u0438\u043A\u0430\u0445",
+      "\u0411\u0435\u0441\u0435\u0434\u044B \u043E \u0432\u0435\u0440\u0435 \u0438 \u0440\u0430\u0434\u043E\u0441\u0442\u0438",
+      "\u041D\u0430\u043C\u0435\u043A\u0438 \u0438 \u0442\u0430\u0439\u043D\u044B",
+      "\u0421\u044B\u043D \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430 \u0438\u0437 \u0422\u0443\u043B\u044C\u0447\u0438\u043D\u0430"
+    ],
+    tags: ["\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9\u05DD", "\u05D0\u05DE\u05D5\u05E0\u05D4", "\u05E9\u05DE\u05D7\u05D4", "\u05E8\u05DE\u05D6\u05D9\u05DD", "\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05DD"],
+    isActive: true,
+    isFeatured: true
+  }
+};
+
+// client/src/data/products/tanach.ts
+var tanachProducts = {
+  "chumash-likutei-halakhot": {
+    id: "chumash-likutei-halakhot",
+    name: "\u05D7\u05D5\u05DE\u05E9 \u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA",
+    nameEnglish: "Pentateuch with Likutei Halakhot",
+    nameFrench: "Pentateuque avec Likout\xE9 Halakhot",
+    nameSpanish: "Pentateuco con Likutei Halajot",
+    nameRussian: "\u041F\u044F\u0442\u0438\u043A\u043D\u0438\u0436\u0438\u0435 \u0441 \u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u0410\u043B\u0430\u0445\u043E\u0442",
+    description: '\u05E1\u05D8 \u05D7\u05DE\u05D9\u05E9\u05D4 \u05D7\u05D5\u05DE\u05E9\u05D9 \u05EA\u05D5\u05E8\u05D4 \u05D1\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD, \u05DB\u05D5\u05DC\u05DC \u05D1\u05EA\u05D5\u05DB\u05D5 \u05EA\u05E8\u05D2\u05D5\u05DD \u05D0\u05D5\u05E0\u05E7\u05DC\u05D5\u05E1 \u05D5\u05E4\u05D9\u05E8\u05D5\u05E9 \u05E8\u05E9"\u05D9, \u05D1\u05EA\u05D5\u05E1\u05E4\u05EA \u05DC\u05D9\u05E7\u05D5\u05D8 \u05E0\u05E4\u05DC\u05D0 \u05DE\u05DE\u05E9\u05E0\u05EA\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1 \u05D6\u05D9\u05E2"\u05D0 \u05E2\u05DC \u05D4\u05E4\u05E8\u05E9\u05D4, \u05DE\u05E1\u05E4\u05E8 \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05DC\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1 \u05D6\u05E6"\u05DC. \u05E2\u05E8\u05D5\u05DA \u05D5\u05DE\u05E1\u05D5\u05D3\u05E8 \u05E2\u05DC \u05D4\u05D3\u05E3, \u05D1\u05E6\u05D5\u05E8\u05D4 \u05E0\u05D5\u05D7\u05D4 \u05D5\u05E7\u05DC\u05D4 \u05DC\u05DC\u05DE\u05D9\u05D3\u05D4.',
+    descriptionEnglish: "Set of five Torah volumes with illuminating letters, including Onkelos translation and Rashi commentary, plus a wonderful collection from Rabbi Nachman's teachings on the weekly portion, from Likutei Halakhot by Rabbi Nathan.",
+    descriptionFrench: "Ensemble de cinq volumes de la Torah avec des lettres illuminantes, incluant la traduction d'Onkelos et le commentaire de Rachi, plus une merveilleuse collection des enseignements de Rabbi Nahman sur la portion hebdomadaire, tir\xE9e du Likout\xE9 Halakhot de Rabbi Nathan. Organis\xE9 et dispos\xE9 sur la page, de mani\xE8re confortable et facile pour l'\xE9tude.",
+    descriptionSpanish: "Conjunto de cinco vol\xFAmenes de la Tor\xE1 con letras iluminadoras, incluyendo la traducci\xF3n de Onkelos y el comentario de Rash\xED, m\xE1s una maravillosa colecci\xF3n de las ense\xF1anzas del Rabino Najman sobre la porci\xF3n semanal, del Likutei Halajot del Rabino Nathan. Organizado y dispuesto en la p\xE1gina, de manera c\xF3moda y f\xE1cil para el estudio.",
+    descriptionRussian: "\u041D\u0430\u0431\u043E\u0440 \u0438\u0437 \u043F\u044F\u0442\u0438 \u0442\u043E\u043C\u043E\u0432 \u0422\u043E\u0440\u044B \u0441 \u043E\u0441\u0432\u0435\u0449\u0430\u044E\u0449\u0438\u043C\u0438 \u0431\u0443\u043A\u0432\u0430\u043C\u0438, \u0432\u043A\u043B\u044E\u0447\u0430\u044F \u043F\u0435\u0440\u0435\u0432\u043E\u0434 \u041E\u043D\u043A\u0435\u043B\u043E\u0441\u0430 \u0438 \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 \u0420\u0430\u0448\u0438, \u043F\u043B\u044E\u0441 \u043F\u0440\u0435\u043A\u0440\u0430\u0441\u043D\u0430\u044F \u043A\u043E\u043B\u043B\u0435\u043A\u0446\u0438\u044F \u0443\u0447\u0435\u043D\u0438\u0439 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430 \u043E \u043D\u0435\u0434\u0435\u043B\u044C\u043D\u043E\u0439 \u0433\u043B\u0430\u0432\u0435 \u0438\u0437 \u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u0410\u043B\u0430\u0445\u043E\u0442 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430. \u041E\u0440\u0433\u0430\u043D\u0438\u0437\u043E\u0432\u0430\u043D\u043E \u0438 \u0440\u0430\u0441\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u043E \u043D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435, \u0443\u0434\u043E\u0431\u043D\u044B\u043C \u0438 \u043B\u0435\u0433\u043A\u0438\u043C \u0434\u043B\u044F \u0438\u0437\u0443\u0447\u0435\u043D\u0438\u044F \u0441\u043F\u043E\u0441\u043E\u0431\u043E\u043C.",
+    category: '\u05D7\u05D5\u05DE\u05E9\u05D9\u05DD \u05D5\u05EA\u05E0"\u05DA',
+    subcategory: "\u05D7\u05D5\u05DE\u05E9 \u05E2\u05DD \u05E4\u05D9\u05E8\u05D5\u05E9\u05D9\u05DD",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    pages: 1250,
+    isbn: "978-965-7023-32-5",
+    images: [
+      "/attached_assets/\u05D7\u05D5\u05DE\u05E9 \u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05D1\u05D9\u05E0\u05D5\u05E0\u05D9 1_1757275732701.jpg",
+      "/attached_assets/\u05D7\u05D5\u05DE\u05E9 \u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05D1\u05D9\u05E0\u05D5\u05E0\u05D9 2_1757275732701.jpg",
+      "/attached_assets/\u05D7\u05D5\u05DE\u05E9 \u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05D1\u05D9\u05E0\u05D5\u05E0\u05D9 3_1757275732702.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai-5vol",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 5,
+        price: 175,
+        inStock: true,
+        stockQuantity: 12
+      },
+      {
+        id: "large-leather-5vol",
+        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8 \u05D7\u05D5\u05DD",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 5,
+        price: 225,
+        inStock: true,
+        stockQuantity: 8
+      },
+      {
+        id: "medium-skai-5vol",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05E9\u05D1\u05EA",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 5,
+        price: 150,
+        inStock: true,
+        stockQuantity: 15
+      },
+      {
+        id: "medium-leather-5vol",
+        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 5,
+        price: 175,
+        inStock: true,
+        stockQuantity: 10
+      }
+    ],
+    features: [
+      "\u05D7\u05DE\u05D9\u05E9\u05D4 \u05D7\u05D5\u05DE\u05E9\u05D9 \u05EA\u05D5\u05E8\u05D4",
+      "\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD",
+      '\u05EA\u05E8\u05D2\u05D5\u05DD \u05D0\u05D5\u05E0\u05E7\u05DC\u05D5\u05E1 \u05D5\u05E8\u05E9"\u05D9',
+      "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05E2\u05DC \u05D4\u05E4\u05E8\u05E9\u05D4",
+      "\u05E2\u05E8\u05D5\u05DA \u05D5\u05DE\u05E1\u05D5\u05D3\u05E8 \u05D1\u05E0\u05D5\u05D7\u05D5\u05EA"
+    ],
+    featuresFrench: [
+      "Cinq volumes de la Torah",
+      "Lettres illuminantes",
+      "Traduction d'Onkelos et Rachi",
+      "Likout\xE9 Halakhot sur la portion",
+      "Organis\xE9 et dispos\xE9 confortablement"
+    ],
+    featuresSpanish: [
+      "Cinco vol\xFAmenes de la Tor\xE1",
+      "Letras iluminadoras",
+      "Traducci\xF3n de Onkelos y Rash\xED",
+      "Likutei Halajot sobre la porci\xF3n",
+      "Organizado y dispuesto c\xF3modamente"
+    ],
+    featuresRussian: [
+      "\u041F\u044F\u0442\u044C \u0442\u043E\u043C\u043E\u0432 \u0422\u043E\u0440\u044B",
+      "\u041E\u0441\u0432\u0435\u0449\u0430\u044E\u0449\u0438\u0435 \u0431\u0443\u043A\u0432\u044B",
+      "\u041F\u0435\u0440\u0435\u0432\u043E\u0434 \u041E\u043D\u043A\u0435\u043B\u043E\u0441\u0430 \u0438 \u0420\u0430\u0448\u0438",
+      "\u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u0410\u043B\u0430\u0445\u043E\u0442 \u043E \u0433\u043B\u0430\u0432\u0435",
+      "\u041E\u0440\u0433\u0430\u043D\u0438\u0437\u043E\u0432\u0430\u043D\u043E \u0438 \u0440\u0430\u0441\u043F\u043E\u043B\u043E\u0436\u0435\u043D\u043E \u0443\u0434\u043E\u0431\u043D\u043E"
+    ],
+    tags: ["\u05D7\u05D5\u05DE\u05E9", "\u05EA\u05D5\u05E8\u05D4", "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA", '\u05E8\u05E9"\u05D9', "\u05E4\u05E8\u05E9\u05D4"],
+    isActive: true,
+    isFeatured: true
+  }
+};
+
+// client/src/data/products/tefilot.ts
+var tefilotProducts = {
+  "likutei-tefilot": {
+    id: "likutei-tefilot",
+    name: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA",
+    nameEnglish: "Likutei Tefilot",
+    nameFrench: "Likout\xE9 T\xE9filot",
+    nameSpanish: "Likutei Tefilot",
+    nameRussian: "\u041B\u0438\u043A\u0443\u0442\u0435\u0439 \u0422\u0444\u0438\u043B\u043E\u0442",
+    description: '\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA\u05D9\u05D5 \u05D4\u05E0\u05E4\u05DC\u05D0\u05D5\u05EA \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05E9\u05D7\u05D5\u05D1\u05E8\u05D5 \u05E2\u05DC \u05D1\u05E1\u05D9\u05E1 \u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF. \u05E2\u05DC\u05D9\u05D4\u05DD \u05D0\u05DE\u05E8 \u05E8\u05D1\u05D9\u05E0\u05D5: "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05D4\u05E0\u05E2\u05E9\u05D5\u05EA \u05DE\u05D4\u05EA\u05D5\u05E8\u05D5\u05EA - \u05DE\u05E2\u05DC\u05D5\u05EA \u05E9\u05E2\u05E9\u05D5\u05E2\u05D9\u05DD \u05DC\u05DE\u05E2\u05DC\u05D4 \u05E9\u05DE\u05E2\u05D5\u05DC\u05DD \u05DC\u05D0 \u05E2\u05DC\u05D5!"',
+    descriptionEnglish: `The wonderful prayers of Rabbi Nathan, composed based on Rabbi Nachman's teachings from Likutei Moharan. About them Rabbenu said: "Prayers made from the teachings - cause delights above that never existed before!"`,
+    category: "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA",
+    subcategory: "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "likutei-tefilot-group",
+    pages: 1152,
+    isbn: "978-965-7023-12-7",
+    images: [
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA 1_1757275910545.jpg",
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA 1_1757278339720.jpg",
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA 1_1757281125910.jpg",
+      "/attached_assets/\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA 2_1757280401419.jpg"
+    ],
+    variants: [
+      {
+        id: "large-leather",
+        format: "\u05E2\u05D5\u05E8",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 120,
+        inStock: true,
+        stockQuantity: 15
+      },
+      {
+        id: "large-skai-with-prayers-2vol",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05D5\u05EA\u05D7\u05E0\u05D5\u05E0\u05D9\u05DD",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 2,
+        price: 80,
+        inStock: true,
+        stockQuantity: 20
+      },
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 40,
+        inStock: true,
+        stockQuantity: 35
+      },
+      {
+        id: "medium-skai-with-prayers-3vol",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05D5\u05EA\u05D7\u05E0\u05D5\u05E0\u05D9\u05DD",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 3,
+        price: 90,
+        inStock: true,
+        stockQuantity: 18
+      },
+      {
+        id: "medium-leather-like",
+        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 50,
+        inStock: true,
+        stockQuantity: 25
+      },
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 40
+      },
+      {
+        id: "small-leather-like",
+        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 55,
+        inStock: true,
+        stockQuantity: 20
+      },
+      {
+        id: "small-laminated",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 25,
+        inStock: true,
+        stockQuantity: 60
+      },
+      {
+        id: "small-laminated-3vol",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 3,
+        price: 40,
+        inStock: true,
+        stockQuantity: 35
+      },
+      {
+        id: "medium-laminated-12vol",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 12,
+        price: 60,
+        inStock: true,
+        stockQuantity: 15
+      }
+    ],
+    features: [
+      "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05DE\u05D9\u05D5\u05E1\u05D3\u05D5\u05EA \u05E2\u05DC \u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF",
+      "\u05D7\u05D9\u05D1\u05D5\u05E8\u05D5 \u05D4\u05E0\u05E4\u05DC\u05D0 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
+      "\u05DE\u05E2\u05DC\u05D4 \u05E9\u05E2\u05E9\u05D5\u05E2\u05D9\u05DD \u05DC\u05DE\u05E2\u05DC\u05D4",
+      "\u05D6\u05DE\u05D9\u05DF \u05D1\u05DE\u05D2\u05D5\u05D5\u05DF \u05DB\u05E8\u05D9\u05DB\u05D5\u05EA \u05D5\u05D2\u05D3\u05DC\u05D9\u05DD",
+      "\u05D0\u05D9\u05DB\u05D5\u05EA \u05D4\u05D3\u05E4\u05E1\u05D4 \u05DE\u05E2\u05D5\u05DC\u05D4"
+    ],
+    tags: ["\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF", "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA", "\u05EA\u05D7\u05E0\u05D5\u05E0\u05D9\u05DD", "\u05E7\u05D3\u05D5\u05E9\u05D4"],
+    isActive: true,
+    isFeatured: true
+  },
+  "hishtapchut-hanefesh": {
+    id: "hishtapchut-hanefesh",
+    name: "\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA \u05D4\u05E0\u05E4\u05E9 \u05D5\u05DE\u05E9\u05D9\u05D1\u05EA \u05E0\u05E4\u05E9",
+    nameEnglish: "Outpouring of the Soul",
+    nameFrench: "Epanchement de l'Ame",
+    nameSpanish: "Efusi\xF3n del Alma",
+    nameRussian: "\u0418\u0437\u043B\u0438\u044F\u043D\u0438\u0435 \u0434\u0443\u0448\u0438",
+    description: '\u05DC\u05E7\u05D8 \u05E9\u05D9\u05D7\u05D5\u05EA \u05D5\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05E0\u05E4\u05DC\u05D0\u05D9\u05DD \u05D1\u05DE\u05E2\u05DC\u05EA \u05D4\u05D4\u05EA\u05D1\u05D5\u05D3\u05D3\u05D5\u05EA \u05D5\u05D4\u05E9\u05D9\u05D7\u05D4 \u05E9\u05DC \u05D4\u05D9\u05D4\u05D5\u05D3\u05D9 \u05D1\u05D9\u05E0\u05D5 \u05DC\u05D1\u05D9\u05DF \u05E7\u05D5\u05E0\u05D5 - \u05D4\u05E2\u05E6\u05D4 \u05D4\u05E2\u05D9\u05E7\u05E8\u05D9\u05EA \u05D5\u05D4\u05DE\u05E8\u05DB\u05D6\u05D9\u05EA \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF, \u05E9\u05D4\u05EA\u05D1\u05D8\u05D0: "\u05DE\u05E7\u05D8\u05DF \u05D5\u05E2\u05D3 \u05D2\u05D3\u05D5\u05DC, \u05D0\u05D9 \u05D0\u05E4\u05E9\u05E8 \u05DC\u05D4\u05D9\u05D5\u05EA \u05D9\u05D4\u05D5\u05D3\u05D9 \u05DB\u05E9\u05E8, \u05DB\u05D9 \u05D0\u05DD \u05E2\u05DC \u05D9\u05D3\u05D9 \u05D4\u05EA\u05D1\u05D5\u05D3\u05D3\u05D5\u05EA"',
+    descriptionEnglish: "A collection of wonderful conversations and speeches about the excellence of seclusion and the conversation of the Jew between him and his Creator - the main and central advice of our holy Rebbe Nachman.",
+    category: "\u05D4\u05EA\u05D1\u05D5\u05D3\u05D3\u05D5\u05EA \u05D5\u05EA\u05E4\u05D9\u05DC\u05D4",
+    subcategory: "\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA \u05D4\u05E0\u05E4\u05E9",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "hishtapchut-hanefesh-group",
+    pages: 242,
+    isbn: "978-965-7023-16-5",
+    images: [
+      "/attached_assets/\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA 1_1757275910544.jpg",
+      "/attached_assets/\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA 1_1757278339719.jpg",
+      "/attached_assets/\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA 2_1757275875791.jpg",
+      "/attached_assets/\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA_1757281003111.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 25
+      },
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 35
+      },
+      {
+        id: "small-laminated",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 20,
+        inStock: true,
+        stockQuantity: 50
+      }
+    ],
+    features: [
+      "\u05D4\u05E2\u05E6\u05D4 \u05D4\u05DE\u05E8\u05DB\u05D6\u05D9\u05EA \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5",
+      "\u05D4\u05EA\u05D1\u05D5\u05D3\u05D3\u05D5\u05EA \u05D9\u05D5\u05DE\u05D9\u05D5\u05DE\u05D9\u05EA",
+      "\u05E9\u05D9\u05D7\u05D4 \u05D1\u05D9\u05E0\u05D5 \u05DC\u05D1\u05D9\u05DF \u05E7\u05D5\u05E0\u05D5",
+      "\u05DC\u05D9\u05E7\u05D5\u05D8 \u05E0\u05E4\u05DC\u05D0 \u05DE\u05DB\u05DC \u05D4\u05E1\u05E4\u05E8\u05D9\u05DD",
+      "\u05D4\u05D3\u05E8\u05DB\u05D4 \u05DE\u05E2\u05E9\u05D9\u05EA"
+    ],
+    tags: ["\u05D4\u05EA\u05D1\u05D5\u05D3\u05D3\u05D5\u05EA", "\u05EA\u05E4\u05D9\u05DC\u05D4", "\u05D4\u05E9\u05EA\u05E4\u05DB\u05D5\u05EA", "\u05DE\u05E9\u05D9\u05D1\u05EA \u05E0\u05E4\u05E9", "\u05E2\u05E6\u05D4 \u05DE\u05E8\u05DB\u05D6\u05D9\u05EA"],
+    isActive: true,
+    isFeatured: true
+  },
+  "tehilim": {
+    id: "tehilim",
+    name: "\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD",
+    nameEnglish: "Tehilim (Psalms)",
+    nameFrench: "Tehilim (Psaumes)",
+    nameSpanish: "Tehilim (Salmos)",
+    nameRussian: "\u0422\u0435\u0438\u043B\u0438\u043C (\u041F\u0441\u0430\u043B\u043C\u044B)",
+    description: '"\u05DE\u05D9 \u05E9\u05E8\u05D5\u05E6\u05D4 \u05DC\u05D6\u05DB\u05D5\u05EA \u05DC\u05EA\u05E9\u05D5\u05D1\u05D4 - \u05D9\u05D4\u05D9\u05D4 \u05E8\u05D2\u05D9\u05DC \u05D1\u05D0\u05DE\u05D9\u05E8\u05EA \u05EA\u05D4\u05DC\u05D9\u05DD, \u05DB\u05D9 \u05D0\u05DE\u05D9\u05E8\u05EA \u05EA\u05D4\u05DC\u05D9\u05DD \u05DE\u05E1\u05D5\u05D2\u05DC \u05DC\u05EA\u05E9\u05D5\u05D1\u05D4" \u05DE\u05D2\u05DC\u05D4 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF (\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF \u05E2\u05D2) \u05DE\u05D4\u05D3\u05D5\u05E8\u05D4 \u05DE\u05D9\u05D5\u05D7\u05D3\u05EA, \u05D1\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u05D2\u05D3\u05D5\u05DC\u05D5\u05EA \u05D5\u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD, \u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05DE\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF, \u05E2\u05DC \u05D4\u05D3\u05E3, \u05DC\u05E4\u05D9 \u05E1\u05D3\u05E8 \u05D4\u05DE\u05D6\u05DE\u05D5\u05E8\u05D9\u05DD.',
+    descriptionEnglish: '"Whoever wants to merit repentance - should be regular in saying Tehilim, for saying Tehilim is conducive to repentance" reveals our holy Rebbe Nachman. Special edition with large, clear letters, with Likutei Halakhot from Rabbi Nathan on the page.',
+    category: '\u05EA\u05E0"\u05DA \u05D5\u05EA\u05E4\u05D9\u05DC\u05D4',
+    subcategory: "\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD",
+    author: "\u05D3\u05D5\u05D3 \u05D4\u05DE\u05DC\u05DA",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "tehilim-group",
+    pages: 350,
+    isbn: "978-965-7023-24-0",
+    images: [
+      "/attached_assets/\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD 1_1757275910547.jpg",
+      "/attached_assets/\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD 1_1757278339722.jpg",
+      "/attached_assets/\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD 1_1757281125911.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai-with-halakhot",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 25
+      },
+      {
+        id: "medium-skai-with-tzadikim",
+        format: "\u05E1\u05E7\u05D0\u05D9 \u05E2\u05DD \u05E9\u05DE\u05D5\u05EA \u05D4\u05E6\u05D3\u05D9\u05E7\u05D9\u05DD",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 30
+      },
+      {
+        id: "medium-leather-pearl",
+        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8 \u05DC\u05D1\u05DF/\u05E4\u05E0\u05D9\u05E0\u05D4",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 40,
+        inStock: true,
+        stockQuantity: 20
+      },
+      {
+        id: "small-laminated-tzadikim",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E2\u05DD \u05E9\u05DE\u05D5\u05EA \u05D4\u05E6\u05D3\u05D9\u05E7\u05D9\u05DD",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 20,
+        inStock: true,
+        stockQuantity: 50
+      }
+    ],
+    features: [
+      "\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u05D2\u05D3\u05D5\u05DC\u05D5\u05EA \u05D5\u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD",
+      "\u05E2\u05DD \u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA \u05E2\u05DC \u05D4\u05D3\u05E3",
+      "\u05DE\u05E1\u05D5\u05D2\u05DC \u05DC\u05EA\u05E9\u05D5\u05D1\u05D4",
+      "\u05DC\u05E4\u05D9 \u05E1\u05D3\u05E8 \u05D4\u05DE\u05D6\u05DE\u05D5\u05E8\u05D9\u05DD",
+      "\u05D3\u05D1\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E2\u05DC \u05D4\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD"
+    ],
+    tags: ["\u05EA\u05D4\u05D9\u05DC\u05D9\u05DD", "\u05EA\u05E9\u05D5\u05D1\u05D4", "\u05EA\u05E4\u05D9\u05DC\u05D4", "\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05D4\u05DC\u05DB\u05D5\u05EA", "\u05DE\u05D6\u05DE\u05D5\u05E8\u05D9\u05DD"],
+    isActive: true,
+    isFeatured: true
+  },
+  "kol-bo-leyeshuot": {
+    id: "kol-bo-leyeshuot",
+    name: "\u05DB\u05DC \u05D1\u05D5 \u05DC\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA",
+    nameEnglish: "Kol Bo Leyeshuot",
+    nameFrench: "Recueil complet de pri\xE8res de salut",
+    nameSpanish: "Compendio de oraciones de salvaci\xF3n",
+    nameRussian: "\u041F\u043E\u043B\u043D\u043E\u0435 \u0441\u043E\u0431\u0440\u0430\u043D\u0438\u0435 \u043C\u043E\u043B\u0438\u0442\u0432 \u043E \u0441\u043F\u0430\u0441\u0435\u043D\u0438\u0438",
+    description: "\u05DB\u05E9\u05DE\u05D5 \u05DB\u05DF \u05D4\u05D5\u05D0. \u05DE\u05DB\u05D9\u05DC: \u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05DB\u05DC\u05DC\u05D9, \u05EA\u05D9\u05E7\u05D5\u05DF \u05D7\u05E6\u05D5\u05EA, \u05DE\u05E0\u05D7\u05D4 \u05D5\u05E2\u05E8\u05D1\u05D9\u05EA, \u05E9\u05D9\u05E8 \u05D4\u05E9\u05D9\u05E8\u05D9\u05DD, \u05D0\u05DE\u05D9\u05E8\u05D5\u05EA \u05DC\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA, \u05D0\u05D5\u05E8 \u05E1\u05D2\u05D5\u05DC\u05D5\u05EA, \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05DC\u05E7\u05D1\u05E8\u05D9 \u05E6\u05D3\u05D9\u05E7\u05D9\u05DD, \u05D5\u05E2\u05D5\u05D3. \u05D1\u05D4\u05D5\u05E6\u05D0\u05D4 \u05DE\u05D4\u05D5\u05D3\u05E8\u05EA \u05D5\u05DE\u05E4\u05D5\u05D0\u05E8\u05EA \u05D1\u05DB\u05E8\u05D9\u05DB\u05EA \u05E2\u05D5\u05E8 \u05D0\u05DE\u05D9\u05EA\u05D9 \u05DE\u05E9\u05D5\u05D1\u05D7.",
+    descriptionEnglish: "As its name suggests, it contains everything for salvation: Tikkun HaKlali, Tikkun Chatzot, afternoon and evening prayers, Song of Songs, recitations for salvation, segulot, prayers for graves of tzaddikim, and more.",
+    category: "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05D5\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA",
+    subcategory: "\u05D0\u05D5\u05E1\u05E3 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    pages: 400,
+    isbn: "978-965-7023-33-2",
+    images: [
+      "/attached_assets/\u05DB\u05DC \u05D1\u05D5 1_1757275910545.jpg",
+      "/attached_assets/\u05DB\u05DC \u05D1\u05D5 1_1757278339720.jpg",
+      "/attached_assets/\u05DB\u05DC \u05D1\u05D5 2_1757280401418.jpg"
+    ],
+    variants: [
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 30
+      },
+      {
+        id: "medium-genuine-leather",
+        format: "\u05E2\u05D5\u05E8 \u05D0\u05DE\u05D9\u05EA\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 80,
+        inStock: true,
+        stockQuantity: 15
+      },
+      {
+        id: "medium-leather-like",
+        format: "\u05D3\u05DE\u05D5\u05D9 \u05E2\u05D5\u05E8",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 50,
+        inStock: true,
+        stockQuantity: 25
+      },
+      {
+        id: "small-laminated",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 20,
+        inStock: true,
+        stockQuantity: 50
+      },
+      {
+        id: "small-nylon",
+        format: "\u05E8\u05DA \u05E0\u05D9\u05DC\u05D5\u05DF",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 10,
+        inStock: true,
+        stockQuantity: 70
+      }
+    ],
+    features: [
+      "\u05DB\u05DC \u05DE\u05D4 \u05E9\u05E6\u05E8\u05D9\u05DA \u05DC\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA",
+      "\u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05DB\u05DC\u05DC\u05D9 \u05D5\u05EA\u05D9\u05E7\u05D5\u05DF \u05D7\u05E6\u05D5\u05EA",
+      "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05DC\u05E7\u05D1\u05E8\u05D9 \u05E6\u05D3\u05D9\u05E7\u05D9\u05DD",
+      "\u05D0\u05DE\u05D9\u05E8\u05D5\u05EA \u05D5\u05E1\u05D2\u05D5\u05DC\u05D5\u05EA",
+      "\u05DB\u05E8\u05D9\u05DB\u05EA \u05E2\u05D5\u05E8 \u05D0\u05DE\u05D9\u05EA\u05D9 \u05DE\u05E9\u05D5\u05D1\u05D7"
+    ],
+    tags: ["\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA", "\u05EA\u05D9\u05E7\u05D5\u05DF", "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA", "\u05E1\u05D2\u05D5\u05DC\u05D5\u05EA", "\u05E6\u05D3\u05D9\u05E7\u05D9\u05DD"],
+    isActive: true,
+    isFeatured: true
+  },
+  "tikkun-haklali": {
+    id: "tikkun-haklali",
+    name: "\u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05DB\u05DC\u05DC\u05D9",
+    nameEnglish: "Tikkun HaKlali",
+    nameFrench: "Le Rem\xE8de G\xE9n\xE9ral",
+    nameSpanish: "El Remedio General",
+    nameRussian: "\u0412\u0441\u0435\u043E\u0431\u0449\u0435\u0435 \u0438\u0441\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435",
+    description: '\u05E2\u05E9\u05E8\u05EA \u05D4\u05DE\u05D6\u05DE\u05D5\u05E8\u05D9\u05DD \u05E9\u05D2\u05D9\u05DC\u05D4 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DC\u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05D1\u05E8\u05D9\u05EA. \u05D1\u05DE\u05D4\u05D3\u05D5\u05E8\u05EA \u05D4\u05E7\u05E8\u05DF \u05DE\u05D5\u05E4\u05D9\u05E2 \u05DB\u05DC \u05E4\u05E1\u05D5\u05E7 \u05D1\u05E4\u05E0\u05D9 \u05E2\u05E6\u05DE\u05D5 \u05D1\u05D2\u05D5\u05D3\u05DC \u05DE\u05D0\u05D9\u05E8 \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD, \u05DC\u05E4\u05D9 \u05D4\u05D5\u05E8\u05D0\u05EA\u05D5 \u05D5\u05E8\u05E6\u05D5\u05E0\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D5\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8 \u05D6\u05E6"\u05DC. \u05E7\u05D9\u05D9\u05DD \u05D1\u05E9\u05DC\u05D5\u05E9\u05D4 \u05D2\u05D3\u05DC\u05D9\u05DD, \u05DC\u05E4\u05D9 \u05D1\u05D7\u05D9\u05E8\u05D4.',
+    descriptionEnglish: "The ten psalms that our holy Rebbe Nachman revealed for rectifying the covenant. In the Keren edition, each verse appears separately in illuminating size, according to the instruction and wish of Rabbi Israel Dov Odesser.",
+    category: "\u05EA\u05E4\u05D9\u05DC\u05D5\u05EA \u05D5\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA",
+    subcategory: "\u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05DB\u05DC\u05DC\u05D9",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    pages: 80,
+    isbn: "978-965-7023-34-9",
+    images: [
+      "/attached_assets/\u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05DB\u05DC\u05DC\u05D9_1757281158220.jpg"
+    ],
+    variants: [
+      {
+        id: "large-laminated-soft",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 3,
+        inStock: true,
+        stockQuantity: 100
+      },
+      {
+        id: "medium-laminated-soft",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 2,
+        inStock: true,
+        stockQuantity: 150
+      },
+      {
+        id: "small-laminated-soft",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 1,
+        inStock: true,
+        stockQuantity: 200
+      },
+      {
+        id: "small-gold-laminated",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05D6\u05D4\u05D1 \u05D0\u05DC \u05EA\u05D9\u05E8\u05D0",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 2,
+        inStock: true,
+        stockQuantity: 100
+      },
+      {
+        id: "small-soft-leather",
+        format: "\u05E2\u05D5\u05E8 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 18,
+        inStock: true,
+        stockQuantity: 40
+      }
+    ],
+    features: [
+      "\u05E2\u05E9\u05E8\u05EA \u05D4\u05DE\u05D6\u05DE\u05D5\u05E8\u05D9\u05DD \u05D4\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD",
+      "\u05EA\u05D9\u05E7\u05D5\u05DF \u05D4\u05D1\u05E8\u05D9\u05EA",
+      "\u05DB\u05DC \u05E4\u05E1\u05D5\u05E7 \u05D1\u05E4\u05E0\u05D9 \u05E2\u05E6\u05DE\u05D5",
+      "\u05D0\u05D5\u05EA\u05D9\u05D5\u05EA \u05DE\u05D0\u05D9\u05E8\u05D5\u05EA \u05E2\u05D9\u05E0\u05D9\u05D9\u05DD",
+      "\u05DC\u05E4\u05D9 \u05E8\u05E6\u05D5\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D5\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8"
+    ],
+    tags: ["\u05EA\u05D9\u05E7\u05D5\u05DF", "\u05DE\u05D6\u05DE\u05D5\u05E8\u05D9\u05DD", "\u05D1\u05E8\u05D9\u05EA", "\u05E7\u05D3\u05D5\u05E9\u05D4", "\u05D0\u05D5\u05D3\u05E1\u05E8"],
+    isActive: true,
+    isFeatured: true
   },
   "shema-yisrael": {
     id: "shema-yisrael",
@@ -3894,116 +4076,229 @@ var realBreslovProducts = {
     tags: ["\u05E9\u05DE\u05E2 \u05D9\u05E9\u05E8\u05D0\u05DC", "\u05EA\u05E4\u05D9\u05DC\u05D4", "\u05DB\u05D5\u05D5\u05E0\u05D5\u05EA", "\u05DB\u05D9\u05E1", "\u05D9\u05D5\u05DE\u05D9"],
     isActive: true,
     isFeatured: false
-  },
-  "emunat-itecha": {
-    id: "emunat-itecha",
-    name: "\u05D0\u05DE\u05D5\u05E0\u05EA \u05E2\u05EA\u05D9\u05DA",
-    nameEnglish: "Emunat Itecha",
-    nameFrench: "Emounat It\xE9kha",
-    nameSpanish: "Emunat Iteja",
-    nameRussian: "\u042D\u043C\u0443\u043D\u0430\u0442 \u0418\u0442\u0435\u0445\u0430",
-    description: "\u05E1\u05E4\u05E8\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05D0\u05DC\u05D8\u05E8 \u05DE\u05D8\u05E4\u05DC\u05D9\u05E7 \u05D1\u05DE\u05E2\u05DC\u05EA \u05E0\u05D9\u05E6\u05D5\u05DC \u05D4\u05D6\u05DE\u05DF \u05DC\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4'. \u05D4\u05E1\u05E4\u05E8 \u05DE\u05DC\u05DE\u05D3 \u05DB\u05D9\u05E6\u05D3 \u05DC\u05D4\u05E7\u05D3\u05D9\u05E9 \u05DB\u05DC \u05E8\u05D2\u05E2 \u05D5\u05E8\u05D2\u05E2 \u05DC\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05D1\u05D5\u05E8\u05D0, \u05D5\u05D0\u05D9\u05DA \u05DC\u05D4\u05E4\u05D5\u05DA \u05D0\u05EA \u05D7\u05D9\u05D9 \u05D4\u05D9\u05D5\u05DD-\u05D9\u05D5\u05DD \u05DC\u05E2\u05D1\u05D5\u05D3\u05D4 \u05E8\u05D5\u05D7\u05E0\u05D9\u05EA \u05DE\u05EA\u05DE\u05D3\u05EA. \u05DE\u05D1\u05D5\u05E1\u05E1 \u05E2\u05DC \u05EA\u05D5\u05E8\u05D5\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D1\u05E2\u05E0\u05D9\u05DF \u05D6\u05DE\u05DF \u05D5\u05D6\u05DB\u05D9\u05E8\u05EA \u05D4\u05D1\u05D5\u05E8\u05D0.",
-    descriptionEnglish: "Book by Rabbi Alter of Teplik about the virtue of utilizing time for divine service. Teaches how to dedicate every moment to serving the Creator and transform daily life into continuous spiritual work. Based on Rabbenu's teachings about time and remembering the Creator.",
-    category: "\u05E1\u05E4\u05E8\u05D9 \u05D4\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05DD",
-    subcategory: "\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4\u05E9\u05DD",
-    author: "\u05E8\u05D1\u05D9 \u05D0\u05DC\u05D8\u05E8 \u05DE\u05D8\u05E4\u05DC\u05D9\u05E7",
+  }
+};
+
+// client/src/data/products/toldot.ts
+var toldotProducts = {
+  "chayei-moharan": {
+    id: "chayei-moharan",
+    name: '\u05D7\u05D9\u05D9 \u05DE\u05D5\u05D4\u05E8"\u05DF',
+    nameEnglish: "Chayei Moharan",
+    nameFrench: "La Vie de Moharane",
+    nameSpanish: "La Vida de Mohar\xE1n",
+    nameRussian: "\u0416\u0438\u0437\u043D\u044C \u041C\u043E\u0430\u0440\u0430\u043D\u0430",
+    description: "\u05D1\u05D7\u05D9\u05D1\u05D5\u05E8 \u05D6\u05D4, \u05D4\u05E2\u05DC\u05D4 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05E2\u05DC \u05D4\u05DB\u05EA\u05D1 \u05DE\u05D0\u05DE\u05E8\u05D9\u05DD \u05D5\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05E9\u05E9\u05DE\u05E2 \u05DE\u05E4\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5, \u05D1\u05D4\u05DD \u05DE\u05EA\u05D2\u05DC\u05D4 \u05D8\u05E4\u05D7 \u05DE\u05D2\u05D3\u05D5\u05DC\u05EA\u05D5 \u05D4\u05E2\u05E6\u05D5\u05DE\u05D4 \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5. \u05DE\u05D7\u05D5\u05DC\u05E7 \u05DC\u05E4\u05D9 \u05E0\u05D5\u05E9\u05D0\u05D9\u05DD: \u05E9\u05D9\u05D7\u05D5\u05EA \u05D4\u05E9\u05D9\u05D9\u05DB\u05D5\u05EA \u05DC\u05EA\u05D5\u05E8\u05D5\u05EA, \u05DE\u05D0\u05DE\u05E8\u05D9\u05DD \u05D1\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4', \u05D1\u05D2\u05D3\u05D5\u05DC\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5, \u05D1\u05DE\u05E2\u05DC\u05EA \u05EA\u05D5\u05E8\u05EA\u05D5 \u05D5\u05D1\u05DE\u05E2\u05DC\u05EA \u05D0\u05E0\u05E9\u05D9\u05D5 \u05D5\u05DE\u05E7\u05D5\u05E8\u05D1\u05D9\u05D5.",
+    descriptionEnglish: "In this work, Rabbi Nathan put to writing statements and speeches he heard from Rabbenu, revealing a glimpse of Rabbenu's enormous greatness. Divided by topics: conversations related to teachings, articles on divine service, on Rabbenu's greatness.",
+    descriptionFrench: "Dans cet ouvrage, Rabbi Nathan a mis par \xE9crit les d\xE9clarations et discours qu'il a entendus de la bouche de Rabb\xE9nou, r\xE9v\xE9lant un aper\xE7u de l'immense grandeur de Rabb\xE9nou. Divis\xE9 par sujets : conversations li\xE9es aux enseignements, articles sur le service divin, sur la grandeur de Rabb\xE9nou, sur la valeur de son enseignement et sur la valeur de ses disciples et proches.",
+    descriptionSpanish: "En esta obra, el Rabino Nathan puso por escrito las declaraciones y discursos que escuch\xF3 de la boca de Rabenu, revelando un vistazo de la enorme grandeza de Rabenu. Dividido por temas: conversaciones relacionadas con las ense\xF1anzas, art\xEDculos sobre el servicio divino, sobre la grandeza de Rabenu, sobre el valor de su ense\xF1anza y sobre el valor de sus disc\xEDpulos y cercanos.",
+    descriptionRussian: "\u0412 \u044D\u0442\u043E\u043C \u0442\u0440\u0443\u0434\u0435 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D \u0437\u0430\u043F\u0438\u0441\u0430\u043B \u0432\u044B\u0441\u043A\u0430\u0437\u044B\u0432\u0430\u043D\u0438\u044F \u0438 \u0440\u0435\u0447\u0438, \u043A\u043E\u0442\u043E\u0440\u044B\u0435 \u043E\u043D \u0441\u043B\u044B\u0448\u0430\u043B \u0438\u0437 \u0443\u0441\u0442 \u0420\u0430\u0431\u0435\u0439\u043D\u0443, \u0440\u0430\u0441\u043A\u0440\u044B\u0432\u0430\u044E\u0449\u0438\u0435 \u043F\u0440\u043E\u0431\u043B\u0435\u0441\u043A \u043E\u0433\u0440\u043E\u043C\u043D\u043E\u0433\u043E \u0432\u0435\u043B\u0438\u0447\u0438\u044F \u0420\u0430\u0431\u0435\u0439\u043D\u0443. \u0420\u0430\u0437\u0434\u0435\u043B\u0435\u043D\u043E \u043F\u043E \u0442\u0435\u043C\u0430\u043C: \u0431\u0435\u0441\u0435\u0434\u044B, \u0441\u0432\u044F\u0437\u0430\u043D\u043D\u044B\u0435 \u0441 \u0443\u0447\u0435\u043D\u0438\u044F\u043C\u0438, \u0441\u0442\u0430\u0442\u044C\u0438 \u043E \u0441\u043B\u0443\u0436\u0435\u043D\u0438\u0438 \u0412\u0441\u0435\u0432\u044B\u0448\u043D\u0435\u043C\u0443, \u043E \u0432\u0435\u043B\u0438\u0447\u0438\u0438 \u0420\u0430\u0431\u0435\u0439\u043D\u0443, \u043E \u0446\u0435\u043D\u043D\u043E\u0441\u0442\u0438 \u0435\u0433\u043E \u0443\u0447\u0435\u043D\u0438\u044F \u0438 \u043E \u0446\u0435\u043D\u043D\u043E\u0441\u0442\u0438 \u0435\u0433\u043E \u0443\u0447\u0435\u043D\u0438\u043A\u043E\u0432 \u0438 \u0431\u043B\u0438\u0437\u043A\u0438\u0445.",
+    category: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA \u05D5\u05D7\u05D9\u05D9\u05DD",
+    subcategory: "\u05D7\u05D9\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
     publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
     language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    pages: 160,
-    isbn: "978-965-7023-61-5",
+    languageGroupId: "chayei-moharan-group",
+    pages: 640,
+    isbn: "978-965-7023-21-9",
     images: [
-      "/attached_assets/\u05D0\u05DE\u05D5\u05E0\u05EA \u05E2\u05D9\u05EA\u05DA \u05E6\u05E8\u05E4\u05EA\u05D9\u05EA_1757280778286.jpg"
+      "/attached_assets/\u05D7\u05D9\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 1_1757275910544.jpg",
+      "/attached_assets/\u05D7\u05D9\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 1_1757278339719.jpg",
+      "/attached_assets/\u05D7\u05D9\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF 2_1757280401417.jpg"
     ],
     variants: [
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 25
+      },
       {
         id: "medium-skai",
         format: "\u05E1\u05E7\u05D0\u05D9",
         binding: "\u05E7\u05E9\u05D4",
         size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "12*17",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 35
+      },
+      {
+        id: "small-laminated-soft",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4 \u05E8\u05DA",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
+        volumes: 1,
+        price: 10,
+        inStock: false,
+        stockQuantity: 0
+      }
+    ],
+    features: [
+      "\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD \u05E9\u05E0\u05E9\u05DE\u05E2\u05D5 \u05DE\u05E4\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
+      "\u05D8\u05E4\u05D7 \u05DE\u05D2\u05D3\u05D5\u05DC\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5",
+      "\u05DE\u05D7\u05D5\u05DC\u05E7 \u05DC\u05E4\u05D9 \u05E0\u05D5\u05E9\u05D0\u05D9\u05DD",
+      "\u05D2\u05D3\u05D5\u05DC\u05EA \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05EA\u05D5\u05E8\u05EA\u05D5",
+      "\u05DE\u05E2\u05DC\u05EA \u05D0\u05E0\u05E9\u05D9\u05D5 \u05D5\u05DE\u05E7\u05D5\u05E8\u05D1\u05D9\u05D5"
+    ],
+    featuresFrench: [
+      "Discours entendus de la bouche de Rabb\xE9nou",
+      "Aper\xE7u de la grandeur de Rabb\xE9nou",
+      "Divis\xE9 par sujets",
+      "Grandeur de Rabb\xE9nou et de son enseignement",
+      "Valeur de ses disciples et proches"
+    ],
+    featuresSpanish: [
+      "Discursos escuchados de la boca de Rabenu",
+      "Vistazo de la grandeza de Rabenu",
+      "Dividido por temas",
+      "Grandeza de Rabenu y su ense\xF1anza",
+      "Valor de sus disc\xEDpulos y cercanos"
+    ],
+    featuresRussian: [
+      "\u0420\u0435\u0447\u0438, \u0443\u0441\u043B\u044B\u0448\u0430\u043D\u043D\u044B\u0435 \u0438\u0437 \u0443\u0441\u0442 \u0420\u0430\u0431\u0435\u0439\u043D\u0443",
+      "\u041F\u0440\u043E\u0431\u043B\u0435\u0441\u043A \u0432\u0435\u043B\u0438\u0447\u0438\u044F \u0420\u0430\u0431\u0435\u0439\u043D\u0443",
+      "\u0420\u0430\u0437\u0434\u0435\u043B\u0435\u043D\u043E \u043F\u043E \u0442\u0435\u043C\u0430\u043C",
+      "\u0412\u0435\u043B\u0438\u0447\u0438\u0435 \u0420\u0430\u0431\u0435\u0439\u043D\u0443 \u0438 \u0435\u0433\u043E \u0443\u0447\u0435\u043D\u0438\u044F",
+      "\u0426\u0435\u043D\u043D\u043E\u0441\u0442\u044C \u0435\u0433\u043E \u0443\u0447\u0435\u043D\u0438\u043A\u043E\u0432 \u0438 \u0431\u043B\u0438\u0437\u043A\u0438\u0445"
+    ],
+    tags: ["\u05D7\u05D9\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5", "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA", "\u05D3\u05D9\u05D1\u05D5\u05E8\u05D9\u05DD", "\u05D2\u05D3\u05D5\u05DC\u05D4", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF"],
+    isActive: true,
+    isFeatured: true
+  },
+  "yimei-maharanat": {
+    id: "yimei-maharanat",
+    name: '\u05D9\u05DE\u05D9 \u05DE\u05D5\u05D4\u05E8\u05E0"\u05EA',
+    nameEnglish: "Yimei Maharnat",
+    nameFrench: "Les Jours de Maharnat",
+    nameSpanish: "Los D\xEDas de Maharnat",
+    nameRussian: "\u0414\u043D\u0438 \u041C\u0430\u0430\u0440\u0430\u043D\u0430\u0442\u0430",
+    description: "\u05D9\u05D5\u05DE\u05E0\u05D5 \u05D4\u05E0\u05E4\u05DC\u05D0 \u05E9\u05DC \u05D4\u05EA\u05DC\u05DE\u05D9\u05D3 \u05D4\u05DE\u05D5\u05D1\u05D4\u05E7 \u05D5\u05D4\u05E0\u05D0\u05DE\u05DF \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF. \u05D1\u05D5 \u05D2\u05D5\u05DC\u05DC \u05D0\u05EA \u05E7\u05D5\u05E8\u05D5\u05EA \u05D7\u05D9\u05D9\u05D5 \u05DE\u05D4\u05EA\u05E7\u05E8\u05D1\u05D5\u05EA\u05D5 \u05DC\u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05E2\u05D3 \u05DC\u05D0\u05D7\u05E8 \u05E0\u05E1\u05D9\u05E2\u05EA\u05D5 \u05DC\u05D0\u05E8\u05E5 \u05D9\u05E9\u05E8\u05D0\u05DC. \u05D4\u05E8\u05D3\u05D9\u05E4\u05D5\u05EA, \u05D4\u05D1\u05D9\u05D6\u05D9\u05D5\u05E0\u05D5\u05EA, \u05D4\u05E7\u05E9\u05D9\u05D9\u05DD \u05D5\u05D4\u05DE\u05E0\u05D9\u05E2\u05D5\u05EA, \u05DC\u05E6\u05D3 \u05D4\u05E2\u05E9\u05D9\u05D9\u05D4 \u05D4\u05D1\u05DC\u05EA\u05D9 \u05E4\u05D5\u05E1\u05E7\u05EA \u05DC\u05D4\u05E0\u05D7\u05DC\u05EA \u05DE\u05D5\u05E8\u05E9\u05EA\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DC\u05D3\u05D5\u05E8\u05D5\u05EA \u05E2\u05D5\u05DC\u05DD.",
+    descriptionEnglish: "The wonderful diary of the outstanding and faithful student Rabbi Nathan. In it he unfolds the events of his life from his approach to Rabbenu until after his journey to the Land of Israel.",
+    descriptionFrench: "Le merveilleux journal du disciple \xE9minent et fid\xE8le Rabbi Nathan. Il y d\xE9roule les \xE9v\xE9nements de sa vie depuis son approche de Rabb\xE9nou jusqu'apr\xE8s son voyage en Terre d'Isra\xEBl. Les pers\xE9cutions, les humiliations, les difficult\xE9s et les obstacles, aux c\xF4t\xE9s de l'action incessante pour transmettre l'h\xE9ritage de Rabbi Nahman aux g\xE9n\xE9rations futures.",
+    descriptionSpanish: "El maravilloso diario del disc\xEDpulo eminente y fiel Rabino Nathan. En \xE9l despliega los eventos de su vida desde su acercamiento a Rabenu hasta despu\xE9s de su viaje a la Tierra de Israel. Las persecuciones, las humillaciones, las dificultades y los obst\xE1culos, junto con la acci\xF3n incesante para transmitir el legado del Rabino Najman a las generaciones futuras.",
+    descriptionRussian: "\u0417\u0430\u043C\u0435\u0447\u0430\u0442\u0435\u043B\u044C\u043D\u044B\u0439 \u0434\u043D\u0435\u0432\u043D\u0438\u043A \u0432\u044B\u0434\u0430\u044E\u0449\u0435\u0433\u043E\u0441\u044F \u0438 \u0432\u0435\u0440\u043D\u043E\u0433\u043E \u0443\u0447\u0435\u043D\u0438\u043A\u0430 \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430. \u0412 \u043D\u0435\u043C \u043E\u043D \u0440\u0430\u0437\u0432\u043E\u0440\u0430\u0447\u0438\u0432\u0430\u0435\u0442 \u0441\u043E\u0431\u044B\u0442\u0438\u044F \u0441\u0432\u043E\u0435\u0439 \u0436\u0438\u0437\u043D\u0438 \u043E\u0442 \u043F\u0440\u0438\u0431\u043B\u0438\u0436\u0435\u043D\u0438\u044F \u043A \u0420\u0430\u0431\u0435\u0439\u043D\u0443 \u0434\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u0438 \u043F\u043E\u0441\u043B\u0435 \u0435\u0433\u043E \u043F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u044F \u0432 \u0417\u0435\u043C\u043B\u044E \u0418\u0437\u0440\u0430\u0438\u043B\u044F. \u041F\u0440\u0435\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u043D\u0438\u044F, \u0443\u043D\u0438\u0436\u0435\u043D\u0438\u044F, \u0442\u0440\u0443\u0434\u043D\u043E\u0441\u0442\u0438 \u0438 \u043F\u0440\u0435\u043F\u044F\u0442\u0441\u0442\u0432\u0438\u044F, \u043D\u0430\u0440\u044F\u0434\u0443 \u0441 \u043D\u0435\u043F\u0440\u0435\u043A\u0440\u0430\u0449\u0430\u044E\u0449\u0435\u0439\u0441\u044F \u0434\u0435\u044F\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C\u044E \u043F\u043E \u043F\u0435\u0440\u0435\u0434\u0430\u0447\u0435 \u043D\u0430\u0441\u043B\u0435\u0434\u0438\u044F \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430 \u0431\u0443\u0434\u0443\u0449\u0438\u043C \u043F\u043E\u043A\u043E\u043B\u0435\u043D\u0438\u044F\u043C.",
+    category: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA \u05D5\u05D7\u05D9\u05D9\u05DD",
+    subcategory: "\u05D9\u05DE\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
+    author: "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1",
+    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
+    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
+    languageGroupId: "yimei-maharanat-group",
+    pages: 512,
+    isbn: "978-965-7023-22-6",
+    images: [
+      "/attached_assets/\u05D9\u05DE\u05D9 \u05DE\u05D5\u05D4\u05E8\u05E0\u05EA 1_1757275910544.jpg",
+      "/attached_assets/\u05D9\u05DE\u05D9 \u05DE\u05D5\u05D4\u05E8\u05E0\u05EA 1_1757278339719.jpg",
+      "/attached_assets/\u05D9\u05DE\u05D9 \u05DE\u05D5\u05D4\u05E8\u05E0\u05EA 2_1757280401418.jpg"
+    ],
+    variants: [
+      {
+        id: "large-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D2\u05D3\u05D5\u05DC",
+        dimensions: "24*17",
+        volumes: 1,
+        price: 35,
+        inStock: true,
+        stockQuantity: 20
+      },
+      {
+        id: "medium-skai",
+        format: "\u05E1\u05E7\u05D0\u05D9",
+        binding: "\u05E7\u05E9\u05D4",
+        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
+        dimensions: "17*12",
+        volumes: 1,
+        price: 30,
+        inStock: true,
+        stockQuantity: 30
+      },
+      {
+        id: "small-laminated",
+        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
+        binding: "\u05E8\u05DA",
+        size: "\u05E7\u05D8\u05DF",
+        dimensions: "12*8",
         volumes: 1,
         price: 20,
         inStock: true,
         stockQuantity: 40
-      },
-      {
-        id: "medium-french-booklet",
-        format: "\u05E7\u05D5\u05E0\u05D8\u05E8\u05E1 \u05E6\u05E8\u05E4\u05EA\u05D9\u05EA",
-        binding: "\u05E8\u05DA",
-        size: "\u05D1\u05D9\u05E0\u05D5\u05E0\u05D9",
-        dimensions: "17*12",
-        volumes: 1,
-        price: 6,
-        inStock: true,
-        stockQuantity: 60
       }
     ],
     features: [
-      "\u05E0\u05D9\u05E6\u05D5\u05DC \u05D4\u05D6\u05DE\u05DF \u05D4\u05E7\u05D3\u05D5\u05E9",
-      "\u05E2\u05D1\u05D5\u05D3\u05EA \u05D4' \u05EA\u05DE\u05D9\u05D3\u05D9\u05EA",
-      "\u05D7\u05D9\u05D9 \u05D9\u05D5\u05DD-\u05D9\u05D5\u05DD \u05E8\u05D5\u05D7\u05E0\u05D9\u05D9\u05DD",
-      "\u05D6\u05DB\u05D9\u05E8\u05EA \u05D4\u05D1\u05D5\u05E8\u05D0",
-      "\u05E8\u05D1\u05D9 \u05D0\u05DC\u05D8\u05E8 \u05D7\u05D9\u05D1\u05E8"
+      "\u05D9\u05D5\u05DE\u05E0\u05D5 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF",
+      "\u05DE\u05D4\u05EA\u05E7\u05E8\u05D1\u05D5\u05EA \u05DC\u05E8\u05D1\u05D9\u05E0\u05D5",
+      "\u05E0\u05E1\u05D9\u05E2\u05D4 \u05DC\u05D0\u05E8\u05E5 \u05D9\u05E9\u05E8\u05D0\u05DC",
+      "\u05E8\u05D3\u05D9\u05E4\u05D5\u05EA \u05D5\u05E7\u05E9\u05D9\u05D9\u05DD",
+      "\u05D4\u05E0\u05D7\u05DC\u05EA \u05D4\u05DE\u05D5\u05E8\u05E9\u05EA"
     ],
-    tags: ["\u05D6\u05DE\u05DF", "\u05E2\u05D1\u05D5\u05D3\u05D4", "\u05E8\u05D5\u05D7\u05E0\u05D9\u05D5\u05EA", "\u05D8\u05E4\u05DC\u05D9\u05E7", "\u05D9\u05D5\u05DD \u05D9\u05D5\u05DD"],
-    isActive: true,
-    isFeatured: false
-  },
-  "rabbenu-hakadosh": {
-    id: "rabbenu-hakadosh",
-    name: "\u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9",
-    nameEnglish: "Rabbenu HaKadosh",
-    nameFrench: "Rabb\xE9nou HaKadoch",
-    nameSpanish: "Rabeinu HaKadosh",
-    nameRussian: "\u0420\u0430\u0431\u0435\u0439\u043D\u0443 \u0430-\u041A\u0430\u0434\u043E\u0448",
-    description: "\u05DB\u05DC \u05E7\u05D5\u05E8\u05D5\u05EA \u05D7\u05D9\u05D9\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9\u05D9\u05DD \u05E9\u05DC \u05E8\u05D1\u05D9\u05E0\u05D5 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1, \u05D4\u05E0\u05E4\u05E8\u05E9\u05D9\u05DD \u05E2\u05DC \u05E4\u05E0\u05D9 \u05E7\u05E8\u05D5\u05D1 \u05DC\u05D0\u05E8\u05D1\u05E2\u05D9\u05DD \u05E9\u05E0\u05D5\u05EA \u05D7\u05D9\u05D9\u05DD, \u05E2\u05E8\u05D5\u05DB\u05D9\u05DD \u05D1\u05D0\u05E8\u05D1\u05E2\u05D4 \u05DB\u05E8\u05DB\u05D9\u05DD \u05DE\u05D5\u05E9\u05E7\u05E2\u05D9\u05DD - \u05E1\u05D3\u05E8\u05D4 \u05DE\u05DC\u05D5\u05E7\u05D8\u05EA \u05DE\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05D5 \u05D1\u05EA\u05D5\u05E1\u05E4\u05EA \u05DE\u05E1\u05D5\u05E8\u05D5\u05EA \u05D1\u05E2\u05DC \u05E4\u05D4 \u05E9\u05E2\u05D1\u05E8\u05D5 \u05DE\u05D3\u05D5\u05E8 \u05DC\u05D3\u05D5\u05E8 \u05D1\u05D9\u05DF \u05D6\u05E7\u05E0\u05D9 \u05D4\u05D7\u05E1\u05D9\u05D3\u05D9\u05DD. \u05E1\u05D3\u05E8\u05D4 \u05DE\u05E7\u05D9\u05E4\u05D4 \u05D5\u05DE\u05E4\u05D5\u05E8\u05D8\u05EA \u05E2\u05DC \u05D7\u05D9\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5.",
-    descriptionEnglish: "The complete life story of our holy Rabbenu Rabbi Nachman of Breslov, spanning nearly forty years of life, arranged in four elaborate volumes - a series collected from Rabbenu and his students' books plus oral traditions passed down through generations of elderly Chassidim.",
-    category: "\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA",
-    subcategory: "\u05D7\u05D9\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5",
-    author: "\u05DC\u05D9\u05E7\u05D5\u05D8 \u05DE\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9\u05E0\u05D5 \u05D5\u05EA\u05DC\u05DE\u05D9\u05D3\u05D9\u05D5",
-    publisher: "\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC",
-    language: "\u05E2\u05D1\u05E8\u05D9\u05EA",
-    pages: 1200,
-    isbn: "978-965-7023-62-2",
-    images: [
-      "/attached_assets/\u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9 1_1757281260204.jpg",
-      "/attached_assets/\u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9 2_1757281260206.jpg",
-      "/attached_assets/\u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9 3_1757281260206.jpg",
-      "/attached_assets/\u05E8\u05D1\u05D9\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9 4_1757281260206.jpg"
+    featuresFrench: [
+      "Journal de Rabbi Nathan",
+      "Depuis l'approche de Rabb\xE9nou",
+      "Voyage en Terre d'Isra\xEBl",
+      "Pers\xE9cutions et difficult\xE9s",
+      "Transmission de l'h\xE9ritage"
     ],
-    variants: [
-      {
-        id: "large-laminated-4vol",
-        format: "\u05DC\u05DE\u05E0\u05E6\u05D9\u05D4",
-        binding: "\u05E7\u05E9\u05D4",
-        size: "\u05D2\u05D3\u05D5\u05DC",
-        dimensions: "24*17",
-        volumes: 4,
-        price: 150,
-        inStock: true,
-        stockQuantity: 12
-      }
+    featuresSpanish: [
+      "Diario del Rabino Nathan",
+      "Desde el acercamiento a Rabenu",
+      "Viaje a la Tierra de Israel",
+      "Persecuciones y dificultades",
+      "Transmisi\xF3n del legado"
     ],
-    features: [
-      "\u05D0\u05E8\u05D1\u05E2\u05D9\u05DD \u05E9\u05E0\u05D5\u05EA \u05D7\u05D9\u05D9\u05DD",
-      "\u05D0\u05E8\u05D1\u05E2\u05D4 \u05DB\u05E8\u05DB\u05D9\u05DD \u05DE\u05D5\u05E9\u05E7\u05E2\u05D9\u05DD",
-      "\u05DE\u05E1\u05D5\u05E8\u05D5\u05EA \u05D1\u05E2\u05DC \u05E4\u05D4",
-      "\u05D6\u05E7\u05E0\u05D9 \u05D4\u05D7\u05E1\u05D9\u05D3\u05D9\u05DD",
-      "\u05E1\u05D3\u05E8\u05D4 \u05DE\u05E7\u05D9\u05E4\u05D4 \u05D5\u05DE\u05E4\u05D5\u05E8\u05D8\u05EA"
+    featuresRussian: [
+      "\u0414\u043D\u0435\u0432\u043D\u0438\u043A \u0440\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D\u0430",
+      "\u041E\u0442 \u043F\u0440\u0438\u0431\u043B\u0438\u0436\u0435\u043D\u0438\u044F \u043A \u0420\u0430\u0431\u0435\u0439\u043D\u0443",
+      "\u041F\u0443\u0442\u0435\u0448\u0435\u0441\u0442\u0432\u0438\u0435 \u0432 \u0417\u0435\u043C\u043B\u044E \u0418\u0437\u0440\u0430\u0438\u043B\u044F",
+      "\u041F\u0440\u0435\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u043D\u0438\u044F \u0438 \u0442\u0440\u0443\u0434\u043D\u043E\u0441\u0442\u0438",
+      "\u041F\u0435\u0440\u0435\u0434\u0430\u0447\u0430 \u043D\u0430\u0441\u043B\u0435\u0434\u0438\u044F"
     ],
-    tags: ["\u05EA\u05D5\u05DC\u05D3\u05D5\u05EA", "\u05D7\u05D9\u05D9\u05DD", "\u05DE\u05E1\u05D5\u05E8\u05EA", "\u05D7\u05E1\u05D9\u05D3\u05D9\u05DD", "\u05DE\u05E7\u05D9\u05E3"],
+    tags: ["\u05D9\u05D5\u05DE\u05DF", "\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF", "\u05D0\u05E8\u05E5 \u05D9\u05E9\u05E8\u05D0\u05DC", "\u05E8\u05D3\u05D9\u05E4\u05D5\u05EA", "\u05DE\u05D5\u05E8\u05E9\u05EA"],
     isActive: true,
     isFeatured: true
   }
 };
-var featuredProducts = Object.values(realBreslovProducts).filter((product) => product.isFeatured);
-var productsByCategory = Object.values(realBreslovProducts).reduce((acc, product) => {
-  if (!acc[product.category]) {
-    acc[product.category] = [];
-  }
-  acc[product.category].push(product);
-  return acc;
-}, {});
+
+// client/src/data/products/index.ts
+var allProducts = {
+  ...chagimProducts,
+  ...etzotProducts,
+  ...halachaProducts,
+  ...likutimProducts,
+  ...michtavimProducts,
+  ...musarProducts,
+  ...sefarimRabbenuProducts,
+  ...sefarimTalmidimProducts,
+  ...segulotProducts,
+  ...sichotProducts,
+  ...sipurimProducts,
+  ...tanachProducts,
+  ...tefilotProducts,
+  ...toldotProducts
+};
+function getFeaturedProducts() {
+  return Object.values(allProducts).filter((product) => product.isFeatured);
+}
+function getProductsByCategoryMap() {
+  return Object.values(allProducts).reduce((acc, product) => {
+    if (!acc[product.category]) {
+      acc[product.category] = [];
+    }
+    acc[product.category].push(product);
+    return acc;
+  }, {});
+}
+var realBreslovProducts = allProducts;
+var featuredProducts = getFeaturedProducts();
+var productsByCategory = getProductsByCategoryMap();
 
 // client/src/data/downloadLinks.ts
 var breslovDownloadBooks = [
@@ -5396,6 +5691,22 @@ var isAuthenticated = async (req, res, next) => {
 };
 
 // server/routes.ts
+var PAYPAL_API = process.env.NODE_ENV === "production" ? "https://api-m.paypal.com" : "https://api-m.sandbox.paypal.com";
+var getPayPalAccessToken = async () => {
+  const clientId = process.env.PAYPAL_CLIENT_ID || "sb";
+  const clientSecret = process.env.PAYPAL_CLIENT_SECRET || "";
+  const auth = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
+  const response = await fetch(`${PAYPAL_API}/v1/oauth2/token`, {
+    method: "POST",
+    body: "grant_type=client_credentials",
+    headers: {
+      Authorization: `Basic ${auth}`,
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  });
+  const data = await response.json();
+  return data.access_token;
+};
 var stripe = null;
 if (process.env.STRIPE_SECRET_KEY) {
   stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -5587,7 +5898,7 @@ async function registerRoutes(app2) {
         shippingMethod,
         shippingAddress,
         billingAddress: billingAddress || shippingAddress,
-        paymentMethod: "stripe",
+        paymentMethod: paymentMethod === "paypal" ? "paypal" : "stripe",
         stripePaymentIntentId: null,
         stripeChargeId: null,
         paymentStatus: "pending",
@@ -5612,63 +5923,64 @@ async function registerRoutes(app2) {
           // Server-side calculated total
         });
       }
-      const idempotencyKey = `order-${order.id}`;
-      const paymentIntentParams = {
-        amount: totalAmount,
-        // Already in agorot (Israeli cents)
-        currency: "ils",
-        // Task 81: ILS currency verified
-        // Task 82: Payment methods enabled via PaymentElement
-        // Supported: card, bit (Israeli instant payment), google_pay, apple_pay
-        metadata: {
-          orderId: order.id,
-          isSubscriber: isSubscriber.toString(),
-          subscriberDiscount: subscriberDiscount.toString(),
-          couponCode: appliedCoupon?.code || "",
-          couponDiscount: couponDiscount.toString()
-        },
-        description: `Order ${order.id} - Breslov Books`,
-        receipt_email: email
-      };
-      if (customerId) {
-        paymentIntentParams.customer = customerId;
-      }
-      const paymentIntent = await stripe.paymentIntents.create(paymentIntentParams, {
-        idempotencyKey
-      });
-      await storage.updateOrder(order.id, {
-        stripePaymentIntentId: paymentIntent.id
-      });
-      await storage.createPaymentTransaction({
-        orderId: order.id,
-        provider: "stripe",
-        providerTransactionId: paymentIntent.id,
-        providerCustomerId: customerId || null,
-        amount: totalAmount,
-        currency: "ILS",
-        status: "pending",
-        failureCode: null,
-        failureMessage: null,
-        refundAmount: 0,
-        refundReason: null,
-        refundedAt: null,
-        metadata: {
-          validatedCartItems: validatedCartItems.map((item) => ({
-            productId: item.productId,
-            variantId: item.variantId,
-            productName: item.productName,
-            quantity: item.quantity,
-            unitPrice: item.unitPrice,
-            totalPrice: item.totalPrice
-          })),
-          shippingMethod,
-          isSubscriber
+      let clientSecret = null;
+      if (paymentMethod === "credit_card" || paymentMethod === "bit") {
+        const idempotencyKey = `order-${order.id}`;
+        const paymentIntentParams = {
+          amount: totalAmount,
+          currency: "ils",
+          metadata: {
+            orderId: order.id,
+            isSubscriber: isSubscriber.toString(),
+            subscriberDiscount: subscriberDiscount.toString(),
+            couponCode: appliedCoupon?.code || "",
+            couponDiscount: couponDiscount.toString()
+          },
+          description: `Order ${order.id} - Breslov Books`,
+          receipt_email: email
+        };
+        if (customerId) {
+          paymentIntentParams.customer = customerId;
         }
-      });
+        const paymentIntent = await stripe.paymentIntents.create(paymentIntentParams, {
+          idempotencyKey
+        });
+        clientSecret = paymentIntent.client_secret;
+        await storage.updateOrder(order.id, {
+          stripePaymentIntentId: paymentIntent.id
+        });
+        await storage.createPaymentTransaction({
+          orderId: order.id,
+          provider: "stripe",
+          providerTransactionId: paymentIntent.id,
+          providerCustomerId: customerId || null,
+          amount: totalAmount,
+          currency: "ILS",
+          status: "pending",
+          failureCode: null,
+          failureMessage: null,
+          refundAmount: 0,
+          refundReason: null,
+          refundedAt: null,
+          metadata: {
+            validatedCartItems: validatedCartItems.map((item) => ({
+              productId: item.productId,
+              variantId: item.variantId,
+              productName: item.productName,
+              quantity: item.quantity,
+              unitPrice: item.unitPrice,
+              totalPrice: item.totalPrice
+            })),
+            shippingMethod,
+            isSubscriber
+          }
+        });
+      }
       res.json({
-        clientSecret: paymentIntent.client_secret,
+        clientSecret,
         orderId: order.id,
         orderSummary: {
+          orderId: order.id,
           subtotal,
           subscriberDiscount,
           couponDiscount,
@@ -6319,6 +6631,84 @@ async function registerRoutes(app2) {
       () => {
       }
     );
+  });
+  app2.post("/api/paypal/create-order", async (req, res) => {
+    try {
+      const { cart, totalAmount } = req.body;
+      const accessToken = await getPayPalAccessToken();
+      const response = await fetch(`${PAYPAL_API}/v2/checkout/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`
+        },
+        body: JSON.stringify({
+          intent: "CAPTURE",
+          purchase_units: [{
+            amount: {
+              currency_code: "ILS",
+              value: (totalAmount / 100).toFixed(2)
+            }
+          }]
+        })
+      });
+      const order = await response.json();
+      res.json(order);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+  app2.post("/api/paypal/capture-order", async (req, res) => {
+    try {
+      const { orderID, orderId: systemOrderId } = req.body;
+      const accessToken = await getPayPalAccessToken();
+      const response = await fetch(`${PAYPAL_API}/v2/checkout/orders/${orderID}/capture`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      const captureData = await response.json();
+      if (captureData.status === "COMPLETED") {
+        if (systemOrderId) {
+          await storage.updateOrder(systemOrderId, {
+            paymentStatus: "succeeded",
+            status: "processing",
+            paymentMethod: "paypal"
+          });
+          const order = await storage.getOrder(systemOrderId);
+          const orderItems3 = await storage.getOrderItems(systemOrderId);
+          if (order && orderItems3.length > 0) {
+            await sendOrderConfirmation({
+              orderId: order.id,
+              customerName: order.shippingAddress?.fullName || "\u05DC\u05E7\u05D5\u05D7 \u05D9\u05E7\u05E8",
+              email: order.email,
+              items: orderItems3.map((item) => ({
+                name: item.productName,
+                nameEnglish: item.productNameEnglish || void 0,
+                quantity: item.quantity,
+                price: item.unitPrice,
+                variant: item.variantDetails
+              })),
+              shippingAddress: order.shippingAddress,
+              orderSummary: {
+                subtotal: order.subtotal,
+                discount: order.discountAmount,
+                vatAmount: order.vatAmount,
+                shippingAmount: order.shippingAmount,
+                totalAmount: order.totalAmount,
+                currency: "ILS"
+              },
+              isSubscriber: false
+            });
+          }
+        }
+      }
+      res.json(captureData);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   });
   const httpServer = createServer(app2);
   return httpServer;

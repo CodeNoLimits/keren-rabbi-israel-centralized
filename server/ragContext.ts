@@ -1,7 +1,7 @@
 // RAG Context pour Chat Gemini avec données authentiques HaEsh Sheli
 // Contexte réel sur livres Breslov, enseignements Rabbi Nachman, et produits
 
-import { realBreslovProducts } from '../client/src/data/realProducts';
+import { realBreslovProducts } from '../client/src/data/products/index';
 import { breslovDownloadBooks } from '../client/src/data/downloadLinks';
 
 export interface ChatContext {

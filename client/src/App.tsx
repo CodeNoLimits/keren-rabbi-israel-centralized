@@ -1,5 +1,5 @@
 import { Switch, Route } from "wouter";
-import { lazy, Suspense, useMemo, useEffect } from "react";
+import { Suspense, useMemo, useEffect } from "react";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -18,19 +18,22 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { BottomNav } from "@/components/BottomNav";
 import { initAnalytics } from "@/utils/analytics";
 
+// Static imports for critical pages to fix "טוען..." issue on Vercel
+import Home from "@/pages/home";
+import Store from "@/pages/store";
+import Product from "@/pages/product";
+
 // Task 92: Initialize analytics on load
 initAnalytics();
 
-// Lazy load all pages for code splitting
-const Home = lazy(() => import("@/pages/home"));
-const Store = lazy(() => import("@/pages/store"));
+// Lazy load remaining pages
+import { lazy } from "react";
 const About = lazy(() => import("@/pages/about"));
 const Magazine = lazy(() => import("@/pages/magazine"));
 const Join = lazy(() => import("@/pages/join"));
 const Contact = lazy(() => import("@/pages/contact"));
 const Checkout = lazy(() => import("@/pages/checkout"));
 const Downloads = lazy(() => import("@/pages/downloads"));
-const Product = lazy(() => import("@/pages/product"));
 const BreslovWisdom = lazy(() => import("@/pages/breslovWisdom"));
 
 const KerenStyle = lazy(() => import("@/pages/keren-style"));

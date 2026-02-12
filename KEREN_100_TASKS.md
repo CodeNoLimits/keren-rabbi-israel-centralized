@@ -304,8 +304,8 @@
 - [x] **85. [P2/S] Order Status Tracking Page** ✅
   Schema has `orders` table with status field. Create `/orders/:id` page for customers to track their order status. Link from confirmation email. Fully implemented with order details, items, shipping address, tracking number, status badges, multi-language support. Routes: /orders and /orders/:id.
 
-- [ ] **86. [P3/M] PayPal Integration as Alternative**
-  Some international customers prefer PayPal. Add PayPal as secondary payment option alongside Stripe.
+- [x] **86. [P3/M] PayPal Integration as Alternative** ✅
+  Implemented PayPal as secondary payment option using @paypal/react-paypal-js. Server-side routes added for order creation and capture. Checkout UI updated with PayPal buttons alongside Stripe. All 6 languages supported in order details.
 
 ---
 

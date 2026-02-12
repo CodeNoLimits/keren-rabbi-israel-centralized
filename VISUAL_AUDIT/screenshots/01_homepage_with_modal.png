@@ -1,0 +1,30 @@
+{
+  "tabId": "1854477767",
+  "url": "https://haesh-sheli-new.vercel.app/",
+  "title": "האש שלי – החנות למכירת ספרי רבי נחמן מברסלב",
+  "browser": "chrome",
+  "success": false,
+  "selector": null,
+  "xpath": null,
+  "domSize": 44498,
+  "fullPageDimensions": {
+    "width": 1920,
+    "height": 3812
+  },
+  "viewportDimensions": {
+    "width": 1920,
+    "height": 992
+  },
+  "scrollPosition": {
+    "x": 0,
+    "y": 0
+  },
+  "pageVisibility": {
+    "visible": false,
+    "visibilityState": "hidden"
+  },
+  "error": {
+    "code": "SCREENSHOT_ERROR",
+    "message": "Another debugger is already attached to the tab with id: 1854477767."
+  }
+}

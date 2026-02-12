@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 /** All supported language codes */
-export type SupportedLanguage = 'he' | 'en' | 'fr' | 'es' | 'ru' | 'ar';
+export type SupportedLanguage = 'he' | 'en' | 'fr' | 'es' | 'ru';
 
 /** All valid translation keys (derived from the Hebrew translations object) */
 export type TranslationKey = keyof typeof translations['he'];
@@ -10,7 +10,6 @@ interface LanguageContextType {
   currentLanguage: string;
   setLanguage: (language: string) => void;
   t: (key: string) => string;
-  isRTL?: boolean; // Task 32: RTL support for Hebrew and Arabic
 }
 
 export const translations = {
@@ -588,123 +587,6 @@ export const translations = {
     loading: 'Загрузка...',
     error: 'Ошибка',
     success: 'Успех'
-  },
-
-  // Task 32: Arabic language support for Israeli Arab market
-  ar: {
-    // Header
-    home: 'الصفحة الرئيسية',
-    store: 'المتجر',
-    about: 'عنّا',
-    contact: 'اتصل بنا',
-    magazine: 'المجلة',
-    join: 'انضم',
-    downloads: 'التنزيلات',
-    fire: '🔥 ناري',
-
-    // Store page
-    storeTitle: 'كتب بريسلوف - صندوق الحاخام إسرائيل',
-    storeSubtitle: 'مجموعة شاملة من كتب الحاخام نخمان من بريسلوف وطلابه بأسعار خاصة',
-    filterBy: 'تصفية حسب..',
-    freeSearch: 'بحث حر',
-    searchPlaceholder: 'بحث...',
-    showResults: 'عرض نتائج البحث',
-    categories: 'الفئات',
-    allCategories: 'جميع الفئات',
-    editionType: 'نوع الإصدار',
-    pocketEditions: 'إصدارات الجيب',
-    luxuryEditions: 'الإصدارات الفاخرة',
-    completeSets: 'مجموعات كاملة',
-    illustratedEditions: 'إصدارات مصورة',
-    leatherBinding: 'تجليد جلدي',
-    languages: 'اللغات',
-    hebrew: 'العبرية',
-    english: 'الإنجليزية',
-    french: 'الفرنسية',
-    russian: 'الروسية',
-    spanish: 'الإسبانية',
-    priceRange: 'نطاق السعر',
-    minimum: 'الحد الأدنى',
-    maximum: 'الحد الأقصى',
-    viewProduct: 'عرض المنتج',
-    addToCart: 'أضف إلى السلة',
-    freeShipping: 'السعر يشمل الشحن لجميع أنحاء البلاد',
-    moreProducts: 'المزيد من المنتجات المتاحة - للكتالوج الكامل',
-    contactForMore: 'اتصل لمزيد من التفاصيل',
-    ratedOutOf: 'تقييم 5.00 من 5',
-    options: 'خيارات',
-
-    // Downloads page
-    freeDownloads: 'تنزيلات مجانية',
-    downloadDescription: 'قم بتنزيل كتب بريسلوف بلغات متعددة - جميع الكتب متاحة مجانًا للمجتمع',
-    search: 'بحث',
-    searchBooks: 'ابحث عن كتب...',
-    category: 'الفئة',
-    rebbeNachman: 'كتابات الحاخام نخمان',
-    rebbeNathan: 'كتابات الحاخام ناثان',
-    compilations: 'مجموعات وتجميعات',
-    downloadLanguage: 'لغة التنزيل',
-    allLanguages: 'جميع اللغات',
-    availableLanguages: 'اللغات المتاحة',
-    noResultsFound: 'لم يتم العثور على نتائج',
-    tryDifferentSearch: 'جرب مصطلحات بحث أخرى',
-    importantNote: 'ملاحظة مهمة',
-    freeDownloadNote: 'جميع الكتب متاحة للتنزيل المجاني بروح بريسلوف - التوراة يجب أن تكون مجانية',
-
-    // Checkout page
-    checkoutTitle: 'إتمام الطلب',
-    shippingDetails: 'تفاصيل الشحن',
-    fillShippingDetails: 'يرجى ملء تفاصيل الشحن الخاصة بك',
-    firstName: 'الاسم الأول',
-    lastName: 'اسم العائلة',
-    email: 'البريد الإلكتروني',
-    phone: 'الهاتف',
-    address: 'العنوان',
-    city: 'المدينة',
-    zipCode: 'الرمز البريدي',
-    orderNotes: 'ملاحظات الطلب',
-    orderNotesPlaceholder: 'ملاحظات خاصة للطلب (اختياري)',
-    orderSummary: 'ملخص الطلب',
-    items: 'عناصر',
-    quantity: 'الكمية',
-    subtotal: 'المجموع الفرعي',
-    shipping: 'الشحن',
-    freeShippingLabel: 'مجاني',
-    subscriberDiscount: 'خصم المشترك (5٪)',
-    total: 'المجموع',
-    paymentMethod: 'طريقة الدفع',
-    creditCard: 'بطاقة ائتمان',
-    bit: 'بِت',
-    paypal: 'باي بال',
-    payNow: 'ادفع الآن',
-    processing: 'معالجة الدفع...',
-    emptyCart: 'سلتك فارغة',
-    emptyCartDesc: 'أضف عناصر إلى سلتك للمتابعة إلى الدفع',
-    continueShopping: 'مواصلة التسوق',
-    securePayment: 'دفع آمن',
-    securePaymentDesc: 'جميع البيانات مشفرة ومحمية',
-    firstNameRequired: 'الاسم الأول مطلوب',
-    lastNameRequired: 'اسم العائلة مطلوب',
-    emailRequired: 'البريد الإلكتروني مطلوب',
-    emailInvalid: 'عنوان بريد إلكتروني غير صالح',
-    phoneRequired: 'الهاتف مطلوب',
-    phoneInvalid: 'رقم هاتف غير صالح (05X-XXXXXXX)',
-    addressRequired: 'العنوان مطلوب',
-    cityRequired: 'المدينة مطلوبة',
-    zipCodeRequired: 'الرمز البريدي مطلوب',
-    spiritualSupport: 'دعم روحي',
-    spiritualSupportDesc: 'كل عملية شراء تدعم المهمة الروحية لنشر تعاليم الحاخام نخمان من بريسلوف في جميع أنحاء العالم',
-    shippingPolicy: 'سياسة الشحن والإرجاع',
-    freeShippingOver: 'شحن مجاني للطلبات التي تزيد عن',
-    deliveryTime: 'وقت التسليم: 3-7 أيام عمل',
-    returnPolicy: 'سياسة الإرجاع خلال 14 يومًا من استلام المنتج',
-    defectivePolicy: 'المنتجات المعيبة - استبدال فوري مجاني',
-
-    // Common
-    shekel: '₪',
-    loading: 'جاري التحميل...',
-    error: 'خطأ',
-    success: 'نجاح'
   }
 };
 
@@ -730,11 +612,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return currentTranslations[key as keyof typeof currentTranslations] || key;
   };
 
-  // Task 32: RTL detection for Hebrew and Arabic
-  const isRTL = currentLanguage === 'he' || currentLanguage === 'ar';
-
   return (
-    <LanguageContext.Provider value={{ currentLanguage, setLanguage, t, isRTL }}>
+    <LanguageContext.Provider value={{ currentLanguage, setLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );
