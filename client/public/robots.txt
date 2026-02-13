@@ -5,4 +5,4 @@ Disallow: /checkout/
 Disallow: /yaaakov
 Disallow: /subscription/
 
-Sitemap: https://haesh-sheli-new.vercel.app/sitemap.xml
+Sitemap: https://keren-rabbi-israel-centralized.vercel.app/sitemap.xml

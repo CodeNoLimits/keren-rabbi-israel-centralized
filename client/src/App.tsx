@@ -445,7 +445,7 @@ function MetaTags() {
   const { currentLanguage } = useLanguage();
   useEffect(() => {
     const langs = ['he', 'en', 'fr', 'es', 'ru'];
-    const base = 'https://haesh-sheli-new.vercel.app';
+    const base = 'https://keren-rabbi-israel-centralized.vercel.app';
     const path = window.location.pathname;
     
     // 1. Hreflang Tags

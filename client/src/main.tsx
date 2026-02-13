@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import App from "./App";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import "./index.css";
 
 // Register Service Worker only in production, disable in development
@@ -20,4 +21,8 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   }
 }
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  <ErrorBoundary>
+    <App />
+  </ErrorBoundary>
+);

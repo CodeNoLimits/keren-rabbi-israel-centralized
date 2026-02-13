@@ -66,7 +66,7 @@ export default function Favorites() {
     const lines = favoriteProducts.map(p => {
       const title = getInterfaceDisplayTitle(p, currentLanguage);
       const price = p.variants?.[0]?.price ? `${p.variants[0].price}₪` : '';
-      const url = `https://haesh-sheli-new.vercel.app/product/${p.id}`;
+      const url = `https://keren-rabbi-israel-centralized.vercel.app/product/${p.id}`;
       return `${title} ${price}\n${url}`;
     });
     const header = isRTL ? '❤️ הספרים המועדפים שלי מהאש שלי:' : '❤️ My favorite books from HaEsh Sheli:';
@@ -80,12 +80,12 @@ export default function Favorites() {
     const lines = favoriteProducts.map(p => {
       const title = getInterfaceDisplayTitle(p, currentLanguage);
       const price = p.variants?.[0]?.price ? `${p.variants[0].price}₪` : '';
-      const url = `https://haesh-sheli-new.vercel.app/product/${p.id}`;
+      const url = `https://keren-rabbi-israel-centralized.vercel.app/product/${p.id}`;
       return `${title} - ${price}\n${url}`;
     });
     const subject = isRTL ? 'המלצת ספרים מהאש שלי' : 'Book recommendations from HaEsh Sheli';
     const header = isRTL ? '❤️ הספרים המועדפים שלי:' : '❤️ My favorite books:';
-    const body = `${header}\n\n${lines.join('\n\n')}\n\n---\nהאש שלי - ספרי ברסלב\nhttps://haesh-sheli-new.vercel.app`;
+    const body = `${header}\n\n${lines.join('\n\n')}\n\n---\nהאש שלי - ספרי ברסלב\nhttps://keren-rabbi-israel-centralized.vercel.app`;
     const mailto = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
   };
