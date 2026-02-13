@@ -82,9 +82,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="האש שלי">
 
-    <!-- Preload critical assets for Lighthouse performance -->
-    <link rel="preload" as="image" href="/images/logo.webp" type="image/webp">
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap" crossorigin>
+    <!-- Preload critical above-the-fold assets for Lighthouse LCP -->
+    <link rel="preload" as="image" href="/images/logo.webp" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="/images/book-1.webp" type="image/webp">
 
     <!-- Performance: Critical above-the-fold CSS inlined to prevent FOUC and CLS -->
     <style>
@@ -110,7 +110,7 @@
       For any new image uploads, ensure WebP conversion is enabled server-side
       to reduce payload size by 25-35% compared to JPEG/PNG.
     -->
-  <script type="module" crossorigin src="/assets/index-CenV3I9s.js"></script>
+  <script type="module" crossorigin src="/assets/index-Ds57nUW0.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/router-vendor-qcfGvDXP.js">
   <link rel="modulepreload" crossorigin href="/assets/query-vendor-DnrtEqau.js">
   <link rel="modulepreload" crossorigin href="/assets/radix-ui-misc-Bx_pbtF7.js">
@@ -119,7 +119,7 @@
   <link rel="modulepreload" crossorigin href="/assets/radix-ui-overlay-Cgq1BsPF.js">
   <link rel="modulepreload" crossorigin href="/assets/radix-ui-navigation-D1in0bVn.js">
   <link rel="modulepreload" crossorigin href="/assets/radix-ui-forms-BF0tRsJ_.js">
-  <link rel="stylesheet" crossorigin href="/assets/index-BREqDO_d.css">
+  <link rel="stylesheet" crossorigin href="/assets/index-Clasu0Vh.css">
 </head>
 <body>
     <div id="root"></div>
