@@ -288,7 +288,7 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
       {/* Search Input */}
       <div className="relative">
         <Search
-          className={`absolute top-1/2 transform -translate-y-1/2 h-5 w-5 text-white/70 pointer-events-none ${isRTL ? 'right-3' : 'left-3'}`}
+          className={`absolute top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none ${isRTL ? 'right-3' : 'left-3'}`}
         />
         <input
           ref={inputRef}
@@ -299,9 +299,9 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
           onKeyDown={handleKeyDown}
           placeholder={t.placeholder}
           className={`
-            w-full h-11 rounded-lg bg-white/15 border border-white/25
-            text-white placeholder:text-white/60 text-sm
-            focus:outline-none focus:ring-2 focus:ring-white/40 focus:bg-white/20
+            w-full h-11 rounded-lg bg-gray-100 border border-gray-200
+            text-gray-900 placeholder:text-gray-400 text-sm
+            focus:outline-none focus:ring-2 focus:ring-orange-400 focus:bg-white focus:border-orange-300
             transition-all duration-200
             ${isRTL ? 'pr-10 pl-10' : 'pl-10 pr-10'}
           `}
@@ -318,10 +318,10 @@ export function SearchAutocomplete({ onNavigate }: SearchAutocompleteProps) {
         {query && (
           <button
             onClick={clearSearch}
-            className={`absolute top-1/2 transform -translate-y-1/2 rounded-full hover:bg-white/20 transition-colors ${isRTL ? 'left-1' : 'right-1'}`}
+            className={`absolute top-1/2 transform -translate-y-1/2 rounded-full hover:bg-gray-200 transition-colors ${isRTL ? 'left-1' : 'right-1'}`}
             style={{minWidth: '44px', minHeight: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}
           >
-            <X className="h-4 w-4 text-white/70" />
+            <X className="h-4 w-4 text-gray-400" />
           </button>
         )}
       </div>

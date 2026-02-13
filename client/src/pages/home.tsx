@@ -293,6 +293,10 @@ export default function Home() {
               <img
                 src="/images/book-1.webp"
                 alt={ml(currentLanguage, {he: 'ספרי רבי נחמן', en: 'Rabbi Nachman Books', fr: 'Livres de Rabbi Nachman', es: 'Libros de Rabí Nachman', ru: 'Книги Рабби Нахмана'})}
+                width="380"
+                height="380"
+                fetchPriority="high"
+                decoding="async"
                 style={{
                   maxWidth: '380px',
                   width: '100%',

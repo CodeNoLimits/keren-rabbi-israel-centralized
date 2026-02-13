@@ -30,6 +30,8 @@ function LazyImage({ src, alt, className, dataTestId, onError }: {
       <img
         loading="lazy"
         decoding="async"
+        width="300"
+        height="300"
         src={src}
         alt={alt}
         className={`${className || ''} transition-all duration-700 ease-in-out ${loaded ? 'opacity-100 scale-100 blur-0' : 'opacity-0 scale-105 blur-lg'}`}

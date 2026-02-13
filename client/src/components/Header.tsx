@@ -165,7 +165,8 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
         {/* LOGO */}
         <div className="flex-shrink-0">
           <a href="/" data-testid="link-home" className="block transition-transform hover:scale-105">
-            <img loading="lazy"
+            <img
+              fetchPriority="high"
               decoding="async"
               width="185"
               height="300"
