@@ -69,6 +69,19 @@ writeFileSync(
     {
       version: 3,
       routes: [
+        // Security headers for all responses
+        {
+          src: "/(.*)",
+          headers: {
+            "X-Content-Type-Options": "nosniff",
+            "X-Frame-Options": "DENY",
+            "X-XSS-Protection": "1; mode=block",
+            "Referrer-Policy": "strict-origin-when-cross-origin",
+            "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+          },
+          continue: true,
+        },
+        // Cache headers for static assets
         {
           src: "/assets/(.*)",
           headers: {
@@ -86,6 +99,7 @@ writeFileSync(
           headers: { "Cache-Control": "public, max-age=31536000" },
           continue: true,
         },
+        // API routing
         { src: "/api/(.*)", dest: "/api" },
         { handle: "filesystem" },
         { src: "/(.*)", dest: "/index.html" },
