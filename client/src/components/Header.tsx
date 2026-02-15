@@ -221,9 +221,23 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
               ))}
             </div>
 
+            {/* Favorites Heart Icon */}
+            <a
+              href="/favorites"
+              className="p-2 text-gray-700 hover:text-red-500 transition-colors relative"
+              aria-label={currentLanguage === 'he' ? 'מועדפים' : 'Favorites'}
+            >
+              <Heart size={20} />
+              {favorites.size > 0 && (
+                <span className="absolute top-0 right-0 bg-red-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {favorites.size}
+                </span>
+              )}
+            </a>
+
             {/* Cart Icon */}
-            <button 
-              onClick={() => setIsCartOpen(true)} 
+            <button
+              onClick={() => setIsCartOpen(true)}
               className="p-2 text-gray-700 hover:text-orange-600 transition-colors relative"
               aria-label="Shopping Cart"
             >
@@ -287,17 +301,23 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
           {[
             { href: '/', label: t.home },
             { href: '/store', label: t.books },
+            { href: '/favorites', label: currentLanguage === 'he' ? '\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD' : currentLanguage === 'fr' ? 'Favoris' : currentLanguage === 'es' ? 'Favoritos' : currentLanguage === 'ru' ? '\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435' : 'Favorites', badge: favorites.size },
             { href: '/about', label: t.about },
             { href: '/blog', label: t.blog },
             { href: '/contact', label: t.contact }
-          ].map((link) => (
+          ].map((link: any) => (
             <li key={link.href}>
-              <a 
-                href={link.href} 
+              <a
+                href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                style={{fontSize: '1.1rem', fontWeight: '700', padding: '0.75rem 0.5rem', display: 'block', color: location === link.href ? '#FF6B00' : '#1e3a5f', transition: 'color 0.2s'}}
+                style={{fontSize: '1.1rem', fontWeight: '700', padding: '0.75rem 0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: location === link.href ? '#FF6B00' : '#1e3a5f', transition: 'color 0.2s'}}
               >
                 {link.label}
+                {link.badge > 0 && (
+                  <span style={{background: '#ef4444', color: 'white', fontSize: '0.65rem', fontWeight: '700', borderRadius: '9999px', padding: '0.1rem 0.4rem', minWidth: '18px', textAlign: 'center' as const}}>
+                    {link.badge}
+                  </span>
+                )}
               </a>
             </li>
           ))}

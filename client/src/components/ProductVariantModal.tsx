@@ -4,7 +4,7 @@ import { useCart } from '../contexts/CartContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
 import { convertImagePath } from '../utils/imagePathHelper';
-import { getBookDisplayTitle } from '../utils/bookTitleHelper';
+import { getInterfaceDisplayTitle } from '../utils/bookTitleHelper';
 import type { Product, ProductVariant } from '../../../shared/schema';
 
 interface ProductVariantModalProps {
@@ -176,7 +176,7 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
   if (!currentVariant) return null;
 
   const totalPrice = currentVariant.price * quantity;
-  const displayTitle = getBookDisplayTitle(product);
+  const displayTitle = getInterfaceDisplayTitle(product, currentLanguage);
 
   const handleAddToCart = () => {
     if (!currentVariant.inStock) return;
@@ -247,26 +247,24 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
         {/* Product header with image */}
         <div className="flex gap-4 p-4 pb-2 border-b border-gray-100">
           {/* Thumbnail image */}
-          <div className="flex-shrink-0 w-28 h-28 rounded-xl overflow-hidden bg-gray-100 border border-gray-200 shadow-sm relative">
-            {/* Jerusalem background element for modal */}
-            <div 
-              className="absolute inset-0 opacity-20 pointer-events-none" 
-              style={{
-                backgroundImage: 'url("/images/jerusalem-skyline.svg")',
-                backgroundSize: 'cover',
-                backgroundPosition: 'bottom center',
-              }}
-            />
+          <div className="flex-shrink-0 w-28 h-28 rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm relative">
             {product.images && product.images.length > 0 ? (
               <img
                 loading="lazy"
                 decoding="async"
                 src={convertImagePath(product.images[selectedImage] || product.images[0])}
                 alt={displayTitle}
-                className="w-full h-full object-cover relative z-10"
-                style={{ mixBlendMode: 'multiply' }}
+                className="w-full h-full object-contain p-1 relative z-10"
                 onError={(e) => {
-                  e.currentTarget.style.display = 'none';
+                  const target = e.currentTarget as HTMLImageElement;
+                  const parent = target.parentElement;
+                  if (parent) {
+                    target.style.display = 'none';
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'w-full h-full flex items-center justify-center text-3xl relative z-10';
+                    placeholder.innerHTML = '<span>&#128214;</span>';
+                    parent.appendChild(placeholder);
+                  }
                 }}
               />
             ) : (
@@ -302,6 +300,30 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
             </div>
           </div>
         </div>
+
+        {/* Image thumbnails for multi-image products */}
+        {product.images && product.images.length > 1 && (
+          <div className="px-4 pt-2 flex gap-2 overflow-x-auto">
+            {product.images.slice(0, 4).map((img, i) => (
+              <button
+                key={i}
+                onClick={() => setSelectedImage(i)}
+                className={`flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                  selectedImage === i ? 'border-red-500 ring-1 ring-red-200' : 'border-gray-200 hover:border-gray-400'
+                }`}
+              >
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src={convertImagePath(img)}
+                  alt={`${displayTitle} - ${i + 1}`}
+                  className="w-full h-full object-cover"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+                />
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Quick View Content - Description and Features */}
         <div className="px-4 py-3 bg-gray-50/50 border-b border-gray-100">
