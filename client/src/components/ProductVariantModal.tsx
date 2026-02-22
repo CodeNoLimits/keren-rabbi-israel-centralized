@@ -171,7 +171,7 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
   if (!isOpen) return null;
 
   const formatsForSelectedSize = getFormatsForSize(variants, selectedSize);
-  const currentVariant = variants.find(v => v.id === selectedVariantId) || formatsForSelectedSize[0];
+  const currentVariant = formatsForSelectedSize.find(v => v.id === selectedVariantId) || formatsForSelectedSize[0];
 
   if (!currentVariant) return null;
 
@@ -214,8 +214,8 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
     'default': 'bg-gray-100 text-gray-800 border-gray-300',
   };
   const getSizeColor = (size: string, isSelected: boolean) => {
-    if (isSelected) return 'bg-red-600 text-white border-red-600 shadow-lg scale-105';
-    return 'bg-white text-gray-800 border-gray-300 hover:border-red-400 hover:bg-red-50';
+    if (isSelected) return 'bg-[#FF6B00] text-white border-[#FF6B00] shadow-lg scale-105';
+    return 'bg-white text-gray-800 border-gray-300 hover:border-orange-400 hover:bg-orange-50';
   };
 
   return (
@@ -280,7 +280,7 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
               {displayTitle}
             </h3>
             <div className="flex items-baseline gap-2 mb-1">
-              <span className="text-2xl font-bold text-red-600">
+              <span className="text-2xl font-bold text-[#FF6B00]">
                 {currentVariant.price} <span className="text-base">{'\u20AA'}</span>
               </span>
               {currentVariant.originalPrice && (
@@ -309,7 +309,7 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
                 key={i}
                 onClick={() => setSelectedImage(i)}
                 className={`flex-shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
-                  selectedImage === i ? 'border-red-500 ring-1 ring-red-200' : 'border-gray-200 hover:border-gray-400'
+                  selectedImage === i ? 'border-[#FF6B00] ring-1 ring-orange-200' : 'border-gray-200 hover:border-gray-400'
                 }`}
               >
                 <img
@@ -404,8 +404,8 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
                     relative px-4 py-2 rounded-lg border-2 text-sm font-medium
                     transition-all duration-200
                     ${isSelected
-                      ? 'bg-red-600 text-white border-red-600 shadow-lg scale-105'
-                      : 'bg-white text-gray-800 border-gray-300 hover:border-red-400 hover:bg-red-50'}
+                      ? 'bg-[#FF6B00] text-white border-[#FF6B00] shadow-lg scale-105'
+                      : 'bg-white text-gray-800 border-gray-300 hover:border-orange-400 hover:bg-orange-50'}
                     ${!variant.inStock ? 'opacity-40 cursor-not-allowed line-through' : 'cursor-pointer'}
                   `}
                 >
@@ -428,14 +428,14 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
           <div className="flex items-center gap-3">
             <button
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              className="w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-red-400 hover:bg-red-50 transition-all duration-200 active:scale-90"
+              className="w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-orange-400 hover:bg-orange-50 transition-all duration-200 active:scale-90"
             >
               <Minus className="h-4 w-4" />
             </button>
             <span className="w-12 text-center text-xl font-bold text-gray-900">{quantity}</span>
             <button
               onClick={() => setQuantity(quantity + 1)}
-              className="w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-red-400 hover:bg-red-50 transition-all duration-200 active:scale-90"
+              className="w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-orange-400 hover:bg-orange-50 transition-all duration-200 active:scale-90"
             >
               <Plus className="h-4 w-4" />
             </button>
@@ -448,12 +448,12 @@ export function ProductVariantModal({ product, isOpen, onClose }: ProductVariant
             onClick={handleAddToCart}
             disabled={!currentVariant.inStock || justAdded}
             className={`
-              w-full py-3.5 rounded-xl font-bold text-lg flex items-center justify-center gap-2
+              w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2
               transition-all duration-300
               ${justAdded
                 ? 'bg-green-500 text-white scale-95'
                 : currentVariant.inStock
-                  ? 'bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl active:scale-95'
+                  ? 'bg-[#FF6B00] hover:bg-[#E65A00] text-white shadow-lg hover:shadow-xl active:scale-95'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'}
             `}
           >
