@@ -13,6 +13,18 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: {
+          DEFAULT: "#FF6B00",
+          hover: "#E65A00",
+          light: "#FFF0E5",
+          foreground: "#FFFFFF",
+        },
+        keren: {
+          blue: "#0F172A",
+          blueMid: "#334155",
+          white: "#FFFFFF",
+          surface: "#F8FAFC",
+        },
         card: {
           DEFAULT: "var(--card)",
           foreground: "var(--card-foreground)",
@@ -21,10 +33,7 @@ export default {
           DEFAULT: "var(--popover)",
           foreground: "var(--popover-foreground)",
         },
-        primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
-        },
+
         secondary: {
           DEFAULT: "var(--secondary)",
           foreground: "var(--secondary-foreground)",

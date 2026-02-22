@@ -5,6 +5,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* === OZ VEHADAR DESIGN SYSTEM === */
+/* Google Font Assistant (Hebrew-first, 6 weights) */
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap');
+
+body {
+  background: #FFFFFF !important;
+  color: #0F172A;
+  font-family: 'Assistant', system-ui, -apple-system, sans-serif;
+}
+
+/* Apple-style thin scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
 /* Global Animation Classes */
 @layer utilities {
   .animate-hover-float {

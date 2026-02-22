@@ -164,7 +164,7 @@ const StripePaymentForm = ({ clientSecret, orderSummary }: {
 
       {/* PaymentElement with Israeli payment methods enabled */}
       {/* Task 82: Bit, PayBox, Google Pay, Apple Pay enabled via Stripe Payment Element */}
-      <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border">
+      <div className="bg-white p-4 rounded-lg border border-gray-200">
         <PaymentElement
           options={{
             layout: 'tabs',
@@ -225,7 +225,7 @@ export default function Checkout() {
   // Redirect if cart is empty
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4" dir={dir}>
+      <div className="min-h-screen bg-white flex items-center justify-center p-4" dir={dir}>
         <Card className="w-full max-w-md">
           <CardContent className="text-center py-8">
             <ShoppingCart className="h-16 w-16 mx-auto mb-4 text-gray-400" />
@@ -246,7 +246,7 @@ export default function Checkout() {
       currency: "ILS",
       intent: "capture"
     }}>
-      <div className="min-h-screen bg-gray-50" dir={dir}>
+      <div className="min-h-screen bg-white" dir={dir}>
         <Header />
 
         <div className="container mx-auto px-4 py-8">
