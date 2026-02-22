@@ -9,10 +9,48 @@ import { getInterfaceDisplayTitle, getInterfaceDisplayDescription, getInterfaceC
 import { convertImagePath } from '../utils/imagePathHelper';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Truck, Shield, RotateCcw, Star, Heart } from 'lucide-react';
+import { Header } from '../components/Header';
 import type { Product } from '../../../shared/schema';
 
 export default function Product() {
   const [match, params] = useRoute('/product/:id');
+  const { currentLanguage } = useLanguage();
+  
+  const productId = params?.id ? decodeURIComponent(params.id) : '';
+  
+  const product = useMemo(() => {
+    if (!productId) return null;
+    if (realBreslovProducts[productId]) return realBreslovProducts[productId];
+    
+    // Fallback: Case-insensitive or slug match
+    const normalizedId = productId.toLowerCase();
+    return Object.values(realBreslovProducts).find(p => p.id.toLowerCase() === normalizedId) || null;
+  }, [productId]);
+
+  if (!product) {
+    const isRTL = currentLanguage === 'he';
+    return (
+      <div className="min-h-[70vh] flex flex-col items-center justify-center p-8 text-center" dir={isRTL ? 'rtl' : 'ltr'}>
+        <div className="w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center mb-6">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FF6B00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <h1 className="text-3xl font-bold text-slate-900 mb-4">{isRTL ? 'מוצר לא נמצא' : 'Product Not Found'}</h1>
+        <p className="text-slate-600 mb-8 max-w-md">{isRTL ? 'הספר שחיפשת אינו קיים במערכת, או שהוסר מהחנות. בואו נחזור ונגלה ספרים נוספים.' : `The book you are looking for does not exist or has been removed. Let's go back and discover more.`}</p>
+        <a href="/store" className="bg-[#FF6B00] text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl hover:bg-[#E65A00] transition-all transform hover:-translate-y-1">
+          {isRTL ? 'חזרה לחנות' : 'Back to Store'}
+        </a>
+      </div>
+    );
+  }
+
+  return <ProductDetail product={product} />;
+}
+
+function ProductDetail({ product }: { product: Product }) {
   const [selectedVariant, setSelectedVariant] = useState<string>('');
   const [linkCopied, setLinkCopied] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -20,17 +58,12 @@ export default function Product() {
   const [isZoomed, setIsZoomed] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
   const imageContainerRef = useRef<HTMLDivElement>(null);
+  const touchStartRef = useRef<{x: number, y: number} | null>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const { currentLanguage } = useLanguage();
   const { addItem } = useCart();
   const { toggleFavorite, isFavorite } = useFavorites();
   const { toast } = useToast();
-
-  const productId = params?.id || '';
-  const product = realBreslovProducts[productId];
-
-  if (!product) {
-    return <div>{currentLanguage === 'he' ? 'מוצר לא נמצא' : 'Product not found'}</div>;
-  }
 
   // Initialize selected variant when product is loaded
   useEffect(() => {
@@ -284,81 +317,23 @@ export default function Product() {
     <div className={isRTL ? 'rtl' : 'ltr'} style={{direction: isRTL ? 'rtl' : 'ltr', paddingBottom: '80px'}}>
       {/* pb-[80px] reserves space for sticky mobile bar */}
 
-      {/* TOP BAR */}
-      <section className="elementor-section elementor-top-section elementor-element elementor-element-ba655d5 elementor-section-full_width elementor-hidden-tablet elementor-hidden-mobile elementor-section-height-default" style={{background: '#333', color: 'white', padding: '8px 0'}}>
-        <div className="elementor-container elementor-column-gap-default">
-          <div className="elementor-column elementor-col-33 elementor-top-column">
-            <div className="elementor-widget-wrap elementor-element-populated">
-              <div className="elementor-element elementor-icon-list--layout-inline elementor-align-left elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list">
-                <div className="elementor-widget-container">
-                  <ul className="elementor-icon-list-items elementor-inline-items" style={{display: 'flex', gap: '1rem', listStyle: 'none', margin: 0, padding: 0}}>
-                    <li className="elementor-icon-list-item elementor-inline-item" style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-                      <span className="elementor-icon-list-text">{navLabels.freeShipping}</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* FREE SHIPPING BAR */}
+      <section style={{background: '#FF6B00', color: 'white', padding: '8px 0', fontSize: '0.85rem', fontWeight: '700', textAlign: 'center'}}>
+        <div style={{maxWidth: '1400px', margin: '0 auto', padding: '0 2rem'}}>
+          <span>{navLabels.freeShipping}</span>
         </div>
       </section>
 
       {/* HEADER */}
-      <section className="elementor-section elementor-top-section elementor-element elementor-element-ba655d5 elementor-section-full_width elementor-hidden-tablet elementor-hidden-mobile" style={{background: '#dc3545', padding: '1rem 0'}}>
-        <div className="elementor-container elementor-column-gap-default" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-          <div className="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-8cf799f">
-            <div className="elementor-widget-wrap elementor-element-populated">
-              <div className="elementor-element elementor-widget elementor-widget-theme-site-logo elementor-widget-image">
-                <div className="elementor-widget-container">
-                  <a href="/">
-                    <img loading="lazy"
-                      decoding="async"
-                      width="185"
-                      height="300"
-                      src="/images/logo.webp"
-                      className="attachment-full size-full wp-image-27"
-                      alt="האש שלי תוקף עד ביאת המשיח"
-                      style={{height: '80px', width: 'auto'}}
-                    />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="elementor-column elementor-col-33 elementor-top-column">
-            <nav aria-label={isRTL ? 'תפריט' : 'Navigation'} style={{textAlign: 'center'}}>
-              <ul style={{display: 'flex', gap: '1.5rem', listStyle: 'none', margin: 0, padding: 0, flexWrap: 'wrap'}}>
-                <li><a href="/" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem'}}>{navLabels.home}</a></li>
-                <li><a href="/store" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 'bold'}}>{navLabels.store}</a></li>
-                <li><a href="/about" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem'}}>{navLabels.about}</a></li>
-                <li><a href="/downloads" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem'}}>{navLabels.downloads}</a></li>
-                <li><a href="/contact" style={{color: 'white', textDecoration: 'none', fontSize: '0.9rem'}}>{navLabels.contact}</a></li>
-              </ul>
-            </nav>
-          </div>
-
-          <div className="elementor-column elementor-col-16" style={{maxWidth: '120px'}}>
-            <div style={{textAlign: 'left'}}>
-              <a href="#" style={{background: 'white', color: '#dc3545', padding: '0.3rem 0.6rem', borderRadius: '4px', textDecoration: 'none', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.3rem'}}>
-                <span>0.00 ₪</span>
-                <span>0</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style={{width: '14px', height: '14px', fill: 'currentColor'}}>
-                  <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Header />
 
       {/* BREADCRUMBS */}
       <section style={{background: '#f8f9fa', padding: '1rem 0', borderBottom: '1px solid #ddd'}}>
         <div className="container" style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
           <nav aria-label={isRTL ? 'שביל ניווט' : 'Breadcrumb'} style={{fontSize: '0.9rem', color: '#666'}}>
-            <a href="/" style={{color: '#dc3545', textDecoration: 'none'}}>{navLabels.home}</a>
+            <a href="/" style={{color: '#FF6B00', textDecoration: 'none', fontWeight: '500'}}>{navLabels.home}</a>
             <span style={{margin: '0 0.5rem'}}>{isRTL ? '\u2190' : '\u2192'}</span>
-            <a href="/store" style={{color: '#dc3545', textDecoration: 'none'}}>{navLabels.store}</a>
+            <a href="/store" style={{color: '#FF6B00', textDecoration: 'none', fontWeight: '500'}}>{navLabels.store}</a>
             <span style={{margin: '0 0.5rem'}}>{isRTL ? '\u2190' : '\u2192'}</span>
             <span style={{color: '#6b7280'}}>{displayTitle}</span>
           </nav>
@@ -482,7 +457,7 @@ export default function Product() {
             {/* PRODUCT INFO */}
             <div>
               <div style={{marginBottom: '1rem'}}>
-                <span style={{background: '#dc3545', color: 'white', padding: '0.3rem 0.8rem', borderRadius: '15px', fontSize: '0.8rem', fontWeight: 'bold'}}>
+                <span style={{background: '#FF6B00', color: 'white', padding: '0.3rem 0.8rem', borderRadius: '15px', fontSize: '0.8rem', fontWeight: 'bold'}}>
                   {displayCategory}
                 </span>
               </div>
@@ -497,7 +472,7 @@ export default function Product() {
                     padding: '0.5rem',
                     borderRadius: '50%',
                     border: '1px solid #e5e7eb',
-                    background: isFavorite(product.id) ? '#fef2f2' : 'white',
+                    background: isFavorite(product.id) ? '#fff5ee' : 'white',
                     cursor: 'pointer',
                     flexShrink: 0,
                     marginTop: '0.5rem',
@@ -531,7 +506,7 @@ export default function Product() {
                         style={{
                           padding: '0.5rem 1rem',
                           borderRadius: '6px',
-                          background: lang.id === product.id ? '#dc3545' : 'transparent',
+                          background: lang.id === product.id ? '#FF6B00' : 'transparent',
                           color: lang.id === product.id ? 'white' : '#666',
                           textDecoration: 'none',
                           fontSize: '0.9rem',
@@ -668,7 +643,7 @@ export default function Product() {
                 </button>
               </div>
 
-              <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#dc3545', marginBottom: '2rem', maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+              <div style={{fontSize: '2rem', fontWeight: 'bold', color: '#FF6B00', marginBottom: '2rem', maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
                 <span style={{display: 'inline-block', verticalAlign: 'middle'}}>
                   {currentVariant.price} ₪
                 </span>
@@ -705,7 +680,7 @@ export default function Product() {
                         borderRadius: '8px',
                         cursor: variant.inStock ? 'pointer' : 'not-allowed',
                         opacity: variant.inStock ? 1 : 0.6,
-                        background: selectedVariant === variant.id ? '#fef2f2' : 'white'
+                        background: selectedVariant === variant.id ? '#fff5ee' : 'white'
                       }}
                     >
                       <input
@@ -726,13 +701,13 @@ export default function Product() {
                             ? (isRTL ? 'חלק אחד' : currentLanguage === 'en' ? '1 volume' : currentLanguage === 'fr' ? '1 volume' : currentLanguage === 'es' ? '1 volumen' : currentLanguage === 'ru' ? '1 том' : '1 volume')
                             : (isRTL ? `${variant.volumes} כרכים` : `${variant.volumes} ${currentLanguage === 'ru' ? 'томов' : 'volumes'}`)}
                         </div>
-                        <div style={{fontSize: '0.8rem', color: variant.inStock ? '#28a745' : '#dc3545'}}>
+                        <div style={{fontSize: '0.8rem', color: variant.inStock ? '#28a745' : '#FF6B00'}}>
                           {variant.inStock
                             ? (isRTL ? 'במלאי' : currentLanguage === 'en' ? 'In stock' : currentLanguage === 'fr' ? 'En stock' : currentLanguage === 'es' ? 'En stock' : currentLanguage === 'ru' ? 'В наличии' : 'In stock')
                             : (isRTL ? 'אזל מהמלאי' : currentLanguage === 'en' ? 'Out of stock' : currentLanguage === 'fr' ? 'Rupture de stock' : currentLanguage === 'es' ? 'Agotado' : currentLanguage === 'ru' ? 'Нет в наличии' : 'Out of stock')}
                         </div>
                       </div>
-                      <div style={{fontSize: '1.2rem', fontWeight: 'bold', color: '#dc3545', minWidth: '80px', textAlign: 'left', flexShrink: 0}}>
+                      <div style={{fontSize: '1.2rem', fontWeight: 'bold', color: '#FF6B00', minWidth: '80px', textAlign: 'left', flexShrink: 0}}>
                         <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap'}}>
                           <span>{variant.price}{'\u20AA'}</span>
                           {variant.originalPrice && (
@@ -820,7 +795,7 @@ export default function Product() {
                         <div style={{fontSize: '0.75rem', color: '#9ca3af', textDecoration: 'line-through'}}>
                           {singleTotal.toFixed(0)} ₪
                         </div>
-                        <div style={{fontSize: '1.3rem', fontWeight: 'bold', color: '#dc3545'}}>
+                        <div style={{fontSize: '1.3rem', fontWeight: 'bold', color: '#FF6B00'}}>
                           {bundlePrice} ₪
                         </div>
                       </div>
@@ -889,17 +864,12 @@ export default function Product() {
 
                 <button
                   onClick={handleAddToCart}
-                  style={{
-                    background: currentVariant.inStock ? '#dc3545' : '#999',
-                    color: 'white',
-                    border: 'none',
-                    padding: '1rem 2rem',
-                    borderRadius: '8px',
-                    cursor: currentVariant.inStock ? 'pointer' : 'not-allowed',
-                    width: '100%',
-                    fontSize: '1.2rem',
-                    fontWeight: 'bold'
-                  }}
+                  className={`w-full py-4 rounded-xl font-bold text-xl
+                    transition-all duration-300
+                    ${currentVariant.inStock
+                      ? 'bg-[#FF6B00] hover:bg-[#E65A00] text-white shadow-lg hover:shadow-xl active:scale-95 cursor-pointer'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'}
+                  `}
                   disabled={!currentVariant.inStock}
                 >
                   {addToCartLabel}
@@ -923,7 +893,7 @@ export default function Product() {
                       <line x1="12" y1="7" x2="12" y2="13"></line>
                       <line x1="9" y1="10" x2="15" y2="10"></line>
                     </svg>
-                    <h3 style={{fontSize: '1.3rem', fontWeight: 'bold', color: '#dc3545', margin: 0}}>
+                    <h3 style={{fontSize: '1.3rem', fontWeight: 'bold', color: '#FF6B00', margin: 0}}>
                       {isRTL ? 'מארז שלם - חסוך כסף!' :
                        currentLanguage === 'en' ? 'Complete Set - Save Money!' :
                        currentLanguage === 'fr' ? 'Collection Complète - Économisez!' :
@@ -968,7 +938,7 @@ export default function Product() {
                         </span>
                         <div style={{display: 'flex', alignItems: 'center', gap: '1rem'}}>
                           <span style={{fontSize: '0.9rem', color: '#999', textDecoration: 'line-through'}}>₪{bundleSubtotal}</span>
-                          <span style={{fontSize: '1.5rem', fontWeight: 'bold', color: '#dc3545'}}>₪{bundlePrice}</span>
+                          <span style={{fontSize: '1.5rem', fontWeight: 'bold', color: '#FF6B00'}}>₪{bundlePrice}</span>
                         </div>
                       </div>
                       <div style={{textAlign: 'right', marginTop: '0.5rem'}}>
@@ -1074,7 +1044,7 @@ export default function Product() {
                   <ul style={{listStyle: 'none', padding: 0}}>
                     {(product.features || []).map((feature, index) => (
                       <li key={index} style={{marginBottom: '0.5rem', paddingRight: isRTL ? '1.5rem' : '0', paddingLeft: isRTL ? '0' : '1.5rem', position: 'relative'}}>
-                        <span style={{position: 'absolute', ...(isRTL ? {right: 0} : {left: 0}), top: 0, color: '#dc3545', fontWeight: 'bold'}}>{'\u2713'}</span>
+                        <span style={{position: 'absolute', ...(isRTL ? {right: 0} : {left: 0}), top: 0, color: '#FF6B00', fontWeight: 'bold'}}>{'\u2713'}</span>
                         {feature}
                       </li>
                     ))}
@@ -1218,7 +1188,7 @@ export default function Product() {
                   <p style={{fontSize: '1rem', marginBottom: '1rem'}}>{detailLabels.noReviewsYet}</p>
                   <button
                     style={{
-                      background: '#dc3545',
+                      background: '#FF6B00',
                       color: 'white',
                       border: 'none',
                       padding: '0.75rem 2rem',
@@ -1452,10 +1422,10 @@ export default function Product() {
                     <div style={{fontSize: '0.8rem', color: '#6b7280', marginBottom: '0.5rem'}}>
                       {getInterfaceCategoryName(relatedProduct.category, currentLanguage)}
                     </div>
-                    <div style={{fontSize: '1.1rem', fontWeight: 'bold', color: '#dc3545', marginBottom: '1rem'}}>
+                    <div style={{fontSize: '1.1rem', fontWeight: 'bold', color: '#FF6B00', marginBottom: '1rem'}}>
                       {(relatedProduct.variants && relatedProduct.variants[0] || {price: 0}).price} ₪
                     </div>
-                    <button style={{background: '#dc3545', color: 'white', border: 'none', padding: '0.7rem 1rem', borderRadius: '5px', cursor: 'pointer', width: '100%', fontWeight: 'bold', fontSize: '0.9rem'}}>
+                    <button style={{background: '#FF6B00', color: 'white', border: 'none', padding: '0.7rem 1rem', borderRadius: '5px', cursor: 'pointer', width: '100%', fontWeight: 'bold', fontSize: '0.9rem'}}>
                       {isRTL ? 'צפה במוצר' :
                        currentLanguage === 'en' ? 'View Product' :
                        currentLanguage === 'fr' ? 'Voir le Produit' :
@@ -1491,7 +1461,7 @@ export default function Product() {
                   <div style={{fontSize: '0.8rem', fontWeight: '600', marginTop: '0.5rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
                     {getInterfaceDisplayTitle(p, currentLanguage)}
                   </div>
-                  <div style={{fontSize: '0.75rem', color: '#dc3545', fontWeight: 'bold'}}>
+                  <div style={{fontSize: '0.75rem', color: '#FF6B00', fontWeight: 'bold'}}>
                     {(p.variants?.[0] || {price: 0}).price} ₪
                   </div>
                 </a>
@@ -1520,24 +1490,18 @@ export default function Product() {
         }}
       >
         <div style={{flex: '0 0 auto'}}>
-          <span style={{fontSize: '1.25rem', fontWeight: 'bold', color: '#dc3545'}}>
+          <span style={{fontSize: '1.25rem', fontWeight: 'bold', color: '#FF6B00'}}>
             {(currentVariant.price * quantity).toFixed(0)} ₪
           </span>
         </div>
         <button
           onClick={handleAddToCart}
           disabled={!currentVariant.inStock}
-          style={{
-            flex: 1,
-            background: currentVariant.inStock ? '#dc3545' : '#999',
-            color: 'white',
-            border: 'none',
-            padding: '0.85rem 1rem',
-            borderRadius: '8px',
-            cursor: currentVariant.inStock ? 'pointer' : 'not-allowed',
-            fontSize: '1rem',
-            fontWeight: 'bold'
-          }}
+          className={`flex-1 py-3 px-4 rounded-lg font-bold text-base transition-colors
+            ${currentVariant.inStock
+              ? 'bg-[#FF6B00] hover:bg-[#E65A00] text-white cursor-pointer'
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'}
+          `}
         >
           {currentVariant.inStock
             ? (isRTL ? 'הוספה לסל' :
