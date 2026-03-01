@@ -105,7 +105,9 @@ const createCheckoutSchema = (t: (key: string) => string) =>
       .string()
       .min(1, t('phoneRequired'))
       .regex(/^05\d[-]?\d{7}$/, t('phoneInvalid')),
-    address: z.string().min(1, t('addressRequired')),
+    street: z.string().min(1, 'Street is required'),
+    houseNumber: z.string().min(1, 'House number is required'),
+    apartment: z.string().optional(),
     city: z.string().min(1, t('cityRequired')),
     zipCode: z.string().min(1, t('zipCodeRequired')),
     orderNotes: z.string().optional(),
@@ -138,7 +140,9 @@ export function CheckoutForm({ onSuccess }: { onSuccess?: (clientSecret: string,
       lastName: '',
       email: '',
       phone: '',
-      address: '',
+      street: '',
+      houseNumber: '',
+      apartment: '',
       city: '',
       zipCode: '',
       orderNotes: '',
@@ -206,7 +210,7 @@ export function CheckoutForm({ onSuccess }: { onSuccess?: (clientSecret: string,
         cart: cartData,
         shippingAddress: {
           fullName: `${data.firstName} ${data.lastName}`,
-          addressLine1: data.address,
+          addressLine1: `${data.street} ${data.houseNumber}${data.apartment ? ', Apt ' + data.apartment : ''}`,
           city: data.city,
           postalCode: data.zipCode,
           country: 'IL',
@@ -214,7 +218,7 @@ export function CheckoutForm({ onSuccess }: { onSuccess?: (clientSecret: string,
         },
         billingAddress: {
           fullName: `${data.firstName} ${data.lastName}`,
-          addressLine1: data.address,
+          addressLine1: `${data.street} ${data.houseNumber}${data.apartment ? ', Apt ' + data.apartment : ''}`,
           city: data.city,
           postalCode: data.zipCode,
           country: 'IL',
@@ -372,18 +376,55 @@ export function CheckoutForm({ onSuccess }: { onSuccess?: (clientSecret: string,
                   />
                 </div>
 
-                {/* Address */}
+                {/* Street + House Number row */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="street"
+                    render={({ field }) => (
+                      <FormItem className="sm:col-span-2">
+                        <FormLabel>{currentLanguage === 'he' ? 'רחוב' : currentLanguage === 'fr' ? 'Rue' : 'Street'} *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder={currentLanguage === 'he' ? 'שם הרחוב' : 'Street name'}
+                            autoComplete="street-address"
+                            required
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="houseNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{currentLanguage === 'he' ? 'מספר בית' : 'House No.'} *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="12"
+                            required
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* Apartment (Optional) */}
                 <FormField
                   control={form.control}
-                  name="address"
+                  name="apartment"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{t('address')} *</FormLabel>
+                      <FormLabel>{currentLanguage === 'he' ? 'דירה / כניסה (אופציונלי)' : 'Apartment (Optional)'}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder={t('address')}
-                          autoComplete="street-address"
-                          required
+                          placeholder={currentLanguage === 'he' ? 'דירה 4, כניסה ב' : 'Apt 4'}
                           {...field}
                         />
                       </FormControl>
@@ -467,60 +508,58 @@ export function CheckoutForm({ onSuccess }: { onSuccess?: (clientSecret: string,
                           <RadioGroup
                             onValueChange={field.onChange}
                             value={field.value}
-                            className="space-y-3"
+                            className="grid grid-cols-3 gap-3"
                           >
                             {/* Credit Card */}
                             <label
-                              className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                              className={`relative flex flex-col items-center justify-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
                                 field.value === 'credit_card'
-                                  ? 'border-orange-500 bg-orange-50'
-                                  : 'border-gray-200 bg-white hover:border-gray-300'
+                                  ? 'border-orange-500 bg-orange-50/50 shadow-sm ring-1 ring-orange-500'
+                                  : 'border-gray-200 bg-white hover:border-orange-200 hover:bg-orange-50/20'
                               }`}
                             >
-                              <RadioGroupItem value="credit_card" />
-                              <div className="flex items-center gap-2 flex-1">
-                                <span className="font-medium">
-                                  {t('creditCard')}
-                                </span>
-                              </div>
-                              <div className="flex items-center gap-1">
+                              <RadioGroupItem value="credit_card" className="sr-only" />
+                              <div className="flex items-center gap-1.5 h-6">
                                 <VisaIcon />
                                 <MastercardIcon />
                               </div>
+                              <span className={`font-bold text-sm text-center ${field.value === 'credit_card' ? 'text-orange-700' : 'text-gray-600'}`}>
+                                {currentLanguage === 'he' ? 'כרטיס אשראי' : currentLanguage === 'fr' ? 'Carte Bancaire' : 'Credit Card'}
+                              </span>
                             </label>
 
                             {/* Bit */}
                             <label
-                              className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                              className={`relative flex flex-col items-center justify-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
                                 field.value === 'bit'
-                                  ? 'border-green-500 bg-green-50'
-                                  : 'border-gray-200 bg-white hover:border-gray-300'
+                                  ? 'border-orange-500 bg-orange-50/50 shadow-sm ring-1 ring-orange-500'
+                                  : 'border-gray-200 bg-white hover:border-orange-200 hover:bg-orange-50/20'
                               }`}
                             >
-                              <RadioGroupItem value="bit" />
-                              <div className="flex items-center gap-2 flex-1">
-                                <span className="font-medium">
-                                  {t('bit')}
-                                </span>
+                              <RadioGroupItem value="bit" className="sr-only" />
+                              <div className="h-6 flex items-center justify-center">
+                                <BitIcon />
                               </div>
-                              <BitIcon />
+                              <span className={`font-bold text-sm text-center ${field.value === 'bit' ? 'text-orange-700' : 'text-gray-600'}`}>
+                                {currentLanguage === 'he' ? 'ביט' : 'Bit'}
+                              </span>
                             </label>
 
                             {/* PayPal */}
                             <label
-                              className={`flex items-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                              className={`relative flex flex-col items-center justify-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
                                 field.value === 'paypal'
-                                  ? 'border-blue-500 bg-blue-50'
-                                  : 'border-gray-200 bg-white hover:border-gray-300'
+                                  ? 'border-orange-500 bg-orange-50/50 shadow-sm ring-1 ring-orange-500'
+                                  : 'border-gray-200 bg-white hover:border-orange-200 hover:bg-orange-50/20'
                               }`}
                             >
-                              <RadioGroupItem value="paypal" />
-                              <div className="flex items-center gap-2 flex-1">
-                                <span className="font-medium">
-                                  {t('paypal')}
-                                </span>
+                              <RadioGroupItem value="paypal" className="sr-only" />
+                              <div className="h-6 flex items-center justify-center">
+                                <PayPalIcon />
                               </div>
-                              <PayPalIcon />
+                              <span className={`font-bold text-sm text-center ${field.value === 'paypal' ? 'text-orange-700' : 'text-gray-600'}`}>
+                                PayPal
+                              </span>
                             </label>
                           </RadioGroup>
                         </FormControl>
