@@ -4,7 +4,7 @@ import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../hooks/useAuth';
 import { CartWidget } from './CartWidget';
 import { SearchAutocomplete } from './SearchAutocomplete';
-import { Menu, X, LogIn, LogOut, User, Heart, ShoppingCart } from 'lucide-react';
+import { Menu, X, LogIn, LogOut, User, Heart, ShoppingCart, ChevronDown } from 'lucide-react';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useCurrency, type CurrencyCode } from '../hooks/useCurrency';
@@ -36,7 +36,10 @@ const translations = {
     fire: '🔥 האש שלי',
     login: 'כניסה',
     logout: 'יציאה',
-    welcome: 'שלום'
+    welcome: 'שלום',
+    donate: 'תרומות',
+    selectLang: 'בחר שפה',
+    favorites: 'מועדפים',
   },
   en: {
     home: 'Home',
@@ -59,7 +62,10 @@ const translations = {
     fire: '🔥 My Fire',
     login: 'Login',
     logout: 'Logout',
-    welcome: 'Welcome'
+    welcome: 'Welcome',
+    donate: 'Donate',
+    selectLang: 'Select Language',
+    favorites: 'Favorites',
   },
   fr: {
     home: 'Accueil',
@@ -82,7 +88,10 @@ const translations = {
     fire: '🔥 Mon Feu',
     login: 'Connexion',
     logout: 'Déconnexion',
-    welcome: 'Bienvenue'
+    welcome: 'Bienvenue',
+    donate: 'Faire un Don',
+    selectLang: 'Choisir la langue',
+    favorites: 'Favoris',
   },
   es: {
     home: 'Inicio',
@@ -105,7 +114,10 @@ const translations = {
     fire: '🔥 Mi Fuego',
     login: 'Iniciar Sesión',
     logout: 'Cerrar Sesión',
-    welcome: 'Bienvenido'
+    welcome: 'Bienvenido',
+    donate: 'Donar',
+    selectLang: 'Seleccionar idioma',
+    favorites: 'Favoritos',
   },
   ru: {
     home: 'Главная',
@@ -128,7 +140,10 @@ const translations = {
     fire: '🔥 Мой Огонь',
     login: 'Войти',
     logout: 'Выйти',
-    welcome: 'Добро пожаловать'
+    welcome: 'Добро пожаловать',
+    donate: 'Пожертвовать',
+    selectLang: 'Выбрать язык',
+    favorites: 'Избранное',
   }
 };
 
@@ -142,6 +157,7 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const t = translations[currentLanguage as keyof typeof translations] || translations.he;
+  const isRTL = currentLanguage === 'he';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -150,8 +166,18 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileMenuOpen]);
   
-  const languageFlags = {
+  const languageFlags: Record<string, string> = {
     he: '🇮🇱',
     en: '🇺🇸',
     fr: '🇫🇷',
@@ -159,137 +185,204 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
     ru: '🇷🇺'
   };
 
+  const navLinks = [
+    { href: '/', label: t.home },
+    { href: '/store', label: t.books },
+    { href: '/about', label: t.about },
+    { href: '/blog', label: t.blog },
+    { href: '/contact', label: t.contact }
+  ];
+
+  const mobileLinks = [
+    { href: '/', label: t.home },
+    { href: '/store', label: t.books },
+    { href: '/donate', label: t.donate, icon: '❤️' },
+    { href: '/favorites', label: t.favorites, badge: favorites.size },
+    { href: '/about', label: t.about },
+    { href: '/blog', label: t.blog },
+    { href: '/contact', label: t.contact }
+  ];
+
   return (
-    <header className={`site-header sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 shadow-md backdrop-blur-sm' : 'bg-white'}`} data-testid="main-header" dir={currentLanguage === 'he' ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-8">
-        {/* LOGO */}
-        <div className="flex-shrink-0">
-          <a href="/" data-testid="link-home" className="block transition-transform hover:scale-105">
-            <img
-              fetchPriority="high"
-              decoding="async"
-              width="185"
-              height="300"
-              src="/images/logo.webp"
-              alt="Haesh Sheli"
-              className="h-14 w-auto object-contain"
-            />
-          </a>
-        </div>
+    <>
+      {/* Spacer for fixed header */}
+      <div className={`transition-all duration-500 ${isScrolled ? 'h-16' : 'h-20'}`} />
 
-        {/* PRIMARY NAVIGATION - Minimal Apple Style */}
-        <nav className="hidden lg:flex flex-grow justify-center" data-testid="nav-main">
-          <ul className="flex items-center gap-10">
-            {[
-              { href: '/', label: t.home },
-              { href: '/store', label: t.books },
-              { href: '/about', label: t.about },
-              { href: '/blog', label: t.blog },
-              { href: '/contact', label: t.contact }
-            ].map((link) => (
-              <li key={link.href}>
-                <a 
-                  href={link.href} 
-                  className={`text-sm font-bold tracking-tight uppercase transition-colors hover:text-orange-600 ${location === link.href ? 'text-orange-600' : 'text-gray-600'}`}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* ACTIONS */}
-        <div className="flex items-center gap-4 flex-shrink-0">
-          <div className="hidden sm:block w-48 xl:w-64">
-            <SearchAutocomplete onNavigate={(productId) => setLocation(`/product/${productId}`)} />
-          </div>
-          
-          <div className="h-6 w-px bg-gray-200 hidden sm:block mx-2" />
-
-          <div className="flex items-center gap-2">
-            {/* Language Codes - Minimalist */}
-            <div className="hidden sm:flex gap-3">
-              {Object.keys(languageFlags).map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => setLanguage(lang)}
-                  className={`text-[10px] font-black tracking-widest uppercase transition-all ${currentLanguage === lang ? 'text-orange-600' : 'text-gray-400 hover:text-gray-900'}`}
-                >
-                  {lang}
-                </button>
-              ))}
-            </div>
-
-            {/* Favorites Heart Icon */}
-            <a
-              href="/favorites"
-              className="p-2 text-gray-700 hover:text-red-500 transition-colors relative"
-              aria-label={currentLanguage === 'he' ? 'מועדפים' : 'Favorites'}
-            >
-              <Heart size={20} />
-              {favorites.size > 0 && (
-                <span className="absolute top-0 right-0 bg-red-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                  {favorites.size}
-                </span>
-              )}
+      <header
+        className={`
+          fixed top-0 left-0 right-0 z-50
+          transition-all duration-500 ease-out
+          ${isScrolled
+            ? 'bg-white/95 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.05)] py-2'
+            : 'bg-white py-4'
+          }
+        `}
+        data-testid="main-header"
+        dir={isRTL ? 'rtl' : 'ltr'}
+      >
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-8">
+          {/* LOGO */}
+          <div className="flex-shrink-0">
+            <a href="/" data-testid="link-home" className="block transition-all duration-300">
+              <img
+                fetchPriority="high"
+                decoding="async"
+                width="185"
+                height="300"
+                src="/images/logo.webp"
+                alt="Haesh Sheli"
+                className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-10' : 'h-14'}`}
+              />
             </a>
+          </div>
 
-            {/* Cart Icon */}
-            <button
-              onClick={() => setIsCartOpen(true)}
-              className="p-2 text-gray-700 hover:text-orange-600 transition-colors relative"
-              aria-label="Shopping Cart"
-            >
-              <ShoppingCart size={20} />
-              {totalItems > 0 && (
-                <span className="absolute top-0 right-0 bg-orange-600 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                  {totalItems}
-                </span>
-              )}
-            </button>
+          {/* PRIMARY NAVIGATION — Oz VeHadar Style */}
+          <nav className="hidden lg:flex flex-grow justify-center" data-testid="nav-main">
+            <ul className="flex items-center gap-10">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className={`
+                      text-[13px] font-semibold tracking-wide uppercase
+                      transition-all duration-300 relative
+                      after:absolute after:bottom-[-4px] after:left-0 after:right-0
+                      after:h-[2px] after:bg-primary after:rounded-full
+                      after:scale-x-0 after:origin-center hover:after:scale-x-100
+                      after:transition-transform after:duration-300
+                      ${location === link.href
+                        ? 'text-primary after:scale-x-100'
+                        : 'text-keren-blue hover:text-primary'
+                      }
+                    `}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-            {/* Mobile Toggle */}
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-              className="lg:hidden p-2 text-gray-700"
-              aria-label="Menu"
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+          {/* ACTIONS */}
+          <div className="flex items-center gap-4 flex-shrink-0">
+            <div className="hidden sm:block w-48 xl:w-64">
+              <SearchAutocomplete onNavigate={(productId) => setLocation(`/product/${productId}`)} />
+            </div>
+            
+            <div className="h-6 w-px bg-gray-200 hidden sm:block mx-2" />
+
+            <div className="flex items-center gap-2">
+              {/* Language Codes — Minimalist */}
+              <div className="hidden sm:flex gap-3 mr-2">
+                {Object.keys(languageFlags).map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => setLanguage(lang)}
+                    className={`
+                      text-[10px] font-black tracking-widest uppercase transition-all duration-200
+                      ${currentLanguage === lang
+                        ? 'text-primary'
+                        : 'text-gray-400 hover:text-keren-blue'
+                      }
+                    `}
+                  >
+                    {lang}
+                  </button>
+                ))}
+              </div>
+
+              {/* Donate Button — Solid Orange, No Gradient */}
+              <a
+                href="/donate"
+                className="
+                  hidden lg:inline-flex items-center gap-2
+                  bg-primary text-white px-5 py-2.5
+                  rounded-full text-sm font-bold
+                  shadow-[0_4px_14px_rgba(255,107,0,0.25)]
+                  hover:shadow-[0_6px_20px_rgba(255,107,0,0.35)]
+                  hover:-translate-y-0.5
+                  transition-all duration-300
+                  mx-2
+                "
+              >
+                <Heart size={16} className="fill-white" />
+                {t.donate}
+              </a>
+
+              {/* Favorites Heart Icon */}
+              <a
+                href="/favorites"
+                className="p-2 text-gray-500 hover:text-red-500 transition-colors duration-200 relative"
+                aria-label={t.favorites}
+              >
+                <Heart size={20} />
+                {favorites.size > 0 && (
+                  <span className="absolute top-0 right-0 bg-red-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                    {favorites.size}
+                  </span>
+                )}
+              </a>
+
+              {/* Cart Icon */}
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="p-2 text-gray-500 hover:text-primary transition-colors duration-200 relative"
+                aria-label="Shopping Cart"
+              >
+                <ShoppingCart size={20} />
+                {totalItems > 0 && (
+                  <span className="absolute top-0 right-0 bg-primary text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+
+              {/* Mobile Toggle */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 text-gray-700 hover:text-primary transition-colors"
+                aria-label="Menu"
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* MOBILE NAVIGATION - RTL-friendly slide panel */}
+      {/* MOBILE OVERLAY */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-keren-blue/50 backdrop-blur-sm z-[999] lg:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* MOBILE NAVIGATION — Oz VeHadar Slide Panel */}
       <nav
         id="mobile-navigation"
-        className={`mobile-nav ${mobileMenuOpen ? 'open' : ''}`}
+        className={`
+          fixed top-0 bottom-0 z-[1000] w-[280px]
+          bg-white shadow-[-4px_0_20px_rgba(0,0,0,0.1)]
+          overflow-y-auto
+          transition-transform duration-300 ease-out
+          lg:hidden
+          ${isRTL ? 'right-0' : 'left-0'}
+          ${mobileMenuOpen
+            ? 'translate-x-0'
+            : isRTL ? 'translate-x-full' : '-translate-x-full'
+          }
+        `}
         data-testid="nav-mobile"
         role="navigation"
-        aria-label={currentLanguage === 'he' ? 'תפריט נייד' : 'Mobile navigation'}
-        dir={currentLanguage === 'he' ? 'rtl' : 'ltr'}
-        style={{
-          transform: mobileMenuOpen ? 'translateX(0)' : (currentLanguage === 'he' ? 'translateX(100%)' : 'translateX(-100%)'),
-          transition: 'transform 0.3s ease-in-out',
-          position: 'fixed',
-          top: 0,
-          bottom: 0,
-          width: '280px',
-          ...(currentLanguage === 'he' ? { right: 0 } : { left: 0 }),
-          background: '#FFFFFF',
-          boxShadow: '-4px 0 20px rgba(0,0,0,0.1)',
-          zIndex: 1000,
-          overflowY: 'auto',
-          display: 'block',
-          paddingTop: '1rem',
-        }}
+        aria-label={isRTL ? 'תפריט נייד' : 'Mobile navigation'}
+        dir={isRTL ? 'rtl' : 'ltr'}
       >
         {/* Close button */}
-        <div style={{padding: '0.5rem 1rem', textAlign: currentLanguage === 'he' ? 'left' : 'right'}}>
+        <div className={`p-3 ${isRTL ? 'text-left' : 'text-right'}`}>
           <button
             onClick={() => setMobileMenuOpen(false)}
-            style={{background: 'transparent', border: 'none', color: '#1e3a5f', cursor: 'pointer', padding: '0.5rem', minWidth: '44px', minHeight: '44px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center'}}
+            className="p-2 text-keren-blue hover:text-primary transition-colors min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
             aria-label="Close menu"
           >
             <X size={24} />
@@ -297,24 +390,27 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
         </div>
 
         {/* Primary nav links */}
-        <ul className="nav-menu" style={{flexDirection: 'column', padding: '0 1rem', gap: '0.25rem', textAlign: currentLanguage === 'he' ? 'right' : 'left'}}>
-          {[
-            { href: '/', label: t.home },
-            { href: '/store', label: t.books },
-            { href: '/favorites', label: currentLanguage === 'he' ? '\u05DE\u05D5\u05E2\u05D3\u05E4\u05D9\u05DD' : currentLanguage === 'fr' ? 'Favoris' : currentLanguage === 'es' ? 'Favoritos' : currentLanguage === 'ru' ? '\u0418\u0437\u0431\u0440\u0430\u043D\u043D\u043E\u0435' : 'Favorites', badge: favorites.size },
-            { href: '/about', label: t.about },
-            { href: '/blog', label: t.blog },
-            { href: '/contact', label: t.contact }
-          ].map((link: any) => (
+        <ul className={`flex flex-col px-4 gap-1 ${isRTL ? 'text-right' : 'text-left'}`}>
+          {mobileLinks.map((link: any) => (
             <li key={link.href}>
               <a
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                style={{fontSize: '1.1rem', fontWeight: '700', padding: '0.75rem 0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: location === link.href ? '#FF6B00' : '#1e3a5f', transition: 'color 0.2s'}}
+                className={`
+                  flex items-center gap-2.5 px-3 py-3 rounded-xl
+                  text-[1.05rem] font-bold transition-colors duration-200
+                  ${location === link.href
+                    ? 'text-primary bg-primary/5'
+                    : link.icon
+                      ? 'text-orange-600 hover:bg-orange-50'
+                      : 'text-keren-blue hover:bg-gray-50 hover:text-primary'
+                  }
+                `}
               >
+                {link.icon && <span className="text-xl">{link.icon}</span>}
                 {link.label}
                 {link.badge > 0 && (
-                  <span style={{background: '#ef4444', color: 'white', fontSize: '0.65rem', fontWeight: '700', borderRadius: '9999px', padding: '0.1rem 0.4rem', minWidth: '18px', textAlign: 'center' as const}}>
+                  <span className="bg-red-500 text-white text-[10px] font-bold rounded-full px-2 py-0.5 min-w-[18px] text-center">
                     {link.badge}
                   </span>
                 )}
@@ -324,33 +420,27 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
         </ul>
 
         {/* Divider */}
-        <div style={{margin: '1.5rem 1rem', borderTop: '1px solid #f1f5f9'}} />
+        <div className="mx-4 my-6 border-t border-gray-100" />
 
         {/* Language flags in mobile menu */}
-        <div style={{padding: '0 1rem'}}>
-          <h4 style={{fontSize: '0.75rem', fontWeight: '800', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '0.05em'}}>
-            {currentLanguage === 'he' ? 'בחר שפה' : 'Select Language'}
+        <div className="px-4 pb-6">
+          <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+            {t.selectLang}
           </h4>
-          <div style={{display: 'flex', gap: '0.5rem', flexWrap: 'wrap'}} role="group">
+          <div className="flex gap-2 flex-wrap" role="group">
             {Object.entries(languageFlags).map(([lang, flag]) => (
               <button
                 key={lang}
                 onClick={() => { setLanguage(lang); setMobileMenuOpen(false); }}
-                style={{
-                  padding: '0.5rem 1rem',
-                  borderRadius: '8px',
-                  border: '1px solid',
-                  borderColor: currentLanguage === lang ? '#FF6B00' : '#e2e8f0',
-                  background: currentLanguage === lang ? '#fff7ed' : '#ffffff',
-                  color: currentLanguage === lang ? '#FF6B00' : '#64748b',
-                  fontSize: '0.85rem',
-                  fontWeight: '700',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  flex: '1 1 calc(50% - 0.5rem)',
-                  minWidth: '100px'
-                }}
+                className={`
+                  flex items-center gap-2 px-4 py-2.5 rounded-xl
+                  text-sm font-bold transition-all duration-200
+                  flex-1 min-w-[100px] border
+                  ${currentLanguage === lang
+                    ? 'border-primary bg-primary/5 text-primary'
+                    : 'border-gray-200 text-gray-500 hover:border-primary/30'
+                  }
+                `}
               >
                 <span>{flag}</span>
                 <span>{lang.toUpperCase()}</span>
@@ -360,24 +450,7 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
         </div>
       </nav>
 
-      {/* Mobile nav overlay */}
-      {mobileMenuOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(15, 23, 42, 0.5)',
-            backdropFilter: 'blur(4px)',
-            zIndex: 999,
-          }}
-          onClick={() => setMobileMenuOpen(false)}
-        />
-      )}
-
       <CartWidget />
-    </header>
+    </>
   );
 }
