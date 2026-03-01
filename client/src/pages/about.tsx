@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Header } from '../components/Header';
 import { useLanguage } from '../contexts/LanguageContext';
+import { motion } from 'framer-motion';
 import { Users, BookOpen, Award, Globe, Heart, Target, Zap, Star, ChevronRight, Mail, Download, Clock, Lightbulb, Shield, Code } from 'lucide-react';
 import heroBooks from '@assets/hero-books-composition.png';
 
@@ -827,32 +828,36 @@ export default function About() {
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
       
       {/* Hero Section */}
-      <section className="hero-gradient relative overflow-hidden py-20 lg:py-32" data-testid="hero-section">
-        <div className="hero-overlay absolute inset-0"></div>
-        {/* Background Image */}
-        <div className="absolute inset-0 opacity-10">
-          <img loading="lazy"
-            decoding="async"
-            src={heroBooks}
-            alt="Breslov Books Collection"
-            className="w-full h-full object-cover"
-          />
-        </div>
+      <section className="relative overflow-hidden py-24 lg:py-32" data-testid="hero-section">
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-orange-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800"></div>
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(#FF6B00 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
+        
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center animate-fade-in-scale">
-            <h1 className="heading-oversized mb-6" data-testid="hero-title">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 text-orange-600 dark:text-orange-400 font-semibold text-sm mb-8 shadow-sm">
+              <Star className="w-4 h-4" />
+              <span>{currentLanguage === 'he' ? 'ברוכים הבאים' : 'Welcome to My Fire'}</span>
+            </div>
+            
+            <h1 className="text-5xl lg:text-7xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight leading-tight" data-testid="hero-title">
               {t.heroTitle}
             </h1>
-            <p className="text-large text-muted-foreground mb-8 max-w-2xl mx-auto" data-testid="hero-subtitle">
+            <p className="text-xl lg:text-2xl text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto font-medium" data-testid="hero-subtitle">
               {t.heroSubtitle}
             </p>
-            <p className="text-lg text-foreground/80 mb-12 max-w-3xl mx-auto leading-relaxed" data-testid="hero-description">
-              {t.heroDescription}
+            <p className="text-lg text-slate-500 dark:text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed border-l-4 border-orange-500 pl-6 text-left" dir={isRTL ? "rtl" : "ltr"} style={{ borderRightWidth: isRTL ? '4px' : '0', borderLeftWidth: isRTL ? '0' : '4px', paddingRight: isRTL ? '1.5rem' : '0', paddingLeft: isRTL ? '0' : '1.5rem', textAlign: isRTL ? 'right' : 'left', fontStyle: 'italic' }} data-testid="hero-description">
+              "{t.heroDescription}"
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
                 href="/contact" 
-                className="btn-breslov-primary inline-flex items-center gap-2"
+                className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-orange-500/25 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2"
                 data-testid="hero-cta-primary"
               >
                 <Mail className="w-5 h-5" />
@@ -860,374 +865,399 @@ export default function About() {
               </a>
               <a 
                 href="/downloads" 
-                className="btn-breslov-secondary inline-flex items-center gap-2"
+                className="bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 px-8 py-4 rounded-full font-semibold shadow-sm hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-all flex items-center justify-center gap-2"
                 data-testid="hero-cta-secondary"
               >
                 <Download className="w-5 h-5" />
                 {t.heroCtaSecondary}
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Founder Section */}
-      <section className="py-20 bg-secondary/30" data-testid="founder-section">
+      <section className="py-24 bg-white dark:bg-slate-900" data-testid="founder-section">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl lg:text-5xl font-bold text-center mb-16 text-primary" data-testid="founder-title">
-              {t.founderTitle}
-            </h2>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white" data-testid="founder-title">
+                {t.founderTitle}
+              </h2>
+              <div className="w-24 h-1.5 bg-orange-500 mx-auto mt-6 rounded-full"></div>
+            </motion.div>
             
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16">
-              {/* Background Books Image */}
-              <div className="absolute top-0 right-0 w-1/3 h-1/3 opacity-5 lg:opacity-10">
-                <img loading="lazy"
-                  decoding="async"
-                  src={heroBooks}
-                  alt="Books Background"
-                  className="w-full h-full object-contain"
-                />
-              </div>
+            <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-24">
               {/* Founder Photo & Info */}
-              <div className="text-center lg:text-start" data-testid="founder-info">
-                <div className="w-48 h-48 mx-auto lg:mx-0 mb-6 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full flex items-center justify-center relative overflow-hidden border-4 border-primary/30">
-                  <div className="w-full h-full bg-gradient-to-br from-yellow-400 via-orange-500 to-red-600 flex items-center justify-center">
-                    <div className="text-6xl font-bold text-white drop-shadow-lg">🔥</div>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              <motion.div 
+                initial={{ opacity: 0, x: isRTL ? 40 : -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="lg:col-span-5 text-center lg:text-start" data-testid="founder-info"
+              >
+                <div className="w-48 h-48 mx-auto lg:mx-0 mb-8 rounded-3xl bg-gradient-to-br from-orange-100 to-orange-50 dark:from-slate-800 dark:to-slate-800/50 flex items-center justify-center relative overflow-hidden shadow-2xl border border-white/50 dark:border-slate-700">
+                  <div className="text-7xl">🔥</div>
                 </div>
-                <h3 className="text-3xl font-bold text-primary mb-2" data-testid="founder-name">
-                  {t.founderName} יעקב חן
+                <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-2" data-testid="founder-name">
+                  {t.founderName}
                 </h3>
-                <p className="text-lg text-accent font-medium mb-4" data-testid="founder-role">
+                <p className="text-xl text-orange-600 dark:text-orange-400 font-bold mb-6" data-testid="founder-role">
                   {t.founderRole}
                 </p>
-                <div className="flex items-center justify-center lg:justify-start gap-2 mb-4">
-                  <span className="text-2xl">🔥</span>
-                  <span className="text-primary font-semibold">מפתח Full-Stack & חסיד ברסלב</span>
+                
+                <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800 relative z-0">
+                  <blockquote className="text-lg text-slate-700 dark:text-slate-300 italic mb-0 relative z-10" data-testid="founder-mission">
+                    <span className="text-5xl text-orange-200 dark:text-orange-900/40 absolute -top-4 -left-2 -z-10 font-serif leading-none">"</span>
+                    {t.founderMission}
+                    <span className="text-5xl text-orange-200 dark:text-orange-900/40 absolute -bottom-6 -right-2 -z-10 font-serif leading-none">"</span>
+                  </blockquote>
                 </div>
-                <blockquote className="text-lg text-primary font-medium italic border-r-4 border-primary pr-4 mb-4" data-testid="founder-mission">
-                  "{t.founderMission}"
-                </blockquote>
-              </div>
+              </motion.div>
 
               {/* Founder Bio */}
-              <div className="space-y-6" data-testid="founder-bio">
-                <div className="bg-gradient-to-r from-primary/5 to-accent/5 p-6 rounded-xl border border-primary/10">
-                  <p className="text-lg leading-relaxed text-foreground mb-4">
+              <motion.div 
+                initial={{ opacity: 0, x: isRTL ? -40 : 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="lg:col-span-7 space-y-8" data-testid="founder-bio"
+              >
+                <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700">
+                  <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-300 mb-6">
                     {t.founderBio}
                   </p>
-                  <div className="flex items-center gap-2 text-primary">
-                    <span className="text-xl">💻</span>
-                    <span className="font-semibold">React • TypeScript • Node.js • PostgreSQL</span>
+                  <div className="flex flex-wrap items-center gap-3">
+                    {['React', 'TypeScript', 'Node.js', 'PostgreSQL'].map(tech => (
+                      <span key={tech} className="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-sm font-semibold flex items-center gap-2">
+                        <Code className="w-4 h-4" /> {tech}
+                      </span>
+                    ))}
                   </div>
                 </div>
-                <div className="bg-yellow-50 dark:bg-yellow-950/20 p-6 rounded-xl border border-yellow-200 dark:border-yellow-800">
-                  <div className="flex items-start gap-3">
-                    <span className="text-2xl">📚</span>
+                
+                <div className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/20 dark:to-amber-950/20 p-8 rounded-3xl border border-orange-100 dark:border-orange-900/30">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm text-orange-500 shrink-0">
+                      <Target className="w-6 h-6" />
+                    </div>
                     <div>
-                      <h4 className="font-bold text-primary mb-2">
-                        {currentLanguage === 'he' ? 'המטרה הקדושה' :
-                         currentLanguage === 'en' ? 'The Sacred Mission' :
-                         currentLanguage === 'fr' ? 'La Mission Sacrée' :
-                         currentLanguage === 'es' ? 'La Misión Sagrada' :
-                         currentLanguage === 'ru' ? 'Священная Миссия' : 'המטרה הקדושה'}
+                      <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
+                        {currentLanguage === 'he' ? 'המטרה הקדושה' : 'The Sacred Mission'}
                       </h4>
-                      <p className="text-foreground leading-relaxed">
-                        {currentLanguage === 'he' ? 'להביא את אור ברסלב ותורת סבא ישראל לכל בית יהודי באמצעות טכנולוגיה מתקדמת, תוך שמירה על איכות מעולה ושירות מהיר.' :
-                         currentLanguage === 'en' ? 'To bring Breslov light and the teachings of Saba Israel to every Jewish home through advanced technology, while maintaining excellent quality and fast service.' :
-                         currentLanguage === 'fr' ? 'Apporter la lumière Breslov et les enseignements de Saba Israël à chaque foyer juif grâce à une technologie avancée, tout en maintenant une excellente qualité et un service rapide.' :
-                         currentLanguage === 'es' ? 'Llevar la luz Breslov y las enseñanzas de Saba Israel a cada hogar judío a través de tecnología avanzada, manteniendo excelente calidad y servicio rápido.' :
-                         currentLanguage === 'ru' ? 'Принести свет Бреслов и учения Сабы Израэля в каждый еврейский дом с помощью передовых технологий, сохраняя отличное качество и быстрое обслуживание.' : 'להביא את אור ברסלב ותורת סבא ישראל לכל בית יהודי באמצעות טכנולוגיה מתקדמת, תוך שמירה על איכות מעולה ושירות מהיר.'}
+                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        {currentLanguage === 'he' ? 'להביא את אור ברסלב ותורת סבא ישראל לכל בית יהודי באמצעות טכנולוגיה מתקדמת, תוך שמירה על איכות מעולה ושירות מהיר.' : 'To bring Breslov light and the teachings of Saba Israel to every Jewish home through advanced technology, while maintaining excellent quality and fast service.'}
                       </p>
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* Values Section */}
-            <div data-testid="values-section">
-              <h3 className="text-3xl font-bold text-center mb-12 text-primary" data-testid="values-title">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              data-testid="values-section"
+            >
+              <h3 className="text-3xl font-bold text-center mb-12 text-slate-900 dark:text-white" data-testid="values-title">
                 {t.personalValues}
               </h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {t.values.map((value, index) => (
-                  <div 
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
                     key={index} 
-                    className="card-premium p-6 text-center hover:shadow-xl transition-all duration-300"
+                    className="bg-white dark:bg-slate-800 p-8 rounded-3xl text-center shadow-lg shadow-slate-200/40 dark:shadow-none border border-slate-100 dark:border-slate-700 hover:-translate-y-2 transition-transform duration-300"
                     data-testid={`value-card-${index}`}
                   >
-                    <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                      <IconComponent iconName={value.icon} className="w-8 h-8 text-primary" />
+                    <div className="w-16 h-16 mx-auto mb-6 bg-orange-50 dark:bg-orange-900/20 rounded-2xl flex items-center justify-center transform rotate-3">
+                      <IconComponent iconName={value.icon} className="w-8 h-8 text-orange-500" />
                     </div>
-                    <h4 className="text-xl font-semibold mb-3 text-primary" data-testid={`value-title-${index}`}>
+                    <h4 className="text-xl font-bold mb-3 text-slate-900 dark:text-white" data-testid={`value-title-${index}`}>
                       {value.title}
                     </h4>
-                    <p className="text-muted-foreground" data-testid={`value-description-${index}`}>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed" data-testid={`value-description-${index}`}>
                       {value.description}
                     </p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Mission Statement Section */}
-      <section className="py-16 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20" data-testid="mission-section">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto text-center">
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 lg:p-12 border border-yellow-200 dark:border-yellow-800">
-              <div className="flex items-center justify-center mb-6">
-                <span className="text-6xl">🔥</span>
+      {/* Mission Statement Section */}
+      <section className="py-24 bg-gradient-to-r from-orange-500 to-orange-600 relative overflow-hidden" data-testid="mission-section">
+        {/* Abstract background */}
+        <div className="absolute inset-0 opacity-10 bg-white" style={{ backgroundImage: 'radial-gradient(circle at center, white 2px, transparent 2px)', backgroundSize: '40px 40px' }}></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="max-w-6xl mx-auto text-center"
+          >
+            <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 lg:p-16 border border-white/20 shadow-2xl">
+              <div className="flex items-center justify-center mb-8">
+                <span className="text-6xl drop-shadow-2xl">🔥</span>
               </div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-6" data-testid="mission-title">
+              <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6" data-testid="mission-title">
                 {currentLanguage === 'he' ? 'המשימה הקדושה שלנו' : 'Our Sacred Mission'}
               </h2>
-              <p className="text-lg lg:text-xl text-foreground leading-relaxed max-w-4xl mx-auto mb-8">
+              <p className="text-xl lg:text-2xl text-orange-50 leading-relaxed max-w-4xl mx-auto mb-16 font-medium">
                 {currentLanguage === 'he' 
                   ? 'להביא את אוצרות החכמה של רבי נחמן מברסלב לכל בית יהודי בעולם. באמצעות טכנולוגיה מתקדמת ואהבת ישראל, אנו פועלים להפיץ את האור הברסלבי ולחבר לבבות לאמונה טהורה.'
                   : 'To bring the treasures of Rabbi Nachman of Breslov\'s wisdom to every Jewish home worldwide. Through advanced technology and love for Israel, we work to spread Breslov light and connect hearts to pure faith.'
                 }
               </p>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl mb-2">📚</div>
-                  <p className="font-semibold text-primary">ספרים אמיתיים</p>
-                  <p className="text-sm text-muted-foreground">רק מהמקורות הנכונים</p>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl mb-2">🌍</div>
-                  <p className="font-semibold text-primary">משלוח עולמי</p>
-                  <p className="text-sm text-muted-foreground">לכל מקום בעולם</p>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl mb-2">💝</div>
-                  <p className="font-semibold text-primary">הורדות חינמיות</p>
-                  <p className="text-sm text-muted-foreground">נתינה מהלב</p>
-                </div>
+              <div className="grid md:grid-cols-3 gap-8">
+                {[
+                  { icon: '📚', title: 'ספרים אמיתיים', desc: 'רק מהמקורות הנכונים', delay: 0 },
+                  { icon: '🌍', title: 'משלוח עולמי', desc: 'לכל מקום בעולם', delay: 0.1 },
+                  { icon: '💝', title: 'הורדות חינמיות', desc: 'נתינה מהלב', delay: 0.2 }
+                ].map((item, i) => (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: item.delay }}
+                    key={i} 
+                    className="p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors"
+                  >
+                    <div className="text-4xl mb-4">{item.icon}</div>
+                    <p className="text-xl font-bold text-white mb-2">{item.title}</p>
+                    <p className="text-orange-100/80">{item.desc}</p>
+                  </motion.div>
+                ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-primary/5" data-testid="stats-section">
+      <section className="py-24 bg-slate-50 dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800" data-testid="stats-section">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary" data-testid="stats-title">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-slate-900 dark:text-white" data-testid="stats-title">
               {t.statsTitle}
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="stats-subtitle">
+            <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto" data-testid="stats-subtitle">
               {t.statsSubtitle}
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {t.stats.map((stat, index) => (
-              <div 
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
                 key={index}
-                className="card-premium p-8 text-center hover:scale-105 transition-all duration-300"
+                className="bg-white dark:bg-slate-800 p-8 rounded-3xl text-center shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-xl transition-shadow"
                 data-testid={`stat-card-${index}`}
               >
-                <div className="w-20 h-20 mx-auto mb-6 bg-primary/10 rounded-full flex items-center justify-center">
-                  <IconComponent iconName={stat.icon} className="w-10 h-10 text-primary" />
+                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-orange-100 to-orange-50 dark:from-slate-700 dark:to-slate-800 rounded-2xl flex items-center justify-center transform -rotate-3">
+                  <IconComponent iconName={stat.icon} className="w-8 h-8 text-orange-500" />
                 </div>
-                <div className="text-4xl lg:text-5xl font-bold text-primary mb-3" data-testid={`stat-number-${index}`}>
+                <div className="text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white mb-3 tracking-tight" data-testid={`stat-number-${index}`}>
                   <AnimatedCounter end={stat.number} />
                 </div>
-                <p className="text-lg font-medium text-muted-foreground" data-testid={`stat-label-${index}`}>
+                <p className="text-slate-500 dark:text-slate-400 font-medium" data-testid={`stat-label-${index}`}>
                   {stat.label}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Timeline Section */}
-      <section className="py-20 bg-background" data-testid="timeline-section">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary" data-testid="timeline-title">
+      <section className="py-24 bg-white dark:bg-slate-900 overflow-hidden" data-testid="timeline-section">
+        <div className="container mx-auto px-4 relative">
+          {/* Vertical line connecting nodes */}
+          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-orange-200 dark:via-orange-900/50 to-transparent -translate-x-1/2"></div>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center mb-20 relative z-10"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-slate-900 dark:text-white" data-testid="timeline-title">
               {t.timelineTitle}
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="timeline-subtitle">
+            <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto" data-testid="timeline-subtitle">
               {t.timelineSubtitle}
             </p>
-          </div>
+          </motion.div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="space-y-12">
+          <div className="max-w-5xl mx-auto">
+            <div className="space-y-16">
               {t.timeline.map((item, index) => (
-                <div 
+                <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
                   key={index}
-                  className={`flex flex-col lg:flex-row gap-8 lg:gap-12 ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+                  className={`flex flex-col lg:flex-row gap-8 lg:gap-16 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
                   data-testid={`timeline-item-${index}`}
                 >
-                  {/* Year Badge */}
-                  <div className="flex-shrink-0 lg:w-32">
-                    <div className="inline-block bg-primary text-primary-foreground px-6 py-3 rounded-full font-bold text-lg">
-                      {item.year}
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-grow">
-                    <div className="card-premium p-8 animate-slide-in-left">
-                      <div className="flex items-center gap-3 mb-4">
-                        <h3 className="text-2xl font-bold text-primary" data-testid={`timeline-item-title-${index}`}>
+                  {/* Timeline Node Content */}
+                  <div className={`flex-1 ${index % 2 === 0 ? 'lg:text-right' : 'lg:text-left'} w-full`}>
+                    <div className="bg-slate-50 dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-shadow">
+                      <div className={`flex items-center gap-3 mb-4 ${index % 2 === 0 ? 'lg:justify-end' : 'lg:justify-start'}`}>
+                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white" data-testid={`timeline-item-title-${index}`}>
                           {item.title}
                         </h3>
-                        <span className="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-medium">
+                        <span className="bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                           {item.duration}
                         </span>
                       </div>
-                      <p className="text-muted-foreground leading-relaxed" data-testid={`timeline-item-description-${index}`}>
+                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed" data-testid={`timeline-item-description-${index}`}>
                         {item.description}
                       </p>
                     </div>
                   </div>
-                </div>
+
+                  {/* Year Node */}
+                  <div className="flex-shrink-0 relative z-10 transform lg:-translate-y-4">
+                    <div className="w-24 h-24 bg-white dark:bg-slate-900 border-4 border-orange-500 rounded-full flex items-center justify-center shadow-xl shadow-orange-500/20">
+                      <span className="text-xl font-black text-orange-500">
+                        {item.year}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* Empty space for alternating layout */}
+                  <div className="flex-1 hidden lg:block"></div>
+                </motion.div>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Success Stories Section */}
-      <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20" data-testid="success-stories-section">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-primary mb-4" data-testid="success-stories-title">
-              {currentLanguage === 'he' ? '🎯 הצלחות ויעדים שהושגו' : '🎯 Achievements & Success Stories'}
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              {currentLanguage === 'he' 
-                ? 'מהדרך שעשינו עד היום - תוצאות מדויקות ומדודות'
-                : 'From our journey so far - measurable results and achievements'
-              }
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all">
-              <div className="text-3xl mb-3">📚</div>
-              <div className="text-2xl font-bold text-primary mb-1">150+</div>
-              <div className="text-sm text-muted-foreground">ספרים במלאי</div>
-            </div>
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all">
-              <div className="text-3xl mb-3">🌍</div>
-              <div className="text-2xl font-bold text-primary mb-1">5</div>
-              <div className="text-sm text-muted-foreground">שפות זמינות</div>
-            </div>
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all">
-              <div className="text-3xl mb-3">⚡</div>
-              <div className="text-2xl font-bold text-primary mb-1">24/7</div>
-              <div className="text-sm text-muted-foreground">זמינות האתר</div>
-            </div>
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all">
-              <div className="text-3xl mb-3">🏆</div>
-              <div className="text-2xl font-bold text-primary mb-1">99.9%</div>
-              <div className="text-sm text-muted-foreground">שביעות רצון</div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
       {/* Testimonials Section */}
-      <section className="py-20 bg-secondary/30" data-testid="testimonials-section">
+      <section className="py-24 bg-slate-50 dark:bg-slate-800/50" data-testid="testimonials-section">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-primary" data-testid="testimonials-title">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-slate-900 dark:text-white" data-testid="testimonials-title">
               {t.testimonialsTitle}
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto" data-testid="testimonials-subtitle">
+            <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto" data-testid="testimonials-subtitle">
               {t.testimonialsSubtitle}
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {t.testimonials.map((testimonial, index) => (
-              <div 
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
                 key={index}
-                className="card-premium p-8 hover:scale-105 transition-all duration-300"
+                className="bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full relative overflow-hidden"
                 data-testid={`testimonial-card-${index}`}
               >
+                <div className="absolute top-0 right-0 p-6 text-6xl text-slate-100 dark:text-slate-700 opacity-50 font-serif leading-none rotate-180">"</div>
+                
                 {/* Stars */}
-                <div className="flex justify-center mb-4">
+                <div className="flex mb-6 relative z-10">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-gold-accent fill-current" />
+                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
 
                 {/* Quote */}
-                <blockquote className="text-muted-foreground italic mb-6 leading-relaxed" data-testid={`testimonial-quote-${index}`}>
-                  "{testimonial.quote}"
+                <blockquote className="text-slate-600 dark:text-slate-300 italic mb-8 flex-grow relative z-10" data-testid={`testimonial-quote-${index}`}>
+                  {testimonial.quote}
                 </blockquote>
 
                 {/* Author */}
-                <div className="text-center border-t border-border pt-4">
-                  <p className="font-semibold text-primary" data-testid={`testimonial-name-${index}`}>
+                <div className="border-t border-slate-100 dark:border-slate-700 pt-6 mt-auto">
+                  <p className="font-bold text-slate-900 dark:text-white" data-testid={`testimonial-name-${index}`}>
                     {testimonial.name}
                   </p>
-                  <p className="text-sm text-muted-foreground" data-testid={`testimonial-location-${index}`}>
+                  <p className="text-sm text-slate-500 dark:text-slate-400" data-testid={`testimonial-location-${index}`}>
                     {testimonial.location}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary to-accent relative overflow-hidden" data-testid="final-cta-section">
-        <div className="absolute inset-0 bg-primary/90"></div>
-        {/* Floating Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-10 left-10 text-6xl opacity-10 animate-bounce">🔥</div>
-          <div className="absolute top-20 right-20 text-4xl opacity-10 animate-pulse">📚</div>
-          <div className="absolute bottom-20 left-20 text-5xl opacity-10 animate-ping">✨</div>
-          <div className="absolute bottom-10 right-10 text-3xl opacity-10 animate-bounce">🌟</div>
+      <section className="py-24 relative overflow-hidden" data-testid="final-cta-section">
+        <div className="absolute inset-0 bg-slate-900">
+          <img loading="lazy" decoding="async" src={heroBooks} alt="Books Texture" className="w-full h-full object-cover opacity-10 mix-blend-overlay grayscale" />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"></div>
+        
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center text-primary-foreground">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6" data-testid="cta-title">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <h2 className="text-4xl lg:text-6xl font-extrabold mb-6 tracking-tight text-white" data-testid="cta-title">
               {t.ctaTitle}
             </h2>
-            <p className="text-xl mb-6 opacity-90" data-testid="cta-subtitle">
+            <p className="text-xl lg:text-2xl text-orange-400 font-medium mb-6" data-testid="cta-subtitle">
               {t.ctaSubtitle}
             </p>
-            <p className="text-lg mb-12 opacity-80 max-w-2xl mx-auto leading-relaxed" data-testid="cta-description">
+            <p className="text-lg mb-12 text-slate-400 max-w-2xl mx-auto leading-relaxed" data-testid="cta-description">
               {t.ctaDescription}
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <a 
                 href="/store" 
-                className="bg-background text-primary px-8 py-4 rounded-xl font-semibold hover:bg-background/90 transition-all duration-300 inline-flex items-center gap-2 hover:scale-105 hover:shadow-2xl"
+                className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-5 rounded-full font-bold transition-all duration-300 inline-flex items-center gap-2 hover:scale-105 shadow-xl shadow-orange-500/20 text-lg"
                 data-testid="cta-button-primary"
               >
                 <ChevronRight className="w-5 h-5" />
                 {t.ctaButtonPrimary}
-                <span className="text-xl">🔥</span>
               </a>
               <a 
                 href="/contact" 
-                className="border-2 border-background text-background px-8 py-4 rounded-xl font-semibold hover:bg-background hover:text-primary transition-all duration-300 inline-flex items-center gap-2 hover:scale-105 hover:shadow-2xl"
+                className="bg-white/5 hover:bg-white/10 text-white border border-white/20 px-10 py-5 rounded-full font-bold transition-all duration-300 inline-flex items-center gap-2 hover:scale-105 text-lg backdrop-blur-sm"
                 data-testid="cta-button-secondary"
               >
                 <Mail className="w-5 h-5" />
                 {t.ctaButtonSecondary}
-                <span className="text-xl">💬</span>
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

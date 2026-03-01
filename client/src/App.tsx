@@ -49,6 +49,7 @@ const Shipping = lazy(() => import("@/pages/shipping"));
 const Admin = lazy(() => import("@/pages/admin"));
 const OrderTracking = lazy(() => import("@/pages/order-tracking"));
 const NotFound = lazy(() => import("@/pages/not-found"));
+const Donate = lazy(() => import("@/pages/donate"));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -433,6 +434,11 @@ function Router() {
       <Route path="/orders">
         <Suspense fallback={<PageLoader />}>
           <OrderTracking />
+        </Suspense>
+      </Route>
+      <Route path="/donate">
+        <Suspense fallback={<PageLoader />}>
+          <Donate />
         </Suspense>
       </Route>
       <Route component={NotFound} />

@@ -607,6 +607,12 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  
+  // Voice features state
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const recognitionRef = useRef<any>(null);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const { currentLanguage } = useLanguage();
@@ -641,8 +647,96 @@ export function ChatWidget() {
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
+    } else {
+      // Stop speech when closing
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        setIsSpeaking(false);
+      }
+      if (isListening && recognitionRef.current) {
+        recognitionRef.current.stop();
+        setIsListening(false);
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, isListening]);
+
+  // ─── Voice Features (TTS & STT) ───────────────────────────────────────────
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        recognitionRef.current = new SpeechRecognition();
+        recognitionRef.current.continuous = false;
+        recognitionRef.current.interimResults = true;
+        
+        recognitionRef.current.onresult = (event: any) => {
+          const transcript = Array.from(event.results)
+            .map((result: any) => result[0].transcript)
+            .join('');
+          setInputValue(transcript);
+        };
+
+        recognitionRef.current.onerror = (event: any) => {
+          console.error("Speech recognition error:", event.error);
+          setIsListening(false);
+        };
+
+        recognitionRef.current.onend = () => {
+          setIsListening(false);
+        };
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (recognitionRef.current) {
+      const langMap: Record<string, string> = { he: 'he-IL', en: 'en-US', fr: 'fr-FR', es: 'es-ES', ru: 'ru-RU' };
+      recognitionRef.current.lang = langMap[currentLanguage] || 'he-IL';
+    }
+  }, [currentLanguage]);
+
+  const toggleListening = useCallback(() => {
+    if (!recognitionRef.current) {
+      alert(currentLanguage === 'he' ? 'הדפדפן שלך אינו תומך בהקלטה קולית' : 'Your browser does not support voice input');
+      return;
+    }
+    
+    if (isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    } else {
+      setInputValue('');
+      try {
+        recognitionRef.current.start();
+        setIsListening(true);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, [isListening, currentLanguage]);
+
+  const speakText = useCallback((text: string) => {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    
+    // Quick heuristic to filter out UI specific instructions like emojis in text
+    const cleanText = text.replace(/[^\p{L}\p{N}\s.,!?]/gu, '');
+    
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    const langMap: Record<string, string> = { he: 'he-IL', en: 'en-US', fr: 'fr-FR', es: 'es-ES', ru: 'ru-RU' };
+    utterance.lang = langMap[currentLanguage] || 'he-IL';
+    
+    // Tweak to sound slightly more pleasant
+    utterance.pitch = 1.05;
+    utterance.rate = 1.0;
+    
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+    
+    window.speechSynthesis.speak(utterance);
+  }, [currentLanguage]);
 
   // ─── Search Logic ─────────────────────────────────────────────────────────
 
@@ -743,6 +837,16 @@ export function ChatWidget() {
       setMessages((prev) => [...prev, userMessage]);
       setInputValue('');
       setIsTyping(true);
+      
+      // Stop current speech if speaking
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        setIsSpeaking(false);
+      }
+      if (isListening && recognitionRef.current) {
+        recognitionRef.current.stop();
+        setIsListening(false);
+      }
 
       // Simulate a short "thinking" delay for natural feel
       setTimeout(() => {
@@ -777,9 +881,12 @@ export function ChatWidget() {
 
         setIsTyping(false);
         setMessages((prev) => [...prev, botMessage]);
+        
+        // Speak out the bot's response
+        speakText(botText);
       }, 600 + Math.random() * 400);
     },
-    [currentLanguage, findTopicByKeywords, searchProductsByName, t],
+    [currentLanguage, findTopicByKeywords, searchProductsByName, t, speakText, isListening],
   );
 
   const handleTopicClick = useCallback(
@@ -824,43 +931,57 @@ export function ChatWidget() {
             maxWidth: 'calc(100vw - 32px)',
             height: '520px',
             maxHeight: 'calc(100vh - 120px)',
-            background: 'white',
-            borderRadius: '16px',
-            boxShadow: '0 8px 40px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08)',
+            background: 'rgba(255, 255, 255, 0.85)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.5)',
+            borderRadius: '24px',
+            boxShadow: '0 12px 48px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.04)',
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
             zIndex: 9998,
             direction: isRTL ? 'rtl' : 'ltr',
-            animation: 'chatSlideUp 0.25s ease-out',
+            animation: 'chatSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         >
           {/* ── Header ──────────────────────────────────────────────── */}
           <div
             style={{
-              background: 'linear-gradient(135deg, #FF6B00 0%, #FF8C33 100%)',
-              padding: '14px 16px',
+              background: 'linear-gradient(135deg, rgba(255,107,0,0.95) 0%, rgba(255,140,51,0.95) 100%)',
+              padding: '16px 18px',
               display: 'flex',
               alignItems: 'center',
-              gap: '10px',
+              gap: '12px',
               flexShrink: 0,
             }}
           >
             {/* Bot avatar */}
             <div
               style={{
-                width: '36px',
-                height: '36px',
+                width: '40px',
+                height: '40px',
                 borderRadius: '50%',
                 background: 'rgba(255,255,255,0.25)',
+                boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.3)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexShrink: 0,
-                fontSize: '18px',
+                fontSize: '20px',
+                position: 'relative'
               }}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              {isSpeaking && (
+                <span style={{
+                  position: 'absolute',
+                  inset: -4,
+                  border: '2px solid rgba(255,255,255,0.8)',
+                  borderRadius: '50%',
+                  animation: 'pulse 1.5s infinite ease-out'
+                }} />
+              )}
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
               </svg>
@@ -870,7 +991,8 @@ export function ChatWidget() {
                 style={{
                   color: 'white',
                   fontWeight: 700,
-                  fontSize: '15px',
+                  fontSize: '16px',
+                  letterSpacing: '0.3px',
                   lineHeight: 1.2,
                 }}
               >
@@ -878,12 +1000,14 @@ export function ChatWidget() {
               </div>
               <div
                 style={{
-                  color: 'rgba(255,255,255,0.8)',
+                  color: 'rgba(255,255,255,0.85)',
                   fontSize: '12px',
+                  fontWeight: 500,
                   lineHeight: 1.3,
+                  marginTop: '2px'
                 }}
               >
-                {t.subtitle}
+                {t.subtitle} {isSpeaking && (currentLanguage === 'he' ? ' (מדבר...)' : ' (Speaking...)')}
               </div>
             </div>
             {/* Close button */}
@@ -892,7 +1016,7 @@ export function ChatWidget() {
               aria-label="Close chat"
               style={{
                 background: 'rgba(255,255,255,0.2)',
-                border: 'none',
+                border: '1px solid rgba(255,255,255,0.1)',
                 borderRadius: '50%',
                 width: '32px',
                 height: '32px',
@@ -900,17 +1024,19 @@ export function ChatWidget() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                transition: 'background 0.15s',
+                transition: 'background 0.2s, transform 0.1s',
                 flexShrink: 0,
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = 'rgba(255,255,255,0.35)';
+                e.currentTarget.style.transform = 'scale(1.05)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'rgba(255,255,255,0.2)';
+                e.currentTarget.style.transform = 'scale(1)';
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
@@ -922,11 +1048,11 @@ export function ChatWidget() {
             style={{
               flex: 1,
               overflowY: 'auto',
-              padding: '12px 14px',
+              padding: '16px 14px',
               display: 'flex',
               flexDirection: 'column',
-              gap: '10px',
-              background: '#FAFAFA',
+              gap: '12px',
+              background: 'transparent',
             }}
           >
             {messages.map((msg) => (
@@ -1107,13 +1233,13 @@ export function ChatWidget() {
           {/* ── Input Area ──────────────────────────────────────────── */}
           <div
             style={{
-              padding: '10px 12px',
-              borderTop: '1px solid #E5E7EB',
+              padding: '12px',
+              borderTop: '1px solid rgba(0,0,0,0.06)',
               display: 'flex',
               gap: '8px',
               alignItems: 'center',
               flexShrink: 0,
-              background: 'white',
+              background: 'rgba(255, 255, 255, 0.6)',
             }}
           >
             <input
@@ -1122,55 +1248,85 @@ export function ChatWidget() {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={t.placeholder}
+              placeholder={isListening ? (currentLanguage === 'he' ? 'מקשיב...' : 'Listening...') : t.placeholder}
               dir="auto"
               style={{
                 flex: 1,
-                border: '1px solid #E5E7EB',
-                borderRadius: '22px',
-                padding: '10px 16px',
-                fontSize: '14px',
+                border: '0',
+                borderRadius: '24px',
+                padding: '12px 16px',
+                fontSize: '14.5px',
                 outline: 'none',
-                transition: 'border-color 0.15s',
-                background: '#F9FAFB',
+                transition: 'box-shadow 0.2s',
+                background: 'rgba(255, 255, 255, 0.9)',
                 minHeight: '44px',
+                boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)'
               }}
               onFocus={(e) => {
-                e.currentTarget.style.borderColor = '#FF6B00';
-                e.currentTarget.style.background = 'white';
+                e.currentTarget.style.boxShadow = 'inset 0 1px 3px rgba(0,0,0,0.06), 0 0 0 2px rgba(255,107,0,0.3)';
               }}
               onBlur={(e) => {
-                e.currentTarget.style.borderColor = '#E5E7EB';
-                e.currentTarget.style.background = '#F9FAFB';
+                e.currentTarget.style.boxShadow = 'inset 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)';
               }}
             />
+            {/* Mic button */}
+            <button
+              onClick={toggleListening}
+              aria-label="Voice input"
+              style={{
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                border: 'none',
+                background: isListening ? '#EF4444' : 'rgba(255,255,255,0.9)',
+                color: isListening ? 'white' : '#6B7280',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                flexShrink: 0,
+                boxShadow: isListening ? '0 4px 12px rgba(239, 68, 68, 0.4)' : '0 2px 6px rgba(0,0,0,0.08)',
+                animation: isListening ? 'pulse 1.5s infinite ease-out' : 'none'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill={isListening ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                <line x1="12" x2="12" y1="19" y2="22" />
+              </svg>
+            </button>
+            {/* Send button */}
             <button
               onClick={() => handleSend(inputValue)}
               disabled={!inputValue.trim()}
               aria-label={t.send}
               style={{
-                width: '42px',
-                height: '42px',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
                 border: 'none',
                 background: inputValue.trim()
                   ? 'linear-gradient(135deg, #FF6B00, #FF8C33)'
-                  : '#E5E7EB',
+                  : 'rgba(255,255,255,0.7)',
                 color: inputValue.trim() ? 'white' : '#9CA3AF',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: inputValue.trim() ? 'pointer' : 'default',
-                transition: 'all 0.15s',
+                transition: 'all 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28)',
                 flexShrink: 0,
+                boxShadow: inputValue.trim() ? '0 4px 12px rgba(255,107,0,0.3)' : '0 2px 6px rgba(0,0,0,0.04)',
               }}
               onMouseEnter={(e) => {
                 if (inputValue.trim()) {
-                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.currentTarget.style.transform = 'scale(1.1) rotate(-5deg)';
                 }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.transform = 'scale(1) rotate(0)';
               }}
             >
               <svg
@@ -1183,7 +1339,7 @@ export function ChatWidget() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 style={{
-                  transform: isRTL ? 'rotate(180deg)' : 'none',
+                  transform: isRTL ? 'rotate(180deg) translateX(-2px)' : 'translateX(2px)',
                 }}
               >
                 <line x1="22" y1="2" x2="11" y2="13" />
@@ -1251,12 +1407,17 @@ export function ChatWidget() {
         @keyframes chatSlideUp {
           from {
             opacity: 0;
-            transform: translateY(16px) scale(0.97);
+            transform: translateY(20px) scale(0.95);
           }
           to {
             opacity: 1;
             transform: translateY(0) scale(1);
           }
+        }
+        @keyframes pulse {
+          0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+          70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
         @keyframes chatDot {
           0%, 60%, 100% {

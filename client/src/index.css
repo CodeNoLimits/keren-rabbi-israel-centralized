@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap');
+
 /* Font import removed - fonts are loaded via <link> in index.html with display=swap
    and media=print trick for non-blocking load. This eliminates a render-blocking CSS request.
    If additional fonts (Inter, Crimson Text) are needed, add them to index.html <link> tags. */
@@ -6,47 +8,59 @@
 @tailwind utilities;
 
 /* === OZ VEHADAR DESIGN SYSTEM === */
-/* Google Font Assistant (Hebrew-first, 6 weights) */
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap');
 
 body {
-  background: #FFFFFF !important;
-  color: #0F172A;
-  font-family: 'Assistant', system-ui, -apple-system, sans-serif;
+  background: #ffffff !important;
+  color: #0f172a;
+  font-family:
+    "Assistant",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 /* Apple-style thin scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
 
 /* Global Animation Classes */
 @layer utilities {
   .animate-hover-float {
     @apply transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-xl;
   }
-  
+
   .animate-hover-bounce {
     @apply transition-all duration-300 hover:scale-110 hover:-translate-y-1 hover:shadow-lg;
   }
-  
+
   .animate-hover-rotate {
     @apply transition-all duration-500 hover:rotate-3 hover:scale-105 hover:shadow-xl;
   }
-  
+
   .animate-hover-glow {
     @apply transition-all duration-300 hover:shadow-2xl hover:shadow-blue-300/50 hover:scale-105;
   }
-  
+
   .animate-interactive {
     @apply transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-lg active:scale-95;
   }
-  
+
   .animate-card-hover {
     @apply transition-all duration-500 hover:scale-105 hover:-translate-y-3 hover:rotate-1 hover:shadow-2xl;
   }
-  
+
   .animate-button-hover {
     @apply transition-all duration-300 hover:scale-110 hover:shadow-xl hover:-translate-y-1 active:scale-95;
   }
@@ -101,9 +115,10 @@ body {
 }
 
 /* === MOBILE SAFE-AREA ENFORCEMENT === */
-html, body {
+html,
+body {
   min-height: 100dvh;
-  background: #FFFFFF;
+  background: #ffffff;
   overflow-x: hidden;
 }
 
@@ -117,21 +132,21 @@ html, body {
   /* Orange (CTA/Prix) + Navy (Titres/Footer) + White (Fond) */
 
   /* Orange Keren Principal (CTA, prix, boutons) */
-  --primary-orange: #FF6B00;
-  --primary-orange-hover: #E65A00;
-  --primary-orange-light: #FFF0E5;
+  --primary-orange: #ff6b00;
+  --primary-orange-hover: #e65a00;
+  --primary-orange-light: #fff0e5;
 
   /* Legacy aliases for existing code */
-  --primary-blue: #FF6B00;
-  --primary-blue-dark: #E65A00;
-  --primary-blue-light: #FF8C3A;
+  --primary-blue: #ff6b00;
+  --primary-blue-dark: #e65a00;
+  --primary-blue-light: #ff8c3a;
 
   /* Navy Blue (Titres, footer, texte fort) */
-  --secondary-navy: #0F172A;
+  --secondary-navy: #0f172a;
   --secondary-navy-light: #334155;
   --teal-breslov: #334155;
-  --teal-breslov-light: #64748B;
-  --teal-breslov-dark: #0F172A;
+  --teal-breslov-light: #64748b;
+  --teal-breslov-dark: #0f172a;
 
   /* Gold Accent (subtle premium touches) */
   --gold-breslov: hsl(45, 90%, 55%);
@@ -139,51 +154,51 @@ html, body {
   --gold-breslov-muted: hsl(45, 40%, 85%);
 
   /* Backgrounds & Surfaces - Pure White */
-  --background: #FFFFFF;
-  --background-teal: #F8FAFC;
-  --background-blue: #FFFFFF;
+  --background: #ffffff;
+  --background-teal: #f8fafc;
+  --background-blue: #ffffff;
   --foreground: #334155;
 
   /* Cards & Containers */
-  --card: #FFFFFF;
-  --card-foreground: #0F172A;
-  --popover: #FFFFFF;
-  --popover-foreground: #0F172A;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
 
   /* Primary Colors - Orange Keren */
-  --primary: #FF6B00;
-  --primary-foreground: #FFFFFF;
+  --primary: #ff6b00;
+  --primary-foreground: #ffffff;
 
   /* Secondary & Muted */
-  --secondary: #F8FAFC;
-  --secondary-foreground: #0F172A;
-  --muted: #F1F5F9;
-  --muted-foreground: #64748B;
+  --secondary: #ffffff;
+  --secondary-foreground: #0f172a;
+  --muted: #ffffff;
+  --muted-foreground: #64748b;
 
   /* Accent - Orange */
-  --accent: #FF6B00;
-  --accent-foreground: #FFFFFF;
+  --accent: #ff6b00;
+  --accent-foreground: #ffffff;
   --gold-accent: hsl(45, 90%, 55%);
 
   /* Status Colors */
   --destructive: hsl(0, 70%, 55%);
-  --destructive-foreground: #FFFFFF;
+  --destructive-foreground: #ffffff;
   --success-green: hsl(150, 60%, 45%);
   --warning-amber: hsl(35, 90%, 55%);
 
   /* Borders & Inputs */
-  --border: #E2E8F0;
-  --input: #E2E8F0;
-  --ring: #FF6B00;
-  
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #ff6b00;
+
   /* Design System */
   --radius: 0.75rem;
-  
+
   /* Typography Fonts */
-  --font-hebrew: 'Rubik', 'Assistant', 'Heebo', sans-serif;
-  --font-latin: 'Assistant', 'Inter', 'Segoe UI', system-ui, sans-serif;
-  --font-serif: 'Crimson Text', 'Playfair Display', serif;
-  
+  --font-hebrew: "Rubik", "Assistant", "Heebo", sans-serif;
+  --font-latin: "Assistant", "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-serif: "Crimson Text", "Playfair Display", serif;
+
   /* Typography Sizes - Oversized Modern */
   --heading-1: clamp(3.5rem, 8vw, 6rem);
   --heading-2: clamp(2.5rem, 6vw, 4rem);
@@ -195,23 +210,23 @@ html, body {
 
 /* === FONT HEBREW DISPLAY CLASS === */
 .font-hebrew-display {
-  font-family: 'Rubik', 'Assistant', 'Heebo', sans-serif;
+  font-family: "Rubik", "Assistant", "Heebo", sans-serif;
   font-weight: 700;
 }
 
 /* === DYNAMIC FONTS PER LANGUAGE === */
 [lang="he"] body {
-  font-family: 'Rubik', 'Assistant', sans-serif;
+  font-family: "Rubik", "Assistant", sans-serif;
 }
 
 [lang="fr"] body,
 [lang="en"] body,
 [lang="es"] body {
-  font-family: 'Assistant', sans-serif;
+  font-family: "Assistant", sans-serif;
 }
 
 [lang="ru"] body {
-  font-family: 'Assistant', 'Roboto', sans-serif;
+  font-family: "Assistant", "Roboto", sans-serif;
 }
 
 /* === LINK COLORS - Scoped to content areas === */
@@ -226,7 +241,7 @@ main td a,
 .footer-section a:not(:hover) ~ false-never-match,
 section p a,
 section li a {
-  color: #2563EB;
+  color: #2563eb;
   text-decoration: none;
 }
 
@@ -240,15 +255,24 @@ main td a:hover,
 .category-card a:hover,
 section p a:hover,
 section li a:hover {
-  color: #1D4ED8;
+  color: #1d4ed8;
   text-decoration: underline;
 }
 
 /* Apple Store scrollbar */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #f1f1f1; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
 
 @layer base {
   * {
@@ -256,18 +280,20 @@ section li a:hover {
   }
 
   html {
-    font-family: var(--font-hebrew);
+    font-family: "Assistant", var(--font-hebrew);
     scroll-behavior: smooth;
   }
-  
+
   body {
-    @apply bg-background text-foreground;
-    font-family: var(--font-hebrew);
+    background: #ffffff !important;
+    color: var(--foreground);
+    @apply text-foreground;
+    font-family: "Assistant", var(--font-hebrew);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   /* Typography Oversized Headers */
   h1 {
     font-size: var(--heading-1);
@@ -275,43 +301,43 @@ section li a:hover {
     line-height: 1.1;
     letter-spacing: -0.025em;
   }
-  
+
   h2 {
     font-size: var(--heading-2);
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.02em;
   }
-  
+
   h3 {
     font-size: var(--heading-3);
     font-weight: 600;
     line-height: 1.3;
   }
-  
+
   h4 {
     font-size: var(--heading-4);
     font-weight: 600;
     line-height: 1.4;
   }
-  
+
   /* Body Text Improvements */
   p {
     font-size: var(--body-regular);
     line-height: 1.7;
     margin-bottom: 1rem;
   }
-  
+
   .text-large {
     font-size: var(--body-large);
     line-height: 1.6;
   }
-  
+
   /* Premium Link Styles */
   a {
     transition: all 0.2s ease-in-out;
   }
-  
+
   a:hover {
     color: var(--primary-blue);
   }
@@ -327,7 +353,7 @@ section li a:hover {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  
+
   .animate-float,
   .animate-fade-in-up,
   .animate-slide-in-left,
@@ -345,7 +371,7 @@ section li a:hover {
   section[style*="background-attachment: fixed"] {
     background-attachment: scroll !important;
   }
-  
+
   /* Reduce backdrop filter blur on smaller screens */
   .card-premium[style*="backdrop-filter"],
   [style*="backdrop-filter"] {
@@ -359,12 +385,12 @@ section li a:hover {
   [style*="backdrop-filter"] {
     backdrop-filter: blur(3px) !important;
   }
-  
+
   /* Simplify box shadows on mobile */
   .card-premium,
   .btn-breslov-primary,
   .btn-breslov-secondary {
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
   }
 }
 
@@ -373,9 +399,9 @@ section li a:hover {
   .card-premium[style*="backdrop-filter"],
   [style*="backdrop-filter"] {
     backdrop-filter: none !important;
-    background: rgba(255,255,255,0.95) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
   }
-  
+
   /* Reduce animations on very small screens */
   .card-hover:hover {
     transform: none !important;
@@ -387,7 +413,11 @@ section li a:hover {
 /* Premium Cards - Harmonie Analogique */
 .card-premium {
   @apply bg-card border border-border rounded-xl shadow-sm hover:shadow-lg transition-all duration-300;
-  background: linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(180, 30%, 99%) 100%);
+  background: linear-gradient(
+    135deg,
+    hsl(0, 0%, 100%) 0%,
+    hsl(180, 30%, 99%) 100%
+  );
   border-color: hsl(180, 25%, 92%);
 }
 
@@ -402,44 +432,64 @@ section li a:hover {
   @apply bg-primary text-primary-foreground px-8 py-4 rounded-xl font-semibold;
   @apply hover:opacity-90 transition-all duration-200;
   @apply shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
-  background: linear-gradient(135deg, hsl(210, 85%, 45%) 0%, hsl(180, 85%, 40%) 100%);
+  background: linear-gradient(
+    135deg,
+    hsl(210, 85%, 45%) 0%,
+    hsl(180, 85%, 40%) 100%
+  );
 }
 
 .btn-breslov-secondary {
   @apply bg-secondary text-secondary-foreground px-8 py-4 rounded-xl font-semibold;
   @apply hover:bg-slate-50 transition-all duration-200;
   @apply border border-border;
-  background: linear-gradient(135deg, hsl(180, 30%, 98%) 0%, hsl(210, 30%, 98%) 100%);
+  background: linear-gradient(
+    135deg,
+    hsl(180, 30%, 98%) 0%,
+    hsl(210, 30%, 98%) 100%
+  );
   border-color: hsl(180, 25%, 88%);
 }
 
 .btn-breslov-secondary:hover {
   border-color: hsl(180, 45%, 75%);
-  background: linear-gradient(135deg, hsl(180, 35%, 96%) 0%, hsl(210, 35%, 96%) 100%);
+  background: linear-gradient(
+    135deg,
+    hsl(180, 35%, 96%) 0%,
+    hsl(210, 35%, 96%) 100%
+  );
 }
 
 /* Bouton Accent Or - Premium */
 .btn-breslov-gold {
   @apply px-8 py-4 rounded-xl font-semibold text-white transition-all duration-200;
   @apply shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
-  background: linear-gradient(135deg, hsl(210, 90%, 55%) 0%, hsl(180, 85%, 50%) 100%);
+  background: linear-gradient(
+    135deg,
+    hsl(210, 90%, 55%) 0%,
+    hsl(180, 85%, 50%) 100%
+  );
 }
 
 .btn-breslov-gold:hover {
-  background: linear-gradient(135deg, hsl(210, 95%, 50%) 0%, hsl(180, 90%, 45%) 100%);
+  background: linear-gradient(
+    135deg,
+    hsl(210, 95%, 50%) 0%,
+    hsl(180, 90%, 45%) 100%
+  );
 }
 
 /* Surfaces Harmonieuses - Remplacer warm gradients */
 .section-surface {
-  background: linear-gradient(135deg, var(--background-blue) 0%, var(--background-teal) 100%);
+  background: #ffffff !important;
 }
 
 .section-surface-strong {
-  background: linear-gradient(135deg, hsl(210, 30%, 96%) 0%, hsl(180, 30%, 96%) 100%);
+  background: #ffffff !important;
 }
 
 .hero-surface {
-  background: linear-gradient(135deg, hsl(0, 0%, 100%) 0%, hsl(180, 30%, 98%) 50%, hsl(210, 30%, 98%) 100%);
+  background: #ffffff !important;
 }
 
 /* Utilities Gold/Teal - Harmonisation complète */
@@ -466,14 +516,22 @@ section li a:hover {
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.025em;
-  background: linear-gradient(135deg, hsl(210, 8%, 25%) 0%, hsl(210, 85%, 45%) 100%);
+  background: linear-gradient(
+    135deg,
+    hsl(210, 8%, 25%) 0%,
+    hsl(210, 85%, 45%) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-breslov-gradient {
-  background: linear-gradient(135deg, hsl(210, 85%, 45%) 0%, hsl(180, 100%, 50%) 100%);
+  background: linear-gradient(
+    135deg,
+    hsl(210, 85%, 45%) 0%,
+    hsl(180, 100%, 50%) 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -481,21 +539,29 @@ section li a:hover {
 
 /* Hero Section Backgrounds - Pure Cool Palette */
 .hero-gradient {
-  background: linear-gradient(135deg, 
-    hsl(0, 0%, 100%) 0%, 
-    hsl(210, 30%, 98%) 30%, 
-    hsl(180, 30%, 98%) 100%);
+  background: linear-gradient(
+    135deg,
+    hsl(0, 0%, 100%) 0%,
+    hsl(210, 30%, 98%) 30%,
+    hsl(180, 30%, 98%) 100%
+  );
 }
 
 .hero-overlay {
-  background: linear-gradient(135deg, 
-    hsl(0, 0%, 100%, 0.95) 0%, 
-    hsl(210, 85%, 45%, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    hsl(0, 0%, 100%, 0.95) 0%,
+    hsl(210, 85%, 45%, 0.05) 100%
+  );
 }
 
 /* Animations Premium */
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
   40% {
@@ -523,7 +589,8 @@ section li a:hover {
 
 /* Yaakov Page Animations */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -597,7 +664,12 @@ section li a:hover {
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, var(--primary-blue), var(--accent), var(--gold-accent));
+  background: linear-gradient(
+    135deg,
+    var(--primary-blue),
+    var(--accent),
+    var(--gold-accent)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -610,7 +682,9 @@ section li a:hover {
 
 .card-hover:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Progress bar animation */
@@ -620,13 +694,18 @@ section li a:hover {
 }
 
 .progress-bar::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   animation: shine 2s ease-in-out infinite;
 }
 
@@ -655,7 +734,7 @@ section li a:hover {
   align-items: center;
   padding: 0.6rem 1rem 0.4rem 1rem;
   gap: 1rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* BOTTOM ROW - Basic Navigation + User Actions */
@@ -728,11 +807,14 @@ section li a:hover {
 }
 
 /* Navigation Link Styles */
-.nav-menu li a, .nav-menu-special li a {
+.nav-menu li a,
+.nav-menu-special li a {
   color: white;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease, font-weight 0.3s ease;
+  transition:
+    color 0.3s ease,
+    font-weight 0.3s ease;
 }
 
 .nav-menu li a:hover,
@@ -766,12 +848,12 @@ section li a:hover {
 }
 
 .language-btn.active {
-  background: rgba(255,255,255,0.2);
-  border-color: rgba(255,255,255,0.5);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .language-btn:hover:not(.active) {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .header-actions {
@@ -866,7 +948,7 @@ section li a:hover {
 
 .mobile-nav .nav-menu li a:hover,
 .mobile-nav .nav-menu li.current-menu-item a {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   color: #ffc107;
 }
 
@@ -876,15 +958,17 @@ section li a:hover {
   .header-container-bottom {
     flex-wrap: wrap;
   }
-  
-  .nav-menu, .nav-menu-special {
+
+  .nav-menu,
+  .nav-menu-special {
     gap: 1rem;
   }
-  
-  .nav-menu li a, .nav-menu-special li a {
+
+  .nav-menu li a,
+  .nav-menu-special li a {
     font-size: 0.9rem;
   }
-  
+
   .header-container {
     flex-wrap: wrap;
   }
@@ -899,52 +983,52 @@ section li a:hover {
     flex-wrap: nowrap;
     align-items: center;
   }
-  
+
   .header-logo {
     order: 1;
     flex-shrink: 0;
   }
-  
+
   .header-logo img {
     height: 60px;
   }
-  
+
   .header-nav-special {
     order: 2;
     flex: 1;
     display: flex;
     justify-content: center;
   }
-  
+
   .nav-menu-special {
     gap: 0.8rem;
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .mobile-menu-toggle {
     display: block;
     order: 3;
     flex-shrink: 0;
   }
-  
+
   /* Bottom Row - Mobile Layout */
   .header-container-bottom {
     padding: 0.4rem 0.5rem 0.8rem 0.5rem;
     gap: 0.8rem;
     flex-wrap: wrap;
   }
-  
+
   .header-nav {
     order: 5;
     width: 100%;
     display: none; /* Hidden by default on mobile */
   }
-  
+
   .header-nav .nav-menu {
     display: none; /* Hide desktop nav on mobile */
   }
-  
+
   .header-actions {
     gap: 0.8rem;
     order: 1;
@@ -952,25 +1036,25 @@ section li a:hover {
     display: flex;
     justify-content: space-between;
   }
-  
+
   .language-selector {
     gap: 0.3rem;
     flex-shrink: 0;
   }
-  
+
   .language-btn {
     padding: 0.2rem 0.4rem;
     font-size: 0.8rem;
   }
-  
+
   .language-btn span:last-child {
     display: none; /* Hide text on mobile, show only flags */
   }
-  
+
   .fire-logo {
     font-size: 1.2rem;
   }
-  
+
   /* Legacy container for compatibility */
   .header-container {
     padding: 0 0.5rem;
@@ -993,15 +1077,15 @@ section li a:hover {
     padding: 0.5rem;
     align-items: center;
   }
-  
+
   .header-logo {
     grid-area: logo;
   }
-  
+
   .header-logo img {
     height: 50px;
   }
-  
+
   .header-actions {
     grid-area: actions;
     justify-self: start;
@@ -1009,21 +1093,21 @@ section li a:hover {
     display: flex;
     align-items: center;
   }
-  
+
   .language-selector {
     grid-area: language;
     justify-self: end;
   }
-  
+
   .mobile-menu-toggle {
     grid-area: menu;
     justify-self: end;
   }
-  
+
   .mobile-nav {
     grid-area: mobile-nav;
   }
-  
+
   .fire-logo {
     font-size: 1rem;
   }
@@ -1092,16 +1176,16 @@ section li a:hover {
       "menu language actions logo"
       "mobile-nav mobile-nav mobile-nav mobile-nav";
   }
-  
+
   [dir="rtl"] .header-actions {
     justify-self: end;
     flex-direction: row;
   }
-  
+
   [dir="rtl"] .language-selector {
     justify-self: start;
   }
-  
+
   [dir="rtl"] .mobile-menu-toggle {
     justify-self: start;
   }
@@ -1160,7 +1244,7 @@ section li a:hover {
 /* Header styles */
 .main-header {
   background: #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -1219,13 +1303,15 @@ section li a:hover {
   background: white;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .book-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .book-card img {
@@ -1284,7 +1370,7 @@ section li a:hover {
   padding: 2rem;
   border-radius: 10px;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 /* Footer styles */
@@ -1329,25 +1415,25 @@ section li a:hover {
   .elementor-hidden-tablet {
     display: none;
   }
-  
+
   .elementor-nav-menu {
     display: none;
   }
-  
+
   .hero-section {
     min-height: 60vh;
     text-align: center;
   }
-  
+
   .books-grid {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
   }
-  
+
   .services-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .categories-grid {
     grid-template-columns: 1fr;
   }
@@ -1382,6 +1468,11 @@ p {
 }
 
 /* Améliorer le contraste général */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: hsl(210, 15%, 20%);
 }

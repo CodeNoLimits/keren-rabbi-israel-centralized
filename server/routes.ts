@@ -925,7 +925,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const response = await chatWithGemini(chatRequest);
 
       // רישום השיחה (אופציונלי)
-      if (req.isAuthenticated() && response.conversationId) {
+      if (req.isAuthenticated && req.isAuthenticated() && response.conversationId) {
         console.log(`Chat session for user ${req.user.id}: ${response.conversationId}, sentiment: ${sentiment.sentiment}`);
       }
 
@@ -933,7 +933,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ...response,
         sentiment,
         timestamp: new Date(),
-        userId: req.isAuthenticated() ? req.user.id : null
+        userId: (req.isAuthenticated && req.isAuthenticated()) ? req.user.id : null
       });
 
     } catch (error: any) {

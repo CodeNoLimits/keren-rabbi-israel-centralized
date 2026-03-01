@@ -9,6 +9,7 @@ import { realBreslovProducts } from '../data/products';
 import { getInterfaceDisplayTitle } from '../utils/bookTitleHelper';
 import { convertImagePath } from '../utils/imagePathHelper';
 import type { Product } from '../../../shared/schema';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Lazy section: renders children only when near viewport
 function LazySection({ children, rootMargin = '200px' }: { children: ReactNode; rootMargin?: string }) {
@@ -139,10 +140,10 @@ export default function Home() {
   return (
     <main className="rtl home page-template-default page page-id-13" style={{direction: isRTL ? 'rtl' : 'ltr', background: '#FFFFFF'}}>
       {/* TOP BAR */}
-      <section style={{background: '#FF6B00', color: 'white', padding: '8px 0'}}>
-        <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
-          <ul style={{display: 'flex', gap: '1rem', listStyle: 'none', margin: 0, padding: 0, justifyContent: 'center'}}>
-            <li style={{display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem'}}>
+      <section className="bg-orange-500 text-white py-2">
+        <div className="max-w-7xl mx-auto px-8">
+          <ul className="flex gap-4 justify-center m-0 p-0 text-sm">
+            <li className="flex items-center gap-2">
               <span>&#x1F69A;</span>
               <span>
                 {ml(currentLanguage, {
@@ -164,43 +165,12 @@ export default function Home() {
       {/* HERO SECTION - Minimalist & Powerful         */}
       {/* Task 53: Jerusalem/Kotel Background Elements */}
       {/* ============================================ */}
-      <section style={{
-        background: '#FFFFFF',
-        backgroundImage: 'url("/images/jerusalem-skyline.svg")',
-        backgroundSize: 'contain',
-        backgroundPosition: 'bottom center',
-        backgroundRepeat: 'no-repeat',
-        padding: '6rem 0',
-        minHeight: '60vh',
-        display: 'flex',
-        alignItems: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-        borderBottom: '1px solid #f1f5f9',
-      }}>
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.4) 100%)',
-          zIndex: 0
-        }} />
-        <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', width: '100%', position: 'relative', zIndex: 1}}>
-          <div className="hero-grid" style={{
-            display: 'grid',
-            gridTemplateColumns: isRTL ? '1fr 1.2fr' : '1.2fr 1fr',
-            gap: '4rem',
-            alignItems: 'center',
-          }}>
-            <div style={{order: isRTL ? 1 : 0}}>
-              <h1 style={{
-                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-                fontWeight: '900',
-                marginBottom: '1.5rem',
-                lineHeight: '1.1',
-                color: '#0F172A',
-                fontFamily: isRTL ? 'var(--font-hebrew)' : 'var(--font-latin)',
-                letterSpacing: '-0.02em',
-              }}>
+      <section className="bg-white bg-[url('/images/jerusalem-skyline.svg')] bg-[length:contain] bg-bottom bg-no-repeat py-24 min-h-[60vh] flex items-center relative overflow-hidden border-b border-slate-100">
+        <div className="absolute inset-0 bg-gradient-to-b from-white/90 to-white/40 z-0" />
+        <div className="max-w-7xl mx-auto px-8 w-full relative z-10">
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-16 items-center ${isRTL ? 'md:grid-cols-[1fr_1.2fr]' : 'md:grid-cols-[1.2fr_1fr]'}`}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className={isRTL ? 'order-2 md:order-2' : 'order-1 md:order-1'}>
+              <h1 className={`text-clamp-hero font-black mb-6 leading-tight text-slate-900 tracking-tight ${isRTL ? 'font-hebrew' : 'font-latin'}`} style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
                 {ml(currentLanguage, {
                   he: '\u05D4\u05D0\u05E9 \u05E9\u05DC\u05D9',
                   en: 'My Fire',
@@ -208,7 +178,7 @@ export default function Home() {
                   es: 'Mi Fuego',
                   ru: '\u041C\u043E\u0439 \u041E\u0433\u043E\u043D\u044C',
                 })}
-                <span style={{display: 'block', color: '#FF6B00', fontSize: '0.6em', marginTop: '0.5rem'}}>
+                <span className="block text-orange-500 text-[0.6em] mt-2">
                   {ml(currentLanguage, {
                     he: '\u05D4\u05E4\u05E6\u05EA \u05E1\u05E4\u05E8\u05D9 \u05D1\u05E8\u05E1\u05DC\u05D1',
                     en: 'Spreading Breslov Books',
@@ -218,14 +188,7 @@ export default function Home() {
                   })}
                 </span>
               </h1>
-              <p style={{
-                fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
-                fontWeight: '400',
-                marginBottom: '2.5rem',
-                color: '#475569',
-                lineHeight: '1.6',
-                fontFamily: isRTL ? 'var(--font-hebrew)' : 'var(--font-serif)',
-              }}>
+              <p className={`text-clamp-base mb-10 text-slate-600 leading-relaxed max-w-xl ${isRTL ? 'font-hebrew' : 'font-serif'}`}>
                 {ml(currentLanguage, {
                   he: '\u05D7\u05E0\u05D5\u05EA \u05D4\u05E1\u05E4\u05E8\u05D9\u05DD \u05D4\u05DE\u05D5\u05D1\u05D9\u05DC\u05D4 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1. \u05DE\u05E7\u05D5\u05DD \u05E9\u05D1\u05D5 \u05DB\u05DC \u05E0\u05E9\u05DE\u05D4 \u05DE\u05D5\u05E6\u05D0\u05EA \u05D0\u05EA \u05D4\u05D3\u05E8\u05DA \u05E9\u05DC\u05D4.',
                   en: 'The leading bookstore of Rabbi Nachman of Breslov. A place where every soul finds its way.',
@@ -234,20 +197,9 @@ export default function Home() {
                   ru: '\u0412\u0435\u0434\u0443\u0449\u0438\u0439 \u043A\u043D\u0438\u0436\u043D\u044B\u0439 \u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0420\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430. \u041C\u0435\u0441\u0442\u043E, \u0433\u0434\u0435 \u043A\u0430\u0436\u0434\u0430\u044F \u0434\u0443\u0448\u0430 \u043D\u0430\u0445\u043E\u0434\u0438\u0442 \u0441\u0432\u043E\u0439 \u043F\u0443\u0442\u044C.',
                 })}
               </p>
-              <div style={{display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'center'}}>
-                <a href="/store" style={{textDecoration: 'none'}}>
-                  <button data-testid="button-enter-store" style={{
-                    background: '#FF6B00',
-                    color: '#FFFFFF',
-                    border: 'none',
-                    padding: '1.1rem 3rem',
-                    borderRadius: '12px',
-                    cursor: 'pointer',
-                    fontSize: '1.1rem',
-                    fontWeight: '700',
-                    boxShadow: '0 6px 20px rgba(255,107,0,0.3)',
-                    transition: 'all 0.3s ease',
-                  }}>
+              <div className="flex gap-6 flex-wrap items-center">
+                <a href="/store" className="no-underline">
+                  <button data-testid="button-enter-store" className="bg-orange-500 hover:bg-orange-600 text-white border-0 py-4 px-12 rounded-xl cursor-pointer text-lg font-bold shadow-[0_6px_20px_rgba(255,107,0,0.3)] transition-all hover:-translate-y-1">
                     {ml(currentLanguage, {
                       he: '\u05DB\u05E0\u05E1 \u05DC\u05D7\u05E0\u05D5\u05EA',
                       en: 'Enter Store',
@@ -257,18 +209,8 @@ export default function Home() {
                     })}
                   </button>
                 </a>
-                <a href="/join" style={{textDecoration: 'none'}}>
-                  <button data-testid="button-discover-activities" style={{
-                    background: 'transparent',
-                    color: '#FF6B00',
-                    border: '2px solid #FF6B00',
-                    padding: '1.1rem 3rem',
-                    borderRadius: '12px',
-                    cursor: 'pointer',
-                    fontSize: '1.1rem',
-                    fontWeight: '700',
-                    transition: 'all 0.3s ease',
-                  }}>
+                <a href="/join" className="no-underline">
+                  <button data-testid="button-discover-activities" className="bg-transparent text-orange-500 border-2 border-orange-500 hover:bg-orange-50 py-4 px-12 rounded-xl cursor-pointer text-lg font-bold transition-all">
                     {ml(currentLanguage, {
                       he: '\u05EA\u05E8\u05D5\u05DE\u05D4 \u05DC\u05E7\u05E8\u05DF',
                       en: 'Donate to the Fund',
@@ -279,17 +221,10 @@ export default function Home() {
                   </button>
                 </a>
               </div>
-            </div>
+            </motion.div>
 
             {/* Hero image - clean book composition */}
-            <div style={{
-              order: isRTL ? 0 : 1,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              position: 'relative',
-              minHeight: '400px',
-            }}>
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.2 }} className={`flex justify-center items-center relative min-h-[300px] md:min-h-[400px] ${isRTL ? 'order-1 md:order-1' : 'order-2 md:order-2'}`}>
               <img
                 src="/images/book-1.webp"
                 alt={ml(currentLanguage, {he: 'ספרי רבי נחמן', en: 'Rabbi Nachman Books', fr: 'Livres de Rabbi Nachman', es: 'Libros de Rabí Nachman', ru: 'Книги Рабби Нахмана'})}
@@ -297,45 +232,21 @@ export default function Home() {
                 height="380"
                 fetchPriority="high"
                 decoding="async"
-                style={{
-                  maxWidth: '380px',
-                  width: '100%',
-                  height: 'auto',
-                  borderRadius: '16px',
-                  boxShadow: '0 30px 80px rgba(0,0,0,0.15)',
-                }}
+                className="max-w-[380px] w-full h-auto rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,0.15)]"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
-
-        {/* Responsive: stack on mobile */}
-        <style>{`
-          @media (max-width: 768px) {
-            .hero-grid {
-              grid-template-columns: 1fr !important;
-            }
-            .hero-grid > div:last-child {
-              min-height: 200px !important;
-            }
-          }
-        `}</style>
       </section>
 
       {/* ============================================ */}
       {/* NOUVEAUTES CAROUSEL                          */}
       {/* ============================================ */}
-      <section style={{background: '#FFFFFF', padding: '5rem 0'}}>
-        <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
+      <section className="bg-slate-50 py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 relative">
           {/* Section title */}
-          <div style={{textAlign: 'center', marginBottom: '2.5rem'}}>
-            <h2 style={{
-              fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
-              fontWeight: '700',
-              color: 'hsl(210, 25%, 20%)',
-              marginBottom: '0.5rem',
-              fontFamily: isRTL ? 'var(--font-hebrew)' : 'var(--font-serif)',
-            }}>
+          <div className="text-center mb-10">
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className={`text-3xl md:text-5xl font-bold text-slate-800 mb-2 ${isRTL ? 'font-hebrew' : 'font-serif'}`}>
               {ml(currentLanguage, {
                 he: '\u05D7\u05D3\u05E9 \u05D1\u05D7\u05E0\u05D5\u05EA',
                 en: 'New Arrivals',
@@ -343,12 +254,12 @@ export default function Home() {
                 es: 'Novedades',
                 ru: '\u041D\u043E\u0432\u0438\u043D\u043A\u0438',
               })}
-            </h2>
-            <div style={{width: '60px', height: '3px', background: '#FF6B00', margin: '1rem auto 0', borderRadius: '2px'}} />
+            </motion.h2>
+            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-orange-500 mx-auto mt-4 rounded-full" />
           </div>
 
           {/* Carousel container */}
-          <div style={{position: 'relative'}}
+          <div className="relative group/carousel w-full"
             onMouseEnter={pauseAutoScroll}
             onMouseLeave={resumeAutoScroll}
           >
@@ -357,28 +268,7 @@ export default function Home() {
               onClick={() => scrollCarousel('left')}
               disabled={!canScrollLeft}
               aria-label="Previous"
-              style={{
-                position: 'absolute',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                left: isRTL ? 'auto' : '-16px',
-                right: isRTL ? '-16px' : 'auto',
-                zIndex: 10,
-                width: '44px',
-                height: '44px',
-                borderRadius: '50%',
-                background: '#FFFFFF',
-                border: '1px solid hsl(210, 20%, 90%)',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                cursor: canScrollLeft ? 'pointer' : 'default',
-                opacity: canScrollLeft ? 1 : 0.3,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'opacity 0.2s, box-shadow 0.2s',
-                fontSize: '1.2rem',
-                color: 'hsl(210, 25%, 30%)',
-              }}
+              className={`absolute top-[45%] -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-2xl text-slate-700 transition-all ${canScrollLeft ? 'opacity-100 cursor-pointer hover:bg-slate-50' : 'opacity-0 pointer-events-none'} ${isRTL ? '-right-6' : '-left-6'} hidden md:flex`}
             >
               {isRTL ? '\u203A' : '\u2039'}
             </button>
@@ -388,28 +278,7 @@ export default function Home() {
               onClick={() => scrollCarousel('right')}
               disabled={!canScrollRight}
               aria-label="Next"
-              style={{
-                position: 'absolute',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                right: isRTL ? 'auto' : '-16px',
-                left: isRTL ? '-16px' : 'auto',
-                zIndex: 10,
-                width: '44px',
-                height: '44px',
-                borderRadius: '50%',
-                background: '#FFFFFF',
-                border: '1px solid hsl(210, 20%, 90%)',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-                cursor: canScrollRight ? 'pointer' : 'default',
-                opacity: canScrollRight ? 1 : 0.3,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'opacity 0.2s, box-shadow 0.2s',
-                fontSize: '1.2rem',
-                color: 'hsl(210, 25%, 30%)',
-              }}
+              className={`absolute top-[45%] -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white border border-slate-200 shadow-md flex items-center justify-center text-2xl text-slate-700 transition-all ${canScrollRight ? 'opacity-100 cursor-pointer hover:bg-slate-50' : 'opacity-0 pointer-events-none'} ${isRTL ? '-left-6' : '-right-6'} hidden md:flex`}
             >
               {isRTL ? '\u2039' : '\u203A'}
             </button>
@@ -417,22 +286,9 @@ export default function Home() {
             {/* Scrollable row */}
             <div
               ref={carouselRef}
-              className="nouveautes-scroll"
-              style={{
-                display: 'flex',
-                gap: '1rem',
-                overflowX: 'auto',
-                scrollSnapType: 'x mandatory',
-                scrollBehavior: 'smooth',
-                padding: '0.5rem 0 1rem',
-                msOverflowStyle: 'none',
-                scrollbarWidth: 'none',
-              }}
+              className="flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 pt-2 hide-scrollbar ps-2 pe-2"
             >
-              <style>{`
-                .nouveautes-scroll::-webkit-scrollbar { display: none; }
-              `}</style>
-              {nouveautesProducts.map((product) => {
+              {nouveautesProducts.map((product, idx) => {
                 const imgSrc = product.images?.[0] ? convertImagePath(product.images[0]) : '';
                 const title = getInterfaceDisplayTitle(product as Product, currentLanguage);
                 const price = getLowestPrice(product as Product);
@@ -440,76 +296,37 @@ export default function Home() {
                 const lang = product.language || '';
                 const descriptiveAlt = [title, author, lang].filter(Boolean).join(' - ');
                 return (
-                  <article
+                  <motion.article
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.1 }}
                     key={product.id}
                     data-carousel-card
-                    style={{
-                      flex: '0 0 calc(25% - 0.75rem)',
-                      minWidth: '220px',
-                      scrollSnapAlign: 'start',
-                      background: '#FFFFFF',
-                      borderRadius: '12px',
-                      overflow: 'hidden',
-                      boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                      cursor: 'pointer',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateY(-4px)';
-                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.1)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)';
-                    }}
+                    className="flex-none w-[220px] sm:w-[260px] snap-start bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer flex flex-col group relative"
                   >
-                    <Link href={`/product/${product.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                      <div style={{
-                        width: '100%', 
-                        height: '200px', 
-                        overflow: 'hidden', 
-                        background: '#f8f9fa',
-                        backgroundImage: 'url("/images/jerusalem-skyline.svg")',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'bottom center'
-                      }}>
+                    <Link href={`/product/${product.id}`} className="no-underline text-inherit flex-1 flex flex-col">
+                      <div className="w-full h-[220px] sm:h-[260px] overflow-hidden bg-slate-50 bg-[url('/images/jerusalem-skyline.svg')] bg-cover bg-bottom flex items-center justify-center relative select-none">
                         {imgSrc ? (
                           <img
                             loading="lazy"
                             decoding="async"
-                            width="220"
-                            height="200"
                             src={imgSrc}
                             alt={descriptiveAlt}
-                            style={{width: '100%', height: '100%', objectFit: 'cover', mixBlendMode: 'multiply'}}
-                            onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
+                            className="w-full h-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
+                            onError={(e) => { e.currentTarget.outerHTML = `<div class="w-full h-full flex items-center justify-center text-5xl bg-slate-100 text-slate-300">📖</div>`; }}
                           />
                         ) : (
-                          <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', position: 'relative', zIndex: 1}}>
-                            &#128214;
-                          </div>
+                          <div className="w-full h-full flex items-center justify-center text-5xl relative z-10">&#128214;</div>
                         )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
                       </div>
-                      <div style={{padding: '1rem'}}>
-                        <h3 style={{
-                          fontSize: '0.95rem',
-                          fontWeight: '600',
-                          color: 'hsl(210, 25%, 20%)',
-                          marginBottom: '0.4rem',
-                          lineHeight: '1.3',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap',
-                        }}>
+                      <div className="p-4 flex flex-col flex-1">
+                        <h3 className="text-[15px] sm:text-[16px] font-semibold text-slate-800 mb-1 leading-snug line-clamp-2">
                           {title}
                         </h3>
                         {price && (
-                          <p style={{
-                            fontSize: '0.9rem',
-                            fontWeight: '700',
-                            color: '#FF6B00',
-                            marginBottom: '0.75rem',
-                          }}>
+                          <p className="text-[14px] sm:text-[15px] font-bold text-orange-600 mt-2">
                             {ml(currentLanguage, { he: '\u05D4\u05D7\u05DC \u05DE-', en: 'From ', fr: '\u00C0 partir de ', es: 'Desde ', ru: '\u041E\u0442 ' })}{price}
                           </p>
                         )}
@@ -517,25 +334,14 @@ export default function Home() {
                     </Link>
                     {/* Quick Add button */}
                     {product.variants && product.variants.length > 0 && (
-                      <div style={{padding: '0 1rem 1rem'}}>
+                      <div className="px-4 pb-4 mt-auto">
                         <button
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
                             handleQuickAdd(product as Product);
                           }}
-                          style={{
-                            width: '100%',
-                            background: '#FF6B00',
-                            color: '#FFFFFF',
-                            border: 'none',
-                            padding: '0.6rem',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            fontSize: '0.85rem',
-                            fontWeight: '600',
-                            transition: 'background 0.2s ease',
-                          }}
+                          className="w-full bg-orange-100 hover:bg-orange-500 text-orange-600 hover:text-white border-0 py-2.5 rounded-lg cursor-pointer text-sm font-bold transition-all duration-200 active:scale-95"
                         >
                           {ml(currentLanguage, {
                             he: '\u05D4\u05D5\u05E1\u05E3 \u05DE\u05D4\u05D9\u05E8',
@@ -547,38 +353,23 @@ export default function Home() {
                         </button>
                       </div>
                     )}
-                  </article>
+                  </motion.article>
                 );
               })}
             </div>
           </div>
-
-          {/* Responsive: 2 cards on mobile */}
-          <style>{`
-            @media (max-width: 768px) {
-              [data-carousel-card] {
-                flex: 0 0 calc(50% - 0.5rem) !important;
-                min-width: 160px !important;
-              }
-            }
-          `}</style>
         </div>
+        <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; } .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
       </section>
 
       {/* ============================================ */}
       {/* BEST-SELLERS SECTION                         */}
       {/* ============================================ */}
-      <section style={{background: '#FFFFFF', padding: '5rem 0'}}>
-        <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-7xl mx-auto">
           {/* Section title */}
-          <div style={{textAlign: 'center', marginBottom: '3rem'}}>
-            <h2 style={{
-              fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
-              fontWeight: '700',
-              color: 'hsl(210, 25%, 20%)',
-              marginBottom: '0.5rem',
-              fontFamily: isRTL ? 'var(--font-hebrew)' : 'var(--font-serif)',
-            }}>
+          <div className="text-center mb-12">
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className={`text-3xl md:text-5xl font-bold text-slate-800 mb-2 ${isRTL ? 'font-hebrew' : 'font-serif'}`}>
               {ml(currentLanguage, {
                 he: '\u05D4\u05E0\u05DE\u05DB\u05E8\u05D9\u05DD \u05D1\u05D9\u05D5\u05EA\u05E8',
                 en: 'Best Sellers',
@@ -586,24 +377,13 @@ export default function Home() {
                 es: 'M\u00E1s Vendidos',
                 ru: '\u0411\u0435\u0441\u0442\u0441\u0435\u043B\u043B\u0435\u0440\u044B',
               })}
-            </h2>
-            <div style={{width: '60px', height: '3px', background: '#FF6B00', margin: '1rem auto 0', borderRadius: '2px'}} />
+            </motion.h2>
+            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-orange-500 mx-auto mt-4 rounded-full" />
           </div>
 
           {/* Products grid: 4 columns desktop, 2 columns mobile */}
-          <div className="bestseller-grid" style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '1.5rem',
-          }}>
-            <style>{`
-              @media (max-width: 768px) {
-                .bestseller-grid {
-                  grid-template-columns: repeat(2, 1fr) !important;
-                }
-              }
-            `}</style>
-            {bestSellers.map((product) => {
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            {bestSellers.map((product, idx) => {
               const imgSrc = product.images?.[0] ? convertImagePath(product.images[0]) : '';
               const title = getInterfaceDisplayTitle(product as Product, currentLanguage);
               const price = getLowestPrice(product as Product);
@@ -611,83 +391,40 @@ export default function Home() {
               const bsLang = product.language || '';
               const bsAlt = [title, bsAuthor, bsLang].filter(Boolean).join(' - ');
               return (
-                <article
+                <motion.article
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
                   key={product.id}
-                  className="group"
-                  style={{
-                    background: '#FFFFFF',
-                    borderRadius: '14px',
-                    overflow: 'hidden',
-                    boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-6px)';
-                    e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.1)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 2px 16px rgba(0,0,0,0.06)';
-                  }}
+                  className="group bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col"
                 >
-                  <Link href={`/product/${product.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
-                    <div style={{
-                      width: '100%', 
-                      height: '240px', 
-                      overflow: 'hidden', 
-                      background: '#f8f9fa',
-                      backgroundImage: 'url("/images/jerusalem-skyline.svg")',
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'bottom center'
-                    }}>
+                  <Link href={`/product/${product.id}`} className="no-underline text-inherit flex-1 flex flex-col">
+                    <div className="w-full h-[220px] md:h-[280px] overflow-hidden bg-slate-50 bg-[url('/images/jerusalem-skyline.svg')] bg-cover bg-bottom flex items-center justify-center relative">
                       {imgSrc ? (
                         <img
                           loading="lazy"
                           decoding="async"
-                          width="280"
-                          height="240"
                           src={imgSrc}
                           alt={bsAlt}
-                          style={{width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease-out', mixBlendMode: 'multiply'}}
-                          className="group-hover:scale-105"
-                          onError={(e) => { e.currentTarget.outerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#f3f4f6;color:#9ca3af">📖</div>`; }}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 mix-blend-multiply"
+                          onError={(e) => { e.currentTarget.outerHTML = `<div class="w-full h-full flex items-center justify-center text-5xl bg-slate-100 text-slate-300">📖</div>`; }}
                         />
                       ) : (
-                        <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3.5rem', position: 'relative', zIndex: 1}}>
-                          &#128214;
-                        </div>
+                        <div className="w-full h-full flex items-center justify-center text-5xl relative z-10">&#128214;</div>
                       )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
                     </div>
-                    <div style={{padding: '1.25rem'}}>
-                      <h3 style={{
-                        fontSize: '1.05rem',
-                        fontWeight: '600',
-                        color: 'hsl(210, 25%, 20%)',
-                        marginBottom: '0.5rem',
-                        lineHeight: '1.3',
-                      }}>
+                    <div className="p-4 md:p-6 flex flex-col flex-1">
+                      <h3 className="text-base md:text-lg font-bold text-slate-800 mb-2 leading-snug">
                         {title}
                       </h3>
                       {price && (
-                        <p style={{
-                          fontSize: '1rem',
-                          fontWeight: '700',
-                          color: '#FF6B00',
-                          marginBottom: '0.75rem',
-                        }}>
+                        <p className="text-base md:text-[17px] font-bold text-orange-600 mb-4">
                           {ml(currentLanguage, { he: '\u05D4\u05D7\u05DC \u05DE-', en: 'From ', fr: '\u00C0 partir de ', es: 'Desde ', ru: '\u041E\u0442 ' })}{price}
                         </p>
                       )}
-                      <span style={{
-                        display: 'inline-block',
-                        fontSize: '0.85rem',
-                        fontWeight: '600',
-                        color: 'hsl(210, 85%, 45%)',
-                        borderBottom: '1px solid hsl(210, 85%, 45%)',
-                        paddingBottom: '1px',
-                        transition: 'color 0.2s',
-                        marginBottom: '1rem'
-                      }}>
+                      <span className="inline-block text-[13px] md:text-[14px] font-semibold text-orange-500 border-b-2 border-orange-200 group-hover:border-orange-500 transition-colors self-start mb-4">
                         {ml(currentLanguage, {
                           he: '\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05DE\u05D5\u05E6\u05E8',
                           en: 'View Product',
@@ -698,48 +435,28 @@ export default function Home() {
                       </span>
                     </div>
                   </Link>
-                    {/* Quick Add button - Task 1.1 */}
-                    {product.variants && product.variants.length > 0 && (
-                      <div style={{padding: '0 1.25rem 1.25rem'}}>
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            handleQuickAdd(product as Product);
-                          }}
-                          style={{
-                            width: '100%',
-                            background: '#FF6B00',
-                            color: '#FFFFFF',
-                            border: 'none',
-                            padding: '0.75rem',
-                            borderRadius: '8px',
-                            cursor: 'pointer',
-                            fontSize: '0.9rem',
-                            fontWeight: '700',
-                            transition: 'all 0.2s ease',
-                            boxShadow: '0 2px 8px rgba(255,107,0,0.2)'
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.background = '#E65A00';
-                            e.currentTarget.style.transform = 'translateY(-2px)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.background = '#FF6B00';
-                            e.currentTarget.style.transform = 'translateY(0)';
-                          }}
-                        >
-                          {ml(currentLanguage, {
-                            he: '\u05D4\u05D5\u05E1\u05E3 \u05DC\u05E1\u05DC',
-                            en: 'Add to Cart',
-                            fr: 'Ajouter au Panier',
-                            es: 'A\u00F1adir al Carrito',
-                            ru: '\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443',
-                          })}
-                        </button>
-                      </div>
-                    )}
-                  </article>
+                  {/* Quick Add button - Task 1.1 */}
+                  {product.variants && product.variants.length > 0 && (
+                    <div className="px-4 md:px-6 pb-4 md:pb-6 mt-auto">
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleQuickAdd(product as Product);
+                        }}
+                        className="w-full bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white border-0 py-3 rounded-xl cursor-pointer text-[14px] md:text-[15px] font-bold transition-all shadow-[0_4px_12px_rgba(255,107,0,0.2)] hover:shadow-[0_6px_16px_rgba(255,107,0,0.3)] hover:-translate-y-0.5 active:translate-y-0"
+                      >
+                        {ml(currentLanguage, {
+                          he: '\u05D4\u05D5\u05E1\u05E3 \u05DC\u05E1\u05DC',
+                          en: 'Add to Cart',
+                          fr: 'Ajouter au Panier',
+                          es: 'A\u00F1adir al Carrito',
+                          ru: '\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443',
+                        })}
+                      </button>
+                    </div>
+                  )}
+                </motion.article>
               );
             })}
           </div>
@@ -747,26 +464,20 @@ export default function Home() {
       </section>
 
       {/* LEADING BOOKS SECTION - White background, generous spacing */}
-      <section style={{background: '#FFFFFF', padding: '5rem 0'}}>
-        <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
-          <div style={{textAlign: 'center', marginBottom: '3.5rem'}}>
-            <h2 style={{
-              fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
-              fontWeight: '700',
-              color: 'hsl(210, 25%, 20%)',
-              marginBottom: '0.5rem',
-              fontFamily: currentLanguage === 'he' ? 'var(--font-hebrew)' : 'var(--font-serif)'
-            }}>
+      <section className="bg-white py-20">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <div className="text-center mb-14">
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className={`text-3xl md:text-5xl font-bold text-slate-800 mb-2 ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`}>
               {currentLanguage === 'he' ? '\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05E0\u05D5 \u05D4\u05DE\u05D5\u05D1\u05D9\u05DC\u05D9\u05DD' :
                currentLanguage === 'en' ? 'Leading Books of Our Master' :
                currentLanguage === 'fr' ? 'Livres Principaux de Notre Ma\u00EEtre' :
                currentLanguage === 'es' ? 'Libros Principales de Nuestro Maestro' :
                currentLanguage === 'ru' ? '\u0412\u0435\u0434\u0443\u0449\u0438\u0435 \u041A\u043D\u0438\u0433\u0438 \u041D\u0430\u0448\u0435\u0433\u043E \u0423\u0447\u0438\u0442\u0435\u043B\u044F' : '\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05E0\u05D5 \u05D4\u05DE\u05D5\u05D1\u05D9\u05DC\u05D9\u05DD'}
-            </h2>
-            <div style={{width: '60px', height: '3px', background: 'hsl(210, 85%, 45%)', margin: '1rem auto 0', borderRadius: '2px'}} />
+            </motion.h2>
+            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-orange-500 mx-auto mt-4 rounded-full" />
           </div>
 
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem'}}>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
             {[
               { title: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05DE\u05D5\u05D4\u05E8\u05DF', titleEn: 'Likutei Moharan', image: '/images/book-6.webp', href: '/product/likutei-moharan' },
               { title: '\u05DC\u05D9\u05E7\u05D5\u05D8\u05D9 \u05EA\u05E4\u05D9\u05DC\u05D5\u05EA', titleEn: 'Likutei Tefilot', image: '/images/book-3.webp', href: '/product/likutei-tefilot' },
@@ -775,114 +486,92 @@ export default function Home() {
               { title: '\u05E1\u05D9\u05E4\u05D5\u05E8\u05D9 \u05DE\u05E2\u05E9\u05D9\u05D5\u05EA', titleEn: 'Tales of Ancient Times', image: '/images/book-product-3.webp', href: '/product/siporei-masiyot' },
               { title: '\u05DB\u05DC \u05D1\u05D5 \u05DC\u05D9\u05E9\u05D5\u05E2\u05D5\u05EA', titleEn: 'Complete Guide to Salvation', image: '/images/book-1.webp', href: '/product/kol-bo-leyeshuot' }
             ].map((book, index) => (
-              <a key={index} href={book.href} style={{textDecoration: 'none', color: 'inherit'}}>
-                <div style={{
-                  borderRadius: '12px',
-                  overflow: 'hidden',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer',
-                  background: '#FFFFFF',
-                  boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-                }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.1)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)';
-                  }}>
-                  <div style={{
-                    height: '240px', 
-                    overflow: 'hidden',
-                    background: '#f8f9fa',
-                    backgroundImage: 'url("/images/jerusalem-skyline.svg")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'bottom center'
-                  }}>
-                    <img loading="lazy" decoding="async" width="280" height="240" src={book.image} alt={book.title} style={{width: '100%', height: '100%', objectFit: 'cover', mixBlendMode: 'multiply'}} />
+              <motion.a
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                key={index}
+                href={book.href}
+                className="no-underline text-inherit block"
+              >
+                <div className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+                  <div className="h-[200px] md:h-[240px] overflow-hidden bg-slate-50 bg-[url('/images/jerusalem-skyline.svg')] bg-cover bg-bottom flex justify-center items-center">
+                    <img loading="lazy" decoding="async" src={book.image} alt={book.title} className="w-full h-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-105" />
                   </div>
-                  <div style={{padding: '1.25rem', textAlign: 'center'}}>
-                    <h3 style={{fontSize: '1.1rem', fontWeight: '600', color: 'hsl(210, 25%, 25%)', margin: 0}}>
+                  <div className="p-4 text-center">
+                    <h3 className="text-[15px] md:text-[1.1rem] font-semibold text-slate-800 m-0 leading-snug">
                       {currentLanguage === 'he' ? book.title : book.titleEn}
                     </h3>
                   </div>
                 </div>
-              </a>
+              </motion.a>
             ))}
           </div>
         </div>
       </section>
 
       {/* RABBI NATHAN QUOTE SECTION */}
-      <section style={{background: '#FFF7ED', padding: '5rem 0'}}>
-        <div style={{maxWidth: '700px', margin: '0 auto', padding: '0 2rem', textAlign: 'center'}}>
-          <div style={{
-            background: '#FFFFFF',
-            borderRadius: '16px',
-            padding: '3rem 2.5rem',
-            boxShadow: '0 2px 20px rgba(0,0,0,0.04)',
-          }}>
-            <h2 style={{
-              fontSize: 'clamp(1.4rem, 3vw, 1.8rem)',
-              fontWeight: '600',
-              marginBottom: '0.75rem',
-              color: 'hsl(210, 25%, 20%)',
-            }}>
+      <section className="bg-orange-50 py-20 px-4 mt-8">
+        <div className="max-w-3xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="bg-white rounded-3xl p-8 md:p-12 shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+          >
+            <h2 className="text-xl md:text-2xl font-semibold mb-3 text-slate-800">
               {currentLanguage === 'he' ? '\u05D3\u05E3 \u05D0\u05D7\u05D3 \u05DE\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05E0\u05D5' :
                currentLanguage === 'en' ? 'One Page from Our Master\'s Books' :
                currentLanguage === 'fr' ? 'Une Page des Livres de Notre Ma\u00EEtre' :
                currentLanguage === 'es' ? 'Una P\u00E1gina de los Libros de Nuestro Maestro' :
                currentLanguage === 'ru' ? '\u041E\u0434\u043D\u0430 \u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u0438\u0437 \u041A\u043D\u0438\u0433 \u041D\u0430\u0448\u0435\u0433\u043E \u0423\u0447\u0438\u0442\u0435\u043B\u044F' : '\u05D3\u05E3 \u05D0\u05D7\u05D3 \u05DE\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05E0\u05D5'}
             </h2>
-            <h3 style={{
-              fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
-              fontWeight: '400',
-              marginBottom: '1rem',
-              color: 'hsl(210, 85%, 45%)',
-            }}>
+            <h3 className={`text-2xl md:text-4xl font-bold mb-6 text-orange-500 leading-tight ${isRTL ? 'font-hebrew' : ''}`}>
               {currentLanguage === 'he' ? '\u05D9\u05D4\u05D9\u05D4 \u05EA\u05D9\u05E7\u05D5\u05DF \u05E2\u05DC \u05D4\u05DB\u05DC!' :
                currentLanguage === 'en' ? 'There will be rectification for everything!' :
                currentLanguage === 'fr' ? 'Il y aura une rectification pour tout!' :
                currentLanguage === 'es' ? '\u00A1Habr\u00E1 rectificaci\u00F3n para todo!' :
                currentLanguage === 'ru' ? '\u0411\u0443\u0434\u0435\u0442 \u0438\u0441\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0434\u043B\u044F \u0432\u0441\u0435\u0433\u043E!' : '\u05D9\u05D4\u05D9\u05D4 \u05EA\u05D9\u05E7\u05D5\u05DF \u05E2\u05DC \u05D4\u05DB\u05DC!'}
             </h3>
-            <p style={{fontSize: '0.95rem', fontStyle: 'italic', color: 'hsl(210, 12%, 50%)', margin: 0}}>
+            <p className="text-base md:text-lg text-slate-500 italic m-0">
               {currentLanguage === 'he' ? '\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1' :
                currentLanguage === 'en' ? 'Rabbi Nathan of Breslov' :
                currentLanguage === 'fr' ? 'Rabbi Nathan de Breslov' :
                currentLanguage === 'es' ? 'Rabino Nathan de Breslov' :
                currentLanguage === 'ru' ? '\u0420\u0430\u0431\u0431\u0438 \u041D\u0430\u0442\u0430\u043D \u0438\u0437 \u0411\u0440\u0435\u0441\u043B\u043E\u0432' : '\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1'}
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* SERVICES SECTION */}
-      <section style={{background: '#FFFFFF', padding: '5rem 0'}}>
-        <div style={{maxWidth: '1100px', margin: '0 auto', padding: '0 2rem'}}>
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem'}}>
+      <section className="bg-white py-20 px-4 border-b border-slate-100">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: '\uD83D\uDE9A', titleHe: '\u05DE\u05E9\u05DC\u05D5\u05D7 \u05DE\u05D4\u05D9\u05E8 \u05E2\u05D3 \u05D4\u05D1\u05D9\u05EA \u05D7\u05D9\u05E0\u05DD', titleEn: 'Fast Free Home Delivery', titleFr: 'Livraison Rapide Gratuite \u00E0 Domicile', titleEs: 'Entrega R\u00E1pida Gratuita a Domicilio', titleRu: '\u0411\u044B\u0441\u0442\u0440\u0430\u044F \u0411\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u0430\u044F \u0414\u043E\u0441\u0442\u0430\u0432\u043A\u0430 \u043D\u0430 \u0414\u043E\u043C', descHe: '\u05D1\u05E8\u05DB\u05D9\u05E9\u05D4 \u05DE\u05E2\u05DC 299 \u20AA \u05DE\u05D4\u05D7\u05E0\u05D5\u05EA', descEn: 'On purchases over 299 \u20AA from the store', descFr: 'Sur les achats de plus de 299 \u20AA du magasin', descEs: 'En compras mayores a 299 \u20AA de la tienda', descRu: '\u041F\u0440\u0438 \u043F\u043E\u043A\u0443\u043F\u043A\u0430\u0445 \u0441\u0432\u044B\u0448\u0435 299 \u20AA \u0438\u0437 \u043C\u0430\u0433\u0430\u0437\u0438\u043D\u0430' },
               { icon: '\uD83D\uDD12', titleHe: '\u05E8\u05DB\u05D9\u05E9\u05D4 \u05DE\u05D0\u05D5\u05D1\u05D8\u05D7\u05EA', titleEn: 'Secure Purchase', titleFr: 'Achat S\u00E9curis\u00E9', titleEs: 'Compra Segura', titleRu: '\u0411\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u0430\u044F \u041F\u043E\u043A\u0443\u043F\u043A\u0430', descHe: '\u05D1\u05D0\u05DE\u05E6\u05E2\u05D5\u05EA \u05EA\u05E2\u05D5\u05D3\u05EA SSL \u05D5\u05D1\u05EA\u05E7\u05E0\u05D9\u05DD \u05D4\u05DE\u05D7\u05DE\u05D9\u05E8\u05D9\u05DD \u05D1\u05D9\u05D5\u05EA\u05E8', descEn: 'Using SSL certificate and the most stringent standards', descFr: 'En utilisant un certificat SSL et les normes les plus strictes', descEs: 'Utilizando certificado SSL y los est\u00E1ndares m\u00E1s estrictos', descRu: '\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435 SSL-\u0441\u0435\u0440\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u0430 \u0438 \u0441\u0430\u043C\u044B\u0445 \u0441\u0442\u0440\u043E\u0433\u0438\u0445 \u0441\u0442\u0430\u043D\u0434\u0430\u0440\u0442\u043E\u0432' },
               { icon: '\uD83D\uDCDA', titleHe: '\u05D7\u05E0\u05D5\u05EA \u05D4\u05E1\u05E4\u05E8\u05D9\u05DD \u05D4\u05D2\u05D3\u05D5\u05DC\u05D4 \u05D1\u05D9\u05D5\u05EA\u05E8 \u05DC\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05E0\u05D5 \u05D0\u05D5\u05E0\u05DC\u05D9\u05D9\u05DF', titleEn: 'Largest Online Bookstore for Our Master\'s Books', titleFr: 'Plus Grande Librairie en Ligne', titleEs: 'Librer\u00EDa en L\u00EDnea M\u00E1s Grande', titleRu: '\u041A\u0440\u0443\u043F\u043D\u0435\u0439\u0448\u0438\u0439 \u0418\u043D\u0442\u0435\u0440\u043D\u0435\u0442-\u041A\u043D\u0438\u0436\u043D\u044B\u0439 \u041C\u0430\u0433\u0430\u0437\u0438\u043D', descHe: '\u05DE\u05E9\u05DC\u05D5\u05D7\u05D9\u05DD \u05DC\u05DB\u05DC \u05D4\u05D0\u05E8\u05E5', descEn: 'Shipping throughout the country', descFr: 'Exp\u00E9dition dans tout le pays', descEs: 'Env\u00EDo por todo el pa\u00EDs', descRu: '\u0414\u043E\u0441\u0442\u0430\u0432\u043A\u0430 \u043F\u043E \u0432\u0441\u0435\u0439 \u0441\u0442\u0440\u0430\u043D\u0435' },
-              { icon: '\uD83C\uDFA7', titleHe: '\u05E9\u05D9\u05E8\u05D5\u05EA \u05DC\u05E7\u05D5\u05D7\u05D5\u05EA \u05DE\u05E2\u05D5\u05DC\u05D4 \u05D5\u05D6\u05DE\u05D9\u05DF \u05EA\u05DE\u05D9\u05D3 \u05DC\u05E9\u05D9\u05E8\u05D5\u05EA\u05DB\u05DD', titleEn: 'Excellent Customer Service Always Available', titleFr: 'Excellent Service Client Toujours Disponible', titleEs: 'Excelente Servicio al Cliente Siempre Disponible', titleRu: '\u041E\u0442\u043B\u0438\u0447\u043D\u043E\u0435 \u041E\u0431\u0441\u043B\u0443\u0436\u0438\u0432\u0430\u043D\u0438\u0435 \u041A\u043B\u0438\u0435\u043D\u0442\u043E\u0432 \u0412\u0441\u0435\u0433\u0434\u0430 \u0414\u043E\u0441\u0442\u0443\u043F\u043D\u043E', descHe: '\u05E2\u05D3 12 \u05EA\u05E9\u05DC\u05D5\u05DE\u05D9\u05DD \u05DC\u05DC\u05D0 \u05E8\u05D9\u05D1\u05D9\u05EA', descEn: 'Up to 12 payments without interest', descFr: 'Jusqu\'\u00E0 12 paiements sans int\u00E9r\u00EAt', descEs: 'Hasta 12 pagos sin inter\u00E9s', descRu: '\u0414\u043E 12 \u043F\u043B\u0430\u0442\u0435\u0436\u0435\u0439 \u0431\u0435\u0437 \u043F\u0440\u043E\u0446\u0435\u043D\u0442\u043E\u0432' },
+              { icon: '\uD83C\uDFA7', titleHe: '\u05E9\u05D9\u05E8\u05D5\u05EA \u05DC\u05E7\u05D5\u05D7\u05D5\u05EA \u05DE\u05E2\u05D5\u05D4 \u05D5\u05D6\u05DE\u05D9\u05DF \u05EA\u05DE\u05D9\u05D3 \u05DC\u05E9\u05D9\u05E8\u05D5\u05EA\u05DB\u05DD', titleEn: 'Excellent Customer Service Always Available', titleFr: 'Excellent Service Client Toujours Disponible', titleEs: 'Excelente Servicio al Cliente Siempre Disponible', titleRu: '\u041E\u0442\u043B\u0438\u0447\u043D\u043E\u0435 \u041E\u0431\u0441\u043B\u0443\u0436\u0438\u0432\u0430\u043D\u0438\u0435 \u041A\u043B\u0438\u0435\u043D\u0442\u043E\u0432 \u0412\u0441\u0435\u0433\u0434\u0430 \u0414\u043E\u0441\u0442\u0443\u043F\u043D\u043E', descHe: '\u05E2\u05D3 12 \u05EA\u05E9\u05DC\u05D5\u05DE\u05D9\u05DD \u05DC\u05DC\u05D0 \u05E8\u05D9\u05D1\u05D9\u05EA', descEn: 'Up to 12 payments without interest', descFr: 'Jusqu\'\u00E0 12 paiements sans int\u00E9r\u00EAt', descEs: 'Hasta 12 pagos sin inter\u00E9s', descRu: '\u0414\u043E 12 \u043F\u043B\u0430\u0442\u0435\u0436\u0435\u0439 \u0431\u0435\u0437 \u043F\u0440\u043E\u0446\u0435\u043D\u0442\u043E\u0432' },
             ].map((service, index) => (
-              <div key={index} style={{
-                background: '#FFFFFF', padding: '2rem 1.5rem', borderRadius: '12px',
-                boxShadow: '0 1px 8px rgba(0,0,0,0.05)', textAlign: 'center', transition: 'box-shadow 0.3s ease',
-              }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)'}
-                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 1px 8px rgba(0,0,0,0.05)'}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                key={index}
+                className="bg-white p-8 rounded-2xl shadow-[0_1px_8px_rgba(0,0,0,0.05)] text-center transition-shadow duration-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]"
               >
-                <div style={{fontSize: '2.5rem', marginBottom: '1rem'}}>{service.icon}</div>
-                <h3 style={{fontSize: '1.05rem', fontWeight: '600', color: 'hsl(210, 25%, 25%)', marginBottom: '0.75rem', lineHeight: '1.4'}}>
+                <div className="text-4xl mb-4">{service.icon}</div>
+                <h3 className="text-base md:text-[1.05rem] font-semibold text-slate-800 mb-3 leading-snug">
                   {currentLanguage === 'he' ? service.titleHe : currentLanguage === 'en' ? service.titleEn : currentLanguage === 'fr' ? service.titleFr : currentLanguage === 'es' ? service.titleEs : currentLanguage === 'ru' ? service.titleRu : service.titleHe}
                 </h3>
-                <p style={{color: 'hsl(210, 10%, 55%)', fontSize: '0.88rem', margin: 0, lineHeight: '1.5'}}>
+                <p className="text-slate-500 text-[0.88rem] leading-relaxed">
                   {currentLanguage === 'he' ? service.descHe : currentLanguage === 'en' ? service.descEn : currentLanguage === 'fr' ? service.descFr : currentLanguage === 'es' ? service.descEs : currentLanguage === 'ru' ? service.descRu : service.descHe}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -890,16 +579,10 @@ export default function Home() {
 
       {/* TESTIMONIALS SECTION */}
       <LazySection>
-      <section style={{background: '#FFFFFF', padding: '5rem 0'}}>
-        <div style={{maxWidth: '1100px', margin: '0 auto', padding: '0 2rem'}}>
-          <div style={{textAlign: 'center', marginBottom: '3rem'}}>
-            <h2 style={{
-              fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
-              fontWeight: '700',
-              color: 'hsl(210, 25%, 20%)',
-              marginBottom: '0.5rem',
-              fontFamily: isRTL ? 'var(--font-hebrew)' : 'var(--font-serif)',
-            }}>
+      <section className="bg-slate-50 py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className={`text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mb-2 ${isRTL ? 'font-hebrew' : 'font-serif'}`}>
               {ml(currentLanguage, {
                 he: 'מה אומרים הלקוחות שלנו',
                 en: 'What Our Customers Say',
@@ -907,11 +590,11 @@ export default function Home() {
                 es: 'Lo que dicen nuestros clientes',
                 ru: 'Что говорят наши клиенты',
               })}
-            </h2>
-            <div style={{width: '60px', height: '3px', background: '#FF6B00', margin: '1rem auto 0', borderRadius: '2px'}} />
+            </motion.h2>
+            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-orange-500 mx-auto mt-4 rounded-full" />
           </div>
 
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem'}}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 nameHe: 'יעקב כ.', nameEn: 'Yaakov K.', nameFr: 'Yaakov K.', nameEs: 'Yaakov K.', nameRu: 'Яаков К.',
@@ -941,39 +624,27 @@ export default function Home() {
                 stars: 5,
               },
             ].map((review, index) => (
-              <div key={index} style={{
-                background: '#FFFFFF',
-                padding: '2rem',
-                borderRadius: '12px',
-                boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-                transition: 'box-shadow 0.3s ease',
-              }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 6px 24px rgba(0,0,0,0.1)'}
-                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                key={index}
+                className="bg-white p-8 rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-shadow duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
               >
                 {/* Stars */}
-                <div style={{marginBottom: '0.75rem', color: '#F59E0B', fontSize: '1.1rem', letterSpacing: '2px'}}>
+                <div className="text-orange-500 text-lg tracking-widest mb-3">
                   {'★'.repeat(review.stars)}{'☆'.repeat(5 - review.stars)}
                 </div>
                 {/* Review text */}
-                <p style={{
-                  fontSize: '0.95rem',
-                  color: 'hsl(210, 15%, 35%)',
-                  lineHeight: '1.7',
-                  marginBottom: '1rem',
-                  fontStyle: 'italic',
-                }}>
+                <p className="text-slate-600 text-[0.95rem] leading-relaxed mb-4 italic">
                   &ldquo;{currentLanguage === 'he' ? review.textHe : currentLanguage === 'en' ? review.textEn : currentLanguage === 'fr' ? review.textFr : currentLanguage === 'es' ? review.textEs : currentLanguage === 'ru' ? review.textRu : review.textHe}&rdquo;
                 </p>
                 {/* Reviewer name */}
-                <p style={{
-                  fontSize: '0.9rem',
-                  fontWeight: '600',
-                  color: 'hsl(210, 25%, 25%)',
-                }}>
+                <p className="text-slate-800 font-semibold text-[0.9rem]">
                   &mdash; {currentLanguage === 'he' ? review.nameHe : currentLanguage === 'en' ? review.nameEn : currentLanguage === 'fr' ? review.nameFr : currentLanguage === 'es' ? review.nameEs : currentLanguage === 'ru' ? review.nameRu : review.nameHe}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -983,36 +654,43 @@ export default function Home() {
 
       {/* CATEGORIES SECTION */}
       <LazySection>
-      <section style={{background: 'hsl(210, 30%, 97%)', padding: '5rem 0'}}>
-        <div style={{maxWidth: '1000px', margin: '0 auto', padding: '0 2rem'}}>
-          <div style={{textAlign: 'center', marginBottom: '3rem'}}>
-            <h2 style={{fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: '700', color: 'hsl(210, 25%, 20%)', marginBottom: '0.5rem'}}>
+      <section className="bg-slate-100 py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-3xl md:text-5xl font-bold text-slate-800 mb-2">
               {ml(currentLanguage, { he: '\u05D4\u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D5\u05EA \u05D1\u05D7\u05E0\u05D5\u05EA', en: 'Store Categories', fr: 'Cat\u00E9gories du Magasin', es: 'Categor\u00EDas de la Tienda', ru: '\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \u041C\u0430\u0433\u0430\u0437\u0438\u043D\u0430' })}
-            </h2>
-            <div style={{width: '60px', height: '3px', background: 'hsl(210, 85%, 45%)', margin: '1rem auto 0', borderRadius: '2px'}} />
+            </motion.h2>
+            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-orange-500 mx-auto mt-4 rounded-full" />
           </div>
 
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '2rem'}}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
             {[
               { he: '\u05DB\u05DC \u05D7\u05D9\u05D1\u05D5\u05E8\u05D9 \u05E8\u05D1\u05E0\u05D5 \u05D4\u05E7\u05D3\u05D5\u05E9', en: 'All Holy Compositions of Our Master', fr: 'Toutes les Compositions Saintes de Notre Ma\u00EEtre', es: 'Todas las Composiciones Sagradas de Nuestro Maestro', ru: '\u0412\u0441\u0435 \u0421\u0432\u044F\u0442\u044B\u0435 \u0421\u043E\u0447\u0438\u043D\u0435\u043D\u0438\u044F \u041D\u0430\u0448\u0435\u0433\u043E \u0423\u0447\u0438\u0442\u0435\u043B\u044F' },
               { he: '\u05DB\u05DC \u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC', en: 'All Books of Rabbi Israel', fr: 'Tous les Livres de Rabbi Israel', es: 'Todos los Libros del Rabino Israel', ru: '\u0412\u0441\u0435 \u041A\u043D\u0438\u0433\u0438 \u0420\u0430\u0431\u0431\u0438 \u0418\u0437\u0440\u0430\u044D\u043B\u044F' },
             ].map((cat, index) => (
-              <div key={index} style={{background: '#FFFFFF', padding: '2.5rem 2rem', borderRadius: '12px', textAlign: 'center', boxShadow: '0 1px 8px rgba(0,0,0,0.05)'}}>
-                <h3 style={{fontSize: '1.2rem', fontWeight: '600', marginBottom: '1.25rem', color: 'hsl(210, 25%, 25%)'}}>
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                key={index}
+                className="bg-white p-10 rounded-2xl text-center shadow-[0_1px_8px_rgba(0,0,0,0.05)] border border-transparent hover:border-orange-100 transition-all duration-300"
+              >
+                <h3 className="text-xl md:text-2xl font-semibold mb-6 text-slate-800">
                   {ml(currentLanguage, cat)}
                 </h3>
-                <a href="/store" style={{textDecoration: 'none'}}>
-                  <button style={{background: 'hsl(210, 85%, 45%)', color: 'white', border: 'none', padding: '0.8rem 2rem', borderRadius: '8px', cursor: 'pointer', fontSize: '1rem', fontWeight: '600', boxShadow: '0 2px 8px hsla(210, 85%, 45%, 0.25)', transition: 'all 0.2s ease'}}>
+                <a href="/store" className="inline-block no-underline">
+                  <button className="bg-orange-500 hover:bg-orange-600 text-white border-0 py-3 px-8 rounded-xl cursor-pointer text-base font-semibold shadow-[0_4px_14px_rgba(255,107,0,0.3)] transition-colors duration-200">
                     {ml(currentLanguage, { he: 'לחנות', en: 'Browse', fr: 'Parcourir', es: 'Explorar', ru: 'Перейти' })}
                   </button>
                 </a>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          <div style={{textAlign: 'center'}}>
-            <a href="/store" style={{textDecoration: 'none'}}>
-              <button style={{background: '#FFFFFF', color: 'hsl(210, 85%, 45%)', border: '1.5px solid hsl(210, 85%, 45%)', padding: '0.8rem 2rem', borderRadius: '8px', cursor: 'pointer', fontSize: '1rem', fontWeight: '600', transition: 'all 0.2s ease'}}>
+          <div className="text-center">
+            <a href="/store" className="inline-block no-underline">
+              <button className="bg-white hover:bg-slate-50 text-orange-500 border-2 border-orange-500 py-3 px-8 rounded-xl cursor-pointer text-base font-semibold transition-colors duration-200">
                 {ml(currentLanguage, { he: '\u05DC\u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D5\u05EA \u05E0\u05D5\u05E1\u05E4\u05D5\u05EA \u05DC\u05D7\u05E6\u05D5 \u05DB\u05D0\u05DF', en: 'For additional categories click here', fr: 'Pour des cat\u00E9gories suppl\u00E9mentaires cliquez ici', es: 'Para categor\u00EDas adicionales haga clic aqu\u00ED', ru: '\u0414\u043B\u044F \u0434\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0445 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0439 \u043D\u0430\u0436\u043C\u0438\u0442\u0435 \u0437\u0434\u0435\u0441\u044C' })}
               </button>
             </a>
@@ -1024,30 +702,30 @@ export default function Home() {
 
       {/* NEWSLETTER SECTION */}
       <LazySection>
-      <section style={{background: '#FFFFFF', padding: '5rem 0'}}>
-        <div style={{maxWidth: '700px', margin: '0 auto', padding: '0 2rem', textAlign: 'center'}}>
-          <h2 style={{fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)', fontWeight: '700', color: 'hsl(210, 25%, 20%)', marginBottom: '0.75rem'}}>
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 mb-3">
             {ml(currentLanguage, { he: '\u05D4\u05E6\u05D8\u05E8\u05E4\u05D5 \u05E2\u05DB\u05E9\u05D9\u05D5 \u05DC\u05E8\u05E9\u05D9\u05DE\u05EA \u05EA\u05E4\u05D5\u05E6\u05D4', en: 'Join Our Mailing List Now', fr: 'Rejoignez Notre Liste de Diffusion Maintenant', es: '\u00DAnete a Nuestra Lista de Correo Ahora', ru: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C \u043A \u041D\u0430\u0448\u0435\u043C\u0443 \u0421\u043F\u0438\u0441\u043A\u0443 \u0420\u0430\u0441\u0441\u044B\u043B\u043A\u0438 \u0421\u0435\u0439\u0447\u0430\u0441' })}
           </h2>
-          <p style={{fontSize: '1.05rem', color: 'hsl(210, 15%, 50%)', marginBottom: '2rem'}}>
+          <p className="text-base md:text-lg text-slate-500 mb-8">
             {ml(currentLanguage, { he: '\u05D5\u05E7\u05D1\u05DC\u05D5 10% \u05D4\u05E0\u05D7\u05E0\u05D4 \u05D1\u05E8\u05DB\u05D9\u05E9\u05D4 \u05E8\u05D0\u05E9\u05D5\u05E0\u05D4 \u05D1\u05D0\u05EA\u05E8', en: 'And get 10% discount on your first purchase on the site', fr: 'Et obtenez 10% de r\u00E9duction sur votre premier achat sur le site', es: 'Y obt\u00E9n 10% de descuento en tu primera compra en el sitio', ru: '\u0418 \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u0435 \u0441\u043A\u0438\u0434\u043A\u0443 10% \u043D\u0430 \u043F\u0435\u0440\u0432\u0443\u044E \u043F\u043E\u043A\u0443\u043F\u043A\u0443 \u043D\u0430 \u0441\u0430\u0439\u0442\u0435' })}
           </p>
 
-          <div style={{display: 'flex', justifyContent: 'center', gap: '0.75rem', marginBottom: '3.5rem', flexWrap: 'wrap'}}>
-            <input type="email" placeholder={isRTL ? '\u05D4\u05DB\u05E0\u05D9\u05E1\u05D5 \u05DB\u05EA\u05D5\u05D1\u05EA \u05D0\u05D9\u05DE\u05D9\u05D9\u05DC' : 'Enter email address'} style={{padding: '0.9rem 1.25rem', borderRadius: '8px', border: '1.5px solid hsl(210, 20%, 85%)', fontSize: '0.95rem', minWidth: 'min(280px, calc(100vw - 6rem))', textAlign: isRTL ? 'right' : 'left', outline: 'none', transition: 'border-color 0.2s ease'}} />
-            <button style={{background: 'hsl(210, 85%, 45%)', color: 'white', border: 'none', padding: '0.9rem 1.75rem', borderRadius: '8px', cursor: 'pointer', fontSize: '0.95rem', fontWeight: '600', boxShadow: '0 2px 8px hsla(210, 85%, 45%, 0.25)', transition: 'all 0.2s ease'}}>
+          <div className="flex flex-col sm:flex-row justify-center gap-3 mb-14">
+            <input type="email" placeholder={isRTL ? '\u05D4\u05DB\u05E0\u05D9\u05E1\u05D5 \u05DB\u05EA\u05D5\u05D1\u05EA \u05D0\u05D9\u05DE\u05D9\u05D9\u05DC' : 'Enter email address'} className={`px-5 py-3.5 rounded-xl border-2 border-slate-200 text-base min-w-0 sm:min-w-[300px] outline-none focus:border-orange-500 transition-colors duration-200 ${isRTL ? 'text-right' : 'text-left'}`} />
+            <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3.5 rounded-xl transition-colors shadow-[0_4px_14px_rgba(255,107,0,0.3)] duration-200 cursor-pointer border-none text-base">
               {ml(currentLanguage, { he: '\u05D4\u05E6\u05D8\u05E8\u05E4\u05D5 \u05E2\u05DB\u05E9\u05D9\u05D5', en: 'Join Now', fr: 'Rejoignez Maintenant', es: '\u00DAnete Ahora', ru: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C \u0421\u0435\u0439\u0447\u0430\u0441' })}
             </button>
           </div>
 
           <div>
-            <h3 style={{fontSize: '1.3rem', fontWeight: '600', color: 'hsl(210, 25%, 20%)', marginBottom: '0.75rem'}}>
+            <h3 className="text-xl font-semibold text-slate-800 mb-3">
               {ml(currentLanguage, { he: '\u05D4\u05E6\u05D8\u05E8\u05E4\u05D5 \u05DC\u05E7\u05D1\u05D5\u05E6\u05D5\u05EA \u05D4\u05D5\u05D5\u05D0\u05D8\u05E1\u05D0\u05E4 \u05E9\u05DC\u05E0\u05D5', en: 'Join Our WhatsApp Groups', fr: 'Rejoignez Nos Groupes WhatsApp', es: '\u00DAnete a Nuestros Grupos de WhatsApp', ru: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C \u043A \u041D\u0430\u0448\u0438\u043C \u0413\u0440\u0443\u043F\u043F\u0430\u043C WhatsApp' })}
             </h3>
-            <p style={{fontSize: '0.95rem', color: 'hsl(210, 15%, 50%)', marginBottom: '1.5rem'}}>
+            <p className="text-slate-500 mb-6">
               {ml(currentLanguage, { he: '\u05E7\u05D1\u05DC\u05D5 \u05E2\u05D3\u05DB\u05D5\u05E0\u05D9\u05DD \u05D9\u05D5\u05DE\u05D9\u05D9\u05DD, \u05D7\u05D5\u05D5\u05D9\u05D5\u05EA \u05DE\u05E8\u05D2\u05E9\u05D5\u05EA \u05D5\u05D7\u05D9\u05D6\u05D5\u05E7 \u05E8\u05D5\u05D7\u05E0\u05D9', en: 'Receive daily updates, exciting experiences and spiritual strengthening', fr: 'Recevez des mises \u00E0 jour quotidiennes, des exp\u00E9riences passionnantes et un renforcement spirituel', es: 'Recibe actualizaciones diarias, experiencias emocionantes y fortalecimiento espiritual', ru: '\u041F\u043E\u043B\u0443\u0447\u0430\u0439\u0442\u0435 \u0435\u0436\u0435\u0434\u043D\u0435\u0432\u043D\u044B\u0435 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F, \u0437\u0430\u0445\u0432\u0430\u0442\u044B\u0432\u0430\u044E\u0449\u0438\u0435 \u0432\u043F\u0435\u0447\u0430\u0442\u043B\u0435\u043D\u0438\u044F \u0438 \u0434\u0443\u0445\u043E\u0432\u043D\u043E\u0435 \u0443\u043A\u0440\u0435\u043F\u043B\u0435\u043D\u0438\u0435' })}
             </p>
-            <div style={{display: 'flex', justifyContent: 'center', gap: '0.75rem', flexWrap: 'wrap'}}>
+            <div className="flex flex-wrap justify-center gap-3">
               {[
                 {flag: '\uD83D\uDCF1', lang: '\u05E2\u05D1\u05E8\u05D9\u05EA', phone: '972587308000'},
                 {flag: '\uD83C\uDF0D', lang: 'English', phone: '972587308001'},
@@ -1055,8 +733,8 @@ export default function Home() {
                 {flag: '\uD83C\uDDEA\uD83C\uDDF8', lang: 'Espa\u00F1ol', phone: '972587308003'},
                 {flag: '\uD83C\uDDEB\uD83C\uDDF7', lang: 'Fran\u00E7ais', phone: '972587308004'}
               ].map((item, index) => (
-                <a key={index} href={`https://wa.me/${item.phone}`} target="_blank" rel="noopener noreferrer" style={{textDecoration: 'none'}}>
-                  <button style={{background: 'hsl(150, 55%, 45%)', color: 'white', border: 'none', padding: '0.6rem 1.2rem', borderRadius: '8px', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '0.4rem', transition: 'all 0.2s ease', boxShadow: '0 2px 6px hsla(150, 55%, 45%, 0.25)'}}>
+                <a key={index} href={`https://wa.me/${item.phone}`} target="_blank" rel="noopener noreferrer" className="no-underline">
+                  <button className="bg-[#25D366] hover:bg-[#128C7E] text-white border-none py-2.5 px-4 rounded-lg cursor-pointer text-sm font-semibold flex items-center gap-2 transition-colors shadow-[0_2px_8px_rgba(37,211,102,0.3)]">
                     {item.flag} {item.lang}
                   </button>
                 </a>
@@ -1070,22 +748,22 @@ export default function Home() {
 
       {/* JOIN / CTA SECTION */}
       <LazySection>
-      <section style={{background: 'hsl(210, 30%, 97%)', padding: '5rem 0'}}>
-        <div style={{maxWidth: '800px', margin: '0 auto', padding: '0 2rem', textAlign: 'center'}}>
-          <h2 style={{fontSize: 'clamp(1.6rem, 3.5vw, 2.2rem)', fontWeight: '700', marginBottom: '0.75rem', color: 'hsl(210, 25%, 20%)'}}>
+      <section className="bg-slate-50 py-20 px-4 border-t border-slate-100">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 mb-4">
             {ml(currentLanguage, { he: '\u05D4\u05E6\u05D8\u05E8\u05E4\u05D5 \u05E2\u05DB\u05E9\u05D9\u05D5 \u05DC\u05E4\u05E8\u05E1\u05D5\u05DD \u05D5\u05D4\u05E4\u05E6\u05EA \u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05D1\u05E2\u05D5\u05DC\u05DD', en: 'Join Now to Promote and Spread Rabbi Nachman\'s Books Worldwide', fr: 'Rejoignez Maintenant pour Promouvoir et Diffuser les Livres de Rabbi Nachman dans le Monde', es: '\u00DAnete Ahora para Promover y Difundir los Libros del Rabino Nachman en el Mundo', ru: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C \u0421\u0435\u0439\u0447\u0430\u0441 \u043A \u041F\u0440\u043E\u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044E \u0438 \u0420\u0430\u0441\u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0435\u043D\u0438\u044E \u041A\u043D\u0438\u0433 \u0420\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430 \u043F\u043E \u0412\u0441\u0435\u043C\u0443 \u041C\u0438\u0440\u0443' })}
           </h2>
-          <p style={{fontSize: '1.05rem', fontWeight: '300', marginBottom: '2.5rem', color: 'hsl(210, 15%, 50%)', lineHeight: '1.6'}}>
+          <p className="text-base md:text-lg text-slate-500 mb-10 font-light leading-relaxed">
             {ml(currentLanguage, { he: '\u05D4\u05D4\u05D6\u05D3\u05DE\u05E0\u05D5\u05EA \u05E9\u05DC\u05DB\u05DD \u05DC\u05E2\u05D6\u05D5\u05E8 \u05D5\u05DC\u05EA\u05EA \u05D9\u05D3 \u05DC\u05E4\u05E8\u05E1\u05D5\u05DD \u05E9\u05DD \u05D4\u05E6\u05D3\u05D9\u05E7 \u05D1\u05E2\u05D5\u05DC\u05DD', en: 'Your opportunity to help and lend a hand in spreading the name of the Tzaddik in the world', fr: 'Votre opportunit\u00E9 d\'aider et de donner un coup de main \u00E0 la diffusion du nom du Tzaddik dans le monde', es: 'Tu oportunidad de ayudar y dar una mano en difundir el nombre del Tzaddik en el mundo', ru: '\u0412\u0430\u0448\u0430 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u043F\u043E\u043C\u043E\u0447\u044C \u0438 \u043F\u0440\u0438\u043B\u043E\u0436\u0438\u0442\u044C \u0440\u0443\u043A\u0443 \u043A \u0440\u0430\u0441\u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0435\u043D\u0438\u044E \u0438\u043C\u0435\u043D\u0438 \u0426\u0430\u0434\u0438\u043A\u0430 \u0432 \u043C\u0438\u0440\u0435' })}
           </p>
-          <div style={{display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap'}}>
-            <a href="/join" style={{textDecoration: 'none'}}>
-              <button style={{background: 'hsl(210, 85%, 45%)', color: 'white', border: 'none', padding: '1rem 2.5rem', borderRadius: '10px', cursor: 'pointer', fontSize: '1.05rem', fontWeight: '600', boxShadow: '0 4px 14px hsla(210, 85%, 45%, 0.3)', transition: 'all 0.2s ease'}}>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="/join" className="no-underline">
+              <button className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white border-none py-4 px-10 rounded-xl cursor-pointer text-lg font-semibold shadow-[0_4px_14px_rgba(255,107,0,0.3)] transition-colors duration-200">
                 {ml(currentLanguage, { he: '\u05D4\u05E6\u05D8\u05E8\u05E4\u05D5 \u05D0\u05DC\u05D9\u05E0\u05D5', en: 'Join Us', fr: 'Rejoignez-nous', es: '\u00DAnete a Nosotros', ru: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C \u043A \u041D\u0430\u043C' })}
               </button>
             </a>
-            <a href="/contact" style={{textDecoration: 'none'}}>
-              <button style={{background: '#FFFFFF', color: 'hsl(210, 85%, 45%)', border: '1.5px solid hsl(210, 85%, 45%)', padding: '1rem 2.5rem', borderRadius: '10px', cursor: 'pointer', fontSize: '1.05rem', fontWeight: '600', transition: 'all 0.2s ease'}}>
+            <a href="/contact" className="no-underline">
+              <button className="w-full sm:w-auto bg-white hover:bg-slate-50 text-orange-500 border-2 border-orange-500 py-4 px-10 rounded-xl cursor-pointer text-lg font-semibold transition-colors duration-200">
                 {ml(currentLanguage, { he: '\u05E6\u05E8\u05D5 \u05E7\u05E9\u05E8 \u05DC\u05EA\u05E8\u05D5\u05DE\u05D4', en: 'Contact for Donation', fr: 'Contactez pour Don', es: 'Contacto para Donaci\u00F3n', ru: '\u0421\u0432\u044F\u0437\u0430\u0442\u044C\u0441\u044F \u0434\u043B\u044F \u041F\u043E\u0436\u0435\u0440\u0442\u0432\u043E\u0432\u0430\u043D\u0438\u044F' })}
               </button>
             </a>
@@ -1096,18 +774,14 @@ export default function Home() {
       </LazySection>
 
       {/* FOOTER */}
-      <footer className="main-footer" style={{background: 'hsl(210, 20%, 18%)', color: 'white', padding: '2.5rem 0 2rem'}}>
-        <div style={{maxWidth: '1200px', margin: '0 auto', padding: '0 2rem'}}>
-          <div style={{textAlign: 'center'}}>
-            <div style={{color: 'hsl(210, 10%, 60%)', fontSize: '0.85rem'}}>
-              <p style={{marginBottom: '0.4rem'}}>
-                {ml(currentLanguage, { he: '\u05DB\u05DC \u05D4\u05D6\u05DB\u05D9\u05D5\u05EA \u05E9\u05DE\u05D5\u05E8\u05D5\u05EA 2025 \u00A9 \u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8 \u05D6\u05E6"\u05DC', en: 'All rights reserved 2025 \u00A9 Rabbi Israel Dov Odesser Foundation', fr: 'Tous droits r\u00E9serv\u00E9s 2025 \u00A9 Fondation Rabbi Israel Dov Odesser', es: 'Todos los derechos reservados 2025 \u00A9 Fundaci\u00F3n Rabino Israel Dov Odesser', ru: '\u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043D\u044B 2025 \u00A9 \u0424\u043E\u043D\u0434 \u0420\u0430\u0431\u0431\u0438 \u0418\u0437\u0440\u0430\u044D\u043B\u044F \u0414\u043E\u0432\u0430 \u041E\u0434\u0435\u0441\u0441\u0435\u0440\u0430' })}
-              </p>
-              <p style={{margin: 0}}>
-                {ml(currentLanguage, { he: '\u05D4\u05D0\u05EA\u05E8 \u05E0\u05D1\u05E0\u05D4 \u05E2"\u05D9 \u05DE\u05D3\u05D9\u05D4 \u05DE\u05D0\u05E1\u05D8\u05E8', en: 'Website built by Media Master', fr: 'Site web construit par Media Master', es: 'Sitio web construido por Media Master', ru: '\u0421\u0430\u0439\u0442 \u0441\u043E\u0437\u0434\u0430\u043D Media Master' })}
-              </p>
-            </div>
-          </div>
+      <footer className="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="mb-2 text-sm tracking-wide">
+            {ml(currentLanguage, { he: '\u05DB\u05DC \u05D4\u05D6\u05DB\u05D9\u05D5\u05EA \u05E9\u05DE\u05D5\u05E8\u05D5\u05EA 2025 \u00A9 \u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8 \u05D6\u05E6"\u05DC', en: 'All rights reserved 2025 \u00A9 Rabbi Israel Dov Odesser Foundation', fr: 'Tous droits r\u00E9serv\u00E9s 2025 \u00A9 Fondation Rabbi Israel Dov Odesser', es: 'Todos los derechos reservados 2025 \u00A9 Fundaci\u00F3n Rabino Israel Dov Odesser', ru: '\u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043D\u044B 2025 \u00A9 \u0424\u043E\u043D\u0434 \u0420\u0430\u0431\u0431\u0438 \u0418\u0437\u0440\u0430\u044D\u043B\u044F \u0414\u043E\u0432\u0430 \u041E\u0434\u0435\u0441\u0441\u0435\u0440\u0430' })}
+          </p>
+          <p className="text-sm">
+            {ml(currentLanguage, { he: '\u05D4\u05D0\u05EA\u05E8 \u05E0\u05D1\u05E0\u05D4 \u05E2"\u05D9 \u05DE\u05D3\u05D9\u05D4 \u05DE\u05D0\u05E1\u05D8\u05E8', en: 'Website built by Media Master', fr: 'Site web construit par Media Master', es: 'Sitio web construido por Media Master', ru: '\u0421\u0430\u0439\u0442 \u0441\u043E\u0437\u0434\u0430\u043D Media Master' })}
+          </p>
         </div>
       </footer>
 

@@ -23,6 +23,8 @@ export const translations = {
     join: 'הצטרפות',
     downloads: 'הורדות',
     fire: '🔥 האש שלי',
+    discoverCollection: 'גלה אוסף',
+    booksAvailable: 'ספרים זמינים',
 
     // Downloads page
     freeDownloads: 'הורדות חינמיות',
@@ -138,6 +140,8 @@ export const translations = {
     join: 'Join',
     downloads: 'Downloads',
     fire: '🔥 My Fire',
+    discoverCollection: 'Discover Collection',
+    booksAvailable: 'Books Available',
 
     // Store page
     storeTitle: 'Breslov Books - Rabbi Israel Foundation',
@@ -253,6 +257,8 @@ export const translations = {
     join: 'Rejoindre',
     downloads: 'Téléchargements',
     fire: '🔥 Mon Feu',
+    discoverCollection: 'Découvrir la Collection',
+    booksAvailable: 'Livres Disponibles',
 
     // Store page
     storeTitle: 'Livres Breslov - Fondation Rabbi Israel',
@@ -368,6 +374,8 @@ export const translations = {
     join: 'Unirse',
     downloads: 'Descargas',
     fire: '🔥 Mi Fuego',
+    discoverCollection: 'Descubrir Colección',
+    booksAvailable: 'Libros Disponibles',
 
     // Store page
     storeTitle: 'Libros Breslov - Fundación Rabino Israel',
@@ -483,6 +491,8 @@ export const translations = {
     join: 'Присоединиться',
     downloads: 'Загрузки',
     fire: '🔥 Мой Огонь',
+    discoverCollection: 'Откройте Коллекцию',
+    booksAvailable: 'Доступные книги',
 
     // Store page
     storeTitle: 'Книги Бреслов - Фонд Рабби Израиль',
@@ -599,12 +609,16 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     const saved = localStorage.getItem('site-language');
     if (saved && saved in translations) {
       setCurrentLanguage(saved);
+      document.dir = saved === 'he' ? 'rtl' : 'ltr';
+    } else {
+      document.dir = 'he' === 'he' ? 'rtl' : 'ltr';
     }
   }, []);
 
   const setLanguage = (language: string) => {
     setCurrentLanguage(language);
     localStorage.setItem('site-language', language);
+    document.dir = language === 'he' ? 'rtl' : 'ltr';
   };
 
   const t = (key: string): string => {

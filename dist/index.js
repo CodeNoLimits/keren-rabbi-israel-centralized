@@ -6447,14 +6447,14 @@ async function registerRoutes(app2) {
         useRAG
       };
       const response = await chatWithGemini(chatRequest);
-      if (req.isAuthenticated() && response.conversationId) {
+      if (req.isAuthenticated && req.isAuthenticated() && response.conversationId) {
         console.log(`Chat session for user ${req.user.id}: ${response.conversationId}, sentiment: ${sentiment.sentiment}`);
       }
       res.json({
         ...response,
         sentiment,
         timestamp: /* @__PURE__ */ new Date(),
-        userId: req.isAuthenticated() ? req.user.id : null
+        userId: req.isAuthenticated && req.isAuthenticated() ? req.user.id : null
       });
     } catch (error) {
       console.error("Chat endpoint error:", error);
@@ -6982,6 +6982,13 @@ app.use((req, res, next) => {
 });
 (async () => {
   const server = await registerRoutes(app);
+  app.use((req, res, next) => {
+    res.setHeader(
+      "Content-Security-Policy",
+      "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://www.paypal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.stripe.com https://*.paypal.com; frame-src https://js.stripe.com https://www.paypal.com; connect-src 'self' https://api.stripe.com https://*.paypal.com https://generativelanguage.googleapis.com;"
+    );
+    next();
+  });
   app.use((err, _req, res, _next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
