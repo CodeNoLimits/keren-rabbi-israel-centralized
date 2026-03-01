@@ -1,0 +1,39 @@
+[-2039227ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://ultime-esther-ifra-breslev.vercel.app/%VITE_ANALYTICS_ENDPOINT%/umami:0
+[-1091346ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://ultime-esther-ifra-breslev.vercel.app/%VITE_ANALYTICS_ENDPOINT%/umami:0
+[-1117628ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&display=swap:0
+[-233384860ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://codenolimits.github.io/favicon.ico:0
+[-1118978ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://keren-rabbi-israel-centralized-eawvv84n5-dream-ais-projects.vercel.app/:0
+[-1117623ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap:0
+[-2038612ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://ultime-esther-ifra-breslev.vercel.app/%VITE_APP_LOGO%:0
+[-1091000ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://ultime-esther-ifra-breslev.vercel.app/%VITE_APP_LOGO%:0
+[-1118843ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://keren-rabbi-israel-centralized-eawvv84n5-dream-ais-projects.vercel.app/api/auth/user:0
+[-1117537ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://keren-rabbi-israel-centralized-eawvv84n5-dream-ais-projects.vercel.app/:0
+[-1091084ms] [ERROR] TypeError: Failed to construct 'URL': Invalid URL
+    at ha (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:302:8288)
+    at ar (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:302:8543)
+    at PM (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:302:25303)
+    at bd (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:48111)
+    at Hd (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:70929)
+    at fx (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:81268)
+    at Ix (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:117065)
+    at Mj (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:116111)
+    at lf (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:115943)
+    at Lx (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:112728) @ :62
+[-2038703ms] [ERROR] TypeError: Failed to construct 'URL': Invalid URL
+    at ha (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:302:8288)
+    at ar (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:302:8543)
+    at PM (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:302:25303)
+    at bd (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:48111)
+    at Hd (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:70929)
+    at fx (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:81268)
+    at Ix (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:117065)
+    at Mj (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:116111)
+    at lf (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:115943)
+    at Lx (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:112728) @ :62
+[      10ms] Error: Failed to find shadow host
+    at window.updateActuationOverlay (<anonymous>:6522:37)
+    at <anonymous>:1:8
+[-1117415ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://keren-rabbi-israel-centralized-eawvv84n5-dream-ais-projects.vercel.app/api/auth/user:0
+[      10ms] Error: Failed to find shadow host
+    at window.updateActuationOverlay (<anonymous>:6522:37)
+    at <anonymous>:1:8

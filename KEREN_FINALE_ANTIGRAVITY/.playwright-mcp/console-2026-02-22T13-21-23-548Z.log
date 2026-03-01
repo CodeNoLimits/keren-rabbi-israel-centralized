@@ -1,0 +1,4 @@
+[     280ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&display=swap:0
+[     296ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap:0
+[     505ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://keren-rabbi-israel-centralized-9xfldd0cr-dream-ais-projects.vercel.app/:0
+[     577ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://keren-rabbi-israel-centralized-9xfldd0cr-dream-ais-projects.vercel.app/api/auth/user:0

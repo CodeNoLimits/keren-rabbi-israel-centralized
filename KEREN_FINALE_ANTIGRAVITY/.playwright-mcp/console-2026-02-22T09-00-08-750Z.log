@@ -1,0 +1,21 @@
+[-1117019ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap:0
+[-6157181ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://breslev-reports-site-otdaa39wg-dream-ais-projects.vercel.app/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js:0
+[-1197718ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://ultime-esther-ifra-breslev.vercel.app/%VITE_ANALYTICS_ENDPOINT%/umami:0
+[-20344079ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://dreamnova-bible-site.vercel.app/img/icon-192.png:0
+[-1117011ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=Crimson+Text:wght@400;600;700&display=swap:0
+[-20344078ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://dreamnova-bible-site.vercel.app/favicon.ico:0
+[-1197580ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://ultime-esther-ifra-breslev.vercel.app/%VITE_APP_LOGO%:0
+[-20344078ms] [WARNING] Error while trying to use the following icon from the Manifest: https://dreamnova-bible-site.vercel.app/img/icon-192.png (Download error or resource isn't a valid image) @ https://dreamnova-bible-site.vercel.app/:0
+[-1116931ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://keren-rabbi-israel-centralized-eawvv84n5-dream-ais-projects.vercel.app/:0
+[-1197663ms] [ERROR] TypeError: Failed to construct 'URL': Invalid URL
+    at ha (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:302:8288)
+    at ar (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:302:8543)
+    at PM (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:302:25303)
+    at bd (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:48111)
+    at Hd (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:70929)
+    at fx (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:81268)
+    at Ix (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:117065)
+    at Mj (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:116111)
+    at lf (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:115943)
+    at Lx (https://ultime-esther-ifra-breslev.vercel.app/assets/index-BrokkGxo.js:48:112728) @ :62
+[-1116787ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://keren-rabbi-israel-centralized-eawvv84n5-dream-ais-projects.vercel.app/api/auth/user:0

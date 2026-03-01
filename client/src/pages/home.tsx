@@ -140,11 +140,11 @@ export default function Home() {
   return (
     <main className="rtl home page-template-default page page-id-13" style={{direction: isRTL ? 'rtl' : 'ltr', background: '#FFFFFF'}}>
       {/* TOP BAR */}
-      <section className="bg-orange-500 text-white py-2">
+      <section className="bg-[#050505] text-[#D4AF37] py-2 border-b border-white/5">
         <div className="max-w-7xl mx-auto px-8">
-          <ul className="flex gap-4 justify-center m-0 p-0 text-sm">
+          <ul className="flex gap-4 justify-center m-0 p-0 text-sm font-medium tracking-wide">
             <li className="flex items-center gap-2">
-              <span>&#x1F69A;</span>
+              <span className="opacity-80">&#x1F69A;</span>
               <span>
                 {ml(currentLanguage, {
                   he: 'משלוחים חינם החל מ- 399 ש"ח',
@@ -162,87 +162,212 @@ export default function Home() {
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
 
       {/* ============================================ */}
-      {/* HERO SECTION - Minimalist & Powerful         */}
-      {/* Task 53: Jerusalem/Kotel Background Elements */}
+      {/* HERO SECTION - Sacred Luxury Overhaul        */}
       {/* ============================================ */}
-      <section className="bg-white bg-[url('/images/jerusalem-skyline.svg')] bg-[length:contain] bg-bottom bg-no-repeat py-24 min-h-[60vh] flex items-center relative overflow-hidden border-b border-slate-100">
-        <div className="absolute inset-0 bg-gradient-to-b from-white/90 to-white/40 z-0" />
-        <div className="max-w-7xl mx-auto px-8 w-full relative z-10">
-          <div className={`grid grid-cols-1 md:grid-cols-2 gap-16 items-center ${isRTL ? 'md:grid-cols-[1fr_1.2fr]' : 'md:grid-cols-[1.2fr_1fr]'}`}>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className={isRTL ? 'order-2 md:order-2' : 'order-1 md:order-1'}>
-              <h1 className={`text-clamp-hero font-black mb-6 leading-tight text-slate-900 tracking-tight ${isRTL ? 'font-hebrew' : 'font-latin'}`} style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}>
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#0A0A0B]">
+        {/* Deep rich background gradient with subtle glow */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#050505] via-[#111318] to-[#0A0500] z-0" />
+        
+        {/* Subtle radial glow in the center */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none z-0" />
+
+        <div className="max-w-7xl mx-auto px-8 w-full relative z-10 py-20">
+          <div className={`grid grid-cols-1 md:grid-cols-2 gap-16 items-center ${isRTL ? 'md:grid-cols-[1.1fr_1fr]' : 'md:grid-cols-[1.2fr_1fr]'}`}>
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className={isRTL ? 'order-2 md:order-2' : 'order-1 md:order-1'}>
+              
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3, duration: 1 }} className="flex items-center gap-4 mb-6">
+                <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#D4AF37]" />
+                <span className="uppercase tracking-[0.2em] text-[#D4AF37] text-xs md:text-sm font-semibold">
+                  {ml(currentLanguage, {
+                    he: 'הוצאת הספרים המרכזית',
+                    en: 'The Central Publishing House',
+                    fr: 'La Maison d\'Édition Centrale',
+                    es: 'La Editorial Central',
+                    ru: 'Центральное издательство',
+                  })}
+                </span>
+                <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#D4AF37]" />
+              </motion.div>
+
+              <h1 className={`mb-6 leading-tight text-white tracking-tight ${isRTL ? 'font-hebrew font-black' : 'font-serif font-bold'}`} style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', textShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
                 {ml(currentLanguage, {
-                  he: '\u05D4\u05D0\u05E9 \u05E9\u05DC\u05D9',
+                  he: 'האש שלי',
                   en: 'My Fire',
                   fr: 'Mon Feu',
                   es: 'Mi Fuego',
-                  ru: '\u041C\u043E\u0439 \u041E\u0433\u043E\u043D\u044C',
+                  ru: 'Мой Огонь',
                 })}
-                <span className="block text-orange-500 text-[0.6em] mt-2">
+                <span className={`block text-transparent bg-clip-text bg-gradient-to-r from-[#E5C158] via-[#FFF3B0] to-[#E5C158] mt-2 ${isRTL ? 'font-hebrew font-bold' : 'font-serif font-medium'}`} style={{ fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', textShadow: 'none' }}>
                   {ml(currentLanguage, {
-                    he: '\u05D4\u05E4\u05E6\u05EA \u05E1\u05E4\u05E8\u05D9 \u05D1\u05E8\u05E1\u05DC\u05D1',
-                    en: 'Spreading Breslov Books',
-                    fr: 'Diffusion des Livres Breslov',
-                    es: 'Difusi\u00F3n de Libros Breslov',
-                    ru: '\u0420\u0430\u0441\u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0435\u043D\u0438\u0435 \u041A\u043D\u0438\u0433 \u0411\u0440\u0435\u0441\u043B\u043E\u0432',
+                    he: 'הפצת ספרי רבי נחמן מברסלב',
+                    en: 'Spreading Rabbi Nachman\'s Books',
+                    fr: 'Diffusion des Livres de Rabbi Nachman',
+                    es: 'Difusión de Libros de Rabí Nachman',
+                    ru: 'Распространение Книг Рабби Нахмана',
                   })}
                 </span>
               </h1>
-              <p className={`text-clamp-base mb-10 text-slate-600 leading-relaxed max-w-xl ${isRTL ? 'font-hebrew' : 'font-serif'}`}>
+              
+              <p className={`text-lg md:text-xl mb-12 text-slate-300 leading-relaxed max-w-xl font-light ${isRTL ? 'font-hebrew' : 'font-sans'}`}>
                 {ml(currentLanguage, {
-                  he: '\u05D7\u05E0\u05D5\u05EA \u05D4\u05E1\u05E4\u05E8\u05D9\u05DD \u05D4\u05DE\u05D5\u05D1\u05D9\u05DC\u05D4 \u05E9\u05DC \u05E8\u05D1\u05D9 \u05E0\u05D7\u05DE\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1. \u05DE\u05E7\u05D5\u05DD \u05E9\u05D1\u05D5 \u05DB\u05DC \u05E0\u05E9\u05DE\u05D4 \u05DE\u05D5\u05E6\u05D0\u05EA \u05D0\u05EA \u05D4\u05D3\u05E8\u05DA \u05E9\u05DC\u05D4.',
-                  en: 'The leading bookstore of Rabbi Nachman of Breslov. A place where every soul finds its way.',
-                  fr: 'La librairie de r\u00E9f\u00E9rence de Rabbi Nachman de Breslov. Un lieu o\u00F9 chaque \u00E2me trouve son chemin.',
-                  es: 'La librer\u00EDa l\u00EDder de Rab\u00ED Nachman de Breslov. Un lugar donde cada alma encuentra su camino.',
-                  ru: '\u0412\u0435\u0434\u0443\u0449\u0438\u0439 \u043A\u043D\u0438\u0436\u043D\u044B\u0439 \u043C\u0430\u0433\u0430\u0437\u0438\u043D \u0420\u0430\u0431\u0431\u0438 \u041D\u0430\u0445\u043C\u0430\u043D\u0430. \u041C\u0435\u0441\u0442\u043E, \u0433\u0434\u0435 \u043A\u0430\u0436\u0434\u0430\u044F \u0434\u0443\u0448\u0430 \u043D\u0430\u0445\u043E\u0434\u0438\u0442 \u0441\u0432\u043E\u0439 \u043F\u0443\u0442\u044C.',
+                  he: 'גלה את מקור התורות של רבי נחמן מברסלב, מתורגמות בדיוק המרבי ומוגשות בספרים בהוצאה מוקפדת ויוקרתית.',
+                  en: 'Discover the source of Rabbi Nachman of Breslov\'s teachings, translated with the utmost precision and presented in meticulously crafted, premium editions.',
+                  fr: 'Découvrez la source des enseignements de Rabbi Nachman de Breslev, traduits avec la plus haute précision et présentés dans des ouvrages d\'exception.',
+                  es: 'Descubre la fuente de las enseñanzas del Rabino Nachman de Breslov, traducidas con la mayor precisión y presentadas en ediciones premium meticulosamente elaboradas.',
+                  ru: 'Откройте для себя источник учений Рабби Нахмана из Бреслова, переведенных с высочайшей точностью и представленных в премиальных изданиях.',
                 })}
               </p>
-              <div className="flex gap-6 flex-wrap items-center">
-                <a href="/store" className="no-underline">
-                  <button data-testid="button-enter-store" className="bg-orange-500 hover:bg-orange-600 text-white border-0 py-4 px-12 rounded-xl cursor-pointer text-lg font-bold shadow-[0_6px_20px_rgba(255,107,0,0.3)] transition-all hover:-translate-y-1">
-                    {ml(currentLanguage, {
-                      he: '\u05DB\u05E0\u05E1 \u05DC\u05D7\u05E0\u05D5\u05EA',
-                      en: 'Enter Store',
-                      fr: 'Entrer dans la Boutique',
-                      es: 'Entrar a la Tienda',
-                      ru: '\u0412\u043E\u0439\u0442\u0438 \u0432 \u041C\u0430\u0433\u0430\u0437\u0438\u043D',
-                    })}
+
+              <div className="flex gap-5 flex-wrap items-center">
+                <a href="/store" className="no-underline group">
+                  <button data-testid="button-enter-store" className="relative overflow-hidden bg-gradient-to-r from-[#D4AF37] to-[#B5912B] text-slate-900 border-0 py-4 px-10 rounded-[2px] cursor-pointer text-lg font-bold shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:-translate-y-1">
+                    <span className="relative z-10 flex items-center gap-2">
+                      {ml(currentLanguage, {
+                        he: 'לכל הספרים',
+                        en: 'Discover Our Books',
+                        fr: 'Découvrir Nos Livres',
+                        es: 'Descubrir Nuestros Libros',
+                        ru: 'Откройте Наши Книги',
+                      })}
+                      {isRTL ? '←' : '→'}
+                    </span>
+                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                   </button>
                 </a>
-                <a href="/join" className="no-underline">
-                  <button data-testid="button-discover-activities" className="bg-transparent text-orange-500 border-2 border-orange-500 hover:bg-orange-50 py-4 px-12 rounded-xl cursor-pointer text-lg font-bold transition-all">
+                
+                <a href="/join" className="no-underline group">
+                  <button data-testid="button-our-story" className="bg-transparent text-[#D4AF37] border border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 py-4 px-10 rounded-[2px] cursor-pointer text-lg font-medium transition-all">
                     {ml(currentLanguage, {
-                      he: '\u05EA\u05E8\u05D5\u05DE\u05D4 \u05DC\u05E7\u05E8\u05DF',
-                      en: 'Donate to the Fund',
-                      fr: 'Don \u00E0 la Fondation',
-                      es: 'Donar a la Fundaci\u00F3n',
-                      ru: '\u041F\u043E\u0436\u0435\u0440\u0442\u0432\u043E\u0432\u0430\u0442\u044C \u0432 \u0424\u043E\u043D\u0434',
+                      he: 'הסיפור שלנו',
+                      en: 'Our Story',
+                      fr: 'Notre Histoire',
+                      es: 'Nuestra Historia',
+                      ru: 'Наша История',
                     })}
                   </button>
                 </a>
               </div>
             </motion.div>
 
-            {/* Hero image - clean book composition */}
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.2 }} className={`flex justify-center items-center relative min-h-[300px] md:min-h-[400px] ${isRTL ? 'order-1 md:order-1' : 'order-2 md:order-2'}`}>
-              <img
-                src="/images/book-1.webp"
-                alt={ml(currentLanguage, {he: 'ספרי רבי נחמן', en: 'Rabbi Nachman Books', fr: 'Livres de Rabbi Nachman', es: 'Libros de Rabí Nachman', ru: 'Книги Рабби Нахмана'})}
-                width="380"
-                height="380"
-                fetchPriority="high"
-                decoding="async"
-                className="max-w-[380px] w-full h-auto rounded-2xl shadow-[0_30px_80px_rgba(0,0,0,0.15)]"
-              />
+            {/* Hero image - Premium framing */}
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }} className={`flex justify-center items-center relative min-h-[400px] md:min-h-[500px] ${isRTL ? 'order-1 md:order-1' : 'order-2 md:order-2'}`}>
+              <div className="relative z-10 w-full max-w-[380px]">
+                {/* Decorative majestic frame behind image */}
+                <div className="absolute inset-0 border border-[#D4AF37]/30 translate-x-4 translate-y-4 rounded-[2px] -z-10" />
+                <div className="absolute inset-0 border border-[#D4AF37]/10 -translate-x-4 -translate-y-4 rounded-[2px] -z-10" />
+                
+                <img
+                  src="/images/book-1.webp"
+                  alt={ml(currentLanguage, {he: 'ספרי רבי נחמן', en: 'Rabbi Nachman Books', fr: 'Livres de Rabbi Nachman', es: 'Libros de Rabí Nachman', ru: 'Книги Рабби Нахмана'})}
+                  width="380"
+                  height="380"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="w-full h-auto rounded-[2px] shadow-[0_30px_60px_rgba(0,0,0,0.6)] border border-white/5"
+                />
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* ============================================ */}
+      {/* STORY SECTION - Rabbi Israel Ber Odesser     */}
+      {/* ============================================ */}
+      <section className="bg-white py-24 relative overflow-hidden border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+           <div className={`flex flex-col lg:flex-row items-center gap-16 ${isRTL ? 'lg:flex-row-reverse' : ''}`}>
+             
+             {/* Text Content */}
+             <motion.div 
+               initial={{ opacity: 0, x: isRTL ? 40 : -40 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               viewport={{ once: true, margin: "-100px" }}
+               transition={{ duration: 0.8 }}
+               className="flex-1"
+             >
+               <h2 className={`text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 leading-tight ${isRTL ? 'font-hebrew' : 'font-serif'}`}>
+                 {ml(currentLanguage, {
+                   he: 'האש שלי תוקד עד ביאת המשיח',
+                   en: 'My fire will burn until the coming of Messiah',
+                   fr: 'Mon feu brûlera jusqu\'à la venue du Messie',
+                   es: 'Mi fuego arderá hasta la venida del Mesías',
+                   ru: 'Мой огонь будет гореть до прихода Машиаха'
+                 })}
+               </h2>
+               
+               <div className="h-1 w-20 bg-gradient-to-r from-[#D4AF37] to-[#B5912B] mb-8" />
+               
+               <p className="text-lg md:text-xl text-slate-600 mb-6 leading-relaxed font-light">
+                 {ml(currentLanguage, {
+                   he: 'קרן ההדפסה הוקמה על ידי סבא ישראל בער אודסר בעצמו, כדי להדפיס ולהפיץ את ספרי הקודש של רבי נחמן מברסלב בכל העולם. זוהי ההוצאה המרכזית והמדויקת ביותר.',
+                   en: 'The printing fund was established by Saba Israel Ber Odesser himself, to print and distribute the holy books of Rabbi Nachman of Breslov worldwide. This is the central and most accurate publishing house.',
+                   fr: 'Le fonds d\'impression a été créé par Saba Israël Ber Odesser lui-même, pour imprimer et distribuer les livres saints de Rabbi Nachman de Breslev dans le monde entier.',
+                   es: 'El fondo de impresión fue establecido por el propio Saba Israel Ber Odesser, para imprimir y distribuir los libros sagrados del Rabino Nachman de Breslov.',
+                   ru: 'Фонд печати был основан самим Сабой Исраэлем Бер Одессером для печати и распространения святых книг Рабби Нахмана из Бреслова по всему миру.'
+                 })}
+               </p>
+               
+               <p className="text-lg md:text-xl text-slate-600 mb-10 leading-relaxed font-light">
+                 {ml(currentLanguage, {
+                   he: 'כל רכישה באתר היא תרומה ישירה להמשך מפעל חייו - הפצת האור של רבי נחמן לכל נשמה המחפשת תיקון, שמחה ואמונה.',
+                   en: 'Every purchase on the site is a direct contribution to continuing his life\'s work - spreading Rabbi Nachman\'s light to every soul seeking rectification, joy, and faith.',
+                   fr: 'Chaque achat sur le site est une contribution directe à la poursuite de l\'œuvre de sa vie - diffuser la lumière de Rabbi Nachman à chaque âme qui cherche la joie et la foi.',
+                   es: 'Cada compra en el sitio es una contribución directa para continuar la obra de su vida: difundir la luz del Rabino Nachman.',
+                   ru: 'Каждая покупка на сайте - это прямой вклад в продолжение дела его жизни - нести свет Рабби Нахмана каждой душе.'
+                 })}
+               </p>
+
+               <a href="/about" className="inline-flex items-center gap-2 text-[#B5912B] font-bold text-lg hover:text-orange-600 transition-colors group">
+                 {ml(currentLanguage, {
+                   he: 'קראו את המכתב המלא',
+                   en: 'Read the full letter',
+                   fr: 'Lire la lettre complète',
+                   es: 'Lee la carta completa',
+                   ru: 'Прочитать полное письмо'
+                 })}
+                 <span className={`transform transition-transform ${isRTL ? 'group-hover:-translate-x-2' : 'group-hover:translate-x-2'}`}>{isRTL ? '←' : '→'}</span>
+               </a>
+             </motion.div>
+
+             {/* Image/Visual Content */}
+             <motion.div 
+               initial={{ opacity: 0, scale: 0.95 }}
+               whileInView={{ opacity: 1, scale: 1 }}
+               viewport={{ once: true, margin: "-100px" }}
+               transition={{ duration: 0.8, delay: 0.2 }}
+               className="flex-1 relative w-full"
+             >
+               <div className="relative aspect-[4/5] max-w-md mx-auto">
+                 {/* Gold Frame effect */}
+                 <div className={`absolute inset-0 bg-gradient-to-tr from-[#D4AF37] to-[#FFF3B0] rounded-sm transform translate-y-6 opacity-30 ${isRTL ? '-translate-x-6' : 'translate-x-6'}`} />
+                 
+                 <div className="absolute inset-0 bg-[#0A0A0B] rounded-sm overflow-hidden flex items-center justify-center border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.2)]">
+                    <img src="/images/histoire.webp" alt="Rabbi Israel Ber Odesser" 
+                         className="w-full h-full object-cover opacity-90 transition-opacity hover:opacity-100"
+                         onError={(e) => {
+                           e.currentTarget.style.display = 'none';
+                           e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                         }}
+                    />
+                    <div className="hidden absolute inset-0 bg-[#0A0A0B] flex-col items-center justify-center text-[#D4AF37] p-8 text-center border-2 border-[#D4AF37]/20 m-3">
+                      <span className="text-6xl mb-4">🔥</span>
+                      <h3 className="font-hebrew text-3xl font-bold mb-2">נ נח נחמ נחמן מאומן</h3>
+                      <div className="h-px w-16 bg-[#D4AF37]/50 my-4" />
+                      <p className="text-sm opacity-80 uppercase tracking-widest font-semibold text-white">קרן הדפסה</p>
+                    </div>
+                 </div>
+               </div>
+             </motion.div>
+             
+           </div>
+        </div>
+      </section>
+
+      {/* ============================================ */}
       {/* NOUVEAUTES CAROUSEL                          */}
       {/* ============================================ */}
-      <section className="bg-slate-50 py-16 md:py-20">
+      <section className="bg-[#F9F8F6] py-16 md:py-20 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 relative">
           {/* Section title */}
           <div className="text-center mb-10">
@@ -255,7 +380,7 @@ export default function Home() {
                 ru: '\u041D\u043E\u0432\u0438\u043D\u043A\u0438',
               })}
             </motion.h2>
-            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-orange-500 mx-auto mt-4 rounded-full" />
+            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-gradient-to-r from-[#D4AF37] to-[#B5912B] mx-auto mt-4 rounded-full" />
           </div>
 
           {/* Carousel container */}
@@ -303,7 +428,7 @@ export default function Home() {
                     transition={{ duration: 0.4, delay: idx * 0.1 }}
                     key={product.id}
                     data-carousel-card
-                    className="flex-none w-[220px] sm:w-[260px] snap-start bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer flex flex-col group relative"
+                    className="flex-none w-[220px] sm:w-[260px] snap-start bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] border border-slate-100/50 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer flex flex-col group relative"
                   >
                     <Link href={`/product/${product.id}`} className="no-underline text-inherit flex-1 flex flex-col">
                       <div className="w-full h-[220px] sm:h-[260px] overflow-hidden bg-slate-50 bg-[url('/images/jerusalem-skyline.svg')] bg-cover bg-bottom flex items-center justify-center relative select-none">
@@ -326,7 +451,7 @@ export default function Home() {
                           {title}
                         </h3>
                         {price && (
-                          <p className="text-[14px] sm:text-[15px] font-bold text-orange-600 mt-2">
+                          <p className="text-[14px] sm:text-[15px] font-bold text-[#B5912B] mt-2">
                             {ml(currentLanguage, { he: '\u05D4\u05D7\u05DC \u05DE-', en: 'From ', fr: '\u00C0 partir de ', es: 'Desde ', ru: '\u041E\u0442 ' })}{price}
                           </p>
                         )}
@@ -341,7 +466,7 @@ export default function Home() {
                             e.stopPropagation();
                             handleQuickAdd(product as Product);
                           }}
-                          className="w-full bg-orange-100 hover:bg-orange-500 text-orange-600 hover:text-white border-0 py-2.5 rounded-lg cursor-pointer text-sm font-bold transition-all duration-200 active:scale-95"
+                          className="w-full bg-[#D4AF37]/10 hover:bg-[#D4AF37] text-[#B5912B] hover:text-white border-0 py-2.5 rounded-lg cursor-pointer text-sm font-bold transition-all duration-200 active:scale-95"
                         >
                           {ml(currentLanguage, {
                             he: '\u05D4\u05D5\u05E1\u05E3 \u05DE\u05D4\u05D9\u05E8',
@@ -378,7 +503,7 @@ export default function Home() {
                 ru: '\u0411\u0435\u0441\u0442\u0441\u0435\u043B\u043B\u0435\u0440\u044B',
               })}
             </motion.h2>
-            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-orange-500 mx-auto mt-4 rounded-full" />
+            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-gradient-to-r from-[#D4AF37] to-[#B5912B] mx-auto mt-4 rounded-full" />
           </div>
 
           {/* Products grid: 4 columns desktop, 2 columns mobile */}
@@ -397,7 +522,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
                   key={product.id}
-                  className="group bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col"
+                  className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] border border-slate-100/50 transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col"
                 >
                   <Link href={`/product/${product.id}`} className="no-underline text-inherit flex-1 flex flex-col">
                     <div className="w-full h-[220px] md:h-[280px] overflow-hidden bg-slate-50 bg-[url('/images/jerusalem-skyline.svg')] bg-cover bg-bottom flex items-center justify-center relative">
@@ -420,11 +545,11 @@ export default function Home() {
                         {title}
                       </h3>
                       {price && (
-                        <p className="text-base md:text-[17px] font-bold text-orange-600 mb-4">
+                        <p className="text-base md:text-[17px] font-bold text-[#B5912B] mb-4">
                           {ml(currentLanguage, { he: '\u05D4\u05D7\u05DC \u05DE-', en: 'From ', fr: '\u00C0 partir de ', es: 'Desde ', ru: '\u041E\u0442 ' })}{price}
                         </p>
                       )}
-                      <span className="inline-block text-[13px] md:text-[14px] font-semibold text-orange-500 border-b-2 border-orange-200 group-hover:border-orange-500 transition-colors self-start mb-4">
+                      <span className="inline-block text-[13px] md:text-[14px] font-semibold text-[#B5912B] border-b-2 border-[#D4AF37]/30 group-hover:border-[#D4AF37] transition-colors self-start mb-4">
                         {ml(currentLanguage, {
                           he: '\u05E6\u05E4\u05D9\u05D9\u05D4 \u05D1\u05DE\u05D5\u05E6\u05E8',
                           en: 'View Product',
@@ -444,7 +569,7 @@ export default function Home() {
                           e.stopPropagation();
                           handleQuickAdd(product as Product);
                         }}
-                        className="w-full bg-orange-500 hover:bg-orange-600 active:bg-orange-700 text-white border-0 py-3 rounded-xl cursor-pointer text-[14px] md:text-[15px] font-bold transition-all shadow-[0_4px_12px_rgba(255,107,0,0.2)] hover:shadow-[0_6px_16px_rgba(255,107,0,0.3)] hover:-translate-y-0.5 active:translate-y-0"
+                        className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B5912B] hover:from-[#B5912B] hover:to-[#9E7A1C] text-white border-0 py-3 rounded-xl cursor-pointer text-[14px] md:text-[15px] font-bold transition-all shadow-[0_4px_12px_rgba(212,175,55,0.2)] hover:shadow-[0_6px_16px_rgba(212,175,55,0.3)] hover:-translate-y-0.5 active:translate-y-0"
                       >
                         {ml(currentLanguage, {
                           he: '\u05D4\u05D5\u05E1\u05E3 \u05DC\u05E1\u05DC',
@@ -463,18 +588,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* LEADING BOOKS SECTION - White background, generous spacing */}
-      <section className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="text-center mb-14">
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className={`text-3xl md:text-5xl font-bold text-slate-800 mb-2 ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`}>
+      {/* ============================================ */}
+      {/* LEADING BOOKS SECTION                        */}
+      {/* ============================================ */}
+      <section className="bg-[#0A0A0B] py-24 relative overflow-hidden border-y border-white/5">
+        {/* Subtle background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className={`text-3xl md:text-5xl font-bold text-white mb-2 ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`}>
               {currentLanguage === 'he' ? '\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05E0\u05D5 \u05D4\u05DE\u05D5\u05D1\u05D9\u05DC\u05D9\u05DD' :
                currentLanguage === 'en' ? 'Leading Books of Our Master' :
                currentLanguage === 'fr' ? 'Livres Principaux de Notre Ma\u00EEtre' :
                currentLanguage === 'es' ? 'Libros Principales de Nuestro Maestro' :
                currentLanguage === 'ru' ? '\u0412\u0435\u0434\u0443\u0449\u0438\u0435 \u041A\u043D\u0438\u0433\u0438 \u041D\u0430\u0448\u0435\u0433\u043E \u0423\u0447\u0438\u0442\u0435\u043B\u044F' : '\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05E0\u05D5 \u05D4\u05DE\u05D5\u05D1\u05D9\u05DC\u05D9\u05DD'}
             </motion.h2>
-            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-orange-500 mx-auto mt-4 rounded-full" />
+            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-gradient-to-r from-[#D4AF37] to-[#B5912B] mx-auto mt-4 rounded-full" />
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
@@ -495,12 +625,13 @@ export default function Home() {
                 href={book.href}
                 className="no-underline text-inherit block"
               >
-                <div className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
-                  <div className="h-[200px] md:h-[240px] overflow-hidden bg-slate-50 bg-[url('/images/jerusalem-skyline.svg')] bg-cover bg-bottom flex justify-center items-center">
-                    <img loading="lazy" decoding="async" src={book.image} alt={book.title} className="w-full h-full object-cover mix-blend-multiply transition-transform duration-500 group-hover:scale-105" />
+                <div className="bg-[#111318] rounded-2xl overflow-hidden border border-white/5 shadow-2xl transition-all duration-300 hover:shadow-[0_8px_30px_rgba(212,175,55,0.15)] hover:-translate-y-1 hover:border-[#D4AF37]/30 cursor-pointer group">
+                  <div className="h-[200px] md:h-[240px] overflow-hidden bg-[#0A0A0B] flex justify-center items-center relative">
+                    <div className="absolute inset-0 bg-[url('/images/jerusalem-skyline.svg')] opacity-5 bg-cover bg-bottom mix-blend-screen" />
+                    <img loading="lazy" decoding="async" src={book.image} alt={book.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 z-10 brightness-90 group-hover:brightness-100" />
                   </div>
-                  <div className="p-4 text-center">
-                    <h3 className="text-[15px] md:text-[1.1rem] font-semibold text-slate-800 m-0 leading-snug">
+                  <div className="p-4 text-center border-t border-white/5">
+                    <h3 className="text-[15px] md:text-[1.1rem] font-semibold text-white m-0 leading-snug">
                       {currentLanguage === 'he' ? book.title : book.titleEn}
                     </h3>
                   </div>
@@ -512,31 +643,44 @@ export default function Home() {
       </section>
 
       {/* RABBI NATHAN QUOTE SECTION */}
-      <section className="bg-orange-50 py-20 px-4 mt-8">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="bg-white py-24 px-4 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="bg-white rounded-3xl p-8 md:p-12 shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+            transition={{ duration: 0.8 }}
+            className="bg-[#0A0A0B] rounded-2xl p-10 md:p-16 shadow-2xl relative overflow-hidden border border-[#D4AF37]/20"
           >
-            <h2 className="text-xl md:text-2xl font-semibold mb-3 text-slate-800">
+            {/* Decorative corners */}
+            <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#D4AF37]/50 rounded-tl-xl m-4 opacity-50" />
+            <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[#D4AF37]/50 rounded-tr-xl m-4 opacity-50" />
+            <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#D4AF37]/50 rounded-bl-xl m-4 opacity-50" />
+            <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#D4AF37]/50 rounded-br-xl m-4 opacity-50" />
+            
+            <h2 className="text-xl md:text-2xl font-medium mb-4 text-[#D4AF37] tracking-widest uppercase text-sm">
               {currentLanguage === 'he' ? '\u05D3\u05E3 \u05D0\u05D7\u05D3 \u05DE\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05E0\u05D5' :
-               currentLanguage === 'en' ? 'One Page from Our Master\'s Books' :
-               currentLanguage === 'fr' ? 'Une Page des Livres de Notre Ma\u00EEtre' :
-               currentLanguage === 'es' ? 'Una P\u00E1gina de los Libros de Nuestro Maestro' :
-               currentLanguage === 'ru' ? '\u041E\u0434\u043D\u0430 \u0421\u0442\u0440\u0430\u043D\u0438\u0446\u0430 \u0438\u0437 \u041A\u043D\u0438\u0433 \u041D\u0430\u0448\u0435\u0433\u043E \u0423\u0447\u0438\u0442\u0435\u043B\u044F' : '\u05D3\u05E3 \u05D0\u05D7\u05D3 \u05DE\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05E0\u05D5'}
+               currentLanguage === 'en' ? 'ONE PAGE FROM OUR MASTER\'S BOOKS' :
+               currentLanguage === 'fr' ? 'UNE PAGE DES LIVRES DE NOTRE MA\u00CETRE' :
+               currentLanguage === 'es' ? 'UNA P\u00C1GINA DE LOS LIBROS DE NUESTRO MAESTRO' :
+               currentLanguage === 'ru' ? '\u041E\u0414\u041D\u0410 \u0421\u0422\u0420\u0410\u041D\u0418\u0426\u0410 \u0418\u0417 \u041A\u041D\u0418\u0413 \u041D\u0410\u0428\u0415\u0413\u041E \u0423\u0427\u0418\u0422\u0415\u041B\u042F' : '\u05D3\u05E3 \u05D0\u05D7\u05D3 \u05DE\u05E1\u05E4\u05E8\u05D9 \u05E8\u05D1\u05E0\u05D5'}
             </h2>
-            <h3 className={`text-2xl md:text-4xl font-bold mb-6 text-orange-500 leading-tight ${isRTL ? 'font-hebrew' : ''}`}>
+            
+            <div className="flex justify-center mb-6 text-[#D4AF37] opacity-60">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" />
+              </svg>
+            </div>
+
+            <h3 className={`text-3xl md:text-5xl lg:text-6xl font-black mb-8 text-white leading-tight ${isRTL ? 'font-hebrew' : 'font-serif'}`}>
               {currentLanguage === 'he' ? '\u05D9\u05D4\u05D9\u05D4 \u05EA\u05D9\u05E7\u05D5\u05DF \u05E2\u05DC \u05D4\u05DB\u05DC!' :
                currentLanguage === 'en' ? 'There will be rectification for everything!' :
                currentLanguage === 'fr' ? 'Il y aura une rectification pour tout!' :
                currentLanguage === 'es' ? '\u00A1Habr\u00E1 rectificaci\u00F3n para todo!' :
                currentLanguage === 'ru' ? '\u0411\u0443\u0434\u0435\u0442 \u0438\u0441\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0434\u043B\u044F \u0432\u0441\u0435\u0433\u043E!' : '\u05D9\u05D4\u05D9\u05D4 \u05EA\u05D9\u05E7\u05D5\u05DF \u05E2\u05DC \u05D4\u05DB\u05DC!'}
             </h3>
-            <p className="text-base md:text-lg text-slate-500 italic m-0">
-              {currentLanguage === 'he' ? '\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1' :
+            <p className="text-lg md:text-xl text-slate-400 italic font-light m-0">
+              &mdash; {currentLanguage === 'he' ? '\u05E8\u05D1\u05D9 \u05E0\u05EA\u05DF \u05DE\u05D1\u05E8\u05E1\u05DC\u05D1' :
                currentLanguage === 'en' ? 'Rabbi Nathan of Breslov' :
                currentLanguage === 'fr' ? 'Rabbi Nathan de Breslov' :
                currentLanguage === 'es' ? 'Rabino Nathan de Breslov' :
@@ -579,7 +723,7 @@ export default function Home() {
 
       {/* TESTIMONIALS SECTION */}
       <LazySection>
-      <section className="bg-slate-50 py-20 px-4">
+      <section className="bg-[#F9F8F6] py-24 px-4 border-y border-slate-100">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className={`text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mb-2 ${isRTL ? 'font-hebrew' : 'font-serif'}`}>
@@ -591,7 +735,7 @@ export default function Home() {
                 ru: 'Что говорят наши клиенты',
               })}
             </motion.h2>
-            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-orange-500 mx-auto mt-4 rounded-full" />
+            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-gradient-to-r from-[#D4AF37] to-[#B5912B] mx-auto mt-4 rounded-full" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -633,15 +777,15 @@ export default function Home() {
                 className="bg-white p-8 rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.04)] transition-shadow duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]"
               >
                 {/* Stars */}
-                <div className="text-orange-500 text-lg tracking-widest mb-3">
+                <div className="text-[#D4AF37] text-[1.4rem] tracking-[0.2em] mb-4">
                   {'★'.repeat(review.stars)}{'☆'.repeat(5 - review.stars)}
                 </div>
                 {/* Review text */}
-                <p className="text-slate-600 text-[0.95rem] leading-relaxed mb-4 italic">
+                <p className="text-slate-600 text-[1rem] leading-relaxed mb-6 italic font-light">
                   &ldquo;{currentLanguage === 'he' ? review.textHe : currentLanguage === 'en' ? review.textEn : currentLanguage === 'fr' ? review.textFr : currentLanguage === 'es' ? review.textEs : currentLanguage === 'ru' ? review.textRu : review.textHe}&rdquo;
                 </p>
                 {/* Reviewer name */}
-                <p className="text-slate-800 font-semibold text-[0.9rem]">
+                <p className="text-slate-900 font-bold uppercase tracking-wider text-[0.85rem]">
                   &mdash; {currentLanguage === 'he' ? review.nameHe : currentLanguage === 'en' ? review.nameEn : currentLanguage === 'fr' ? review.nameFr : currentLanguage === 'es' ? review.nameEs : currentLanguage === 'ru' ? review.nameRu : review.nameHe}
                 </p>
               </motion.div>
@@ -657,10 +801,10 @@ export default function Home() {
       <section className="bg-slate-100 py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="text-3xl md:text-5xl font-bold text-slate-800 mb-2">
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className={`text-3xl md:text-5xl font-bold text-slate-800 mb-2 ${isRTL ? 'font-hebrew' : 'font-serif'}`}>
               {ml(currentLanguage, { he: '\u05D4\u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D5\u05EA \u05D1\u05D7\u05E0\u05D5\u05EA', en: 'Store Categories', fr: 'Cat\u00E9gories du Magasin', es: 'Categor\u00EDas de la Tienda', ru: '\u041A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \u041C\u0430\u0433\u0430\u0437\u0438\u043D\u0430' })}
             </motion.h2>
-            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-orange-500 mx-auto mt-4 rounded-full" />
+            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-gradient-to-r from-[#D4AF37] to-[#B5912B] mx-auto mt-4 rounded-full" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
@@ -680,7 +824,7 @@ export default function Home() {
                   {ml(currentLanguage, cat)}
                 </h3>
                 <a href="/store" className="inline-block no-underline">
-                  <button className="bg-orange-500 hover:bg-orange-600 text-white border-0 py-3 px-8 rounded-xl cursor-pointer text-base font-semibold shadow-[0_4px_14px_rgba(255,107,0,0.3)] transition-colors duration-200">
+                  <button className="bg-white text-slate-800 border-2 border-[#D4AF37]/50 hover:border-[#D4AF37] py-3 px-8 rounded-xl cursor-pointer text-base font-semibold hover:shadow-[0_4px_14px_rgba(212,175,55,0.2)] transition-all duration-300">
                     {ml(currentLanguage, { he: 'לחנות', en: 'Browse', fr: 'Parcourir', es: 'Explorar', ru: 'Перейти' })}
                   </button>
                 </a>
@@ -690,7 +834,7 @@ export default function Home() {
 
           <div className="text-center">
             <a href="/store" className="inline-block no-underline">
-              <button className="bg-white hover:bg-slate-50 text-orange-500 border-2 border-orange-500 py-3 px-8 rounded-xl cursor-pointer text-base font-semibold transition-colors duration-200">
+              <button className="bg-[#111318] hover:bg-[#0A0A0B] text-white border-0 py-3 px-8 rounded-xl cursor-pointer text-base font-semibold transition-colors duration-200 shadow-md">
                 {ml(currentLanguage, { he: '\u05DC\u05E7\u05D8\u05D2\u05D5\u05E8\u05D9\u05D5\u05EA \u05E0\u05D5\u05E1\u05E4\u05D5\u05EA \u05DC\u05D7\u05E6\u05D5 \u05DB\u05D0\u05DF', en: 'For additional categories click here', fr: 'Pour des cat\u00E9gories suppl\u00E9mentaires cliquez ici', es: 'Para categor\u00EDas adicionales haga clic aqu\u00ED', ru: '\u0414\u043B\u044F \u0434\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0445 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0439 \u043D\u0430\u0436\u043C\u0438\u0442\u0435 \u0437\u0434\u0435\u0441\u044C' })}
               </button>
             </a>
@@ -700,29 +844,89 @@ export default function Home() {
 
       </LazySection>
 
+      {/* ============================================ */}
+      {/* BLOG / ARTICLES PREVIEW                      */}
+      {/* ============================================ */}
+      <LazySection>
+      <section className="bg-white py-24 px-4 border-b border-slate-100">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className={`text-3xl md:text-5xl font-bold text-slate-900 mb-2 ${isRTL ? 'font-hebrew' : 'font-serif'}`}>
+              {ml(currentLanguage, { he: 'מאמרים ותורות', en: 'Articles & Teachings', fr: 'Articles & Enseignements', es: 'Artículos y Enseñanzas', ru: 'Статьи и учения' })}
+            </motion.h2>
+            <motion.div initial={{ width: 0 }} whileInView={{ width: 60 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }} className="h-1 bg-gradient-to-r from-[#D4AF37] to-[#B5912B] mx-auto mt-4 rounded-full" />
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { title: 'מעלת ההתבודדות', titleEn: 'The Power of Hitbodedut', img: '/images/book-4.webp' },
+              { title: 'סוד השמחה', titleEn: 'The Secret of Joy', img: '/images/book-1.webp' },
+              { title: 'תיקון הכללי', titleEn: 'Tikkun HaKlali', img: '/images/book-5.webp' }
+            ].map((article, i) => (
+              <motion.article 
+                 initial={{ opacity: 0, y: 20 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 viewport={{ once: true }}
+                 transition={{ duration: 0.5, delay: i * 0.1 }}
+                 key={i}
+                 className="group cursor-pointer"
+              >
+                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-[#0A0A0B]">
+                  <img src={article.img} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt={article.titleEn} onError={(e) => { e.currentTarget.outerHTML = `<div class="w-full h-full flex items-center justify-center text-5xl text-slate-700 bg-slate-900 border border-white/5">📖</div>`; }} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0B] via-transparent to-transparent opacity-80" />
+                </div>
+                <h3 className={`text-xl font-bold text-slate-800 mb-3 group-hover:text-[#B5912B] transition-colors ${isRTL ? 'font-hebrew' : 'font-serif'}`}>
+                  {isRTL ? article.title : article.titleEn}
+                </h3>
+                <p className="text-slate-500 font-light mb-4 line-clamp-2">
+                  {ml(currentLanguage, { 
+                    he: 'גלה את העומק והיופי בתורותיו של רבי נחמן מברסלב במאמר מרתק זה.',
+                    en: 'Discover the depth and beauty of Rabbi Nachman of Breslov\'s teachings in this fascinating article.',
+                    fr: 'Découvrez la profondeur et la beauté des enseignements de Rabbi Nachman dans cet article.',
+                    es: 'Descubre la profundidad y belleza de las enseñanzas...',
+                    ru: 'Откройте для себя глубину учений...'
+                  })}
+                </p>
+                <a href="/blog" className="no-underline text-inherit">
+                  <span className="text-[#B5912B] font-semibold text-sm tracking-wider uppercase flex items-center gap-2">
+                    {ml(currentLanguage, { he: 'קרא עוד', en: 'READ MORE', fr: 'LIRE LA SUITE', es: 'LEER MÁS', ru: 'ЧИТАТЬ' })}
+                    <span className={`transform transition-transform ${isRTL ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}>
+                      {isRTL ? '←' : '→'}
+                    </span>
+                  </span>
+                </a>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+      </LazySection>
+
       {/* NEWSLETTER SECTION */}
       <LazySection>
-      <section className="bg-white py-20 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 mb-3">
+      <section className="bg-[#0A0A0B] py-24 px-4 relative overflow-hidden">
+        {/* Subtle geometric background */}
+        <div className="absolute inset-0 bg-[url('/images/jerusalem-skyline.svg')] opacity-[0.02] mix-blend-screen" />
+        <div className="max-w-3xl mx-auto text-center relative z-10">
+          <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 ${isRTL ? 'font-hebrew' : 'font-serif'}`}>
             {ml(currentLanguage, { he: '\u05D4\u05E6\u05D8\u05E8\u05E4\u05D5 \u05E2\u05DB\u05E9\u05D9\u05D5 \u05DC\u05E8\u05E9\u05D9\u05DE\u05EA \u05EA\u05E4\u05D5\u05E6\u05D4', en: 'Join Our Mailing List Now', fr: 'Rejoignez Notre Liste de Diffusion Maintenant', es: '\u00DAnete a Nuestra Lista de Correo Ahora', ru: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C \u043A \u041D\u0430\u0448\u0435\u043C\u0443 \u0421\u043F\u0438\u0441\u043A\u0443 \u0420\u0430\u0441\u0441\u044B\u043B\u043A\u0438 \u0421\u0435\u0439\u0447\u0430\u0441' })}
           </h2>
-          <p className="text-base md:text-lg text-slate-500 mb-8">
+          <p className="text-base md:text-lg text-slate-400 mb-10 font-light">
             {ml(currentLanguage, { he: '\u05D5\u05E7\u05D1\u05DC\u05D5 10% \u05D4\u05E0\u05D7\u05E0\u05D4 \u05D1\u05E8\u05DB\u05D9\u05E9\u05D4 \u05E8\u05D0\u05E9\u05D5\u05E0\u05D4 \u05D1\u05D0\u05EA\u05E8', en: 'And get 10% discount on your first purchase on the site', fr: 'Et obtenez 10% de r\u00E9duction sur votre premier achat sur le site', es: 'Y obt\u00E9n 10% de descuento en tu primera compra en el sitio', ru: '\u0418 \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u0435 \u0441\u043A\u0438\u0434\u043A\u0443 10% \u043D\u0430 \u043F\u0435\u0440\u0432\u0443\u044E \u043F\u043E\u043A\u0443\u043F\u043A\u0443 \u043D\u0430 \u0441\u0430\u0439\u0442\u0435' })}
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-3 mb-14">
-            <input type="email" placeholder={isRTL ? '\u05D4\u05DB\u05E0\u05D9\u05E1\u05D5 \u05DB\u05EA\u05D5\u05D1\u05EA \u05D0\u05D9\u05DE\u05D9\u05D9\u05DC' : 'Enter email address'} className={`px-5 py-3.5 rounded-xl border-2 border-slate-200 text-base min-w-0 sm:min-w-[300px] outline-none focus:border-orange-500 transition-colors duration-200 ${isRTL ? 'text-right' : 'text-left'}`} />
-            <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3.5 rounded-xl transition-colors shadow-[0_4px_14px_rgba(255,107,0,0.3)] duration-200 cursor-pointer border-none text-base">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 mb-16">
+            <input type="email" placeholder={isRTL ? '\u05D4\u05DB\u05E0\u05D9\u05E1\u05D5 \u05DB\u05EA\u05D5\u05D1\u05EA \u05D0\u05D9\u05DE\u05D9\u05D9\u05DC' : 'Enter email address'} className={`px-5 py-4 rounded-xl border border-white/10 bg-white/5 text-white text-base min-w-0 sm:min-w-[320px] outline-none focus:border-[#D4AF37] focus:bg-white/10 transition-all duration-300 ${isRTL ? 'text-right' : 'text-left'}`} />
+            <button className="bg-gradient-to-r from-[#D4AF37] to-[#B5912B] hover:from-[#B5912B] hover:to-[#9E7A1C] text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-[0_4px_14px_rgba(212,175,55,0.3)] hover:-translate-y-0.5 duration-200 cursor-pointer border-none text-base tracking-wide uppercase">
               {ml(currentLanguage, { he: '\u05D4\u05E6\u05D8\u05E8\u05E4\u05D5 \u05E2\u05DB\u05E9\u05D9\u05D5', en: 'Join Now', fr: 'Rejoignez Maintenant', es: '\u00DAnete Ahora', ru: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C \u0421\u0435\u0439\u0447\u0430\u0441' })}
             </button>
           </div>
 
           <div>
-            <h3 className="text-xl font-semibold text-slate-800 mb-3">
+            <h3 className="text-xl font-semibold text-white mb-3">
               {ml(currentLanguage, { he: '\u05D4\u05E6\u05D8\u05E8\u05E4\u05D5 \u05DC\u05E7\u05D1\u05D5\u05E6\u05D5\u05EA \u05D4\u05D5\u05D5\u05D0\u05D8\u05E1\u05D0\u05E4 \u05E9\u05DC\u05E0\u05D5', en: 'Join Our WhatsApp Groups', fr: 'Rejoignez Nos Groupes WhatsApp', es: '\u00DAnete a Nuestros Grupos de WhatsApp', ru: '\u041F\u0440\u0438\u0441\u043E\u0435\u0434\u0438\u043D\u044F\u0439\u0442\u0435\u0441\u044C \u043A \u041D\u0430\u0448\u0438\u043C \u0413\u0440\u0443\u043F\u043F\u0430\u043C WhatsApp' })}
             </h3>
-            <p className="text-slate-500 mb-6">
+            <p className="text-slate-400 mb-8 font-light">
               {ml(currentLanguage, { he: '\u05E7\u05D1\u05DC\u05D5 \u05E2\u05D3\u05DB\u05D5\u05E0\u05D9\u05DD \u05D9\u05D5\u05DE\u05D9\u05D9\u05DD, \u05D7\u05D5\u05D5\u05D9\u05D5\u05EA \u05DE\u05E8\u05D2\u05E9\u05D5\u05EA \u05D5\u05D7\u05D9\u05D6\u05D5\u05E7 \u05E8\u05D5\u05D7\u05E0\u05D9', en: 'Receive daily updates, exciting experiences and spiritual strengthening', fr: 'Recevez des mises \u00E0 jour quotidiennes, des exp\u00E9riences passionnantes et un renforcement spirituel', es: 'Recibe actualizaciones diarias, experiencias emocionantes y fortalecimiento espiritual', ru: '\u041F\u043E\u043B\u0443\u0447\u0430\u0439\u0442\u0435 \u0435\u0436\u0435\u0434\u043D\u0435\u0432\u043D\u044B\u0435 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u044F, \u0437\u0430\u0445\u0432\u0430\u0442\u044B\u0432\u0430\u044E\u0449\u0438\u0435 \u0432\u043F\u0435\u0447\u0430\u0442\u043B\u0435\u043D\u0438\u044F \u0438 \u0434\u0443\u0445\u043E\u0432\u043D\u043E\u0435 \u0443\u043A\u0440\u0435\u043F\u043B\u0435\u043D\u0438\u0435' })}
             </p>
             <div className="flex flex-wrap justify-center gap-3">
@@ -774,13 +978,22 @@ export default function Home() {
       </LazySection>
 
       {/* FOOTER */}
-      <footer className="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="mb-2 text-sm tracking-wide">
-            {ml(currentLanguage, { he: '\u05DB\u05DC \u05D4\u05D6\u05DB\u05D9\u05D5\u05EA \u05E9\u05DE\u05D5\u05E8\u05D5\u05EA 2025 \u00A9 \u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8 \u05D6\u05E6"\u05DC', en: 'All rights reserved 2025 \u00A9 Rabbi Israel Dov Odesser Foundation', fr: 'Tous droits r\u00E9serv\u00E9s 2025 \u00A9 Fondation Rabbi Israel Dov Odesser', es: 'Todos los derechos reservados 2025 \u00A9 Fundaci\u00F3n Rabino Israel Dov Odesser', ru: '\u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u0437\u0430\u0449\u0438\u0449\u0435\u043D\u044B 2025 \u00A9 \u0424\u043E\u043D\u0434 \u0420\u0430\u0431\u0431\u0438 \u0418\u0437\u0440\u0430\u044D\u043B\u044F \u0414\u043E\u0432\u0430 \u041E\u0434\u0435\u0441\u0441\u0435\u0440\u0430' })}
+      <footer className="bg-[#0A0A0B] text-slate-500 py-16 border-t border-white/5 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[#D4AF37]/5 z-0" />
+        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
+          {/* Logo in footer */}
+          <div className="mb-8 flex justify-center">
+            <img src="/images/logo.webp" alt="Keren Rabbi Israel" className="h-16 w-auto brightness-0 invert opacity-60" />
+          </div>
+          <p className="mb-4 text-[1rem] tracking-widest uppercase font-semibold text-slate-400">
+            {ml(currentLanguage, { he: '\u05E7\u05E8\u05DF \u05E8\u05D1\u05D9 \u05D9\u05E9\u05E8\u05D0\u05DC \u05D3\u05D1 \u05D0\u05D5\u05D3\u05E1\u05E8 \u05D6\u05E6"\u05DC', en: 'Rabbi Israel Dov Odesser Foundation', fr: 'Fondation Rabbi Israel Dov Odesser', es: 'Fundaci\u00F3n Rabino Israel Dov Odesser', ru: '\u0424\u043E\u043D\u0434 \u0420\u0430\u0431\u0431\u0438 \u0418\u0437\u0440\u0430\u044D\u043B\u044F \u0414\u043E\u0432\u0430 \u041E\u0434\u0435\u0441\u0441\u0435\u0440\u0430' })}
           </p>
-          <p className="text-sm">
-            {ml(currentLanguage, { he: '\u05D4\u05D0\u05EA\u05E8 \u05E0\u05D1\u05E0\u05D4 \u05E2"\u05D9 \u05DE\u05D3\u05D9\u05D4 \u05DE\u05D0\u05E1\u05D8\u05E8', en: 'Website built by Media Master', fr: 'Site web construit par Media Master', es: 'Sitio web construido por Media Master', ru: '\u0421\u0430\u0439\u0442 \u0441\u043E\u0437\u0434\u0430\u043D Media Master' })}
+          <p className="mb-2 text-[0.85rem] tracking-wide opacity-80">
+            © 2025 All Rights Reserved
+          </p>
+          <div className="h-px w-24 bg-white/10 mx-auto my-6" />
+          <p className="text-[0.75rem] font-medium tracking-widest text-[#D4AF37]/80 uppercase">
+            {ml(currentLanguage, { he: '\u05D4\u05D0\u05EA\u05E8 \u05E0\u05D1\u05E0\u05D4 \u05E2"\u05D9 \u05DE\u05D3\u05D9\u05D4 \u05DE\u05D0\u05E1\u05D8\u05E8', en: 'Website engineered by Media Master', fr: 'Site con\u00E7u par Media Master', es: 'Sitio dise\u00F1ado por Media Master', ru: '\u0421\u0430\u0439\u0442 \u0441\u043E\u0437\u0434\u0430\u043D Media Master' })}
           </p>
         </div>
       </footer>

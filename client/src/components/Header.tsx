@@ -213,8 +213,8 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
           fixed top-0 left-0 right-0 z-50
           transition-all duration-500 ease-out
           ${isScrolled
-            ? 'bg-white/95 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.05)] py-2'
-            : 'bg-white py-4'
+            ? 'bg-[#0A0A0B]/95 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.5)] py-2 border-b border-white/5'
+            : 'bg-[#0A0A0B] py-4'
           }
         `}
         data-testid="main-header"
@@ -231,7 +231,7 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
                 height="300"
                 src="/images/logo.webp"
                 alt="Haesh Sheli"
-                className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-10' : 'h-14'}`}
+                className={`w-auto object-contain transition-all duration-300 brightness-0 invert opacity-90 hover:opacity-100 ${isScrolled ? 'h-10' : 'h-14'}`}
               />
             </a>
           </div>
@@ -247,12 +247,12 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
                       text-[13px] font-semibold tracking-wide uppercase
                       transition-all duration-300 relative
                       after:absolute after:bottom-[-4px] after:left-0 after:right-0
-                      after:h-[2px] after:bg-primary after:rounded-full
+                      after:h-[2px] after:bg-[#D4AF37] after:rounded-full
                       after:scale-x-0 after:origin-center hover:after:scale-x-100
                       after:transition-transform after:duration-300
                       ${location === link.href
-                        ? 'text-primary after:scale-x-100'
-                        : 'text-keren-blue hover:text-primary'
+                        ? 'text-[#D4AF37] after:scale-x-100'
+                        : 'text-slate-300 hover:text-[#D4AF37]'
                       }
                     `}
                   >
@@ -281,8 +281,8 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
                     className={`
                       text-[10px] font-black tracking-widest uppercase transition-all duration-200
                       ${currentLanguage === lang
-                        ? 'text-primary'
-                        : 'text-gray-400 hover:text-keren-blue'
+                        ? 'text-[#D4AF37]'
+                        : 'text-slate-500 hover:text-[#D4AF37]'
                       }
                     `}
                   >
@@ -296,23 +296,20 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
                 href="/donate"
                 className="
                   hidden lg:inline-flex items-center gap-2
-                  bg-primary text-white px-5 py-2.5
-                  rounded-full text-sm font-bold
-                  shadow-[0_4px_14px_rgba(255,107,0,0.25)]
-                  hover:shadow-[0_6px_20px_rgba(255,107,0,0.35)]
-                  hover:-translate-y-0.5
+                  bg-transparent border border-[#D4AF37]/50 text-[#D4AF37] px-5 py-2.5
+                  rounded-sm text-sm font-semibold
+                  hover:bg-[#D4AF37]/10 hover:border-[#D4AF37]
                   transition-all duration-300
                   mx-2
                 "
               >
-                <Heart size={16} className="fill-white" />
+                <Heart size={16} />
                 {t.donate}
               </a>
 
               {/* Favorites Heart Icon */}
-              <a
-                href="/favorites"
-                className="p-2 text-gray-500 hover:text-red-500 transition-colors duration-200 relative"
+              <a href="/favorites"
+                className="p-2 text-slate-300 hover:text-[#D4AF37] transition-colors duration-200 relative"
                 aria-label={t.favorites}
               >
                 <Heart size={20} />
@@ -324,9 +321,8 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
               </a>
 
               {/* Cart Icon */}
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="p-2 text-gray-500 hover:text-primary transition-colors duration-200 relative"
+              <button onClick={() => setLocation('/cart')}
+                className="p-2 text-slate-300 hover:text-[#D4AF37] transition-colors duration-200 relative"
                 aria-label="Shopping Cart"
               >
                 <ShoppingCart size={20} />
@@ -338,9 +334,8 @@ export function Header({ currentLanguage: _propLang, onLanguageChange: _propOnCh
               </button>
 
               {/* Mobile Toggle */}
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 text-gray-700 hover:text-primary transition-colors"
+              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 text-slate-300 hover:text-[#D4AF37] transition-colors"
                 aria-label="Menu"
               >
                 {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

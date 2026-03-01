@@ -1,0 +1,3 @@
+[-20333300ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://dreamnova-bible-site.vercel.app/img/icon-192.png:0
+[-6154016ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://breslev-reports-site-otdaa39wg-dream-ais-projects.vercel.app/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js:0
+[-20333300ms] [WARNING] Error while trying to use the following icon from the Manifest: https://dreamnova-bible-site.vercel.app/img/icon-192.png (Download error or resource isn't a valid image) @ https://dreamnova-bible-site.vercel.app/:0

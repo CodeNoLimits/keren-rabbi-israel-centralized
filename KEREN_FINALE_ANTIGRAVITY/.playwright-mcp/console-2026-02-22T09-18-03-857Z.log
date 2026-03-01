@@ -1,0 +1,17 @@
+[     801ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ http://localhost:8000/audio/histoires-rabbi-nachman:0
+[    4089ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ http://localhost:8000/audio/histoires-rabbi-nachman:0
+[  167046ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://breslev-books-preview.vercel.app/audio/histoires-rabbi-nachman:0
+[  175960ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://breslev-books-preview.vercel.app/pages/abonnement:0
+[  179771ms] [WARNING] Unable to access iframe: SecurityError: Failed to read a named property 'document' from 'Window': Blocked a frame with origin "https://breslev-books-preview.vercel.app" from accessing a cross-origin frame.
+    at buildDomTree (eval at evaluate (:234:30), <anonymous>:1390:28)
+    at eval (eval at evaluate (:234:30), <anonymous>:1591:18)
+    at UtilityScript.evaluate (<anonymous>:241:19)
+    at UtilityScript.<anonymous> (<anonymous>:1:44) @ :62
+[  373985ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://breslev-books-preview.vercel.app/pages/abonnement:0
+[  377326ms] [WARNING] Unable to access iframe: SecurityError: Failed to read a named property 'document' from 'Window': Blocked a frame with origin "https://breslev-books-preview.vercel.app" from accessing a cross-origin frame.
+    at buildDomTree (eval at evaluate (:234:30), <anonymous>:1390:28)
+    at eval (eval at evaluate (:234:30), <anonymous>:1591:18)
+    at UtilityScript.evaluate (<anonymous>:241:19)
+    at UtilityScript.<anonymous> (<anonymous>:1:44) @ :62
+[  395995ms] [ERROR] This document requires 'TrustedHTML' assignment. The action has been blocked. @ :277
+[  395996ms] [ERROR] This document requires 'TrustedHTML' assignment. The action has been blocked. @ :277
