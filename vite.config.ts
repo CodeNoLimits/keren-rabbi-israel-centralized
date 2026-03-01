@@ -5,6 +5,8 @@ import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 import compression from 'vite-plugin-compression';
 
 export default defineConfig({
+  // GitHub Pages base path — activated via GITHUB_PAGES=true env var during CI build
+  base: process.env.GITHUB_PAGES === 'true' ? '/keren-rabbi-israel-centralized/' : '/',
   plugins: [
     react(),
     runtimeErrorOverlay(),
