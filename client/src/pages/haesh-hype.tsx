@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Header } from '@/components/Header';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { GoldDivider } from '../components/GoldDivider';
 import { 
   Zap, Users, Calendar, MessageCircle, Trophy, Sparkles, Globe, Heart,
   TrendingUp, Star, Clock, MapPin, Share2, ChevronRight, Play, Camera,
@@ -301,21 +302,22 @@ export default function HaeshHype() {
   }, [breslovNews.length]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" dir={currentLanguage === 'he' ? 'rtl' : 'ltr'}>
+    <div className="min-h-screen bg-[#F9F8F6] dark:bg-[#050505]" dir={currentLanguage === 'he' ? 'rtl' : 'ltr'}>
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
       
       {/* Hero Section avec Animations Dynamiques */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" data-testid="hero-section">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden border-b border-slate-200 dark:border-white/5" data-testid="hero-section">
         {/* Background Gradient Animé */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-teal-600 to-purple-700 opacity-95"></div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/20 via-transparent to-yellow-500/20 animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-slate-50 to-slate-100 dark:from-[#050505] dark:via-[#111318] dark:to-[#0A0500] z-0"></div>
+        <div className="absolute inset-0 bg-[url('/images/jerusalem-skyline.svg')] bg-cover bg-center opacity-[0.03] dark:opacity-[0.05] mix-blend-screen z-0" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none z-0" />
         
         {/* Particules Flottantes */}
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 bg-white/30 rounded-full"
+              className="absolute w-2 h-2 bg-[#D4AF37]/30 dark:bg-[#D4AF37]/20 rounded-full blur-[1px]"
               initial={{ opacity: 0, scale: 0 }}
               animate={{ 
                 opacity: [0, 1, 0],
@@ -332,30 +334,30 @@ export default function HaeshHype() {
           ))}
         </div>
 
-        <div className="container relative z-10 mx-auto px-4 text-center text-white">
+        <div className="container relative z-10 mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="space-y-8 max-w-4xl mx-auto"
           >
             <motion.h1 
-              className="text-5xl md:text-7xl font-black tracking-tight mb-6"
+              className={`text-5xl md:text-7xl font-bold tracking-tight mb-6 text-slate-900 dark:text-white ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`}
               data-testid="hero-title"
               animate={{ 
                 textShadow: [
-                  '0 0 20px rgba(255,255,255,0.5)',
-                  '0 0 40px rgba(255,255,255,0.8)',
-                  '0 0 20px rgba(255,255,255,0.5)'
+                  '0 0 20px rgba(212,175,55,0.1)',
+                  '0 0 40px rgba(212,175,55,0.3)',
+                  '0 0 20px rgba(212,175,55,0.1)'
                 ]
               }}
-              transition={{ duration: 2, repeat: Infinity }}
+              transition={{ duration: 3, repeat: Infinity }}
             >
-              {t.heroTitle}
+              <span className="text-[#D4AF37]">🔥</span> {t.heroTitle.replace('🔥 ', '')}
             </motion.h1>
             
             <motion.h2 
-              className="text-2xl md:text-3xl font-semibold text-yellow-200 mb-8"
+              className="text-2xl md:text-3xl font-semibold text-[#B5912B] dark:text-[#D4AF37] mb-8 tracking-wide"
               data-testid="hero-subtitle"
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
@@ -364,8 +366,10 @@ export default function HaeshHype() {
               {t.heroSubtitle}
             </motion.h2>
             
+            <GoldDivider size="md" className="mb-8" />
+            
             <motion.p 
-              className="text-lg md:text-xl text-blue-100 max-w-4xl mx-auto leading-relaxed mb-12"
+              className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-12 font-light"
               data-testid="hero-description"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -391,13 +395,13 @@ export default function HaeshHype() {
                 <motion.button
                   key={section.id}
                   onClick={() => setActiveSection(section.id)}
-                  className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
+                  className={`px-6 py-3 rounded-full font-bold transition-all duration-300 flex items-center gap-2 border ${
                     activeSection === section.id 
-                      ? 'bg-white text-blue-600 shadow-xl scale-110' 
-                      : 'bg-white/20 text-white hover:bg-white/30'
+                      ? 'bg-gradient-to-r from-[#D4AF37] to-[#B5912B] text-white border-transparent shadow-[0_4px_14px_rgba(212,175,55,0.4)] scale-110' 
+                      : 'bg-white dark:bg-[#1A1C23] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-[#D4AF37]/50 hover:text-[#D4AF37]'
                   }`}
                   data-testid={`nav-${section.id}`}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: activeSection === section.id ? 1.1 : 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   {section.icon}
@@ -407,7 +411,7 @@ export default function HaeshHype() {
             </motion.div>
 
             <motion.blockquote 
-              className="text-lg md:text-xl font-medium text-yellow-100 italic border-l-4 border-yellow-400 pl-6 max-w-3xl mx-auto"
+              className={`text-lg md:text-xl font-medium text-slate-700 dark:text-[#D4AF37] italic ${currentLanguage === 'he' ? 'border-r-4 pr-6' : 'border-l-4 pl-6'} border-[#D4AF37] max-w-3xl mx-auto`}
               data-testid="hero-quote"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -424,7 +428,7 @@ export default function HaeshHype() {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <ChevronRight className="w-8 h-8 text-white rotate-90" />
+          <ChevronRight className="w-8 h-8 text-[#D4AF37] rotate-90 opacity-70" />
         </motion.div>
       </section>
 
@@ -437,15 +441,15 @@ export default function HaeshHype() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.6 }}
-            className="py-20 bg-white dark:bg-gray-800" 
+            className="py-24" 
             data-testid="news-section"
           >
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 max-w-7xl">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4" data-testid="news-title">
+                <h2 className={`text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`} data-testid="news-title">
                   {t.newsTitle}
                 </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-testid="news-subtitle">
+                <p className="text-xl text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto" data-testid="news-subtitle">
                   {t.newsSubtitle}
                 </p>
               </div>
@@ -454,59 +458,62 @@ export default function HaeshHype() {
                 {breslovNews.map((news, index) => (
                   <motion.article
                     key={news.id}
-                    className="bg-white dark:bg-gray-700 rounded-2xl shadow-xl overflow-hidden animate-card-hover"
+                    className="bg-white dark:bg-[#0A0A0B] rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-slate-200 dark:border-white/5 overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
                     data-testid={`news-card-${news.id}`}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.2 }}
                   >
                     {/* Image Header */}
-                    <div className="relative h-48 bg-gradient-to-br from-blue-500 to-purple-600">
+                    <div className="relative h-56 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-[#1A1C23] dark:to-[#111318] overflow-hidden">
+                      <div className="absolute inset-0 bg-[url('/images/hero-books.webp')] bg-cover bg-center opacity-30 mix-blend-overlay transition-transform duration-700 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                      
                       {news.trending && (
-                        <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1">
-                          <TrendingUp className="w-4 h-4" />
+                        <div className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                          <TrendingUp className="w-3.5 h-3.5" />
                           HOT
                         </div>
                       )}
                       {news.hot && (
-                        <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1">
-                          <Zap className="w-4 h-4" />
+                        <div className="absolute top-4 right-4 bg-gradient-to-r from-[#D4AF37] to-[#B5912B] text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-lg">
+                          <Zap className="w-3.5 h-3.5" />
                           חדש
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                        <Newspaper className="w-16 h-16 text-white/80" />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-50 transition-opacity duration-300 group-hover:opacity-100">
+                        <Newspaper className="w-16 h-16 text-white drop-shadow-md" />
                       </div>
                     </div>
 
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                    <div className="p-8">
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="bg-slate-100 dark:bg-white/5 text-[#D4AF37] px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">
                           {news.category}
                         </span>
-                        <span className="text-gray-500 text-sm">
+                        <span className="text-slate-400 dark:text-slate-500 text-xs font-medium">
                           {new Date(news.date).toLocaleDateString(currentLanguage === 'he' ? 'he-IL' : 'en-US')}
                         </span>
                       </div>
 
-                      <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 line-clamp-2">
+                      <h3 className={`text-xl font-bold text-slate-900 dark:text-white mb-3 line-clamp-2 leading-tight ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`}>
                         {news.title}
                       </h3>
                       
-                      <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                      <p className="text-slate-600 dark:text-slate-400 mb-6 line-clamp-3 font-light leading-relaxed">
                         {news.excerpt}
                       </p>
 
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="flex flex-wrap gap-2 mb-8">
                         {news.tags.map((tag) => (
-                          <span key={tag} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
+                          <span key={tag} className="bg-slate-50 dark:bg-black/20 text-slate-500 dark:text-slate-400 border border-slate-100 dark:border-white/5 px-2.5 py-1 rounded-md text-xs font-medium">
                             #{tag}
                           </span>
                         ))}
                       </div>
 
-                      <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-medium hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 animate-button-hover">
-                        <BookOpen className="w-5 h-5" />
+                      <button className="w-full bg-white dark:bg-[#1A1C23] border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white py-3 rounded-xl font-bold hover:bg-slate-50 dark:hover:bg-[#0A0A0B] hover:border-[#D4AF37]/50 hover:text-[#D4AF37] transition-all duration-300 flex items-center justify-center gap-2 group/btn">
+                        <BookOpen className="w-4 h-4 text-[#D4AF37] group-hover/btn:scale-110 transition-transform" />
                         {currentLanguage === 'he' ? 'קרא עוד' : 'Read More'}
                       </button>
                     </div>
@@ -527,15 +534,15 @@ export default function HaeshHype() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.6 }}
-            className="py-20 bg-gradient-to-br from-teal-50 to-blue-50 dark:from-gray-700 dark:to-gray-800" 
+            className="py-24" 
             data-testid="events-section"
           >
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 max-w-7xl">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4" data-testid="events-title">
+                <h2 className={`text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`} data-testid="events-title">
                   {t.eventsTitle}
                 </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-testid="events-subtitle">
+                <p className="text-xl text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto" data-testid="events-subtitle">
                   {t.eventsSubtitle}
                 </p>
               </div>
@@ -544,59 +551,65 @@ export default function HaeshHype() {
                 {upcomingEvents.map((event, index) => (
                   <motion.div
                     key={event.id}
-                    className="bg-white dark:bg-gray-700 rounded-2xl shadow-xl overflow-hidden animate-card-hover"
+                    className="bg-white dark:bg-[#0A0A0B] rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] overflow-hidden hover:shadow-2xl transition-all duration-500 border border-slate-200 dark:border-white/5 hover:-translate-y-1 relative"
                     data-testid={`event-card-${event.id}`}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.15 }}
                   >
+                    <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-[#D4AF37] to-[#B5912B]" />
+                    
                     {/* Event Header */}
-                    <div className="relative p-6 bg-gradient-to-br from-teal-500 to-blue-600 text-white">
+                    <div className="relative p-8 bg-slate-50 dark:bg-[#1A1C23] border-b border-slate-100 dark:border-white/5">
                       {event.featured && (
-                        <div className="absolute top-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                          ⭐ מומלץ
+                        <div className="absolute top-4 right-4 bg-gradient-to-r from-[#D4AF37] to-[#B5912B] text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1.5">
+                          <Star className="w-3.5 h-3.5 fill-white" /> מומלץ
                         </div>
                       )}
                       
-                      <div className="flex items-center gap-3 mb-4">
-                        <Calendar className="w-8 h-8" />
+                      <div className="flex items-center gap-4 mb-5">
+                        <div className="w-14 h-14 rounded-2xl bg-white dark:bg-[#0A0A0B] border border-slate-200 dark:border-white/10 shadow-sm flex items-center justify-center shrink-0">
+                          <Calendar className="w-6 h-6 text-[#D4AF37]" />
+                        </div>
                         <div>
-                          <div className="font-bold text-lg">
+                          <div className="font-bold text-slate-900 dark:text-white text-lg tracking-tight">
                             {new Date(event.date).toLocaleDateString(currentLanguage === 'he' ? 'he-IL' : 'en-US')}
                           </div>
-                          <div className="text-teal-100">{event.time}</div>
+                          <div className="text-[#D4AF37] text-sm font-semibold">{event.time}</div>
                         </div>
                       </div>
 
-                      <h3 className="text-xl font-bold mb-2">{event.title}</h3>
-                      <span className="bg-white/20 px-3 py-1 rounded-full text-sm">{event.category}</span>
+                      <h3 className={`text-xl font-bold mb-3 text-slate-900 dark:text-white leading-tight ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`}>{event.title}</h3>
+                      <span className="inline-block bg-white dark:bg-black/20 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-white/10 px-3 py-1 rounded-full text-xs font-bold tracking-wide">
+                        {event.category}
+                      </span>
                     </div>
 
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 mb-4 text-gray-600 dark:text-gray-300">
-                        <MapPin className="w-5 h-5" />
-                        <span className="text-sm">{event.location}</span>
+                    <div className="p-8">
+                      <div className="flex items-start gap-3 mb-5 text-slate-600 dark:text-slate-300">
+                        <MapPin className="w-5 h-5 text-[#D4AF37] shrink-0 mt-0.5" />
+                        <span className="text-sm font-medium leading-snug">{event.location}</span>
                       </div>
 
-                      <p className="text-gray-700 dark:text-gray-300 mb-6">
+                      <p className="text-slate-600 dark:text-slate-400 mb-8 font-light leading-relaxed text-sm">
                         {event.description}
                       </p>
 
                       {/* Participation Info */}
-                      <div className="mb-6">
+                      <div className="mb-8 p-4 bg-slate-50 dark:bg-[#1A1C23] rounded-xl border border-slate-100 dark:border-white/5">
                         <div className="flex justify-between items-center mb-2">
-                          <span className="text-sm text-gray-600">{currentLanguage === 'he' ? 'משתתפים' : 'Participants'}</span>
-                          <span className="text-sm font-medium">{event.participants}/{event.maxParticipants}</span>
+                          <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{currentLanguage === 'he' ? 'משתתפים' : 'Participants'}</span>
+                          <span className="text-sm font-bold text-[#D4AF37]">{event.participants}/{event.maxParticipants}</span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div className="w-full bg-slate-200 dark:bg-black/40 rounded-full h-1.5 overflow-hidden">
                           <div 
-                            className="bg-gradient-to-r from-teal-500 to-blue-500 h-2 rounded-full"
+                            className="bg-gradient-to-r from-[#D4AF37] to-[#B5912B] h-full rounded-full"
                             style={{ width: `${(event.participants / event.maxParticipants) * 100}%` }}
                           ></div>
                         </div>
                       </div>
 
-                      <button className="w-full bg-gradient-to-r from-teal-600 to-blue-600 text-white py-3 rounded-lg font-medium hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 animate-button-hover">
+                      <button className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B5912B] hover:from-[#B5912B] hover:to-[#9E7A1C] text-white py-3.5 rounded-xl font-bold shadow-[0_4px_14px_rgba(212,175,55,0.4)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2">
                         <Users className="w-5 h-5" />
                         {currentLanguage === 'he' ? 'הרשמה לאירוע' : 'Register for Event'}
                       </button>
@@ -618,15 +631,15 @@ export default function HaeshHype() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.6 }}
-            className="py-20 bg-white dark:bg-gray-800" 
+            className="py-24" 
             data-testid="stories-section"
           >
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 max-w-7xl">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4" data-testid="stories-title">
+                <h2 className={`text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`} data-testid="stories-title">
                   {t.storiesTitle}
                 </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-testid="stories-subtitle">
+                <p className="text-xl text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto" data-testid="stories-subtitle">
                   {t.storiesSubtitle}
                 </p>
               </div>
@@ -635,64 +648,64 @@ export default function HaeshHype() {
                 {haeshStories.map((story, index) => (
                   <motion.article
                     key={story.id}
-                    className="bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-gray-700 dark:to-gray-600 rounded-2xl shadow-xl overflow-hidden animate-card-hover"
+                    className="bg-white dark:bg-[#0A0A0B] rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] overflow-hidden hover:shadow-2xl transition-all duration-500 border border-slate-200 dark:border-white/5 hover:-translate-y-1"
                     data-testid={`story-card-${story.id}`}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.2 }}
                   >
                     {/* Story Header */}
-                    <div className="p-6 border-b border-orange-200 dark:border-gray-600">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                    <div className="p-8 border-b border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-[#1A1C23]">
+                      <div className="flex items-center justify-between mb-6">
+                        <span className="bg-gradient-to-r from-[#D4AF37] to-[#B5912B] text-white px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase shadow-md">
                           {story.category}
                         </span>
                         {story.featured && (
-                          <div className="bg-yellow-500 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                            <Star className="w-3 h-3" />
+                          <div className="bg-white dark:bg-black/20 text-[#D4AF37] border border-slate-200 dark:border-white/10 px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                            <Star className="w-3.5 h-3.5 fill-[#D4AF37]" />
                             מומלץ
                           </div>
                         )}
                       </div>
 
-                      <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3">
+                      <h3 className={`text-2xl font-bold text-slate-900 dark:text-white mb-4 leading-tight ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`}>
                         {story.title}
                       </h3>
                       
-                      <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
-                        <span>{story.author}</span>
-                        <span>•</span>
-                        <span className="flex items-center gap-1">
+                      <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400 font-medium">
+                        <span className="text-[#D4AF37]">{story.author}</span>
+                        <span className="opacity-50">•</span>
+                        <span className="flex items-center gap-1.5">
                           <Clock className="w-4 h-4" />
                           {story.readTime}
                         </span>
                       </div>
                     </div>
 
-                    <div className="p-6">
-                      <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                    <div className="p-8">
+                      <p className="text-slate-600 dark:text-slate-300 mb-8 leading-relaxed font-light text-base">
                         {story.excerpt}
                       </p>
 
                       {/* Engagement Stats */}
-                      <div className="flex items-center justify-between mb-6">
-                        <div className="flex items-center gap-4">
-                          <button className="flex items-center gap-1 text-red-500 hover:text-red-600 transition-colors">
-                            <Heart className="w-5 h-5" />
-                            <span className="font-medium">{story.hearts}</span>
+                      <div className="flex items-center justify-between mb-8 pb-6 border-b border-slate-100 dark:border-white/5">
+                        <div className="flex items-center gap-6">
+                          <button className="flex items-center gap-2 text-rose-500 hover:text-rose-600 transition-colors group">
+                            <Heart className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                            <span className="font-semibold">{story.hearts}</span>
                           </button>
-                          <button className="flex items-center gap-1 text-blue-500 hover:text-blue-600 transition-colors">
-                            <Share2 className="w-5 h-5" />
-                            <span className="font-medium">{story.shares}</span>
+                          <button className="flex items-center gap-2 text-slate-400 hover:text-[#D4AF37] transition-colors group">
+                            <Share2 className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                            <span className="font-semibold">{story.shares}</span>
                           </button>
                         </div>
                       </div>
 
                       <button 
                         onClick={() => setSelectedStory(story.id)}
-                        className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 text-white py-3 rounded-lg font-medium hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 animate-button-hover"
+                        className="w-full bg-white dark:bg-[#1A1C23] border border-slate-200 dark:border-white/10 text-slate-800 dark:text-white py-3.5 rounded-xl font-bold hover:bg-slate-50 dark:hover:bg-[#0A0A0B] hover:border-[#D4AF37]/50 hover:text-[#D4AF37] transition-all duration-300 flex items-center justify-center gap-2 group/btn"
                       >
-                        <BookOpen className="w-5 h-5" />
+                        <BookOpen className="w-4 h-4 text-[#D4AF37] group-hover/btn:scale-110 transition-transform" />
                         {currentLanguage === 'he' ? 'קרא את הסיפור המלא' : 'Read Full Story'}
                       </button>
                     </div>
@@ -713,15 +726,15 @@ export default function HaeshHype() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.6 }}
-            className="py-20 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-700 dark:to-gray-800" 
+            className="py-24 bg-gradient-to-b from-transparent to-slate-50/50 dark:to-white/[0.02]" 
             data-testid="testimonials-section"
           >
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 max-w-7xl">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4" data-testid="testimonials-title">
+                <h2 className={`text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`} data-testid="testimonials-title">
                   {t.testimonialsTitle}
                 </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-testid="testimonials-subtitle">
+                <p className="text-xl text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto" data-testid="testimonials-subtitle">
                   {t.testimonialsSubtitle}
                 </p>
               </div>
@@ -730,40 +743,52 @@ export default function HaeshHype() {
                 {testimonials.map((testimonial, index) => (
                   <motion.div
                     key={testimonial.id}
-                    className="bg-white dark:bg-gray-700 rounded-2xl shadow-xl p-8 animate-card-hover"
+                    className="bg-white dark:bg-[#0A0A0B] rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] p-10 border border-slate-200 dark:border-white/5 hover:border-[#D4AF37]/30 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden group"
                     data-testid={`testimonial-card-${testimonial.id}`}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.15 }}
                   >
-                    {/* Quote Icon */}
-                    <div className="flex justify-center mb-6">
-                      <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                        <Quote className="w-8 h-8 text-white" />
-                      </div>
+                    <div className="absolute -top-6 -right-6 text-slate-50 dark:text-white/[0.02] transform rotate-12 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
+                      <Quote className="w-40 h-40" />
                     </div>
-
-                    {/* Testimonial Text */}
-                    <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-6 text-center italic">
-                      "{testimonial.text}"
-                    </p>
-
-                    {/* Author Info */}
-                    <div className="text-center">
-                      <div className="flex items-center justify-center gap-2 mb-2">
-                        <h4 className="font-bold text-gray-800 dark:text-white">{testimonial.name}</h4>
-                        {testimonial.verified && (
-                          <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
-                            <span className="text-white text-xs">✓</span>
-                          </div>
-                        )}
+                    
+                    <div className="relative z-10">
+                      {/* Quarter Icon */}
+                      <div className="flex justify-start mb-8">
+                        <div className="w-14 h-14 bg-gradient-to-br from-[#D4AF37] to-[#B5912B] rounded-2xl flex items-center justify-center shadow-lg shadow-[#D4AF37]/20">
+                          <Quote className="w-6 h-6 text-white fill-white" />
+                        </div>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">{testimonial.location}</p>
-                      <p className="text-gray-500 text-xs">{testimonial.years}</p>
+
+                      {/* Testimonial Text */}
+                      <p className={`text-slate-700 dark:text-slate-300 text-xl leading-relaxed mb-8 italic font-light relative ${currentLanguage === 'he' ? 'font-hebrew text-right' : 'font-serif text-left'}`}>
+                        "{testimonial.text}"
+                      </p>
+
+                      {/* Author Info */}
+                      <div className="flex items-center gap-4 pt-6 border-t border-slate-100 dark:border-white/5">
+                        <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-[#1A1C23] border border-slate-200 dark:border-white/10 flex items-center justify-center text-[#D4AF37] font-bold text-lg">
+                          {testimonial.name.charAt(0)}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h4 className="font-bold text-slate-900 dark:text-white">{testimonial.name}</h4>
+                            {testimonial.verified && (
+                              <div className="w-4 h-4 bg-[#D4AF37] rounded-full flex items-center justify-center">
+                                <span className="text-white text-[10px] font-bold">✓</span>
+                              </div>
+                            )}
+                          </div>
+                          <p className="text-slate-500 dark:text-slate-400 text-xs font-medium">{testimonial.location} • {testimonial.years}</p>
+                        </div>
+                      </div>
                       
-                      <span className="inline-block bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-medium mt-3">
-                        {testimonial.category}
-                      </span>
+                      <div className="mt-6 flex">
+                        <span className="inline-block bg-slate-50 dark:bg-black/20 text-[#D4AF37] border border-slate-100 dark:border-white/5 px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase">
+                          {testimonial.category}
+                        </span>
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -782,67 +807,74 @@ export default function HaeshHype() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             transition={{ duration: 0.6 }}
-            className="py-20 bg-white dark:bg-gray-800" 
+            className="py-24" 
             data-testid="community-section"
           >
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-4 max-w-7xl">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4" data-testid="community-title">
+                <h2 className={`text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`} data-testid="community-title">
                   {t.communityTitle}
                 </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" data-testid="community-subtitle">
+                <p className="text-xl text-slate-600 dark:text-slate-400 font-light max-w-2xl mx-auto" data-testid="community-subtitle">
                   {t.communitySubtitle}
                 </p>
               </div>
 
               {/* Statistiques de la Communauté */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24">
                 {communityStats.map((stat, index) => (
                   <motion.div
                     key={index}
-                    className="text-center"
+                    className="text-center group"
                     data-testid={`community-stat-${index}`}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <div className="flex justify-center mb-4">
-                      <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center animate-hover-float">
-                        {stat.icon}
+                    <div className="flex justify-center mb-6">
+                      <div className="w-20 h-20 bg-white dark:bg-[#1A1C23] border border-slate-200 dark:border-white/10 rounded-3xl flex items-center justify-center shadow-xl shadow-slate-200/50 dark:shadow-none transition-transform duration-500 hover:scale-110 hover:rotate-3">
+                        <div className="text-[#D4AF37]">
+                          {stat.icon}
+                        </div>
                       </div>
                     </div>
-                    <div className="text-3xl font-bold text-gray-800 dark:text-white mb-2">{stat.number}</div>
-                    <div className="text-gray-600 dark:text-gray-300 text-sm">{stat.label}</div>
+                    <div className="text-4xl font-black text-slate-900 dark:text-white mb-3 tracking-tight">{stat.number}</div>
+                    <div className="text-slate-500 dark:text-slate-400 font-medium">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>
 
               {/* Call to Action Communauté */}
               <motion.div 
-                className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-white text-center"
+                className="bg-[#0A0A0B] relative overflow-hidden rounded-[2.5rem] p-10 md:p-16 text-white text-center border border-white/10 shadow-2xl"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4 }}
                 data-testid="community-cta"
               >
-                <h3 className="text-3xl md:text-4xl font-bold mb-6">
-                  {currentLanguage === 'he' ? 'הצטרפו למשפחה הברסלבית!' : 'Join the Breslov Family!'}
-                </h3>
-                <p className="text-xl mb-8 text-blue-100">
-                  {currentLanguage === 'he' 
-                    ? 'חברו איתנו למסע של צמיחה רוחנית, אהבה וחיבור עמוק לתורת רבי נחמן'
-                    : 'Join us on a journey of spiritual growth, love and deep connection to Rabbi Nachman\'s teachings'
-                  }
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 animate-button-hover">
-                    <Users className="w-6 h-6" />
-                    {currentLanguage === 'he' ? 'הצטרפות לקהילה' : 'Join Community'}
-                  </button>
-                  <button className="bg-yellow-500 text-white px-8 py-4 rounded-lg font-bold hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 animate-button-hover">
-                    <MessageCircle className="w-6 h-6" />
-                    {currentLanguage === 'he' ? 'צור קשר' : 'Contact Us'}
-                  </button>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/10 to-transparent pointer-events-none" />
+                <div className="absolute top-0 right-0 w-96 h-96 bg-[#D4AF37]/10 rounded-full blur-[100px] pointer-events-none" />
+                
+                <div className="relative z-10 max-w-3xl mx-auto">
+                  <h3 className={`text-4xl md:text-5xl font-bold mb-6 tracking-tight ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`}>
+                    {currentLanguage === 'he' ? 'הצטרפו למשפחה הברסלבית!' : 'Join the Breslov Family!'}
+                  </h3>
+                  <p className="text-xl mb-10 text-slate-300 font-light leading-relaxed">
+                    {currentLanguage === 'he' 
+                      ? 'חברו איתנו למסע של צמיחה רוחנית, אהבה וחיבור עמוק לתורת רבי נחמן'
+                      : 'Join us on a journey of spiritual growth, love and deep connection to Rabbi Nachman\'s teachings'
+                    }
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button className="bg-gradient-to-r from-[#D4AF37] to-[#B5912B] hover:from-[#B5912B] hover:to-[#9E7A1C] text-white px-8 py-4 rounded-xl font-bold shadow-[0_4px_14px_rgba(212,175,55,0.4)] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+                      <Users className="w-5 h-5" />
+                      {currentLanguage === 'he' ? 'הצטרפות לקהילה' : 'Join Community'}
+                    </button>
+                    <button className="bg-white/5 hover:bg-white/10 border border-white/10 text-white px-8 py-4 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2">
+                      <MessageCircle className="w-5 h-5" />
+                      {currentLanguage === 'he' ? 'צור קשר' : 'Contact Us'}
+                    </button>
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -851,10 +883,11 @@ export default function HaeshHype() {
       </AnimatePresence>
 
       {/* Footer avec Citation Inspirante */}
-      <footer className="bg-gradient-to-r from-gray-900 to-blue-900 text-white py-16" data-testid="footer">
+      <footer className="bg-[#050505] border-t border-white/5 text-slate-400 py-20" data-testid="footer">
         <div className="container mx-auto px-4 text-center">
+          <motion.div className="w-16 h-16 mx-auto mb-8 opacity-20 bg-[url('/images/jerusalem-skyline.svg')] bg-contain bg-center bg-no-repeat" />
           <motion.blockquote 
-            className="text-2xl md:text-3xl font-bold mb-4 italic"
+            className={`text-2xl md:text-3xl font-light mb-6 italic text-white max-w-4xl mx-auto leading-relaxed ${currentLanguage === 'he' ? 'font-hebrew' : 'font-serif'}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
@@ -863,7 +896,7 @@ export default function HaeshHype() {
             "{t.footerQuote}"
           </motion.blockquote>
           <motion.p 
-            className="text-blue-200 text-lg"
+            className="text-[#D4AF37] text-lg font-medium tracking-wide"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}

@@ -1,6 +1,8 @@
 import { Header } from '../components/Header';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useState, useEffect } from 'react';
+import { GoldDivider } from '../components/GoldDivider';
+import { rtlFont } from '../lib/utils';
 import { 
   Mail, 
   Phone, 
@@ -472,8 +474,8 @@ const IconComponent = ({ iconName, className = "w-6 h-6" }: { iconName: string, 
 export default function Contact() {
   const { currentLanguage, setLanguage } = useLanguage();
   const t = translations[currentLanguage as keyof typeof translations] || translations.he;
-  const isRTL = currentLanguage === 'he';
-  
+  const isRTL = currentLanguage === 'he' || currentLanguage === 'ar';
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -523,62 +525,58 @@ export default function Contact() {
       <Header currentLanguage={currentLanguage} onLanguageChange={setLanguage} />
       
       {/* Hero Section */}
-      <section className="hero-gradient relative overflow-hidden py-20 lg:py-32" data-testid="hero-section">
-        <div className="hero-overlay absolute inset-0"></div>
-        {/* Background Image */}
-        <div className="absolute inset-0 opacity-10">
-          <img loading="lazy"
-            decoding="async"
-            src="/images/hero-books-composition.png"
-            alt="Breslov Books Collection"
-            className="w-full h-full object-cover object-center"
-          />
-        </div>
+      <section className="relative overflow-hidden py-24 lg:py-32 dark:bg-[#0A0A0B] bg-[#F9F8F6] border-b dark:border-white/5 border-slate-200" data-testid="hero-section">
+        {/* Background Pattern and Glow */}
+        <div className="absolute inset-0 bg-gradient-to-br dark:from-[#050505] dark:via-[#111318] dark:to-[#0A0500] from-white via-[#F9F8F6] to-slate-100 z-0" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none z-0" />
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] bg-[url('/images/jerusalem-skyline.svg')] bg-cover bg-center mix-blend-screen" />
+
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center animate-fade-in-scale">
-            <h1 className="heading-oversized mb-6 text-primary" data-testid="hero-title">
+            <h1 className={`text-5xl lg:text-7xl font-bold dark:text-white text-slate-900 mb-6 tracking-tight leading-tight ${rtlFont(isRTL)}`} data-testid="hero-title" style={{ textShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
               {t.heroTitle}
             </h1>
-            <p className="text-large text-muted-foreground mb-8 max-w-2xl mx-auto" data-testid="hero-subtitle">
+            <GoldDivider size="md" className="mb-8" />
+            <p className="text-xl lg:text-2xl dark:text-slate-300 text-slate-700 mb-8 max-w-2xl mx-auto font-light leading-relaxed" data-testid="hero-subtitle">
               {t.heroSubtitle}
             </p>
-            <p className="text-lg text-foreground/80 mb-12 max-w-3xl mx-auto leading-relaxed" data-testid="hero-description">
-              {t.heroDescription}
+            <p className="text-lg text-[#B5912B] mb-12 max-w-3xl mx-auto leading-relaxed border-l-2 border-[#D4AF37] pl-6 text-left italic font-medium" dir={isRTL ? "rtl" : "ltr"} style={{ borderRightWidth: isRTL ? '2px' : '0', borderLeftWidth: isRTL ? '0' : '2px', paddingRight: isRTL ? '1.5rem' : '0', paddingLeft: isRTL ? '0' : '1.5rem', textAlign: isRTL ? 'right' : 'left' }} data-testid="hero-description">
+              "{t.heroDescription}"
             </p>
           </div>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="py-20 bg-background" data-testid="main-content">
+      <section className="py-24 dark:bg-[#111318] bg-white border-b dark:border-white/5 border-slate-200" data-testid="main-content">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
             
             {/* Contact Form */}
-            <div className="card-premium p-8 lg:p-10" data-testid="contact-form">
+            <div className="dark:bg-[#0A0A0B] bg-slate-50 p-8 lg:p-10 rounded-3xl border dark:border-white/5 border-slate-200 shadow-[0_4px_30px_rgba(0,0,0,0.05)]" data-testid="contact-form">
               <div className="mb-8">
-                <h2 className="text-3xl font-bold text-primary mb-3" data-testid="form-title">
+                <h2 className={`text-3xl font-bold dark:text-white text-slate-900 mb-3 ${rtlFont(isRTL)}`} data-testid="form-title">
                   {t.formTitle}
                 </h2>
-                <p className="text-muted-foreground" data-testid="form-subtitle">
+                <p className="dark:text-slate-400 text-slate-500 font-light" data-testid="form-subtitle">
                   {t.formSubtitle}
                 </p>
               </div>
               
               {submitStatus === 'success' && (
-                <div className="bg-success-green/10 border border-success-green/20 rounded-xl p-6 mb-8 animate-fade-in-scale" data-testid="success-message">
+                <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-6 mb-8 animate-fade-in-scale" data-testid="success-message">
                   <div className="flex items-center gap-3 mb-2">
-                    <CheckCircle className="w-6 h-6 text-success-green" />
-                    <h3 className="font-semibold text-success-green">{t.thankYou}</h3>
+                    <CheckCircle className="w-6 h-6 text-emerald-500" />
+                    <h3 className="font-semibold text-emerald-500">{t.thankYou}</h3>
                   </div>
-                  <p className="text-success-green/80 text-sm">{t.thankYouDescription}</p>
+                  <p className="text-emerald-500/80 text-sm">{t.thankYouDescription}</p>
                 </div>
               )}
 
               <form onSubmit={handleSubmit} className="space-y-6" data-testid="contact-form-fields">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-3" data-testid="name-label">
+                    <label className="block text-sm font-semibold dark:text-slate-300 text-slate-700 mb-3" data-testid="name-label">
                       {t.name}
                     </label>
                     <input
@@ -587,14 +585,14 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder={t.namePlaceholder}
-                      className="w-full px-4 py-3 border border-border rounded-xl bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
+                      className="w-full px-4 py-3 border dark:border-white/10 border-slate-200 rounded-xl dark:bg-[#1A1C23] bg-white dark:text-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] transition-all duration-200 outline-none"
                       required
                       data-testid="input-name"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-3" data-testid="email-label">
+                    <label className="block text-sm font-semibold dark:text-slate-300 text-slate-700 mb-3" data-testid="email-label">
                       {t.email}
                     </label>
                     <input
@@ -603,7 +601,7 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder={t.emailPlaceholder}
-                      className="w-full px-4 py-3 border border-border rounded-xl bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
+                      className="w-full px-4 py-3 border dark:border-white/10 border-slate-200 rounded-xl dark:bg-[#1A1C23] bg-white dark:text-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] transition-all duration-200 outline-none"
                       required
                       data-testid="input-email"
                     />
@@ -612,7 +610,7 @@ export default function Contact() {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-3" data-testid="phone-label">
+                    <label className="block text-sm font-semibold dark:text-slate-300 text-slate-700 mb-3" data-testid="phone-label">
                       {t.phone}
                     </label>
                     <input
@@ -621,20 +619,20 @@ export default function Contact() {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder={t.phonePlaceholder}
-                      className="w-full px-4 py-3 border border-border rounded-xl bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
+                      className="w-full px-4 py-3 border dark:border-white/10 border-slate-200 rounded-xl dark:bg-[#1A1C23] bg-white dark:text-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] transition-all duration-200 outline-none"
                       data-testid="input-phone"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-3" data-testid="subject-label">
+                    <label className="block text-sm font-semibold dark:text-slate-300 text-slate-700 mb-3" data-testid="subject-label">
                       {t.subject}
                     </label>
                     <select
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-border rounded-xl bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
+                      className="w-full px-4 py-3 border dark:border-white/10 border-slate-200 rounded-xl dark:bg-[#1A1C23] bg-white dark:text-white text-slate-900 focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] transition-all duration-200 outline-none"
                       required
                       data-testid="select-subject"
                     >
@@ -647,7 +645,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-foreground mb-3" data-testid="message-label">
+                  <label className="block text-sm font-semibold dark:text-slate-300 text-slate-700 mb-3" data-testid="message-label">
                     {t.message}
                   </label>
                   <textarea
@@ -656,7 +654,7 @@ export default function Contact() {
                     onChange={handleChange}
                     placeholder={t.messagePlaceholder}
                     rows={6}
-                    className="w-full px-4 py-3 border border-border rounded-xl bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 resize-vertical"
+                    className="w-full px-4 py-3 border dark:border-white/10 border-slate-200 rounded-xl dark:bg-[#1A1C23] bg-white dark:text-white text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#D4AF37] focus:border-[#D4AF37] transition-all duration-200 resize-y outline-none"
                     required
                     data-testid="textarea-message"
                   />
@@ -665,7 +663,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn-breslov-primary w-full inline-flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-gradient-to-r from-[#D4AF37] to-[#B5912B] hover:from-[#B5912B] hover:to-[#9E7A1C] text-white w-full py-4 rounded-xl font-bold uppercase tracking-wider text-sm shadow-[0_4px_14px_rgba(212,175,55,0.4)] transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   data-testid="button-submit"
                 >
                   <Send className="w-5 h-5" />
@@ -677,86 +675,73 @@ export default function Contact() {
             {/* Contact Information */}
             <div className="space-y-8">
               {/* Breslov Books Visual */}
-              <div className="relative mb-8">
-                <div className="grid grid-cols-3 gap-4 opacity-80">
-                  <img loading="lazy"
-                    decoding="async"
-                    width="200"
-                    height="128"
-                    src="/images/ליקוטי מוהרן 1_1757275910545.jpg"
-                    alt="Likutei Moharan"
-                    className="w-full h-32 object-cover rounded-lg shadow-lg transform rotate-1 hover:rotate-0 transition-transform duration-300"
-                  />
-                  <img loading="lazy"
-                    decoding="async"
-                    width="200"
-                    height="128"
-                    src="/images/ספר המידות 1_1757275910546.jpg"
-                    alt="Sefer HaMidot"
-                    className="w-full h-32 object-cover rounded-lg shadow-lg transform -rotate-1 hover:rotate-0 transition-transform duration-300"
-                  />
-                  <img loading="lazy"
-                    decoding="async"
-                    width="200"
-                    height="128"
-                    src="/images/חיי מוהרן 1_1757275910544.jpg"
-                    alt="Chayei Moharan"
-                    className="w-full h-32 object-cover rounded-lg shadow-lg transform rotate-2 hover:rotate-0 transition-transform duration-300"
-                  />
+              <div className="relative mb-8 pt-4">
+                <div className="grid grid-cols-3 gap-4 opacity-90 relative z-10">
+                  <div className="bg-white dark:bg-[#1A1C23] p-2 rounded-xl border border-slate-100 dark:border-white/5 shadow-[0_8px_30px_rgba(0,0,0,0.1)] transform rotate-2 hover:rotate-0 transition-all duration-500 hover:scale-105">
+                    <img loading="lazy" decoding="async" src="/images/book-1.webp" alt="Likutei Moharan" className="w-full h-36 object-cover rounded-md" />
+                  </div>
+                  <div className="bg-white dark:bg-[#1A1C23] p-2 rounded-xl border border-slate-100 dark:border-white/5 shadow-[0_8px_30px_rgba(0,0,0,0.1)] transform -rotate-2 hover:rotate-0 transition-all duration-500 hover:scale-105">
+                    <img loading="lazy" decoding="async" src="/images/book-2.webp" alt="Sefer HaMidot" className="w-full h-36 object-cover rounded-md" />
+                  </div>
+                  <div className="bg-white dark:bg-[#1A1C23] p-2 rounded-xl border border-slate-100 dark:border-white/5 shadow-[0_8px_30px_rgba(0,0,0,0.1)] transform rotate-3 hover:rotate-0 transition-all duration-500 hover:scale-105">
+                    <img loading="lazy" decoding="async" src="/images/book-5.webp" alt="Chayei Moharan" className="w-full h-36 object-cover rounded-md" />
+                  </div>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent rounded-lg"></div>
+                {/* Soft glow behind books */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-24 bg-[#D4AF37]/20 blur-[50px] z-0 pointer-events-none" />
               </div>
+              
               {/* Contact Details */}
-              <div className="card-premium p-8" data-testid="contact-info">
-                <h2 className="text-3xl font-bold text-primary mb-3" data-testid="contact-title">
+              <div className="dark:bg-[#0A0A0B] bg-slate-50 p-8 rounded-3xl border dark:border-white/5 border-slate-200 shadow-[0_4px_30px_rgba(0,0,0,0.05)]" data-testid="contact-info">
+                <h2 className={`text-3xl font-bold dark:text-white text-slate-900 mb-3 ${rtlFont(isRTL)}`} data-testid="contact-title">
                   {t.contactTitle}
                 </h2>
-                <p className="text-muted-foreground mb-8" data-testid="contact-subtitle">
+                <p className="dark:text-slate-400 text-slate-500 font-light mb-8" data-testid="contact-subtitle">
                   {t.contactSubtitle}
                 </p>
                 
                 <div className="space-y-6">
                   <div className="flex items-start gap-4" data-testid="contact-address">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <MapPin className="w-6 h-6 text-primary" />
+                    <div className="flex-shrink-0 w-12 h-12 dark:bg-[#1A1C23] bg-white rounded-xl shadow-sm border border-slate-100 dark:border-white/5 flex items-center justify-center">
+                      <MapPin className="w-5 h-5 text-[#D4AF37]" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">{t.address}</h3>
-                      <p className="text-muted-foreground">{t.addressText}</p>
+                      <h3 className="font-semibold dark:text-white text-slate-900 mb-1">{t.address}</h3>
+                      <p className="dark:text-slate-400 text-slate-500 font-light">{t.addressText}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4" data-testid="contact-email">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <Mail className="w-6 h-6 text-primary" />
+                    <div className="flex-shrink-0 w-12 h-12 dark:bg-[#1A1C23] bg-white rounded-xl shadow-sm border border-slate-100 dark:border-white/5 flex items-center justify-center">
+                      <Mail className="w-5 h-5 text-[#D4AF37]" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">{t.emailContact}</h3>
-                      <a href={`mailto:${t.emailText}`} className="text-primary hover:underline">
+                      <h3 className="font-semibold dark:text-white text-slate-900 mb-1">{t.emailContact}</h3>
+                      <a href={`mailto:${t.emailText}`} className="text-[#D4AF37] hover:text-[#B5912B] transition-colors">
                         {t.emailText}
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4" data-testid="contact-phone">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <Phone className="w-6 h-6 text-primary" />
+                    <div className="flex-shrink-0 w-12 h-12 dark:bg-[#1A1C23] bg-white rounded-xl shadow-sm border border-slate-100 dark:border-white/5 flex items-center justify-center">
+                      <Phone className="w-5 h-5 text-[#D4AF37]" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">{t.phoneContact}</h3>
-                      <a href={`tel:${t.phoneText}`} className="text-primary hover:underline">
+                      <h3 className="font-semibold dark:text-white text-slate-900 mb-1">{t.phoneContact}</h3>
+                      <a href={`tel:${t.phoneText}`} className="text-[#D4AF37] hover:text-[#B5912B] transition-colors" dir="ltr">
                         {t.phoneText}
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4" data-testid="contact-hours">
-                    <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <Clock className="w-6 h-6 text-primary" />
+                    <div className="flex-shrink-0 w-12 h-12 dark:bg-[#1A1C23] bg-white rounded-xl shadow-sm border border-slate-100 dark:border-white/5 flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-[#D4AF37]" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">{t.hours}</h3>
-                      <p className="text-muted-foreground whitespace-pre-line text-sm leading-relaxed">
+                      <h3 className="font-semibold dark:text-white text-slate-900 mb-1">{t.hours}</h3>
+                      <p className="dark:text-slate-400 text-slate-500 font-light whitespace-pre-line text-sm leading-relaxed">
                         {t.hoursText}
                       </p>
                     </div>
@@ -765,37 +750,30 @@ export default function Contact() {
               </div>
 
               {/* Features */}
-              <div className="card-premium p-8 relative overflow-hidden" data-testid="features-section">
+              <div className="dark:bg-[#0A0A0B] bg-slate-50 p-8 rounded-3xl border dark:border-white/5 border-slate-200 shadow-[0_4px_30px_rgba(0,0,0,0.05)] relative overflow-hidden" data-testid="features-section">
                 {/* Background book image */}
                 <div className="absolute top-4 right-4 opacity-5 pointer-events-none">
-                  <img loading="lazy"
-                    decoding="async"
-                    width="128"
-                    height="160"
-                    src="/images/ליקוטי תפילות 1_1757275910545.jpg"
-                    alt="Likutei Tefilot"
-                    className="w-32 h-40 object-cover rounded-lg transform rotate-12"
-                  />
+                  <img loading="lazy" decoding="async" src="/images/book-44.webp" alt="Background Book" className="w-32 h-40 object-cover rounded-lg transform rotate-12 grayscale mix-blend-screen" />
                 </div>
-                <h2 className="text-2xl font-bold text-primary mb-6 relative z-10" data-testid="features-title">
+                <h2 className={`text-2xl font-bold dark:text-white text-slate-900 mb-6 relative z-10 ${rtlFont(isRTL)}`} data-testid="features-title">
                   {t.featuresTitle}
                 </h2>
                 
-                <div className="space-y-6 relative z-10">
+                <div className="space-y-4 relative z-10">
                   {t.features.map((feature, index) => (
                     <div 
                       key={index}
-                      className="flex items-start gap-4 p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors duration-200 backdrop-blur-sm"
+                      className="flex items-start gap-4 p-4 rounded-xl dark:bg-[#1A1C23] bg-white border border-transparent dark:hover:border-white/10 hover:border-slate-300 transition-all duration-300 shadow-sm"
                       data-testid={`feature-item-${index}`}
                     >
-                      <div className="flex-shrink-0 w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                        <IconComponent iconName={feature.icon} className="w-5 h-5 text-primary" />
+                      <div className="flex-shrink-0 w-10 h-10 bg-[#D4AF37]/10 rounded-lg flex items-center justify-center">
+                        <IconComponent iconName={feature.icon} className="w-5 h-5 text-[#D4AF37]" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-1" data-testid={`feature-title-${index}`}>
+                        <h3 className="font-semibold dark:text-white text-slate-900 mb-1" data-testid={`feature-title-${index}`}>
                           {feature.title}
                         </h3>
-                        <p className="text-muted-foreground text-sm" data-testid={`feature-description-${index}`}>
+                        <p className="dark:text-slate-400 text-slate-500 text-sm font-light" data-testid={`feature-description-${index}`}>
                           {feature.description}
                         </p>
                       </div>
@@ -809,42 +787,38 @@ export default function Contact() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary to-accent relative overflow-hidden" data-testid="cta-section">
-        <div className="absolute inset-0 bg-primary/90"></div>
-        {/* Breslov books composition background */}
-        <div className="absolute inset-0 opacity-20">
-          <img loading="lazy"
-            decoding="async"
-            src="/images/hero-books-composition.png"
-            alt="Breslov Books Collection"
-            className="w-full h-full object-cover object-center"
-          />
-        </div>
+      <section className="py-24 relative overflow-hidden border-t dark:border-white/5 border-slate-200" data-testid="cta-section">
+      {/* Texture de fond */}
+      <div className="absolute inset-x-0 bottom-0 h-1/2 pointer-events-none z-0">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#B5912B]/5 to-transparent z-10" />
+        <img loading="lazy" decoding="async" src="/images/hero-books.webp" alt="Books Texture" className="w-full h-full object-cover opacity-[0.05] grayscale mix-blend-screen" />
+      </div>
+        <div className="absolute inset-0 bg-gradient-to-t dark:from-[#050505] from-slate-900 via-transparent to-transparent" />
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center text-primary-foreground">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6" data-testid="cta-title">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className={`text-4xl lg:text-5xl font-bold mb-6 text-white ${rtlFont(isRTL)}`} data-testid="cta-title">
               {t.ctaTitle}
             </h2>
-            <p className="text-xl mb-12 opacity-90 max-w-2xl mx-auto leading-relaxed" data-testid="cta-description">
+            <p className="text-xl mb-12 text-[#D4AF37] max-w-2xl mx-auto leading-relaxed font-light" data-testid="cta-description">
               {t.ctaDescription}
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <a 
                 href="/store" 
-                className="bg-background text-primary px-8 py-4 rounded-xl font-semibold hover:bg-background/90 transition-all duration-200 inline-flex items-center justify-center gap-2"
+                className="bg-gradient-to-r from-[#D4AF37] to-[#B5912B] hover:from-[#B5912B] hover:to-[#9E7A1C] text-white px-10 py-5 rounded-xl font-bold uppercase tracking-wider text-sm transition-all duration-300 shadow-[0_4px_14px_rgba(212,175,55,0.4)] hover:-translate-y-1 inline-flex items-center justify-center gap-2 min-w-[200px]"
                 data-testid="cta-button-store"
               >
                 <BookOpen className="w-5 h-5" />
-                עיינו בחנות
+                {currentLanguage === 'he' ? 'עיינו בחנות' : 'Browse Store'}
               </a>
               <a 
                 href="/about" 
-                className="border-2 border-background text-background px-8 py-4 rounded-xl font-semibold hover:bg-background hover:text-primary transition-all duration-200 inline-flex items-center justify-center gap-2"
+                className="bg-white/5 hover:bg-white/10 text-white border border-white/20 px-10 py-5 rounded-xl font-bold uppercase tracking-wider text-sm transition-all duration-300 inline-flex items-center justify-center gap-2 hover:-translate-y-1 backdrop-blur-sm shadow-sm min-w-[200px]"
                 data-testid="cta-button-about"
               >
                 <Users className="w-5 h-5" />
-                למדו עלינו
+                {currentLanguage === 'he' ? 'למדו עלינו' : 'Learn About Us'}
               </a>
             </div>
           </div>
