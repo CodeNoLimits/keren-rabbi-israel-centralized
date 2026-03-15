@@ -105,8 +105,8 @@ const createCheckoutSchema = (t: (key: string) => string) =>
       .string()
       .min(1, t('phoneRequired'))
       .regex(/^05\d[-]?\d{7}$/, t('phoneInvalid')),
-    street: z.string().min(1, 'Street is required'),
-    houseNumber: z.string().min(1, 'House number is required'),
+    street: z.string().min(1, t('streetRequired')),
+    houseNumber: z.string().min(1, t('houseNumberRequired')),
     apartment: z.string().optional(),
     city: z.string().min(1, t('cityRequired')),
     zipCode: z.string().min(1, t('zipCodeRequired')),
@@ -383,7 +383,7 @@ export function CheckoutForm({ onSuccess }: { onSuccess?: (clientSecret: string,
                     name="street"
                     render={({ field }) => (
                       <FormItem className="sm:col-span-2">
-                        <FormLabel>{currentLanguage === 'he' ? 'רחוב' : currentLanguage === 'fr' ? 'Rue' : 'Street'} *</FormLabel>
+                        <FormLabel>{t('street')} *</FormLabel>
                         <FormControl>
                           <Input
                             placeholder={currentLanguage === 'he' ? 'שם הרחוב' : 'Street name'}
@@ -401,7 +401,7 @@ export function CheckoutForm({ onSuccess }: { onSuccess?: (clientSecret: string,
                     name="houseNumber"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{currentLanguage === 'he' ? 'מספר בית' : 'House No.'} *</FormLabel>
+                        <FormLabel>{t('houseNumber')} *</FormLabel>
                         <FormControl>
                           <Input
                             placeholder="12"
@@ -421,7 +421,7 @@ export function CheckoutForm({ onSuccess }: { onSuccess?: (clientSecret: string,
                   name="apartment"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>{currentLanguage === 'he' ? 'דירה / כניסה (אופציונלי)' : 'Apartment (Optional)'}</FormLabel>
+                      <FormLabel>{t('apartment')}</FormLabel>
                       <FormControl>
                         <Input
                           placeholder={currentLanguage === 'he' ? 'דירה 4, כניסה ב' : 'Apt 4'}
