@@ -10,6 +10,7 @@ interface LanguageContextType {
   currentLanguage: string;
   setLanguage: (language: string) => void;
   t: (key: string) => string;
+  isRTL: boolean;
 }
 
 export const translations = {
@@ -602,23 +603,32 @@ export const translations = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+/** Apply RTL/LTR direction and lang attribute to the document root */
+function applyDocumentDirection(language: string) {
+  const dir = language === 'he' || language === 'ar' ? 'rtl' : 'ltr';
+  document.dir = dir;
+  document.documentElement.dir = dir;
+  document.documentElement.lang = language;
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [currentLanguage, setCurrentLanguage] = useState('he');
+  const isRTL = currentLanguage === 'he' || currentLanguage === 'ar';
 
   useEffect(() => {
     const saved = localStorage.getItem('site-language');
     if (saved && saved in translations) {
       setCurrentLanguage(saved);
-      document.dir = saved === 'he' ? 'rtl' : 'ltr';
+      applyDocumentDirection(saved);
     } else {
-      document.dir = 'he' === 'he' ? 'rtl' : 'ltr';
+      applyDocumentDirection('he');
     }
   }, []);
 
   const setLanguage = (language: string) => {
     setCurrentLanguage(language);
     localStorage.setItem('site-language', language);
-    document.dir = language === 'he' ? 'rtl' : 'ltr';
+    applyDocumentDirection(language);
   };
 
   const t = (key: string): string => {
@@ -627,7 +637,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <LanguageContext.Provider value={{ currentLanguage, setLanguage, t }}>
+    <LanguageContext.Provider value={{ currentLanguage, setLanguage, t, isRTL }}>
       {children}
     </LanguageContext.Provider>
   );
