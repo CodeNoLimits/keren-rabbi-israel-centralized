@@ -513,9 +513,9 @@ function MetaTags() {
       el.setAttribute('content', tag.content);
     });
 
-    // Set html lang attribute
+    // Set html lang attribute (direction is handled by LanguageProvider)
     document.documentElement.lang = currentLanguage;
-    document.documentElement.dir = currentLanguage === 'he' ? 'rtl' : 'ltr';
+    document.documentElement.dir = currentLanguage === 'he' || currentLanguage === 'ar' ? 'rtl' : 'ltr';
   }, [currentLanguage]);
   return null;
 }
