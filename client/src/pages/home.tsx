@@ -142,7 +142,7 @@ export default function Home() {
   return (
     <main className="rtl home page-template-default page page-id-13" style={{direction: isRTL ? 'rtl' : 'ltr', background: '#FFFFFF'}}>
       {/* TOP BAR */}
-      <section className="dark:bg-[#050505] bg-slate-100 dark:text-[#D4AF37] text-slate-800 py-2 border-b dark:border-white/5 border-slate-200">
+      <section className="bg-slate-100 text-slate-800 py-2 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-8">
           <ul className="flex gap-4 justify-center m-0 p-0 text-sm font-medium tracking-wide">
             <li className="flex items-center gap-2">
@@ -167,9 +167,9 @@ export default function Home() {
       {/* HERO SECTION - Sacred Luxury Overhaul        */}
       {/* ============================================ */}
       {/* ============================================ */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden dark:bg-[#0A0A0B] bg-slate-50">
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-slate-50">
         {/* Deep rich background gradient with subtle glow */}
-        <div className="absolute inset-0 bg-gradient-to-br dark:from-[#050505] dark:via-[#111318] dark:to-[#0A0500] from-white via-slate-50 to-slate-100 z-0" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-slate-50 to-slate-100 z-0" />
         
         {/* Subtle radial glow in the center */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none z-0" />
@@ -192,7 +192,7 @@ export default function Home() {
                 <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#D4AF37]" />
               </motion.div>
 
-              <h1 className={`mb-6 leading-tight dark:text-white text-slate-900 tracking-tight ${isRTL ? 'font-hebrew font-black' : 'font-serif font-bold'}`} style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', textShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
+              <h1 className={`mb-6 leading-tight text-slate-900 tracking-tight ${isRTL ? 'font-hebrew font-black' : 'font-serif font-bold'}`} style={{ fontSize: 'clamp(3rem, 6vw, 4.5rem)', textShadow: '0 10px 30px rgba(0,0,0,0.1)' }}>
                 {ml(currentLanguage, {
                   he: 'האש שלי',
                   en: 'My Fire',
@@ -211,7 +211,7 @@ export default function Home() {
                 </span>
               </h1>
               
-              <p className={`text-lg md:text-xl mb-12 dark:text-slate-300 text-slate-700 leading-relaxed max-w-xl font-light ${isRTL ? 'font-hebrew' : 'font-sans'}`}>
+              <p className={`text-lg md:text-xl mb-12 text-slate-700 leading-relaxed max-w-xl font-light ${isRTL ? 'font-hebrew' : 'font-sans'}`}>
                 {ml(currentLanguage, {
                   he: 'גלה את מקור התורות של רבי נחמן מברסלב, מתורגמות בדיוק המרבי ומוגשות בספרים בהוצאה מוקפדת ויוקרתית.',
                   en: 'Discover the source of Rabbi Nachman of Breslov\'s teachings, translated with the utmost precision and presented in meticulously crafted, premium editions.',
@@ -266,7 +266,7 @@ export default function Home() {
                   height="380"
                   fetchPriority="high"
                   decoding="async"
-                  className="w-full h-auto rounded-[2px] shadow-[0_30px_60px_rgba(0,0,0,0.6)] border border-white/5"
+                  className="w-full h-auto rounded-[2px] shadow-[0_30px_60px_rgba(0,0,0,0.15)] border border-slate-200"
                 />
               </div>
             </motion.div>
@@ -277,7 +277,7 @@ export default function Home() {
       {/* ============================================ */}
       {/* STORY SECTION - Rabbi Israel Ber Odesser     */}
       {/* ============================================ */}
-      <section className="dark:bg-[#0A0A0B] bg-white py-24 relative overflow-hidden border-b dark:border-white/5 border-slate-100">
+      <section className="bg-white py-24 relative overflow-hidden border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
            <div className={`flex flex-col lg:flex-row items-center gap-16 ${isRTL ? 'lg:flex-row-reverse' : ''}`}>
              
@@ -289,7 +289,7 @@ export default function Home() {
                transition={{ duration: 0.8 }}
                className="flex-1"
              >
-               <h2 className={`text-4xl md:text-5xl lg:text-6xl font-black dark:text-white text-slate-900 mb-6 leading-tight ${rtlFont(isRTL)}`}>
+               <h2 className={`text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 leading-tight ${rtlFont(isRTL)}`}>
                  {ml(currentLanguage, {
                    he: 'האש שלי תוקד עד ביאת המשיח',
                    en: 'My fire will burn until the coming of Messiah',
@@ -301,7 +301,7 @@ export default function Home() {
                
                <div className="h-1 w-20 bg-gradient-to-r from-[#D4AF37] to-[#B5912B] mb-8" />
                
-               <p className="text-lg md:text-xl dark:text-slate-300 text-slate-600 mb-6 leading-relaxed font-light">
+               <p className="text-lg md:text-xl text-slate-600 mb-6 leading-relaxed font-light">
                  {ml(currentLanguage, {
                    he: 'קרן ההדפסה הוקמה על ידי סבא ישראל בער אודסר בעצמו, כדי להדפיס ולהפיץ את ספרי הקודש של רבי נחמן מברסלב בכל העולם. זוהי ההוצאה המרכזית והמדויקת ביותר.',
                    en: 'The printing fund was established by Saba Israel Ber Odesser himself, to print and distribute the holy books of Rabbi Nachman of Breslov worldwide. This is the central and most accurate publishing house.',
@@ -311,7 +311,7 @@ export default function Home() {
                  })}
                </p>
                
-               <p className="text-lg md:text-xl dark:text-slate-300 text-slate-600 mb-10 leading-relaxed font-light">
+               <p className="text-lg md:text-xl text-slate-600 mb-10 leading-relaxed font-light">
                  {ml(currentLanguage, {
                    he: 'כל רכישה באתר היא תרומה ישירה להמשך מפעל חייו - הפצת האור של רבי נחמן לכל נשמה המחפשת תיקון, שמחה ואמונה.',
                    en: 'Every purchase on the site is a direct contribution to continuing his life\'s work - spreading Rabbi Nachman\'s light to every soul seeking rectification, joy, and faith.',
@@ -345,7 +345,7 @@ export default function Home() {
                  {/* Gold Frame effect */}
                  <div className={`absolute inset-0 bg-gradient-to-tr from-[#D4AF37] to-[#FFF3B0] rounded-sm transform translate-y-6 opacity-30 ${isRTL ? '-translate-x-6' : 'translate-x-6'}`} />
                  
-                 <div className="absolute inset-0 dark:bg-[#0A0A0B] bg-white rounded-sm overflow-hidden flex items-center justify-center border dark:border-white/10 border-slate-200 shadow-[0_20px_50px_rgba(0,0,0,0.2)]">
+                 <div className="absolute inset-0 bg-white rounded-sm overflow-hidden flex items-center justify-center border border-slate-200 shadow-[0_20px_50px_rgba(0,0,0,0.1)]">
                     <img src="/images/histoire.webp" alt="Rabbi Israel Ber Odesser" 
                          className="w-full h-full object-cover opacity-90 transition-opacity hover:opacity-100"
                          onError={(e) => {
@@ -353,11 +353,11 @@ export default function Home() {
                            e.currentTarget.nextElementSibling?.classList.remove('hidden');
                          }}
                     />
-                    <div className="hidden absolute inset-0 dark:bg-[#0A0A0B] bg-white flex-col items-center justify-center text-[#D4AF37] p-8 text-center border-2 border-[#D4AF37]/20 m-3">
+                    <div className="hidden absolute inset-0 bg-white flex-col items-center justify-center text-[#D4AF37] p-8 text-center border-2 border-[#D4AF37]/20 m-3">
                       <span className="text-6xl mb-4">🔥</span>
                       <h3 className="font-hebrew text-3xl font-bold mb-2">נ נח נחמ נחמן מאומן</h3>
                       <div className="h-px w-16 bg-[#D4AF37]/50 my-4" />
-                      <p className="text-sm opacity-80 uppercase tracking-widest font-semibold text-white">קרן הדפסה</p>
+                      <p className="text-sm opacity-80 uppercase tracking-widest font-semibold text-slate-900">קרן הדפסה</p>
                     </div>
                  </div>
                </div>
@@ -370,11 +370,11 @@ export default function Home() {
       {/* ============================================ */}
       {/* NOUVEAUTES CAROUSEL                          */}
       {/* ============================================ */}
-      <section className="bg-[#F9F8F6] dark:bg-[#111318] py-16 md:py-20 border-b dark:border-white/5 border-slate-100">
+      <section className="bg-[#F8FAFC] py-16 md:py-20 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 relative">
           {/* Section title */}
           <div className="text-center mb-10">
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className={`text-3xl md:text-5xl font-bold dark:text-white text-slate-800 mb-2 ${rtlFont(isRTL)}`}>
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className={`text-3xl md:text-5xl font-bold text-slate-800 mb-2 ${rtlFont(isRTL)}`}>
               {ml(currentLanguage, {
                 he: '\u05D7\u05D3\u05E9 \u05D1\u05D7\u05E0\u05D5\u05EA',
                 en: 'New Arrivals',
@@ -431,10 +431,10 @@ export default function Home() {
                     transition={{ duration: 0.4, delay: idx * 0.1 }}
                     key={product.id}
                     data-carousel-card
-                    className="flex-none w-[220px] sm:w-[260px] snap-start bg-white dark:bg-[#1A1C23] rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] border dark:border-white/5 border-slate-100/50 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer flex flex-col group relative"
+                    className="flex-none w-[220px] sm:w-[260px] snap-start bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] border border-slate-100 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer flex flex-col group relative"
                   >
                     <Link href={`/product/${product.id}`} className="no-underline text-inherit flex-1 flex flex-col">
-                      <div className="w-full h-[220px] sm:h-[260px] overflow-hidden bg-slate-50 dark:bg-[#0A0A0B] bg-[url('/images/jerusalem-skyline.svg')] bg-cover bg-bottom flex items-center justify-center relative select-none">
+                      <div className="w-full h-[220px] sm:h-[260px] overflow-hidden bg-slate-50 bg-[url('/images/jerusalem-skyline.svg')] bg-cover bg-bottom flex items-center justify-center relative select-none">
                         {imgSrc ? (
                           <img
                             loading="lazy"
@@ -450,7 +450,7 @@ export default function Home() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
                       </div>
                       <div className="p-4 flex flex-col flex-1">
-                        <h3 className="text-[15px] sm:text-[16px] font-semibold dark:text-white text-slate-800 mb-1 leading-snug line-clamp-2">
+                        <h3 className="text-[15px] sm:text-[16px] font-semibold text-slate-800 mb-1 leading-snug line-clamp-2">
                           {title}
                         </h3>
                         {price && (

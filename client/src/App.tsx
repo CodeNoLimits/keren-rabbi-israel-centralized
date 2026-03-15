@@ -341,6 +341,11 @@ function Router() {
           <Contact />
         </Suspense>
       </Route>
+      <Route path="/cart">
+        <Suspense fallback={<PageLoader />}>
+          <Checkout />
+        </Suspense>
+      </Route>
       <Route path="/checkout">
         <Suspense fallback={<PageLoader />}>
           <Checkout />
