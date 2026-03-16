@@ -8,7 +8,11 @@ const realProducts = Object.values(realBreslovProducts);
 
 // Using Google Cloud Translation API (simpler, more reliable than Gemini for translation)
 const GOOGLE_TRANSLATE_API = 'https://translation.googleapis.com/language/translate/v2';
-const API_KEY = 'AIzaSyDXTfhyOhcjXUB56ubE1S7Lags9vMz80qs';
+const API_KEY = process.env.GOOGLE_TRANSLATE_API_KEY || process.env.GEMINI_API_KEY || '';
+if (!API_KEY) {
+  console.error("Set GOOGLE_TRANSLATE_API_KEY or GEMINI_API_KEY in environment");
+  process.exit(1);
+}
 
 async function translateWithGoogle(text: string, targetLang: string): Promise<string> {
   try {

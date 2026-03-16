@@ -5,9 +5,12 @@ import path from "path";
 // Load environment variables for the test
 dotenv.config();
 
-// If GEMINI_API_KEY is not in .env, use the one from the user
-process.env.GEMINI_API_KEY = "AIzaSyDZ29PmIKVBj_YS86MsX5FJ0jaXyQyebts";
-process.env.GOOGLE_API_KEY = "AIzaSyDZ29PmIKVBj_YS86MsX5FJ0jaXyQyebts";
+// GEMINI_API_KEY must be set in .env file (never hardcode secrets)
+if (!process.env.GEMINI_API_KEY) {
+  console.error("GEMINI_API_KEY not found in environment. Set it in .env file.");
+  process.exit(1);
+}
+process.env.GOOGLE_API_KEY = process.env.GEMINI_API_KEY;
 
 async function testGemini() {
   console.log("--- Testing Gemini Connection ---");

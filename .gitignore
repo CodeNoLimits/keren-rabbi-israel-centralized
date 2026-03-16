@@ -10,6 +10,7 @@ vite.config.ts.*
 .env.local
 .env.production
 .env.*.local
+.env.vercel
 # Exclude large files that can't be uploaded to GitHub
 attached_assets/*.zip
 attached_assets/*.pdf

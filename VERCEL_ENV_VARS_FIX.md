@@ -188,7 +188,7 @@ vercel env add SENDGRID_FROM_EMAIL
 ```bash
 vercel env add GEMINI_API_KEY
 # Format: AIzaSy...
-# Note: Already have key: AIzaSyDXTfhyOhcjXUB56ubE1S7Lags9vMz80qs
+# Note: Get your key from https://aistudio.google.com/apikey
 # Select: Production, Preview, Development
 ```
 

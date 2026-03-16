@@ -441,15 +441,15 @@ text-primary (#1e40af), text-accent (#7c3aed)
 | DreamOS | dgflttnrpotuqivltiwd | Auth + 6 tables |
 | Esther Ifra | bxnhuwfabturyayohpht | Auth only |
 | Barukh Sagit | rhwthxmphohqdawglhfde | 459 products |
-| CLI Token | sbp_0850d4415f091396ea0a4a2a85b8c6deaa13abe4 | All projects |
+| CLI Token | [REDACTED — see Vercel env vars] | All projects |
 
 ### OpenClaw
 - **Gateway**: localhost:18789
-- **Auth token**: b9705047256b1ea3acadf7a2d1cdd8acc49e6f458c66e539
+- **Auth token**: [REDACTED — see ~/Desktop/Mac M4 Max/09_SECRETS_KEYS/]
 - **David's Telegram**: 7269582214 (@nerostats)
 
 ### Tailscale
-- **Auth Key**: tskey-auth-kVXwynGcPv11CNTRL-zUS1YU3Dofhe2bUQp2aGghEN4UpAd66f (expires 2026-05-10)
+- **Auth Key**: [REDACTED — see ~/Desktop/Mac M4 Max/09_SECRETS_KEYS/] (expires 2026-05-10)
 - **Funnel Enable**: https://login.tailscale.com/f/funnel?node=nvG2q3W9XB21CNTRL
 
 ---
